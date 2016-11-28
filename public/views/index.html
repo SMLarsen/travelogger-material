@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Forms!</title>
-		<script type="text/javascript" src="vendor/jquery.min.js"></script>
-		<script type="text/javascript" src="scripts/app.js"></script>
-		<link rel="stylesheet" href="styles/style.css" />
-	</head>
-	<body>
-	<h1>Employee Salary Tracker</h1>
-	<div id="entryForm">
-		<form id="employeeForm">
-			<label for="empFirstName">First Name: </label>
-			<input type="text" id="empFirstName" name="empFirstName" />
+<head>
+  <title>Forms!</title>
+  <script type="text/javascript" src="vendor/angular.min.js"></script>
+  <script type="text/javascript" src="scripts/client.js"></script>
+  <script type="text/javascript" src="scripts/controllers/employee.controller.js"></script>
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body ng-app="myApp">
+  <div ng-controller="EmployeeController as ec">
 
-			<label for="empLastName">Last Name: </label>
-			<input type="text" id="empLastName" name="empLastName" />
+    <h1>Employee Salary Tracker</h1>
+    <div id="entryForm">
+      <form id="employeeForm">
+        <label for="empFirstName">First Name: </label>
+        <input type="text" id="empFirstName" name="empFirstName" />
 
-			<label for="empIDNumber">ID Number: </label>
-			<input type="text" id="empIDNumber" name="empIDNumber" />
+        <label for="empLastName">Last Name: </label>
+        <input type="text" id="empLastName" name="empLastName" />
 
-			<label for="empJobTitle">Job Title: </label>
-			<input type="text" id="empJobTitle" name="empJobTitle" />
+        <label for="empIDNumber">ID Number: </label>
+        <input type="text" id="empIDNumber" name="empIDNumber" />
 
-			<label for="empSalary">Salary: </label>
-			<input type="number" id="empSalary" name="empSalary" />
+        <label for="empJobTitle">Job Title: </label>
+        <input type="text" id="empJobTitle" name="empJobTitle" />
 
-			<input type="submit" value="Submit Employee" />
-		</form>
-	</div>
+        <label for="empSalary">Salary: </label>
+        <input type="number" id="empSalary" name="empSalary" />
 
-	<div id="salaryTotal"><span id="salaryheading">Monthly Salary Total:</span><span id="salaryAmount">$0.00</span></div>
+        <input type="submit" value="Submit Employee" />
+      </form>
+    </div>
 
-	<div id="container">
+    <div id="salaryTotal"><span id="salaryheading">Monthly Salary Total:</span><span id="salaryAmount">$0.00</span></div>
 
-	</div>
+    <div id="container">
 
-	</body>
+    </div>
+
+  </div>
+</body>
 </html>
