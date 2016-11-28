@@ -33,7 +33,7 @@
       </form>
     </div>
 
-    <div id="salaryTotal"><span id="salaryheading">Monthly Salary Total:</span><span id="salaryAmount">$0.00</span></div>
+    <div id="salaryTotal"><span id="salaryheading">Monthly Salary Total:</span><span id="salaryAmount">{{ec.salaryTotal | currency}}</span></div>
 
     <div id="employees">
       <div ng-repeat="employee in ec.empArray">
@@ -41,7 +41,7 @@
         <p>{{employee.employee_id_number}}</p>
         <p>{{employee.job_title}}</p>
         <p>{{employee.annual_salary | currency}}</p>
-        
+        <button ng-click="ec.removeEmployee(employee, $index)">Remove</button>
       </div>
     </div>
 

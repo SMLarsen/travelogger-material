@@ -10,7 +10,6 @@ app.controller("EmployeeController", function() {
 
   // add a new employee
   self.addEmployee = function() {
-
     var thisEmpSalary = parseFloat(self.newEmployee.annual_salary);
     // global company salaries as monthly
 		self.salaryTotal += Math.round(thisEmpSalary / 12);
@@ -19,10 +18,11 @@ app.controller("EmployeeController", function() {
     // put in our employee array
 		self.empArray.push(angular.copy(self.newEmployee));
     self.newEmployee = {};
+  }
 
-    // updateSalary(salaryTotal);
-    // appendDom(values);
-    // });
+  self.removeEmployee = function(employee, index) {
+    self.salaryTotal -= Math.round(employee.empSalary / 12);
+    self.empArray.splice(index, 1);
   }
 
 });
