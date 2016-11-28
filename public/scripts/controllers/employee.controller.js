@@ -2,8 +2,28 @@ app.controller("EmployeeController", function() {
   console.log('employee controller running');
   var self = this;
 
-  self.message = "hello world!";
-  console.log(this);
+  self.salaryTotal = 0.00;
+	self.empArray = [];
+  self.newEmployee = {
+    annual_salary: 0.00
+  };
+
+  // add a new employee
+  self.addEmployee = function() {
+
+    var thisEmpSalary = parseFloat(self.newEmployee.annual_salary);
+    // global company salaries as monthly
+		self.salaryTotal += Math.round(thisEmpSalary / 12);
+		self.annual_salary = Math.round(thisEmpSalary);
+
+    // put in our employee array
+		self.empArray.push(angular.copy(self.newEmployee));
+    self.newEmployee = {};
+
+    // updateSalary(salaryTotal);
+    // appendDom(values);
+    // });
+  }
 
 });
 
@@ -11,28 +31,28 @@ app.controller("EmployeeController", function() {
 // $(document).ready(function() {
 // 	var salaryTotal = 0.00;
 // 	var empArray = [];
-//
-// 	$('#employeeForm').on('submit', function(event) {
-// 		event.preventDefault();
-// 		var values = {};
-// 		var thisEmpSalary = 0.00;
-//
-// 		$.each($('#employeeForm').serializeArray(), function(i, field) {
-// 			values[field.name] = field.value;
-// 		});
-//
-// 		thisEmpSalary = parseFloat(values.empSalary);
-// 		salaryTotal += Math.round(thisEmpSalary / 12);
-// 		values.empSalary = Math.round(thisEmpSalary);
-//
-// 		empArray.push(values);
-//
-// 		$('#employeeForm').find('input[type=text], input[type=number]').val('');
-// 		$('#empFirstName').focus();
-//
-// 		updateSalary(salaryTotal);
-// 		appendDom(values);
-// 	});
+
+	// $('#employeeForm').on('submit', function(event) {
+	// 	event.preventDefault();
+	// 	var values = {};
+	// 	var thisEmpSalary = 0.00;
+  //
+	// 	$.each($('#employeeForm').serializeArray(), function(i, field) {
+	// 		values[field.name] = field.value;
+	// 	});
+  //
+	// 	thisEmpSalary = parseFloat(values.empSalary);
+	// 	salaryTotal += Math.round(thisEmpSalary / 12);
+	// 	values.empSalary = Math.round(thisEmpSalary);
+  //
+	// 	empArray.push(values);
+  //
+	// 	$('#employeeForm').find('input[type=text], input[type=number]').val('');
+	// 	$('#empFirstName').focus();
+  //
+	// 	updateSalary(salaryTotal);
+	// 	appendDom(values);
+	// });
 //
 // 	$('#container').on('click', '.removeEmployee', function() {
 // 		var index = $(this).data().id;
