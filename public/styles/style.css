@@ -46,6 +46,14 @@ input[type=submit]:hover {
 	margin-right: 10px;
 }
 
+#navigation {
+  list-style-type: none;
+}
+
+#navigation li {
+  display: inline-block;
+}
+
 .acceptable {
 	color: black;
 }
