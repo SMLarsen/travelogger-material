@@ -1,4 +1,4 @@
-app.controller("EmployeeController", function() {
+app.controller("EmployeeController", ["$http", function($http) {
   console.log('employee controller running');
   var self = this;
 
@@ -15,17 +15,27 @@ app.controller("EmployeeController", function() {
 		self.salaryTotal += Math.round(thisEmpSalary / 12);
 		self.annual_salary = Math.round(thisEmpSalary);
 
-    // put in our employee array
-		self.empArray.push(angular.copy(self.newEmployee));
-    self.newEmployee = {};
+    $http.post('/employees', self.newEmployee)
+      .then(function(response) {
+        // cool
+        console.log('response: ', response.data);
+        // put in our employee array
+    		// self.empArray.push(angular.copy(self.newEmployee));
+        // self.newEmployee = {};
+      },
+      function(response) {
+        // error
+        console.log('ERROR response: ', response.data);
+      });
   }
 
+  // remove an employee
   self.removeEmployee = function(employee, index) {
     self.salaryTotal -= Math.round(employee.annual_salary / 12);
     self.empArray.splice(index, 1);
   }
 
-});
+}]);
 
 
 // $(document).ready(function() {
