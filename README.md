@@ -1,1 +1,1 @@
-# Sigma 5 Live Solve
+# Sigma Weekend Challenge 5 Live Solve
