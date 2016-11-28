@@ -21,7 +21,7 @@ app.controller("EmployeeController", function() {
   }
 
   self.removeEmployee = function(employee, index) {
-    self.salaryTotal -= Math.round(employee.empSalary / 12);
+    self.salaryTotal -= Math.round(employee.annual_salary / 12);
     self.empArray.splice(index, 1);
   }
 
