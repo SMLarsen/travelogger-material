@@ -8,20 +8,21 @@ app.controller("EmployeeController", ["$http", function($http) {
     annual_salary: 0.00
   };
 
+  getEmployees();
+
   // add a new employee
   self.addEmployee = function() {
     var thisEmpSalary = parseFloat(self.newEmployee.annual_salary);
     // global company salaries as monthly
-		self.salaryTotal += Math.round(thisEmpSalary / 12);
 		self.annual_salary = Math.round(thisEmpSalary);
 
     $http.post('/employees', self.newEmployee)
       .then(function(response) {
         // cool
         console.log('response: ', response.data);
-        // put in our employee array
-    		// self.empArray.push(angular.copy(self.newEmployee));
-        // self.newEmployee = {};
+        // make GET request for employee data
+        self.newEmployee = {};
+        getEmployees();
       },
       function(response) {
         // error
@@ -29,10 +30,27 @@ app.controller("EmployeeController", ["$http", function($http) {
       });
   }
 
+  function getEmployees() {
+    $http.get('/employees')
+      .then(function(response) {
+        self.empArray = response.data;
+        updateSalary();
+      });
+  }
+
   // remove an employee
   self.removeEmployee = function(employee, index) {
     self.salaryTotal -= Math.round(employee.annual_salary / 12);
     self.empArray.splice(index, 1);
+  }
+
+  function updateSalary() {
+    self.salaryTotal = 0.00;
+    self.empArray.forEach(function(employee) {      
+      if(employee.active) {
+        self.salaryTotal += Math.round(employee.annual_salary / 12);
+      }
+    })
   }
 
 }]);
