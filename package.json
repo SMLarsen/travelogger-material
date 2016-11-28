@@ -1,0 +1,19 @@
+{
+  "name": "weekend1-start",
+  "version": "1.0.0",
+  "description": "For your weekend challenge, you will need to create an application that records employee records along with their salary. We also want to add the salaries up so we know how much we’re spending each month in salary.",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "nodemon server/app.js",
+    "start": "node server/app.js"
+  },
+  "author": "kris",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.9",
+    "angular-route": "^1.5.9",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "pg": "^6.1.0"
+  }
+}
