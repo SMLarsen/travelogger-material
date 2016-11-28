@@ -47,4 +47,24 @@ router.get('/', function(req, res) {
     });
 });
 
+router.put('/:id', function(req, res) {
+  pool.connect()
+    .then(function(client) {
+      // make query
+      client.query(
+        'UPDATE employees SET active = NOT active WHERE id = $1',
+      [req.params.id])
+        .then(function(result) {
+          client.release();
+          res.sendStatus(200);
+        })
+        .catch(function(err) {
+          // error
+          client.release();
+          console.log('error on UPDATE', err);
+          res.sendStatus(500);
+        });
+    });
+});
+
 module.exports = router;

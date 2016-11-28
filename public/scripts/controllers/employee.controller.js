@@ -39,14 +39,18 @@ app.controller("EmployeeController", ["$http", function($http) {
   }
 
   // remove an employee
-  self.removeEmployee = function(employee, index) {
-    self.salaryTotal -= Math.round(employee.annual_salary / 12);
-    self.empArray.splice(index, 1);
+  self.toggleActiveEmployee = function(id) {
+    console.log('employee id: ', id);
+    $http.put('/employees/' + id)
+      .then(function(response) {
+        console.log('updated employee');
+        getEmployees();
+      });
   }
 
   function updateSalary() {
     self.salaryTotal = 0.00;
-    self.empArray.forEach(function(employee) {      
+    self.empArray.forEach(function(employee) {
       if(employee.active) {
         self.salaryTotal += Math.round(employee.annual_salary / 12);
       }

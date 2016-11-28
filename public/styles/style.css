@@ -35,7 +35,7 @@ input[type=submit]:hover {
 
 #container div {
 	float: left;
-	width: 300px;	
+	width: 300px;
 	margin: 10px;
 }
 
@@ -58,13 +58,7 @@ input[type=submit]:hover {
 	margin-right: 6px;
 }
 
-
-
-
-
-
-
-
-
-
-
+.active {
+  background-color: magenta;
+  color: white;
+}
