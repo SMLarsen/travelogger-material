@@ -7,8 +7,8 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'EmployeeController',
             controllerAs: 'ec'
         })
-        .when('/budget', {
-            templateUrl: '/views/templates/budget.html',
+        .when('/budgets', {
+            templateUrl: '/views/templates/budgets.html',
             controller: 'BudgetController',
             controllerAs: 'bc'
         })

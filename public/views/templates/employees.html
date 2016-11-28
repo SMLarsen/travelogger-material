@@ -22,7 +22,9 @@
     </form>
   </div>
 
-  <div id="salaryTotal"><span id="salaryheading">Monthly Salary Total:</span><span id="salaryAmount">{{ec.salaryTotal | currency}}</span></div>
+  <div id="salaryTotal" ng-class="{'overbudget': ec.overbudget}">
+    <p>Current Budget: {{ec.currentBudget | currency}}</p>
+    <span id="salaryheading" >Monthly Salary Total:</span><span id="salaryAmount">{{ec.salaryTotal | currency}}</span></div>
 
   <div id="employees">
     <div ng-repeat="employee in ec.empArray" ng-class="{'active':employee.active}">

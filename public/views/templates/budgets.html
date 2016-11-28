@@ -1,0 +1,28 @@
+<h2>Budgets!</h2>
+{{bc.factoryd}}
+<div>
+  <div>
+    <h3>Set A Monthly Budget Limit</h3>
+    <p>Current Budget: {{bc.currentBudget | currency}}</p>
+    <form id="budgetForm">
+      <label for="monthly_limit">Monthly Limit: </label>
+      <input type="text" id="monthly_limit" name="monthly_limit" ng-model="bc.newBudget.monthly_limit" />
+      <button ng-click="bc.addBudget()">Add Budget</button>
+    </form>
+  </div>
+  <div>
+    <h3>Budget History</h3>
+    <table>
+      <tr>
+        <th>Date Entered</th>
+        <th>Amount</th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="budget in bc.budgets">
+        <td>{{budget.date_entered | date}}</td>
+        <td>{{budget.monthly_limit | currency}}</td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>

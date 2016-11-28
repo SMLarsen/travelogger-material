@@ -1,4 +1,4 @@
-app.controller("EmployeeController", ["$http", function($http) {
+app.controller("EmployeeController", ["$http", "DataFactory", function($http, DataFactory) {
   console.log('employee controller running');
   var self = this;
 
@@ -7,6 +7,8 @@ app.controller("EmployeeController", ["$http", function($http) {
   self.newEmployee = {
     annual_salary: 0.00
   };
+  self.currentBudget = DataFactory.currentBudget;
+  self.overbudget = false;
 
   getEmployees();
 
@@ -54,7 +56,12 @@ app.controller("EmployeeController", ["$http", function($http) {
       if(employee.active) {
         self.salaryTotal += Math.round(employee.annual_salary / 12);
       }
-    })
+    });
+    if(self.salaryTotal > self.currentBudget) {
+      self.overbudget = true;
+    } else {
+      self.overbudget = false;
+    }
   }
 
 }]);

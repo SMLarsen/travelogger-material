@@ -1,7 +1,9 @@
 var router = require('express').Router();
 var pg = require('pg');
+var config = require('../config/dbconfig');
+
 var pool = new pg.Pool({
-  database: 'sigma'
+  database: config.database
 });
 
 router.post('/', function(req, res) {
