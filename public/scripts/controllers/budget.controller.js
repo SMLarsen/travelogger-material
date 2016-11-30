@@ -5,32 +5,33 @@ app.controller("BudgetController", ["$http", "DataFactory", function($http, Data
   self.newBudget = {};
   self.budgets = [];
   self.currentBudget = 0;
-  self.factory = DataFactory;
 
   getBudgets();
 
   function getBudgets() {
-    $http.get('/budgets')
-      .then(function(response) {
-        self.budgets = response.data;
-        self.currentBudget = self.budgets[self.budgets.length - 1].monthly_limit;
-        DataFactory.currentBudget = self.currentBudget;
-      },
-      function(response) {
-        // error
-        console.log('ERROR get response: ', response.data);
+    // does the factory have data?
+    if(DataFactory.budgetData() === undefined) {
+      // have the factory go get the data
+      DataFactory.updateBudgets().then(function(response) {
+        console.log(DataFactory.currentBudget());
+        self.budgets = DataFactory.budgetData();
+        self.currentBudget = DataFactory.currentBudget();
+        console.log(self.currentBudget, self.budgets);
       });
+    } else {
+      self.budgets = DataFactory.budgetData();
+      self.currentBudget = DataFactory.currentBudget();
+    }
+
   }
 
   self.addBudget = function() {
-    DataFactory.doThing('like, dance');
-    $http.post('/budgets', self.newBudget)
+    DataFactory.addBudget(self.newBudget)
       .then(function(response) {
-        getBudgets();
-      },
-      function(response) {
-        // error
-        console.log('ERROR post response: ', response.data);
+        self.budgets = DataFactory.budgetData();
+        self.currentBudget = DataFactory.currentBudget();
+        console.log('controller add budget response ', response);
+        console.log('controller add budget response ', response);
       });
   }
 

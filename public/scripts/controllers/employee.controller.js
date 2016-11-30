@@ -7,8 +7,17 @@ app.controller("EmployeeController", ["$http", "DataFactory", function($http, Da
   self.newEmployee = {
     annual_salary: 0.00
   };
-  self.currentBudget = DataFactory.currentBudget;
   self.overbudget = false;
+
+  // does the factory have a current budget?
+  if(DataFactory.currentBudget() === undefined) {
+    // have the factory go get the data
+    DataFactory.updateBudgets().then(function(response) {
+      self.currentBudget = DataFactory.currentBudget();
+    });
+  } else {
+    self.currentBudget = DataFactory.currentBudget();
+  }
 
   getEmployees();
 
