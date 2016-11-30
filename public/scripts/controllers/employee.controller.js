@@ -16,6 +16,7 @@ app.controller("EmployeeController", ["$http", "DataFactory", function($http, Da
       self.currentBudget = DataFactory.currentBudget();
     });
   } else {
+    // Use the current value instead
     self.currentBudget = DataFactory.currentBudget();
   }
 

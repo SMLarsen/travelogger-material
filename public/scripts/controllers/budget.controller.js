@@ -11,14 +11,14 @@ app.controller("BudgetController", ["$http", "DataFactory", function($http, Data
   function getBudgets() {
     // does the factory have data?
     if(DataFactory.budgetData() === undefined) {
-      // have the factory go get the data
+      // have the factory go get the data and let us know when it's done
       DataFactory.updateBudgets().then(function(response) {
-        console.log(DataFactory.currentBudget());
         self.budgets = DataFactory.budgetData();
         self.currentBudget = DataFactory.currentBudget();
-        console.log(self.currentBudget, self.budgets);
+        console.log("Controller got stuff from the factory: ", self.currentBudget, self.budgets);
       });
     } else {
+      // Factory already has data, let's use it
       self.budgets = DataFactory.budgetData();
       self.currentBudget = DataFactory.currentBudget();
     }
@@ -26,12 +26,12 @@ app.controller("BudgetController", ["$http", "DataFactory", function($http, Data
   }
 
   self.addBudget = function() {
+    // Give our new object to the factory to store on the server
     DataFactory.addBudget(self.newBudget)
       .then(function(response) {
+        console.log('controller add budget response ', response);
         self.budgets = DataFactory.budgetData();
         self.currentBudget = DataFactory.currentBudget();
-        console.log('controller add budget response ', response);
-        console.log('controller add budget response ', response);
       });
   }
 

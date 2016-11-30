@@ -4,10 +4,13 @@ app.factory('DataFactory', ["$http", function($http) {
   var budgets = undefined;
 
   // Private methods
+  // Add a new budget to the database
   function addBudget(newBudget) {
+    // store and return our Promise object
     var promise = $http.post('/budgets', newBudget)
       .then(function(response) {
         console.log('factory add budget response', response);
+        // Now go get our updated budget data
         return getBudgets();
       },
       function(response) {
@@ -18,14 +21,19 @@ app.factory('DataFactory', ["$http", function($http) {
     return promise;
   }
 
+  // Get all the budgets from the server
   function getBudgets() {
     console.log('factory getting budgets');
+    // store and return our Promise object
     var promise = $http.get('/budgets')
       .then(function(response) {
+        // we have our data from the server, now store it for use in the factory
         budgets = response.data;
         currentBudget = budgets[budgets.length - 1].monthly_limit;
         console.log('async stuff:', budgets);
-        return 'hello';
+
+        // We can also return values to the Controller
+        // return 'hello';
       },
       function(response) {
         // error
@@ -37,17 +45,22 @@ app.factory('DataFactory', ["$http", function($http) {
 
 
   // Public API
+  // This object is what the Controllers can access
   var publicApi = {
-    updateBudgets: function() {
-      return getBudgets();
-    },
     currentBudget: function() {
+      // return our varible to the Controller!
       return currentBudget;
     },
     budgetData: function() {
+      // return our array to the Controller!
       return budgets;
     },
+    updateBudgets: function() {
+      // return our Promise to the Controller!
+      return getBudgets();
+    },
     addBudget: function(newBudget) {
+      // return our Promise to the Controller!
       return addBudget(newBudget);
     }
   };
