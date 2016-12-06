@@ -1,3 +1,5 @@
+
+
 app.controller("SecurityController", function($firebaseAuth, $http) {
   console.log('SecurityController started');
   var auth = $firebaseAuth();
