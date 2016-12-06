@@ -1,18 +1,31 @@
 {
   "name": "travelogger",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Travelogger is a full-stack web application to track a user’s travel adventures. It provides a lightweight day-by-day snapshot of your trip, including who, what, where, and how each day went.",
-  "main": "server/app.js",
-  "scripts": {
-    "test": "nodemon server/app.js",
-    "start": "node server/app.js"
-  },
-  "author": "Steve Larsen",
-  "license": "ISC",
+  "main": "index.js",
   "dependencies": {
     "angular": "^1.5.9",
     "angular-route": "^1.5.9",
+    "angularfire": "^2.1.0",
     "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
     "express": "^4.14.0",
-  }
+    "firebase": "^3.6.3",
+    "firebase-admin": "^4.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SMLarsen/travelogger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SMLarsen/travelogger/issues"
+  },
+  "homepage": "https://github.com/SMLarsen/travelogger#readme"
 }

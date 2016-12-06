@@ -1,23 +1,30 @@
-var express = require('express')
+var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var employees = require('./routes/employees');
-var budgets = require('./routes/budgets');
-var port = 3000;
+var decoder = require('./modules/decoder');
+var privateData = require('./routes/private-data');
 
 // Middleware on ALL requests
+console.log('Start middleware');
+app.use(express.static('public'));
+app.get('/', function(req, res){
+  res.sendFile(path.resolve('./public/views/index.html'));
+});
 app.use(bodyParser.json());
-app.use(express.static('public/'));
+
+// Decodes the token in the request header and attaches the decoded token to the request.
+console.log('Start decoder');
+app.use(decoder.token);
+
+// Below here authenticated
+// Route for privateData. The request gets here after it has been authenticated.
+app.use("/privateData", privateData);
 
 // Routing modules
-app.use('/employees', employees);
-app.use('/budgets', budgets);
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public/views/index.html'));
-});
+var port = process.env.PORT || 5000;
 
 app.listen(port, function() {
-  console.log('http://localhost:' + port);
+  console.log('Now listening on http://localhost:' + port);
 });

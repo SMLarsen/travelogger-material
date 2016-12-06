@@ -1,5 +1,5 @@
 var config = {
-  database: 'sigma'
+  database: 'travelogger'
 };
 
 module.exports = config;
