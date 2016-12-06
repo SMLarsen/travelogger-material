@@ -6,7 +6,6 @@ var decoder = require('./modules/decoder');
 var privateData = require('./routes/private-data');
 
 // Middleware on ALL requests
-console.log('Start middleware');
 app.use(express.static('public'));
 app.get('/', function(req, res){
   res.sendFile(path.resolve('./public/views/index.html'));
@@ -14,7 +13,6 @@ app.get('/', function(req, res){
 app.use(bodyParser.json());
 
 // Decodes the token in the request header and attaches the decoded token to the request.
-console.log('Start decoder');
 app.use(decoder.token);
 
 // Below here authenticated
