@@ -10,6 +10,7 @@ var tokenDecoder = function(req, res, next) {
     admin.auth().verifyIdToken(req.headers.id_token).then(function(decodedToken) {
             // Add decodedToken to the request so that downstream processes can use it
             req.decodedToken = decodedToken;
+            console.log(req.decodedToken);
             next();
         })
         .catch(function(error) {
