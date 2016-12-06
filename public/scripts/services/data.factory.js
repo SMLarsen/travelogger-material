@@ -17,7 +17,7 @@ app.factory('DataFactory', ["$http", function($http) {
         // error
         console.log('ERROR post response: ', response.data);
       });
-
+      console.log('are there two?', promise);
     return promise;
   }
 
@@ -39,7 +39,7 @@ app.factory('DataFactory', ["$http", function($http) {
         // error
         console.log('ERROR get response: ', response.data);
       });
-
+      console.log('getBudgets', promise);
     return promise;
   }
 
@@ -61,7 +61,9 @@ app.factory('DataFactory', ["$http", function($http) {
     },
     addBudget: function(newBudget) {
       // return our Promise to the Controller!
-      return addBudget(newBudget);
+      var xy = addBudget(newBudget);
+      console.log('xy', xy);
+      return xy;
     }
   };
 
