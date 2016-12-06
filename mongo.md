@@ -1,21 +1,28 @@
 # Mongo Database
 
 ## Database
+```
 use travelogger
+```
 
 ## Collections
+```
 db.createCollection('users')
 db.createCollection('trips')
 db.createCollection('days')
 db.createCollection('buddies')
+```
 
 ## inserts
 ### users
+```
 db.users.insert({
   user: 'stevelarsen01@gmail.com',
   clearance: 5
 })
+```
 ### trips
+```
 db.trips.insert({
   user_id: ObjectId("5846e1b67ce266827e41dd32"),
   trip_name: 'Westworld',
@@ -35,9 +42,11 @@ db.trips.insert({
   end_location: 'Sister Bay, WI',
   travellers: 'Ellen & Steve'
 })
+```
 
 ### buddies
 
+```
 db.buddies.insert({
     user_id: ObjectId("5846e1b67ce266827e41dd32"),
     name: 'Lisa Owens',
@@ -67,9 +76,11 @@ db.buddies.insert({
     email: 'phil@aol.com',
     comment: 'Met in Little Compton, RI'
 })
+```
 
 ### days
 
+```
 db.days.insert({
     user_id: ObjectId("5846e1b67ce266827e41dd32"),
     trip_id: ObjectId("5846e5057ce266827e41dd34"),
@@ -157,3 +168,4 @@ db.days.insert({
     narrative: 'Took it easy.  Recovering from jet lag.',
     weather: 'Sunny and warm'
 })
+```
