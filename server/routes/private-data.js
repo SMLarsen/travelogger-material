@@ -1,9 +1,40 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../models/user');
 
-router.get('/', function(req, res){
-  console.log(req.decodedToken); // Here you can see the information firebase gives you about the user
-  res.send("decodedToken:" + req.decodedToken.name);
+
+router.get("/", function(req, res) {
+    var userEmail = req.decodedToken.email;
+    console.log('Checking if user registered', userEmail);
+    // Check the user's level of permision based on their email
+    User.findOne({
+        email: userEmail
+      }, function(err, user) {
+        if (err) {
+            console.log('Error COMPLETING checking registered user query task', err);
+            res.sendStatus(500);
+        } else {
+            console.log('Successful call to get user, user:', user);
+            if (user === null) {
+                // If the user is not in the database, register them to the database
+                var newUser = { email: userEmail, clearanceLevel: 5 };
+                console.log('user to add', newUser);
+                var personToAdd = new User(newUser);
+                personToAdd.isNew = false;
+                personToAdd.save(function(err, bob) {
+
+                    if (err) {
+                        console.log('There was an error inserting new user, ', err);
+                        res.sendStatus(500);
+                    } else {
+                        console.log('New user added,', bob);
+                        res.send(bob);
+                    }
+
+                });
+            }
+        }
+    });
 });
 
 module.exports = router;

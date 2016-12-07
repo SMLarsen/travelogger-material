@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
-var connectionString = require('./database-config');
+var connectionString = require('../config/database-config');
 
 var connectToMongoDatabase = function() {
     mongoose.connect(connectionString);
+
+    mongoose.set('debug', true);
 
     mongoose.connection.on('connected', function() {
         console.log('Mongoose connected to ', connectionString);

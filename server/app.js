@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var decoder = require('./modules/decoder');
+var user = require('./routes/user');
 var privateData = require('./routes/private-data');
 var mongoConnection = require('./modules/mongo-connection');
 
@@ -23,6 +24,7 @@ app.use(decoder.token);
 app.use("/privateData", privateData);
 
 // Routing modules
+app.use("/user", user);
 
 var port = process.env.PORT || 5000;
 

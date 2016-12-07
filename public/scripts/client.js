@@ -1,5 +1,6 @@
 var app = angular.module('traveloggerApp', ['ngRoute', 'firebase']);
-  console.log('traveloggerApp running');
+console.log('traveloggerApp running');
+
 // app.config(['$routeProvider', function($routeProvider) {
 //     $routeProvider
 //         .when('/employees', {
@@ -17,83 +18,58 @@ var app = angular.module('traveloggerApp', ['ngRoute', 'firebase']);
 //         });
 // }]);
 
-
 app.controller("SecurityController", function($firebaseAuth, $http) {
-  console.log('SecurityController started');
-  var auth = $firebaseAuth();
-  var self = this;
+    console.log('SecurityController started');
+    var auth = $firebaseAuth();
+    var self = this;
 
-  self.currentUser = {};
-  self.newUser = {};
+    self.authenticatedUser = {};
+    self.currentUser = {};
+    self.newUser = {};
 
-  // This code runs whenever the user logs in
-  self.logIn = function(){
-    auth.$signInWithPopup("google").then(function(firebaseUser) {
-      console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
-    }).catch(function(error) {
-      console.log("Authentication failed: ", error);
-    });
-  };
-
-  // This code runs whenever the user changes authentication states
-  // e.g. whevenever the user logs in or logs out
-  // this is where we put most of our logic so that we don't duplicate
-  // the same things in the login and the logout code
-  auth.$onAuthStateChanged(function(firebaseUser){
-    // firebaseUser will be null if not logged in
-    self.currentUser = firebaseUser;
-    if(firebaseUser) {
-      // This is where we make our call to our server
-      firebaseUser.getToken().then(function(idToken){
-        $http({
-          method: 'GET',
-          url: '/privateData',
-          headers: {
-            id_token: idToken
-          }
-        }).then(function(response){
-          self.secretData = response.data;
+    // Authenticates user at login
+    self.logIn = function() {
+        auth.$signInWithPopup("google").then(function(firebaseUser) {
+            console.log("Firebase Authenticated as: ", firebaseUser.user.displayName, firebaseUser.user.email);
+            self.authenticatedUser = firebaseUser;
+        }).catch(function(error) {
+            console.log("Authentication failed: ", error);
         });
-      });
-    } else {
-      console.log('Not logged in or not authorized.');
-      self.secretData = [];
-    }
+    }; // END: logIn
 
-  });
+    // Runs when user changes authentication states (logs in or out)
+    auth.$onAuthStateChanged(function(firebaseUser) {
+        // firebaseUser will be null if not logged in
+        self.authenticatedUser = firebaseUser;
+        if (self.authenticatedUser) {
+            // This is where we make our call to our server
+            firebaseUser.getToken().then(function(idToken) {
+                $http({
+                    method: 'GET',
+                    url: '/privateData',
+                    headers: {
+                        id_token: idToken
+                    }
+                }).then(function(response) {
+                        self.currentUser = response.data;
+                        console.log('response.data', response.data);
+                        console.log('current user authorized', self.currentUser);
+                    },
+                    function(err) {
+                        console.log('current user not registered', err);
+                    });
+            });
+        } else {
+            console.log('Not logged in or not authorized.');
+            self.authenticatedUser = {};
+        }
+    }); // End $onAuthStateChanged
 
-  self.createUser = function(){
-    if(self.currentUser) {
-      // This is where we make our call to our server
-      self.currentUser.getToken().then(function(idToken){
-        $http({
-          method: 'POST',
-          url: '/privateData',
-          headers: {
-            id_token: idToken
-          },
-          data: self.newUser
-        }).then(function(response){
-          self.newUser = {};
+    // Function handles user log out
+    self.logOut = function() {
+        auth.$signOut().then(function() {
+            console.log('Logging the user out!');
         });
-      });
-    } else {
-      console.log('Not logged in or not authorized.');
-      self.secretData = [];
-    }
-  };
+    }; // END: logOut
 
-  // This code runs when the user logs out
-  self.logOut = function(){
-    auth.$signOut().then(function(){
-      console.log('Logging the user out!');
-    });
-  };
-
-    // Function to register new traveller
-    self.register = function(){
-      auth.$signOut().then(function(){
-        console.log('Registering new user');
-      });
-    };
-});
+}); // END: SecurityController
