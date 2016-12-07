@@ -20,7 +20,7 @@ router.get("/", function(req, res) {
                 var newUser = { email: userEmail, clearanceLevel: 5 };
                 console.log('user to add', newUser);
                 var personToAdd = new User(newUser);
-                personToAdd.isNew = false;
+                // personToAdd.isNew = false;
                 personToAdd.save(function(err, bob) {
 
                     if (err) {
