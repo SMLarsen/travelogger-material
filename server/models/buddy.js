@@ -1,35 +1,35 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var tripSchema = new Schema({
-  trip_name: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  user_id: {
-    type: ObjectId,
-    required: true
-  },
-  begin_date: {
-    type: Date
-  },
-  begin_location: {
-    type: String
-  },
-  end_date: {
-    type: Date
-  },
-  end_location: {
-    type: String
-  },
-  travellers: {
-    type: String
-  }
+var buddySchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    user_id: {
+        type: ObjectId,
+        required: true
+    },
+    hails_from: {
+        type: String
+    },
+    country: {
+        type: String
+    },
+    telephone: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    comment: {
+        type: String
+    }
 });
 
 // user model
-var Trip = mongoose.model('trip', tripSchema);
+var buddy = mongoose.model('buddy', buddySchema);
 
 // Export model
-module.exports = Trip;
+module.exports = buddy;

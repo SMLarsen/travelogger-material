@@ -4,6 +4,7 @@ var User = require('../models/user');
 
 
 router.get("/", function(req, res) {
+  if (req.decodedToken !== undefined) {
     var userEmail = req.decodedToken.email;
     console.log('Checking if user registered', userEmail);
     // Check the user's level of permision based on their email
@@ -35,6 +36,7 @@ router.get("/", function(req, res) {
             }
         }
     });
+  }
 });
 
 module.exports = router;

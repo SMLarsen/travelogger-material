@@ -30,7 +30,7 @@ app.controller("SecurityController", function($firebaseAuth, $http) {
     // Authenticates user at login
     self.logIn = function() {
         auth.$signInWithPopup("google").then(function(firebaseUser) {
-            console.log("Firebase Authenticated as: ", firebaseUser.user.displayName, firebaseUser.user.email);
+            console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
             self.authenticatedUser = firebaseUser;
         }).catch(function(error) {
             console.log("Authentication failed: ", error);
