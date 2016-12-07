@@ -48,7 +48,8 @@ app.controller("SecurityController", function($firebaseAuth, $http) {
                     method: 'GET',
                     url: '/privateData',
                     headers: {
-                        id_token: idToken
+                        id_token: idToken,
+                        currentUser: self.currentUser
                     }
                 }).then(function(response) {
                         self.currentUser = response.data;
@@ -73,3 +74,10 @@ app.controller("SecurityController", function($firebaseAuth, $http) {
     }; // END: logOut
 
 }); // END: SecurityController
+
+
+app.controller("TripController", function($http) {
+    console.log('TripController started');
+    var self = this;
+
+}); // END: TripController

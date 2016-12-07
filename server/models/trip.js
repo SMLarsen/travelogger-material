@@ -1,15 +1,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var ObjectId = Schema.ObjectId;
 var tripSchema = new Schema({
+    user_id: {
+      type: ObjectId
+    },
     trip_name: {
         type: String,
         required: true,
         unique: true
-    },
-    user_id: {
-        type: ObjectId,
-        required: true
     },
     begin_date: {
         type: Date

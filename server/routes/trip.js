@@ -1,32 +1,32 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
+var trip = require('../models/trip');
 
-// Route: Get user
-router.get('/', function(req, res) {
-  var userEmail = req.decodedToken.email;
-  User.find({}, function(err, user) {
-    if(err) {
-      console.log('Get ERR: ', err);
-      res.sendStatus(500);
-    } else {
-      console.log(user);
-      res.send(user);
-    }
-  });
-}); // END: GET user route
-
-// Route: Register a new user
-router.post("/", function(req, res) {
-  var personToAdd = new User(req.body);
-  personToAdd.save(function(err) {
-      if (err) {
-          console.log('There was an error inserting new user, ', err);
-          res.sendStatus(500);
-      } else {
-          res.send(201);
-      }
-  });
-}); // END: POST user route
+// Route: Get trip
+// router.get('/', function(req, res) {
+//   // var tripEmail = req.decodedToken.email;
+//   trip.find({}, function(err, trip) {
+//     if(err) {
+//       console.log('Get ERR: ', err);
+//       res.sendStatus(500);
+//     } else {
+//       console.log(trip);
+//       res.send(trip);
+//     }
+//   });
+// }); // END: GET trip route
+//
+// // Route: Register a new trip
+// router.post("/", function(req, res) {
+//   var personToAdd = new trip(req.body);
+//   personToAdd.save(function(err) {
+//       if (err) {
+//           console.log('There was an error inserting new trip, ', err);
+//           res.sendStatus(500);
+//       } else {
+//           res.send(201);
+//       }
+//   });
+// }); // END: POST trip route
 
 module.exports = router;
