@@ -2,15 +2,17 @@ app.controller("TripController", ["$http", "AuthFactory", function($http, AuthFa
     console.log('TripController started');
     var self = this;
     self.trips = [];
-    self.auth = AuthFactory;
+    var auth = AuthFactory;
 
         // Function to GET trips
-        self.auth.getTrips = function() {
+        self.getTrips = function() {
+          console.log('getTrips');
+          console.log('idtoken', auth.idToken);
           $http({
               method: 'GET',
               url: '/trip',
               headers: {
-                  id_token: self.auth.idToken
+                  id_token: auth.idToken
               }
           }).then(function(response) {
                   self.trips = response.data;

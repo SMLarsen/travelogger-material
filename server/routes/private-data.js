@@ -33,6 +33,8 @@ router.get("/", function(req, res) {
                     }
 
                 });
+            } else {
+              res.sendStatus(200);
             }
         }
     });

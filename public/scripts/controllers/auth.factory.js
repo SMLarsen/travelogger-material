@@ -8,9 +8,10 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
 
     // Authenticates user at login
     logIn = function() {
-        auth.$signInWithPopup("google").then(function(firebaseUser) {
+        return auth.$signInWithPopup("google").then(function(firebaseUser) {
             console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
             currentUser = firebaseUser;
+            return currentUser;
         }).catch(function(error) {
             console.log("Authentication failed: ", error);
         });
@@ -20,6 +21,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
     auth.$onAuthStateChanged(function(firebaseUser) {
         // firebaseUser will be null if not logged in
         currentUser = firebaseUser;
+        // console.log('State changed - currentUser:', currentUser);
         if (currentUser) {
             // This is where we make our call to our server
             firebaseUser.getToken().then(function(idToken) {
@@ -27,14 +29,12 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                     method: 'GET',
                     url: '/privateData',
                     headers: {
-                        id_token: idToken,
+                        id_token: idToken
                     }
                 }).then(function(response) {
                         authIdToken = idToken;
-                        console.log('id token:', authIdToken);
-                        currentUserxxxx = response.data;
-                        console.log('response.data', response.data);
-                        console.log('current user authorized', currentUser);
+                        // console.log('id token:', authIdToken);
+                        console.log('current user authorized', currentUser.email);
                     },
                     function(err) {
                         console.log('current user not registered', err);
@@ -48,7 +48,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
 
     // Function handles user log out
     logOut = function() {
-        auth.$signOut().then(function() {
+        return auth.$signOut().then(function() {
             console.log('Logging the user out!');
         });
     }; // END: logOut
@@ -57,10 +57,10 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
       currentUser: currentUser,
       idToken: authIdToken,
       logIn: function() {
-        logIn();
+        return logIn();
       },
       logOut: function() {
-        logOut();
+        return logOut();
       }
     };
 

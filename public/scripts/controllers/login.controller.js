@@ -3,11 +3,12 @@ app.controller("LoginController", ["$http", "AuthFactory", function($http, AuthF
     var self = this;
     self.trips = [];
     var authFactory = AuthFactory;
-    console.log(authFactory);
 
     // Function to Login
     self.logIn = function() {
-        authFactory.logIn();
+        authFactory.logIn().then(function(currentUser) {
+          console.log('lc current user', currentUser);
+        }) ;
     }; // End Login
 
     // Function to Logout
