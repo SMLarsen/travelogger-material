@@ -52,6 +52,8 @@ app.controller("SecurityController", function($firebaseAuth, $http) {
                         currentUser: self.currentUser
                     }
                 }).then(function(response) {
+                        self.idToken = idToken;
+                        console.log('id token:', self.idToken);
                         self.currentUser = response.data;
                         console.log('response.data', response.data);
                         console.log('current user authorized', self.currentUser);
@@ -73,11 +75,31 @@ app.controller("SecurityController", function($firebaseAuth, $http) {
         });
     }; // END: logOut
 
+    // Function to GET trips
+    self.getTrips = function() {
+      $http({
+          method: 'GET',
+          url: '/trip',
+          headers: {
+              id_token: self.idToken
+          }
+      }).then(function(response) {
+              self.trips = response.data;
+              console.log('response.data', response.data);
+          },
+          function(err) {
+              console.log('Unable to retrieve trips', err);
+          });
+    }; // End getTrips
+
+
 }); // END: SecurityController
 
 
 app.controller("TripController", function($http) {
     console.log('TripController started');
     var self = this;
+    self.trips = [];
+
 
 }); // END: TripController

@@ -24,7 +24,7 @@ app.use(decoder.token);
 app.use("/privateData", privateData);
 
 // Routing modules
-// app.use("/trip", trip);
+app.use("/trip", trip);
 
 var port = process.env.PORT || 5000;
 

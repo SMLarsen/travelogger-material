@@ -19,14 +19,22 @@
 </head>
 
 <body class="container" ng-controller="SecurityController as sc">
-  <div class="login col-sm-6 col-sm-offset-3">
-    <h1>Login to Travelogger</h1>
     <div>
-      <button class="btn btn-primary btn-lg btn-block" ng-click="sc.logIn()">Log In</button>
-      <button class="btn btn-default btn-lg btn-block" ng-click="sc.logOut()">Log Out</button>
+        <div class="login col-sm-6 col-sm-offset-3">
+            <h1>Login to Travelogger</h1>
+            <div>
+                <button class="btn btn-primary btn-lg btn-block" ng-click="sc.logIn()">Log In</button>
+                <button class="btn btn-default btn-lg btn-block" ng-click="sc.logOut()">Log Out</button>
+            </div>
+        </div>
     </div>
 
-  </div>
+    <div class="tripDisplay">
+      <ul ng-repeat="trip in sc.trips">
+        <li>{{trip}}</li>
+      </ul>
+      <button type="button" name="button" ng-click="sc.getTrips()">Get Trips</button>
+    </div>
 </body>
 
 </html>
