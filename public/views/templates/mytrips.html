@@ -2,9 +2,12 @@
 
 <div class="tripDisplay col-sm-6 col-sm-offset-3">
     <button class="btn btn-default btn-lg btn-block" ng-click="mtc.getTrips()">Get Trips</button>
-    <ul ng-repeat="trip in mtc.trips">
-        <li>{{trip.trip_name}} - {{trip.begin_date | date}} {{trip.begin_location}}</li>
-    </ul>
+    <div ng-repeat="trip in mtc.trips">
+        <h3>{{trip.trip_name}}</h3>
+        <p>{{trip.travellers}}</p>
+        <p>Starting on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
+        <p>Ending on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
+    </div>
 </div>
 
 <div class="tripDisplay col-sm-6 col-sm-offset-3">
