@@ -1,8 +1,8 @@
 <h2>My Trips</h2>
 
-<div class="tripDisplay col-sm-6 col-sm-offset-3" ng-controller="TripController as tc">
-    <button class="btn btn-default btn-lg btn-block" ng-click="tc.getTrips()">Get Trips</button>
-    <ul ng-repeat="trip in tc.trips">
+<div class="tripDisplay col-sm-6 col-sm-offset-3">
+    <button class="btn btn-default btn-lg btn-block" ng-click="mtc.getTrips()">Get Trips</button>
+    <ul ng-repeat="trip in mtc.trips">
         <li>{{trip.trip_name}} - {{trip.begin_date | date}} {{trip.begin_location}}</li>
     </ul>
 </div>
