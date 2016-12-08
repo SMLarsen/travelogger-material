@@ -17,17 +17,18 @@ router.get('/', function(req, res) {
   });
 }); // END: GET trip route
 
-// Route: Register a new trip
-// router.post("/", function(req, res) {
-//   var personToAdd = new trip(req.body);
-//   personToAdd.save(function(err) {
-//       if (err) {
-//           console.log('There was an error inserting new trip, ', err);
-//           res.sendStatus(500);
-//       } else {
-//           res.send(201);
-//       }
-//   });
-// }); // END: POST trip route
+// Route: Add a trip
+router.post("/", function(req, res) {
+  var tripToAdd = new trip(req.body);
+  console.log('Adding new trip:', tripToAdd);
+  tripToAdd.save(function(err) {
+      if (err) {
+          console.log('There was an error inserting new trip, ', err);
+          res.sendStatus(500);
+      } else {
+          res.send(201);
+      }
+  });
+}); // END: POST trip route
 
 module.exports = router;

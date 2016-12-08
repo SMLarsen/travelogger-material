@@ -3,6 +3,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     var self = this;
     self.trips = [];
     var authFactory = AuthFactory;
+    self.newTrip = {};
 
     // Function to GET trips
     self.getTrips = function() {
@@ -25,7 +26,23 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
 
     // Function to add a trips
     self.addTrip = function() {
-      console.log('addTrip');
+        console.log('addTrip', self.newTrip);
+        authFactory.getIdToken().then(function(idToken) {
+            $http({
+                method: 'POST',
+                url: '/trip',
+                headers: {
+                    id_token: idToken
+                },
+                data: self.newTrip
+            }).then(function(response) {
+                    console.log('Trip added');
+                    self.getTrips();
+                },
+                function(err) {
+                    console.log('Unable to add trip', err);
+                });
+        });
     }; // End addTrip
 
 }]); // END: TripController
