@@ -1,19 +1,29 @@
 var app = angular.module('traveloggerApp', ['ngRoute', 'firebase']);
 console.log('traveloggerApp running');
 
-// app.config(['$routeProvider', function($routeProvider) {
-//     $routeProvider
-//         .when('/employees', {
-//             templateUrl: '/views/templates/employees.html',
-//             controller: 'EmployeeController',
-//             controllerAs: 'ec'
-//         })
-//         .when('/budgets', {
-//             templateUrl: '/views/templates/budgets.html',
-//             controller: 'BudgetController',
-//             controllerAs: 'bc'
-//         })
-//         .otherwise({
-//             redirectTo: 'employees'
-//         });
-// }]);
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider
+        .when('/home', {
+            templateUrl: '/views/templates/home.html',
+            controller: 'HomeController',
+            controllerAs: 'hc'
+        })
+        .when('/mytrips', {
+            templateUrl: '/views/templates/mytrips.html',
+            controller: 'MyTripController',
+            controllerAs: 'mtc'
+        })
+        .when('/trips', {
+            templateUrl: '/views/templates/trips.html',
+            controller: 'TripController',
+            controllerAs: 'tc'
+        })
+        .when('/login', {
+            templateUrl: '/views/templates/login.html',
+            controller: 'NavController',
+            controllerAs: 'nc'
+        })
+        .otherwise({
+            redirectTo: 'home'
+        });
+}]); // End config
