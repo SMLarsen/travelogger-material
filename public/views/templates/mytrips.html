@@ -6,3 +6,33 @@
         <li>{{trip.trip_name}} - {{trip.begin_date | date}} {{trip.begin_location}}</li>
     </ul>
 </div>
+
+<div class="tripDisplay col-sm-6 col-sm-offset-3">
+    <button class="btn btn-default btn-lg btn-block" ng-click="mtc.addTrip()">Add a Trip</button>
+
+    <form name="tripAdd" novalidate>
+
+         <div class="form-group" ng-model="mtc.newTrip.trip_name">
+         <ng-form name="addTripForm">
+             <label>Trip Name</label>
+             <input type="text" class="form-control" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
+             <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
+             <label>Starting Date</label>
+             <input type="date" class="form-control" name="begin_date" ng-model="mtc.newTrip.begin_date">
+             <label>Starting Location</label>
+             <input type="text" class="form-control" name="begin_location" ng-model="mtc.newTrip.begin_location">
+             <label>Ending Date</label>
+             <input type="date" class="form-control" name="end_date" ng-model="mtc.newTrip.end_date">
+             <label>Ending Location</label>
+             <input type="text" class="form-control" name="end_location" ng-model="mtc.newTrip.end_location">
+             <label>Travellers</label>
+             <input type="text" class="form-control" name="travellers" ng-model="mtc.newTrip.travellers">
+           </ng-form>
+           <p>{{mtc.newTrip}}</p>
+         </div>
+
+     </form>
+
+
+
+</div>

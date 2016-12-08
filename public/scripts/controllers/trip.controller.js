@@ -1,4 +1,4 @@
-app.controller("TripController", [function(ngAnimate) {
+app.controller("TripController", [function() {
 console.log('TripController started');
 var self = this;
 

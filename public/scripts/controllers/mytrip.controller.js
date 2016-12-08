@@ -23,4 +23,9 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End getTrips
 
+    // Function to add a trips
+    self.addTrip = function() {
+      console.log('addTrip');
+    }; // End addTrip
+
 }]); // END: TripController
