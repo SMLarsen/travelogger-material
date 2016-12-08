@@ -8,13 +8,17 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
 
     // Authenticates user at login
     logIn = function() {
-        return auth.$signInWithPopup("google").then(function(firebaseUser) {
-            console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
-            currentUser = firebaseUser;
-            return currentUser;
-        }).catch(function(error) {
-            console.log("Authentication failed: ", error);
-        });
+        if (currentUser !== {}) {
+            return auth.$signInWithPopup("google").then(function(firebaseUser) {
+                console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
+                currentUser = firebaseUser;
+                return currentUser;
+            }).catch(function(error) {
+                console.log("Authentication failed: ", error);
+            });
+        } else {
+            return;
+        }
     }; // END: logIn
 
     // Runs when user changes authentication states (logs in or out)
@@ -53,15 +57,35 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
         });
     }; // END: logOut
 
+    // Function get idToken
+    getIdToken = function() {
+        // console.log('getIdToken currentUser', currentUser);
+        if (currentUser) {
+            // This is where we make our call to our server
+            return currentUser.getToken().then(function(idToken) {
+                    authIdToken = idToken;
+                    console.log('got current user idToken:', currentUser.email);
+                    return authIdToken;
+                },
+                function(err) {
+                    console.log('current user not registered', err);
+                });
+        } else {
+            return;
+        }
+    }; // End getIdToken
+
     var publicApi = {
-      currentUser: currentUser,
-      idToken: authIdToken,
-      logIn: function() {
-        return logIn();
-      },
-      logOut: function() {
-        return logOut();
-      }
+        currentUser: currentUser,
+        getIdToken: function() {
+            return getIdToken();
+        },
+        logIn: function() {
+            return logIn();
+        },
+        logOut: function() {
+            return logOut();
+        }
     };
 
     return publicApi;

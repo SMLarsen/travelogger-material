@@ -1,5 +1,5 @@
-app.controller("LoginController", ["$http", "AuthFactory", function($http, AuthFactory) {
-    console.log('LoginController started');
+app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFactory) {
+    console.log('NavController started');
     var self = this;
     self.trips = [];
     var authFactory = AuthFactory;
@@ -8,6 +8,7 @@ app.controller("LoginController", ["$http", "AuthFactory", function($http, AuthF
     self.logIn = function() {
         authFactory.logIn().then(function(currentUser) {
           console.log('lc current user', currentUser);
+          authFactory.idToken = currentUser.idToken;
         }) ;
     }; // End Login
 
