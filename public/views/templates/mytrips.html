@@ -1,41 +1,50 @@
-<h2>My Trips</h2>
+<div class="col-sm-6 col-sm-offset-3">
 
-<div class="tripDisplay col-sm-6 col-sm-offset-3">
-    <button class="btn btn-default btn-lg btn-block" ng-click="mtc.getTrips()">Get Trips</button>
-    <div ng-repeat="trip in mtc.trips">
-        <h3>{{trip.trip_name}}</h3>
-        <p>{{trip.travellers}}</p>
-        <p>Starting on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
-        <p>Ending on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
-    </div>
-</div>
+  <h2>My Trips</h2>
 
-<div class="tripDisplay col-sm-6 col-sm-offset-3">
-    <button class="btn btn-default btn-lg btn-block" ng-click="mtc.addTrip()">Add a Trip</button>
+  <div class="tripDisplay">
+      <button class="btn btn-default btn-lg btn-block" ng-click="mtc.getTrips()">Get Trips</button>
 
-    <form name="tripAdd" novalidate>
+      <uib-accordion close-others="oneAtATime" ng-repeat="trip in mtc.trips">
+          <div uib-accordion-group class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+            <uib-accordion-heading>
+            {{trip.trip_name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': trip.status.open, 'glyphicon-chevron-right': !trip.status.open}"></i>
+            </uib-accordion-heading>
 
-         <div class="form-group" ng-model="mtc.newTrip.trip_name">
-         <ng-form name="addTripForm">
-             <label>Trip Name</label>
-             <input type="text" class="form-control" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
-             <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
-             <label>Starting Date</label>
-             <input type="date" class="form-control" name="begin_date" ng-model="mtc.newTrip.begin_date">
-             <label>Starting Location</label>
-             <input type="text" class="form-control" name="begin_location" ng-model="mtc.newTrip.begin_location">
-             <label>Ending Date</label>
-             <input type="date" class="form-control" name="end_date" ng-model="mtc.newTrip.end_date">
-             <label>Ending Location</label>
-             <input type="text" class="form-control" name="end_location" ng-model="mtc.newTrip.end_location">
-             <label>Travellers</label>
-             <input type="text" class="form-control" name="travellers" ng-model="mtc.newTrip.travellers">
-           </ng-form>
-           <p>{{mtc.newTrip}}</p>
-         </div>
+            <p>{{trip.travellers}}</p>
+            <p>Starting on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
+            <p>Ending on {{trip.end_date | date}} in {{trip.end_location}}</p>
+          </div>
+        </uib-accordion>
 
-     </form>
+  </div>
 
+  <div class="tripDisplay">
+      <button class="btn btn-default btn-lg btn-block" ng-click="mtc.addTrip()">Add a Trip</button>
 
+      <form name="tripAdd" novalidate>
+
+           <div class="form-group" ng-model="mtc.newTrip.trip_name">
+           <ng-form name="addTripForm">
+               <label>Trip Name</label>
+               <input type="text" class="form-control" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
+               <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
+               <label>Starting Date</label>
+               <input type="date" class="form-control" name="begin_date" ng-model="mtc.newTrip.begin_date">
+               <label>Starting Location</label>
+               <input type="text" class="form-control" name="begin_location" ng-model="mtc.newTrip.begin_location">
+               <label>Ending Date</label>
+               <input type="date" class="form-control" name="end_date" ng-model="mtc.newTrip.end_date">
+               <label>Ending Location</label>
+               <input type="text" class="form-control" name="end_location" ng-model="mtc.newTrip.end_location">
+               <label>Travellers</label>
+               <input type="text" class="form-control" name="travellers" ng-model="mtc.newTrip.travellers">
+             </ng-form>
+             <p>{{mtc.newTrip}}</p>
+           </div>
+
+       </form>
+
+  </div>
 
 </div>

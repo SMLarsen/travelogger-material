@@ -5,6 +5,14 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     var authFactory = AuthFactory;
     self.newTrip = {};
 
+    self.status = {
+        isCustomHeaderOpen: false,
+        isFirstOpen: true,
+        isFirstDisabled: false
+    };
+
+    self.oneAtATime = true;
+
     // Function to GET trips
     self.getTrips = function() {
         authFactory.getIdToken().then(function(idToken) {
