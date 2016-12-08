@@ -1,61 +1,64 @@
 <h2>Trips</h2>
-
-<p>
-  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    Link with href
-  </a>
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    Button with data-target
-  </button>
-</p>
-<div class="collapse" id="collapseExample">
-  <div class="card card-block">
-    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-  </div>
-</div>
-
-<div id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="card">
-    <div class="card-header" role="tab" id="headingOne">
-      <h5 class="mb-0">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Collapsible Group Item #1
-        </a>
-      </h5>
-    </div>
-
-    <div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="card-block">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+<div >
+  <script type="text/ng-template" id="group-template.html">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title" style="color:#fa39c3">
+          <a href tabindex="0" class="accordion-toggle" ng-click="tc.toggleOpen()" uib-accordion-transclude="heading">
+            <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
+              {{heading}}
+            </span>
+          </a>
+        </h4>
+      </div>
+      <div class="panel-collapse collapse" uib-collapse="!isOpen">
+        <div class="panel-body" style="text-align: right" ng-transclude></div>
       </div>
     </div>
+  </script>
+
+  <p>
+    <button type="button" class="btn btn-default btn-sm" ng-click="tc.status.open = !tc.status.open">Toggle last panel</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="tc.status.isFirstDisabled = ! tc.status.isFirstDisabled">Enable / Disable first panel</button>
+  </p>
+<p>status.open: {{tc.status.open}}</p>
+<p>status.isFirstDisabled: {{tc.status.isFirstDisabled}}</p>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="tc.oneAtATime">
+      Open only one at a time
+    </label>
   </div>
-  <div class="card">
-    <div class="card-header" role="tab" id="headingTwo">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Collapsible Group Item #2
-        </a>
-      </h5>
+  <uib-accordion close-others="oneAtATime">
+    <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="tc.status.isFirstOpen" is-disabled="tc.status.isFirstDisabled">
+      This content is straight in the template.
     </div>
-    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="card-block">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
+    <div uib-accordion-group class="panel-default" heading="{{tc.group.title}}" ng-repeat="group in tc.groups">
+      {{group.content}}
     </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab" id="headingThree">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Collapsible Group Item #3
-        </a>
-      </h5>
+    <div uib-accordion-group class="panel-default" heading="Dynamic Body Content">
+      <p>The body of the uib-accordion group grows to fit the contents</p>
+      <button type="button" class="btn btn-default btn-sm" ng-click="tc.addItem()">Add Item</button>
+      <div ng-repeat="item in tc.items">{{item}}</div>
     </div>
-    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-      <div class="card-block">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
+    <div uib-accordion-group class="panel-default" heading="Custom template" template-url="group-template.html">
+      Hello
     </div>
-  </div>
+    <div uib-accordion-group class="panel-default" is-open="tc.status.isCustomHeaderOpen" template-url="group-template.html">
+      <uib-accordion-heading>
+        Custom template with custom header template <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tc.status.isCustomHeaderOpen, 'glyphicon-chevron-right': !tc.status.isCustomHeaderOpen}"></i>
+      </uib-accordion-heading>
+      World
+    </div>
+    <div uib-accordion-group class="panel-danger" heading="Delete account">
+      <p>Please, to delete your account, click the button below</p>
+      <button class="btn btn-danger">Delete</button>
+    </div>
+    <div uib-accordion-group class="panel-default" is-open="tc.status.open">
+      <uib-accordion-heading>
+        I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tc.status.open, 'glyphicon-chevron-right': !tc.status.open}"></i>
+      </uib-accordion-heading>
+      This is just some content to illustrate fancy headings.
+    </div>
+  </uib-accordion>
 </div>
