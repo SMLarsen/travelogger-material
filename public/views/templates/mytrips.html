@@ -62,42 +62,48 @@
 
                    <div class="form-group" ng-model="mtc.newDay.trip_name">
                    <ng-form name="addDayForm">
-                     <label>Date</label>
-                     <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
-                     <label>Where Sleeping Tonight</label>
-                     <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" required>
-                     <label>Tag Line</label>
-                     <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line">
 
-                     <label>Points of Interest</label>
+                     <div class="form-inline">
+                       <div class="form-group">
+                         <label>Date</label>
+                         <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
+                         <label class="sr-only" for="dayEndLocation">Location</label>
+                        <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" placeholder="Where are you?">
+                       </div>
+                     </div>
+
+                     <label class="sr-only">Tag Line</label>
+                     <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line" placeholder="Tag line for the day">
+
+                     <label>Points of Interest</label><br>
 
                      <!-- <a></a>
                      <button class="btn btn-default btn-sm" ng-click="addLocation()">Add Point of Interest</button>
                      <div ng-repeat="item in items">{{item}}</div>  -->
 
-                    <label>routes</label>
+                    <label>routes</label><br>
 
                     <label>Foods</label>
 
-                    <div class="tripElGroup">
-                      <label>Name</label>
-                      <input type="text" class="form-control" name="lodging_name" ng-model="mtc.newDay.lodging_name">
-                      <label>Type</label>
-                      <input type="text" class="form-control" name="lodging_type" ng-model="mtc.newDay.lodging_type">
-                      <label>Address</label>
-                      <input type="text" class="form-control" name="lodging_address" ng-model="mtc.newDay.lodging_address">
-                      <label>Reference</label>
-                      <input type="text" class="form-control" name="lodging_reference" ng-model="mtc.newDay.lodging_reference">
+                    <div class="form-group">
+                      <label class="sr-only">Lodging</label>
+                      <input type="text" class="form-control" name="lodging_name" ng-model="mtc.newDay.lodging_name" placeholder="Name">
+                      <label class="sr-only">Type</label>
+                      <input type="text" class="form-control" name="lodging_type" ng-model="mtc.newDay.lodging_type" placeholder="Type">
+                      <label class="sr-only">Address</label>
+                      <input type="text" class="form-control" name="lodging_address" ng-model="mtc.newDay.lodging_address" placeholder="Address">
+                      <label class="sr-only">Reference</label>
+                      <input type="text" class="form-control" name="lodging_reference" ng-model="mtc.newDay.lodging_reference" placeholder="Reference">
                     </div>
-                       <label>Narrative</label>
-                       <input type="text" class="form-control" name="narrative" ng-model="mtc.newDay.narrative">
+                       <label class="sr-only">Narrative</label>
+                       <input type="text" class="form-control" name="narrative" ng-model="mtc.newDay.narrative" placeholder="Describe the day">
 
-                       <label>Recommenations</label>
+                       <label>Recommendations</label>br
 
-                       <label>Weather</label>
-                       <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather">
+                       <label class="sr-only">Weather</label>
+                       <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
 
-                       <button class="btn btn-default btn-md" ng-click="mtc.addDay()">Save</button>
+                       <button class="btn btn-default btn-md pull-right" ng-click="mtc.addDay()">Save</button>
                      </ng-form>
                    </div>
         </div>
