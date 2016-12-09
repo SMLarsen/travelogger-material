@@ -67,24 +67,24 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
 
     // Function to add a day
     self.addDay = function() {
-      
+
         console.log('addDay', self.newDay);
-        // authFactory.getIdToken().then(function(loginUser) {
-        //     $http({
-        //         method: 'POST',
-        //         url: '/day',
-        //         headers: {
-        //             id_token: loginUser.authIdToken
-        //         },
-        //         data: self.newDay
-        //     }).then(function(response) {
-        //             console.log('Day added');
-        //             self.getTrips();
-        //         },
-        //         function(err) {
-        //             console.log('Unable to add day', err);
-        //         });
-        // });
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'POST',
+                url: '/day',
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: self.newDay
+            }).then(function(response) {
+                    console.log('Day added');
+                    self.getTrips();
+                },
+                function(err) {
+                    console.log('Unable to add day', err);
+                });
+        });
     }; // End addDay
 
     // Add point of interest to new Day
