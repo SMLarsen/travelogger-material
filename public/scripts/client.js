@@ -21,8 +21,8 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .when('/login', {
             templateUrl: '/views/templates/login.html',
-            controller: 'NavController',
-            controllerAs: 'nc'
+            controller: 'LoginController',
+            controllerAs: 'lc'
         })
         .otherwise({
             redirectTo: 'home'

@@ -1,37 +1,38 @@
-
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
 
 h2 {
-  text-align: center;
+    text-align: center;
 }
 
 #homeView {
-  background-image: url(../assets/images/DSC03504-2.jpg);
-  background-position: -300px -100px;
+    background-image: url(../assets/images/DSC03504-2.jpg);
+    background-position: -300px -100px;
     width: 100%;
     height: 900px;
     z-index: 2;
 }
 
 #navView {
-  position:fixed;
-  top: 0px;  
-  background-color: #e77811;
-  color: white;
-  padding: 5px;
-  width:100%;
+    position: fixed;
+    top: 0px;
+    background-color: #e77811;
+    color: white;
+    padding: 5px;
+    width: 100%;
 }
 
 #footerView {
-  position:fixed;
-     left:0px;
-     bottom:0px;
-     height:30px;
-     width:100%;
-     background:#e77811;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+    background: #e77811;
 }
 
 #footerView p {
-  padding-top: 3px;
-  text-align: center;
+    padding-top: 3px;
+    text-align: center;
 }
