@@ -6,7 +6,7 @@ var User = require('../models/user');
 router.get("/", function(req, res) {
   if (req.decodedToken !== undefined) {
     var userEmail = req.decodedToken.email;
-    console.log('Checking if user registered', userEmail);
+    // console.log('Checking if user registered', userEmail);
     // Check the user's level of permision based on their email
     User.findOne({
         email: userEmail
@@ -22,19 +22,19 @@ router.get("/", function(req, res) {
                 console.log('user to add', newUser);
                 var personToAdd = new User(newUser);
                 // personToAdd.isNew = false;
-                personToAdd.save(function(err, bob) {
+                personToAdd.save(function(err, user) {
 
                     if (err) {
                         console.log('There was an error inserting new user, ', err);
                         res.sendStatus(500);
                     } else {
-                        console.log('New user added,', bob);
-                        res.send(bob);
+                        console.log('New user added,', user);
+                        res.send(user);
                     }
 
                 });
             } else {
-              res.sendStatus(200);
+              res.send(user);
             }
         }
     });

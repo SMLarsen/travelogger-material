@@ -17,12 +17,12 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
 
     // Function to GET trips
     function getTrips() {
-        authFactory.getIdToken().then(function(idToken) {
+        authFactory.getIdToken().then(function(loginUser) {
             $http({
                 method: 'GET',
-                url: '/trip',
+                url: '/trip/' + loginUser.id,
                 headers: {
-                    id_token: idToken
+                    id_token: loginUser.authIdToken
                 }
             }).then(function(response) {
                     self.trips = response.data;
@@ -37,12 +37,12 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     // Function to add a trips
     self.addTrip = function() {
         console.log('addTrip', self.newTrip);
-        authFactory.getIdToken().then(function(idToken) {
+        authFactory.getIdToken().then(function(loginUser) {
             $http({
                 method: 'POST',
                 url: '/trip',
                 headers: {
-                    id_token: idToken
+                    id_token: loginUser.authIdToken
                 },
                 data: self.newTrip
             }).then(function(response) {

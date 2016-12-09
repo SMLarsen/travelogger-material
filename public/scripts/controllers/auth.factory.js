@@ -4,6 +4,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
 
     var currentUser = {};
     var newUser = {};
+    var loginUser = {};
     var authIdToken = '';
 
     // Authenticates user at login
@@ -36,8 +37,9 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                         id_token: idToken
                     }
                 }).then(function(response) {
-                        authIdToken = idToken;
-                        // console.log('id token:', authIdToken);
+                        loginUser.authIdToken = idToken;
+                        loginUser.id = response.data._id;
+                        console.log('loginUser:', loginUser);
                         console.log('current user authorized', currentUser.email);
                     },
                     function(err) {
@@ -65,7 +67,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
             return currentUser.getToken().then(function(idToken) {
                     authIdToken = idToken;
                     console.log('got current user idToken:', currentUser.email);
-                    return authIdToken;
+                    return loginUser;
                 },
                 function(err) {
                     console.log('current user not registered', err);

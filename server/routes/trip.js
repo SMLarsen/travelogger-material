@@ -2,11 +2,16 @@ var express = require('express');
 var router = express.Router();
 var trip = require('../models/trip');
 
-console.log('Made it to trip');
 // Route: Get trip
-router.get('/', function(req, res) {
-  // var tripEmail = req.decodedToken.email;
-  trip.find({}, function(err, trips) {
+router.get('/:id', function(req, res) {
+  var userId = req.params.id;
+  console.log('Looking for trips for', userId);
+
+  // db.getCollection('trips').find({user_id: ObjectId("5846e1b67ce266827e41dd32")})
+
+  var queryParam = "{user_id: ObjectId(" + userId + ")}";
+  console.log('queryParam: ', queryParam);
+  trip.find(queryParam, function(err, trips) {
     if(err) {
       console.log('Get ERR: ', err);
       res.sendStatus(500);
