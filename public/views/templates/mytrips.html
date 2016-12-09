@@ -55,6 +55,52 @@
         <p>{{trip.travellers}}</p>
         <p>Starting on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
         <p>Ending on {{trip.end_date | date}} in {{trip.end_location}}</p>
-      </div>
+        <div uib-accordion-group class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+          <uib-accordion-heading>
+          Add a Day
+        </uib-accordion-heading>
+
+                   <div class="form-group" ng-model="mtc.newDay.trip_name">
+                   <ng-form name="addDayForm">
+                     <label>Date</label>
+                     <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
+                     <label>Where Sleeping Tonight</label>
+                     <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" required>
+                     <label>Tag Line</label>
+                     <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line">
+
+                     <label>Points of Interest</label>
+
+                     <!-- <a></a>
+                     <button class="btn btn-default btn-sm" ng-click="addLocation()">Add Point of Interest</button>
+                     <div ng-repeat="item in items">{{item}}</div>  -->
+
+                    <label>routes</label>
+
+                    <label>Foods</label>
+
+                    <div class="tripElGroup">
+                      <label>Name</label>
+                      <input type="text" class="form-control" name="lodging_name" ng-model="mtc.newDay.lodging_name">
+                      <label>Type</label>
+                      <input type="text" class="form-control" name="lodging_type" ng-model="mtc.newDay.lodging_type">
+                      <label>Address</label>
+                      <input type="text" class="form-control" name="lodging_address" ng-model="mtc.newDay.lodging_address">
+                      <label>Reference</label>
+                      <input type="text" class="form-control" name="lodging_reference" ng-model="mtc.newDay.lodging_reference">
+                    </div>
+                       <label>Narrative</label>
+                       <input type="text" class="form-control" name="narrative" ng-model="mtc.newDay.narrative">
+
+                       <label>Recommenations</label>
+
+                       <label>Weather</label>
+                       <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather">
+
+                       <button class="btn btn-default btn-md" ng-click="mtc.addDay()">Save</button>
+                     </ng-form>
+                   </div>
+        </div>
+  </div>
     </uib-accordion>
 </div>

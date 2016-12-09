@@ -4,6 +4,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     self.trips = [];
     var authFactory = AuthFactory;
     self.newTrip = {};
+    self.newDay = {};
 
     self.status = {
         isCustomHeaderOpen: false,
@@ -54,5 +55,26 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 });
         });
     }; // End addTrip
+
+        // Function to add a day
+        self.addDay = function() {
+            console.log('addDay', self.newDay);
+            authFactory.getIdToken().then(function(loginUser) {
+                $http({
+                    method: 'POST',
+                    url: '/day',
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    },
+                    data: self.newDay
+                }).then(function(response) {
+                        console.log('Day added');
+                        self.getTrips();
+                    },
+                    function(err) {
+                        console.log('Unable to add day', err);
+                    });
+            });
+        }; // End addDay
 
 }]); // END: TripController

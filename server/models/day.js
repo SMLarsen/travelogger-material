@@ -39,9 +39,9 @@ var daySchema = new Schema({
     routes: [Route],
     meals: [Meal],
     lodging_name: String,
-    location_address: String,
-    description: String,
-    reference: String,
+    lodging_address: String,
+    lodging_type: String,
+    lodging_reference: String,
     narrative: String,
     recommendations: [Recommendation],
     weather: String

@@ -1,5 +1,4 @@
-// var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ui.bootstrap', 'ngAnimate']);
-var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ui.bootstrap']);
+var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ngAnimate', 'ui.bootstrap']);
 console.log('traveloggerApp running');
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -16,8 +15,8 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .when('/trips', {
             templateUrl: '/views/templates/trips.html',
-            controller: 'TripController',
-            controllerAs: 'tc'
+            controller: 'MyTripController',
+            controllerAs: 'mtc'
         })
         .when('/login', {
             templateUrl: '/views/templates/login.html',
