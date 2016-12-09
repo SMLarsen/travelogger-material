@@ -13,8 +13,10 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
 
     self.oneAtATime = true;
 
+    getTrips();
+
     // Function to GET trips
-    self.getTrips = function() {
+    function getTrips() {
         authFactory.getIdToken().then(function(idToken) {
             $http({
                 method: 'GET',
@@ -30,7 +32,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                     console.log('Unable to retrieve trips', err);
                 });
         });
-    }; // End getTrips
+    } // End getTrips
 
     // Function to add a trips
     self.addTrip = function() {
