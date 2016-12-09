@@ -22,7 +22,7 @@ router.get('/:id', function(req, res) {
 
 // Route: Add a day
 router.post("/", function(req, res) {
-  var dayToAdd = new Day(req.body);
+  var dayToAdd = new day(req.body);
   console.log('Adding new day:', dayToAdd);
   dayToAdd.save(function(err) {
       if (err) {

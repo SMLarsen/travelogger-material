@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var ObjectId = Schema.ObjectId;
+
 // Subdocument Schemas
 var Interesting_location = new Schema({
       name: String,
@@ -48,7 +50,7 @@ var daySchema = new Schema({
 });
 
 // user model
-var day = mongoose.model('day', daySchema);
+var Day = mongoose.model('day', daySchema);
 
 // Export model
-module.exports = day;
+module.exports = Day;

@@ -66,10 +66,11 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     }; // End addTrip
 
     // Function to add a day
-    self.addDay = function() {
-
+    self.addDay = function(tripID) {
+        self.newDay.trip_id = tripID;
         console.log('addDay', self.newDay);
         authFactory.getIdToken().then(function(loginUser) {
+            self.newDay.user_id = loginUser.userId;
             $http({
                 method: 'POST',
                 url: '/day',

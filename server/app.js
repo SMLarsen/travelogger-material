@@ -4,7 +4,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var decoder = require('./modules/decoder');
 var trip = require('./routes/trip');
-var trip = require('./routes/day');
+var day = require('./routes/day');
 var privateData = require('./routes/private-data');
 var mongoConnection = require('./modules/mongo-connection');
 
