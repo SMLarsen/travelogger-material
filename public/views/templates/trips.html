@@ -17,30 +17,8 @@
     </div>
   </script>
 
-  <uib-accordion close-others="oneAtATime" ng-repeat="trip in mtc.trips">
-      <div uib-accordion-group class="panel-default" is-disabled="mtc.status.isFirstDisabled">
-        <uib-accordion-heading>
-        {{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}
-        </uib-accordion-heading>
 
-        <p>{{trip.travellers}}</p>
-        <p>Starting on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
-        <p>Ending on {{trip.end_date | date}} in {{trip.end_location}}</p>
-        <div uib-accordion-group class="panel-default" is-disabled="mtc.status.isFirstDisabled">
-          <uib-accordion-heading>
-          Save a Day
-          </uib-accordion-heading>
-
-          <p>{{trip.travellers}}</p>
-          <p>Starting on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
-          <p>Ending on {{trip.end_date | date}} in {{trip.end_location}}</p>
-          <button class="btn btn-default btn-sm pull-right" type="button" name="saveDayButton">Save</button>
-        </div>
-  </div>
-    </uib-accordion>
-
-
-<!-- <p>
+<p>
   <button type="button" class="btn btn-default btn-sm" ng-click="tc.status.open = !tc.status.open">Toggle last panel</button>
   <button type="button" class="btn btn-default btn-sm" ng-click="tc.status.isFirstDisabled = ! tc.status.isFirstDisabled">Enable / Disable first panel</button>
 </p>
@@ -83,5 +61,5 @@
     </uib-accordion-heading>
     This is just some content to illustrate fancy headings.
   </div>
-</uib-accordion> -->
+</uib-accordion>
 </div>

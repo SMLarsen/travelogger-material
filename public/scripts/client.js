@@ -15,8 +15,8 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .when('/trips', {
             templateUrl: '/views/templates/trips.html',
-            controller: 'MyTripController',
-            controllerAs: 'mtc'
+            controller: 'TripController',
+            controllerAs: 'tc'
         })
         .when('/login', {
             templateUrl: '/views/templates/login.html',

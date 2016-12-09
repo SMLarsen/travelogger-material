@@ -76,14 +76,35 @@
                      <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line" placeholder="Tag line for the day">
 
                      <label>Points of Interest</label><br>
+                     <button type="button" class="btn btn-xs btn-default" ng-click="mtc.addPOI()"><span class="glyphicon glyphicon-plus"></span></button>
+                     <input type="text" name="pointOfInterestName" ng-model="mtc.pointOfInterest.name" placeholder="Add point of interest">
+                     <input type="text" name="pointOfInterestDesc" ng-model="mtc.pointOfInterest.description" placeholder="Description">
+                     <ul class="pointsOfInterest" ng-repeat="place in mtc.newDay.interesting_locations" >
+                       <li>{{place.name}} - {{place.description}}</li>
+                     </ul><br>
 
-                     <!-- <a></a>
-                     <button class="btn btn-default btn-sm" ng-click="addLocation()">Add Point of Interest</button>
-                     <div ng-repeat="item in items">{{item}}</div>  -->
+                    <label>Routes</label><br>
+                    <button type="button" class="btn btn-xs btn-default" ng-click="mtc.addRoute()"><span class="glyphicon glyphicon-plus"></span></button>
+                    <input type="text" name="routeName" ng-model="mtc.route.name" placeholder="Point on route">
+                    <input type="text" name="routeDistance" ng-model="mtc.route.distance" placeholder="Distance">
+                    <input type="text" name="routeDuration" ng-model="mtc.route.duration" placeholder="Duration">
+                    <input type="text" name="routeTransportMode" ng-model="mtc.route.transport_mode" placeholder="TransportMode">
+                    <input type="text" name="routeSpecifics" ng-model="mtc.route.specifics" placeholder="Specifics">
+                    <input type="text" name="routeComment" ng-model="mtc.route.comment" placeholder="Comments">
+                    <ul class="routes" ng-repeat="route in mtc.newDay.routes" >
+                      <li>{{route.name}} - {{route.distance}}, {{route.duration}}, {{route.transport_mode}}, {{route.specifics}}, {{route.comment}}</li>
+                    </ul><br>
 
-                    <label>routes</label><br>
-
-                    <label>Foods</label>
+                    <label>Meals</label><br>
+                    <button type="button" class="btn btn-xs btn-default" ng-click="mtc.addMeal()"><span class="glyphicon glyphicon-plus"></span></button>
+                    <input type="text" name="mealName" ng-model="mtc.meal.name" placeholder="Name">
+                    <input type="text" name="mealType" ng-model="mtc.meal.type" placeholder="Type">
+                    <input type="text" name="mealLocation" ng-model="mtc.meal.location" placeholder="Address">
+                    <input type="text" name="mealDesc" ng-model="mtc.meal.description" placeholder="Description">
+                    <input type="text" name="mealReference" ng-model="mtc.meal.reference" placeholder="Reference">
+                    <ul class="meals" ng-repeat="meal in mtc.newDay.meals" >
+                      <li>{{meal.name}} - {{meal.type}}, {{meal.location}}, {{meal.description}}, {{meal.reference}}</li>
+                    </ul><br>
 
                     <div class="form-group">
                       <label class="sr-only">Lodging</label>
@@ -98,7 +119,12 @@
                        <label class="sr-only">Narrative</label>
                        <input type="text" class="form-control" name="narrative" ng-model="mtc.newDay.narrative" placeholder="Describe the day">
 
-                       <label>Recommendations</label>br
+                       <label>Recommendations</label><br>
+                       <button type="button" class="btn btn-xs btn-default" ng-click="mtc.addRecommendation()"><span class="glyphicon glyphicon-plus"></span></button>
+                       <input type="text" name="recommendationText" ng-model="mtc.recommendation.text" placeholder="Recommendations?">
+                       <ul class="pointsOfInterest" ng-repeat="recommendation in mtc.newDay.recommendations" >
+                         <li>{{recommendation.text}}</li>
+                       </ul><br>
 
                        <label class="sr-only">Weather</label>
                        <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
