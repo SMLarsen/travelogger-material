@@ -25,6 +25,10 @@ var buddySchema = new Schema({
     },
     comment: {
         type: String
+    },
+    date_added: {
+        type: Date,
+        default: Date.now
     }
 });
 

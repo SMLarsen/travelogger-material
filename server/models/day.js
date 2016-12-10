@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var ObjectId = Schema.ObjectId;
+
 // Subdocument Schemas
 var Interesting_location = new Schema({
       name: String,
@@ -39,16 +41,20 @@ var daySchema = new Schema({
     routes: [Route],
     meals: [Meal],
     lodging_name: String,
-    location_address: String,
-    description: String,
-    reference: String,
+    lodging_address: String,
+    lodging_type: String,
+    lodging_reference: String,
     narrative: String,
     recommendations: [Recommendation],
-    weather: String
+    weather: String,
+    date_added: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 // user model
-var day = mongoose.model('day', daySchema);
+var Day = mongoose.model('day', daySchema);
 
 // Export model
-module.exports = day;
+module.exports = Day;

@@ -1,5 +1,4 @@
-// var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ui.bootstrap', 'ngAnimate']);
-var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ui.bootstrap']);
+var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ngAnimate', 'ui.bootstrap']);
 console.log('traveloggerApp running');
 
 app.config(['$routeProvider', function($routeProvider) {

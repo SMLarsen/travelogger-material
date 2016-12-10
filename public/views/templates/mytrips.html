@@ -1,60 +1,166 @@
 <div class="col-sm-6 col-sm-offset-3">
 
-  <script type="text/ng-template" id="group-template.html">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title" style="color:#fa39c3">
+    <!--  Dynamic Template  -->
+    <script type="text/ng-template" id="group-template.html">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="color:#fa39c3">
           <a href tabindex="0" class="accordion-toggle" ng-click="mtc.toggleOpen()" uib-accordion-transclude="heading">
             <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
               {{heading}}
             </span>
           </a>
         </h4>
-      </div>
-      <div class="panel-collapse collapse" uib-collapse="!isOpen">
-        <div class="panel-body" style="text-align: right" ng-transclude></div>
-      </div>
-    </div>
-  </script>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="!isOpen">
+                <div class="panel-body" style="text-align: right" ng-transclude></div>
+            </div>
+        </div>
+    </script>
+    <!--  END: Dynamic Template  -->
 
 
-  <h2>My Trips</h2>
+    <h2>My Trips</h2>
 
-  <uib-accordion close-others="oneAtATime">    <div uib-accordion-group class="panel-default" heading="Add a Trip">
-    <form name="tripAdd" novalidate>
+    <!--  START:  Accordion  -->
+    <uib-accordion close-others="oneAtATime">
 
-         <div class="form-group" ng-model="mtc.newTrip.trip_name">
-         <ng-form name="addTripForm">
-             <label>Trip Name</label>
-             <input type="text" class="form-control" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
-             <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
-             <label>Starting Date</label>
-             <input type="date" class="form-control" name="begin_date" ng-model="mtc.newTrip.begin_date">
-             <label>Starting Location</label>
-             <input type="text" class="form-control" name="begin_location" ng-model="mtc.newTrip.begin_location">
-             <label>Ending Date</label>
-             <input type="date" class="form-control" name="end_date" ng-model="mtc.newTrip.end_date">
-             <label>Ending Location</label>
-             <input type="text" class="form-control" name="end_location" ng-model="mtc.newTrip.end_location">
-             <label>Travellers</label>
-             <input type="text" class="form-control" name="travellers" ng-model="mtc.newTrip.travellers">
-             <button class="btn btn-default btn-md" ng-click="mtc.addTrip()">Add a Trip</button>
-           </ng-form>
-         </div>
+      <!--  START:  Add Trip Accordion-group  -->
+        <div uib-accordion-group class="panel-primary" uib-collapse="mtc.isCollapsed" heading="Add a Trip">
+            <form name="tripAdd" novalidate>
 
-     </form>
-    </div>
-  </uib-accordion>
-  <!-- <button class="btn btn-default btn-lg btn-block" ng-click="mtc.getTrips()">Get Trips</button> -->
-  <uib-accordion close-others="oneAtATime" ng-repeat="trip in mtc.trips">
-      <div uib-accordion-group class="panel-default" is-disabled="mtc.status.isFirstDisabled">
-        <uib-accordion-heading>
-        {{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-        </uib-accordion-heading>
+                <div class="form-group" ng-model="mtc.newTrip.trip_name">
+                    <ng-form name="addTripForm">
+                        <label>Trip Name</label>
+                        <input type="text" class="form-control" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
+                        <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
+                        <label>Starting Date</label>
+                        <input type="date" class="form-control" name="begin_date" ng-model="mtc.newTrip.begin_date">
+                        <label>Starting Location</label>
+                        <input type="text" class="form-control" name="begin_location" ng-model="mtc.newTrip.begin_location">
+                        <label>Ending Date</label>
+                        <input type="date" class="form-control" name="end_date" ng-model="mtc.newTrip.end_date">
+                        <label>Ending Location</label>
+                        <input type="text" class="form-control" name="end_location" ng-model="mtc.newTrip.end_location">
+                        <label>Travellers</label>
+                        <input type="text" class="form-control" name="travellers" ng-model="mtc.newTrip.travellers">
+                        <button class="btn btn-default btn-md" ng-click="mtc.addTrip()">Save</button>
+                    </ng-form>
+                </div>
 
-        <p>{{trip.travellers}}</p>
-        <p>Starting on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
-        <p>Ending on {{trip.end_date | date}} in {{trip.end_location}}</p>
-      </div>
+            </form>
+        </div>
+    <!--  END: Add Trip Accordion-group  -->
+
+    <!--  START: Show Trips Accordion-group  -->
+        <div uib-accordion-group ng-repeat="trip in mtc.trips" ng-click="mtc.getDays(trip._id)" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+            <uib-accordion-heading>
+                {{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}
+            </uib-accordion-heading>
+
+            <p>{{trip.travellers}}</p>
+            <p>Starting on {{trip.begin_date | date}} in {{trip.begin_location}}</p>
+            <p>Ending on {{trip.end_date | date}} in {{trip.end_location}}</p>
+
+            <!--  Add Day within Show Trips Accordion Group -->
+            <div uib-accordion-group class="panel-primary" is-disabled="mtc.status.isFirstDisabled">
+                <uib-accordion-heading>
+                    Add a Day
+                </uib-accordion-heading>
+
+                <div class="form-group" ng-model="mtc.newDay.trip_name">
+                    <ng-form name="addDayForm">
+
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
+                                <label class="sr-only" for="dayEndLocation">Location</label>
+                                <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" placeholder="Where are you?">
+                            </div>
+                        </div>
+
+                        <label class="sr-only">Tag Line</label>
+                        <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line" placeholder="Tag line for the day">
+
+                        <label>Points of Interest</label><br>
+                        <button type="button" class="btn btn-xs btn-default" ng-click="mtc.addPOI()"><span class="glyphicon glyphicon-plus"></span></button>
+                        <input type="text" name="pointOfInterestName" ng-model="mtc.pointOfInterest.name" placeholder="Add point of interest">
+                        <input type="text" name="pointOfInterestDesc" ng-model="mtc.pointOfInterest.description" placeholder="Description">
+                        <ul class="pointsOfInterest" ng-repeat="place in mtc.newDay.interesting_locations">
+                            <li>{{place.name}} - {{place.description}}</li>
+                        </ul><br>
+
+                        <label>Routes</label><br>
+                        <button type="button" class="btn btn-xs btn-default" ng-click="mtc.addRoute()"><span class="glyphicon glyphicon-plus"></span></button>
+                        <input type="text" name="routeName" ng-model="mtc.route.name" placeholder="Point on route">
+                        <input type="text" name="routeDistance" ng-model="mtc.route.distance" placeholder="Distance">
+                        <input type="text" name="routeDuration" ng-model="mtc.route.duration" placeholder="Duration">
+                        <input type="text" name="routeTransportMode" ng-model="mtc.route.transport_mode" placeholder="TransportMode">
+                        <input type="text" name="routeSpecifics" ng-model="mtc.route.specifics" placeholder="Specifics">
+                        <input type="text" name="routeComment" ng-model="mtc.route.comment" placeholder="Comments">
+                        <ul class="routes" ng-repeat="route in mtc.newDay.routes">
+                            <li>{{route.name}} - {{route.distance}}, {{route.duration}}, {{route.transport_mode}}, {{route.specifics}}, {{route.comment}}</li>
+                        </ul><br>
+
+                        <label>Meals</label><br>
+                        <button type="button" class="btn btn-xs btn-default" ng-click="mtc.addMeal()"><span class="glyphicon glyphicon-plus"></span></button>
+                        <input type="text" name="mealName" ng-model="mtc.meal.name" placeholder="Name">
+                        <input type="text" name="mealType" ng-model="mtc.meal.type" placeholder="Type">
+                        <input type="text" name="mealLocation" ng-model="mtc.meal.location" placeholder="Address">
+                        <input type="text" name="mealDesc" ng-model="mtc.meal.description" placeholder="Description">
+                        <input type="text" name="mealReference" ng-model="mtc.meal.reference" placeholder="Reference">
+                        <ul class="meals" ng-repeat="meal in mtc.newDay.meals">
+                            <li>{{meal.name}} - {{meal.type}}, {{meal.location}}, {{meal.description}}, {{meal.reference}}</li>
+                        </ul><br>
+
+                        <div class="form-group">
+                            <label class="sr-only">Lodging</label>
+                            <input type="text" class="form-control" name="lodging_name" ng-model="mtc.newDay.lodging_name" placeholder="Name">
+                            <label class="sr-only">Type</label>
+                            <input type="text" class="form-control" name="lodging_type" ng-model="mtc.newDay.lodging_type" placeholder="Type">
+                            <label class="sr-only">Address</label>
+                            <input type="text" class="form-control" name="lodging_address" ng-model="mtc.newDay.lodging_address" placeholder="Address">
+                            <label class="sr-only">Reference</label>
+                            <input type="text" class="form-control" name="lodging_reference" ng-model="mtc.newDay.lodging_reference" placeholder="Reference">
+                        </div>
+                        <label class="sr-only">Narrative</label>
+                        <input type="text" class="form-control" name="narrative" ng-model="mtc.newDay.narrative" placeholder="Describe the day">
+
+                        <label>Recommendations</label><br>
+                        <button type="button" class="btn btn-xs btn-default" ng-click="mtc.addRecommendation()"><span class="glyphicon glyphicon-plus"></span></button>
+                        <input type="text" name="recommendationText" ng-model="mtc.recommendation.text" placeholder="Recommendations?">
+                        <ul class="pointsOfInterest" ng-repeat="recommendation in mtc.newDay.recommendations">
+                            <li>{{recommendation.text}}</li>
+                        </ul><br>
+
+                        <label class="sr-only">Weather</label>
+                        <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
+
+                        <button class="btn btn-default btn-md pull-right" ng-click="mtc.addDay(trip._id)">Save</button>
+
+                    </ng-form>
+
+                </div>
+
+            </div>
+            <!--  END: Add day accordion-group (within a trip)  -->
+
+            <!--  START: Show days accordion group (within a trip) -->
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group ng-repeat="day in mtc.days" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+                    <uib-accordion-heading>
+                        {{day.date | date:'MM/dd'}} - {{day.end_location}}
+                    </uib-accordion-heading>
+
+                    <p>Day - {{day.date}}</p>
+                </div>
+            </uib-accordion>
+            <!--  END: Show days accordion group-->
+
+        </div>
+        <!--  END: Days accordion group-->
+
     </uib-accordion>
+    <!--  END: Accordion  -->
 </div>

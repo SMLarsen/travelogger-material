@@ -13,6 +13,10 @@ var userSchema = new Schema({
         default: 5,
         min: 0,
         max: 5
+    },
+    date_added: {
+        type: Date,
+        default: Date.now
     }
 });
 

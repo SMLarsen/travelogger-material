@@ -8,8 +8,7 @@ var tripSchema = new Schema({
     },
     trip_name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     begin_date: {
         type: Date
@@ -25,6 +24,10 @@ var tripSchema = new Schema({
     },
     travellers: {
         type: String
+    },
+    date_added: {
+        type: Date,
+        default: Date.now
     }
 });
 
