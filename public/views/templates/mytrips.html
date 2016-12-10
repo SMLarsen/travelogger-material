@@ -22,9 +22,10 @@
 
     <h2>My Trips</h2>
 
-    <!--  START:  Add Trip Accordion  -->
+    <!--  START:  Accordion  -->
     <uib-accordion close-others="oneAtATime">
 
+      <!--  START:  Add Trip Accordion-group  -->
         <div uib-accordion-group class="panel-default" uib-collapse="mtc.isCollapsed" heading="Add a Trip">
             <form name="tripAdd" novalidate>
 
@@ -49,11 +50,9 @@
 
             </form>
         </div>
-    </uib-accordion>
-    <!--  END: Add Trip Accordion  -->
+    <!--  END: Add Trip Accordion-group  -->
 
-    <!--  START: Show Trips Accordion  -->
-    <uib-accordion close-others="oneAtATime">
+    <!--  START: Show Trips Accordion-group  -->
         <div uib-accordion-group ng-repeat="trip in mtc.trips" ng-click="mtc.getDays(trip._id)" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
             <uib-accordion-heading>
                 {{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}
@@ -145,9 +144,9 @@
                 </div>
 
             </div>
-            <!--  END: Add day accordion group-->
+            <!--  END: Add day accordion-group (within a trip)  -->
 
-            <!--  START: Show days accordion group  -->
+            <!--  START: Show days accordion group (within a trip) -->
             <uib-accordion close-others="oneAtATime">
                 <div uib-accordion-group ng-repeat="day in mtc.days" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
                     <uib-accordion-heading>
@@ -160,6 +159,8 @@
             <!--  END: Show days accordion group-->
 
         </div>
+        <!--  END: Days accordion group-->
+
     </uib-accordion>
-    <!--  END: Show Trips Accordion  -->
+    <!--  END: Accordion  -->
 </div>
