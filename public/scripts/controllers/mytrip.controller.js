@@ -72,6 +72,31 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End addTrip
 
+        // Function to update a trip
+        self.updateTrip = function(trip) {
+            console.log('updateTrip', trip);
+            // authFactory.getIdToken().then(function(loginUser) {
+            //     self.newTrip.user_id = loginUser.id;
+            //     console.log('With id:', self.newTrip);
+            //     $http({
+            //         method: 'POST',
+            //         url: '/trip',
+            //         headers: {
+            //             id_token: loginUser.authIdToken
+            //         },
+            //         data: self.newTrip
+            //     }).then(function(response) {
+            //             console.log('Trip added');
+            //             self.newTrip = {};
+            //             // self.status.isFirstOpen = false;
+            //             getTrips();
+            //         },
+            //         function(err) {
+            //             console.log('Unable to add trip', err);
+            //         });
+            // });
+        }; // End updateTrip
+
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
         console.log('delete trip:', tripID);
