@@ -26,7 +26,7 @@
     <uib-accordion close-others="oneAtATime">
 
       <!--  START:  Add Trip Accordion-group  -->
-        <div uib-accordion-group class="panel-default" uib-collapse="mtc.isCollapsed" heading="Add a Trip">
+        <div uib-accordion-group class="panel-primary" uib-collapse="mtc.isCollapsed" heading="Add a Trip">
             <form name="tripAdd" novalidate>
 
                 <div class="form-group" ng-model="mtc.newTrip.trip_name">
@@ -63,7 +63,7 @@
             <p>Ending on {{trip.end_date | date}} in {{trip.end_location}}</p>
 
             <!--  Add Day within Show Trips Accordion Group -->
-            <div uib-accordion-group class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+            <div uib-accordion-group class="panel-primary" is-disabled="mtc.status.isFirstDisabled">
                 <uib-accordion-heading>
                     Add a Day
                 </uib-accordion-heading>
