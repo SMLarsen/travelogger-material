@@ -59,7 +59,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 data: self.newTrip
             }).then(function(response) {
                     console.log('Trip added');
-                    self.getTrips();
+                    getTrips();
                 },
                 function(err) {
                     console.log('Unable to add trip', err);
