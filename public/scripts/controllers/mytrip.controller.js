@@ -63,7 +63,6 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
             }).then(function(response) {
                     console.log('Trip added');
                     self.newTrip = {};
-                    // self.status.isFirstOpen = false;
                     getTrips();
                 },
                 function(err) {
@@ -77,7 +76,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
             console.log('updateTrip', trip);
             authFactory.getIdToken().then(function(loginUser) {
                 $http({
-                    method: 'POST',
+                    method: 'PUT',
                     url: '/trip/' + trip._id,
                     headers: {
                         id_token: loginUser.authIdToken
@@ -85,7 +84,6 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                     data: trip
                 }).then(function(response) {
                         console.log('Trip updated');
-                        self.newTrip = {};
                         getTrips();
                     },
                     function(err) {
