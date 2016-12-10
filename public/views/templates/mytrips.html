@@ -139,15 +139,26 @@
                         <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
 
                         <button class="btn btn-default btn-md pull-right" ng-click="mtc.addDay(trip._id)">Save</button>
-                        <div class="daysList" ng-repeat="day in mtc.days">
-                            Day - {{day.end_location}}
 
-                        </div>
                     </ng-form>
 
                 </div>
+
             </div>
             <!--  END: Add day accordion group-->
+
+            <!--  START: Show days accordion group  -->
+            <uib-accordion close-others="oneAtATime" ng-repeat="day in mtc.days">
+                <div uib-accordion-group class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+                    <uib-accordion-heading>
+                        {{day.date | date:'MM/dd'}} - {{day.end_location}}
+                    </uib-accordion-heading>
+
+                    <p>Day - {{day.date}}</p>
+                </div>
+            </uib-accordion>
+            <!--  END: Show days accordion group-->
+
         </div>
     </uib-accordion>
     <!--  END: Show Trips Accordion  -->
