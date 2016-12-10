@@ -53,8 +53,8 @@
     <!--  END: Add Trip Accordion  -->
 
     <!--  START: Show Trips Accordion  -->
-    <uib-accordion close-others="oneAtATime" ng-repeat="trip in mtc.trips">
-        <div uib-accordion-group ng-click="mtc.getDays(trip._id)" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+    <uib-accordion close-others="oneAtATime">
+        <div uib-accordion-group ng-repeat="trip in mtc.trips" ng-click="mtc.getDays(trip._id)" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
             <uib-accordion-heading>
                 {{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}
             </uib-accordion-heading>
@@ -148,8 +148,8 @@
             <!--  END: Add day accordion group-->
 
             <!--  START: Show days accordion group  -->
-            <uib-accordion close-others="oneAtATime" ng-repeat="day in mtc.days">
-                <div uib-accordion-group class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group ng-repeat="day in mtc.days" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
                     <uib-accordion-heading>
                         {{day.date | date:'MM/dd'}} - {{day.end_location}}
                     </uib-accordion-heading>
