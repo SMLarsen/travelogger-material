@@ -60,8 +60,11 @@
                 <span class="updateBtn pull-right fa fa-check" ng-click="mtc.updateTrip(trip)"></span>
             </uib-accordion-heading>
 
+            <!-- <div class="popover-wrapper">
+              <h4><a href="#" editable-text="trip.travellers">{{trip.travellers || 'empty' }}</a></h4>
+              </div> -->
+
             <h4><a editable-text="trip.travellers" buttons="no">{{trip.travellers || 'empty' }}</a></h4>
-{{trip}}
             <p>Starting on <a editable-date="trip.begin_date" buttons="no">{{trip.begin_date | date }}</a> in <a buttons="no"  editable-text="trip.begin_location">{{trip.begin_location || 'empty' }}</a></p>
             <p>Ending on <a editable-date="trip.end_date" buttons="no" >{{trip.end_date | date }}</a> in <a buttons="no"  editable-text="trip.end_location">{{trip.end_location || 'empty' }}</a></p>
 
