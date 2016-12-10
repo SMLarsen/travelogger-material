@@ -143,21 +143,20 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         // Function to Delete a day
         self.deleteDay = function(dayID) {
           console.log('delete day:', dayID);
-            // authFactory.getIdToken().then(function(loginUser) {
-            //     $http({
-            //         method: 'DELETE',
-            //         url: '/day/' + dayID,
-            //         headers: {
-            //             id_token: loginUser.authIdToken
-            //         }
-            //     }).then(function(response) {
-            //             self.days = response.data;
-            //             console.log('response.data', self.days);
-            //         },
-            //         function(err) {
-            //             console.log('Unable to delete day', err);
-            //         });
-            // });
+            authFactory.getIdToken().then(function(loginUser) {
+                $http({
+                    method: 'DELETE',
+                    url: '/day/' + dayID,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    }
+                }).then(function(response) {
+                        console.log('Day deleted');
+                    },
+                    function(err) {
+                        console.log('Unable to delete day', err);
+                    });
+            });
         }; // End deleteDay
 
     // Add point of interest to new Day

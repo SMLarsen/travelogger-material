@@ -32,4 +32,18 @@ router.post("/", function(req, res) {
   });
 }); // END: POST day route
 
+// Route: Delete a day
+router.delete("/:id", function(req, res) {
+  var dayToDelete = req.params.id;
+  console.log('Deleting day:', dayToDelete);
+  day.remove({ _id: dayToDelete }, function(err) {
+      if (err) {
+          console.log('There was an error deleting day:', err);
+          res.sendStatus(500);
+      } else {
+          res.send(201);
+      }
+  });
+}); // END: DELETE day route
+
 module.exports = router;
