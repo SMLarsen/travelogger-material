@@ -17,10 +17,11 @@ h2 {
     text-align: center;
 }
 
-/*body {
-    background-image: url(../assets/images/DSC03504-2.jpg);
-    background-size:  cover;
-}*/
+body {
+  background-color: gainsboro;
+    /*background-image: url(../assets/images/DSC03504-2.jpg);
+    background-size:  cover;*/
+}
 
 .deleteBtn {
   padding-left: 5px;
