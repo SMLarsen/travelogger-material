@@ -108,7 +108,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 }
             }).then(function(response) {
                     self.days = response.data;
-                    console.log('response.data', response.data);
+                    console.log('response.data', self.days);
                 },
                 function(err) {
                     console.log('Unable to retrieve days', err);
