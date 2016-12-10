@@ -31,6 +31,11 @@ var tripSchema = new Schema({
     }
 });
 
+tripSchema.pre('remove', function(next) {
+    // Remove all the assignment docs that reference the removed person.
+    this.model('Day').remove({ trip: this._id }, next);
+});
+
 // user model
 var Trip = mongoose.model('trip', tripSchema);
 

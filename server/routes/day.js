@@ -33,7 +33,7 @@ router.post("/", function(req, res) {
 }); // END: POST day route
 
 // Route: Delete a day
-router.delete("/:id", function(req, res) {
+router.delete("/day/:id", function(req, res) {
   var dayToDelete = req.params.id;
   console.log('Deleting day:', dayToDelete);
   day.remove({ _id: dayToDelete }, function(err) {
@@ -45,5 +45,19 @@ router.delete("/:id", function(req, res) {
       }
   });
 }); // END: DELETE day route
+
+// Route: Delete all days for a trip
+router.delete("/trip/:id", function(req, res) {
+  var tripDaysToDelete = req.params.id;
+  console.log('Deleting days for trip:', tripDaysToDelete);
+  day.remove({ trip_id: tripDaysToDelete }, function(err) {
+      if (err) {
+          console.log('There was an error deleting days for trip:', err);
+          res.sendStatus(500);
+      } else {
+          res.send(201);
+      }
+  });
+}); // END: DELETE all days for a trip
 
 module.exports = router;

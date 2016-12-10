@@ -62,6 +62,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 data: self.newTrip
             }).then(function(response) {
                     console.log('Trip added');
+                    self.newTrip = {};
                     // self.status.isFirstOpen = false;
                     getTrips();
                 },
@@ -83,6 +84,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 }
             }).then(function(response) {
                     console.log('Trip deleted');
+                    deleteTripDays(tripID);
                     getTrips();
 
                 },
@@ -109,6 +111,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
             }).then(function(response) {
                     console.log('Day added');
                     // self.isCollapsed = true;
+                    self.newDay = {};
                     self.getDays(tripID);
                 },
                 function(err) {
@@ -143,7 +146,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         authFactory.getIdToken().then(function(loginUser) {
             $http({
                 method: 'DELETE',
-                url: '/day/' + dayID,
+                url: '/day/one/' + dayID,
                 headers: {
                     id_token: loginUser.authIdToken
                 }
@@ -155,6 +158,25 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 });
         });
     }; // End deleteDay
+
+        // Function to Delete all days for a trip
+        deleteTripDays = function(tripID) {
+            console.log('delete days for trip:', tripID);
+            authFactory.getIdToken().then(function(loginUser) {
+                $http({
+                    method: 'DELETE',
+                    url: '/day/trip/' + tripID,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    }
+                }).then(function(response) {
+                        console.log('Days deleted for trip');
+                    },
+                    function(err) {
+                        console.log('Unable to delete days for trip', err);
+                    });
+            });
+        }; // End deleteTripDays
 
     // Add point of interest to new Day
     self.addPOI = function() {
