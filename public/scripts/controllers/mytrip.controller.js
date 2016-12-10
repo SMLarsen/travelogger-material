@@ -2,6 +2,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     console.log('MyTripController started');
     var self = this;
     self.trips = [];
+    self.days = [];
     var authFactory = AuthFactory;
     self.newTrip = {};
     self.newDay = {
@@ -75,7 +76,8 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         self.newDay.trip_id = tripID;
         console.log('addDay', self.newDay);
         authFactory.getIdToken().then(function(loginUser) {
-            self.newDay.user_id = loginUser.userId;
+            self.newDay.user_id = loginUser.id;
+            console.log('loginUser:', loginUser.id);
             $http({
                 method: 'POST',
                 url: '/day',
@@ -86,13 +88,33 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
             }).then(function(response) {
                     console.log('Day added');
                     // self.isCollapsed = true;
-                    self.getTrips();
+                    self.getDays(tripID);
                 },
                 function(err) {
                     console.log('Unable to add day', err);
                 });
         });
     }; // End addDay
+
+    // Function to GET days
+    self.getDays = function(tripID) {
+      console.log('getting days for:', tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'GET',
+                url: '/day/' + tripID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                }
+            }).then(function(response) {
+                    self.days = response.data;
+                    console.log('response.data', response.data);
+                },
+                function(err) {
+                    console.log('Unable to retrieve days', err);
+                });
+        });
+    }; // End getDays
 
     // Add point of interest to new Day
     self.addPOI = function() {
