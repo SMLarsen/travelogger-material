@@ -34,4 +34,20 @@ router.post("/", function(req, res) {
   });
 }); // END: POST trip route
 
+// Route: Delete a trip
+router.delete("/:id", function(req, res) {
+  var tripToDelete = req.params.id;
+  console.log('Deleting trip:', tripToDelete);
+  trip.remove({ _id: tripToDelete }, function(err) {
+      if (err) {
+          console.log('There was an error deleting trip:', err);
+          res.sendStatus(500);
+      } else {
+          res.send(201);
+      }
+  });
+}); // END: DELETE trip route
+
+
+
 module.exports = router;

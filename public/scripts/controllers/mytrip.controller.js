@@ -71,29 +71,26 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End addTrip
 
-        // Function to delete a trip
-        self.deleteTrip = function(tripID) {
-            console.log('deleteTrip', tripID);
-            // authFactory.getIdToken().then(function(loginUser) {
-            //     self.newTrip.user_id = loginUser.id;
-            //     console.log('With id:', self.newTrip);
-            //     $http({
-            //         method: 'POST',
-            //         url: '/trip',
-            //         headers: {
-            //             id_token: loginUser.authIdToken
-            //         },
-            //         data: self.newTrip
-            //     }).then(function(response) {
-            //             console.log('Trip deleteed');
-            //             // self.status.isFirstOpen = false;
-            //             getTrips();
-            //         },
-            //         function(err) {
-            //             console.log('Unable to delete trip', err);
-            //         });
-            // });
-        }; // End deleteTrip
+    // Function to delete a trip
+    self.deleteTrip = function(tripID) {
+        console.log('delete trip:', tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'DELETE',
+                url: '/trip/' + tripID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                }
+            }).then(function(response) {
+                    console.log('Trip deleted');
+                    getTrips();
+
+                },
+                function(err) {
+                    console.log('Unable to delete trip', err);
+                });
+        });
+    }; // End deleteTrip
 
     // Function to add a day
     self.addDay = function(tripID) {
@@ -122,7 +119,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
 
     // Function to GET days
     self.getDays = function(tripID) {
-      console.log('getting days for:', tripID);
+        console.log('getting days for:', tripID);
         authFactory.getIdToken().then(function(loginUser) {
             $http({
                 method: 'GET',
@@ -140,24 +137,24 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End getDays
 
-        // Function to Delete a day
-        self.deleteDay = function(dayID) {
-          console.log('delete day:', dayID);
-            authFactory.getIdToken().then(function(loginUser) {
-                $http({
-                    method: 'DELETE',
-                    url: '/day/' + dayID,
-                    headers: {
-                        id_token: loginUser.authIdToken
-                    }
-                }).then(function(response) {
-                        console.log('Day deleted');
-                    },
-                    function(err) {
-                        console.log('Unable to delete day', err);
-                    });
-            });
-        }; // End deleteDay
+    // Function to Delete a day
+    self.deleteDay = function(dayID) {
+        console.log('delete day:', dayID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'DELETE',
+                url: '/day/' + dayID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                }
+            }).then(function(response) {
+                    console.log('Day deleted');
+                },
+                function(err) {
+                    console.log('Unable to delete day', err);
+                });
+        });
+    }; // End deleteDay
 
     // Add point of interest to new Day
     self.addPOI = function() {
