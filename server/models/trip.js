@@ -24,6 +24,10 @@ var tripSchema = new Schema({
     },
     travellers: {
         type: String
+    },
+    date_added: {
+        type: Date,
+        default: Date.now
     }
 });
 

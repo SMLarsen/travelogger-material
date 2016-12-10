@@ -46,7 +46,11 @@ var daySchema = new Schema({
     lodging_reference: String,
     narrative: String,
     recommendations: [Recommendation],
-    weather: String
+    weather: String,
+    date_added: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 // user model
