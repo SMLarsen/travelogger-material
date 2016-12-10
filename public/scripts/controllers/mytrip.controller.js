@@ -48,6 +48,8 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     self.addTrip = function() {
         console.log('addTrip', self.newTrip);
         authFactory.getIdToken().then(function(loginUser) {
+            self.newTrip.user_id = loginUser.id;
+            console.log('With id:', self.newTrip);
             $http({
                 method: 'POST',
                 url: '/trip',
