@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var trip = require('../models/day');
+var day = require('../models/day');
 
 // Route: Get days
 router.get('/:id', function(req, res) {
-  var tripId = req.params.id;
+  var dayId = req.params.id;
   console.log('Looking for days for', tripId);
 
-  var queryParam = "{trip_id: ObjectId(" + tripId + ")}";
+  var queryParam = "{day_id: ObjectId(" + dayId + ")}";
   console.log('queryParam: ', queryParam);
-  trip.find(queryParam, function(err, trips) {
+  day.find(queryParam, function(err, days) {
     if(err) {
       console.log('Get ERR: ', err);
       res.sendStatus(500);

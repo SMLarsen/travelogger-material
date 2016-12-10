@@ -2,17 +2,25 @@
     cursor: pointer;
 }
 
+main {
+  margin: 70px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 10em;
+  color: #e77811;
+  font-weight: bolder;
+}
+
 h2 {
     text-align: center;
 }
 
-#homeView {
+/*body {
     background-image: url(../assets/images/DSC03504-2.jpg);
-    background-position: -300px -100px;
-    width: 100%;
-    height: 900px;
-    z-index: 2;
-}
+    background-size:  cover;
+}*/
 
 #navView {
     position: fixed;

@@ -21,6 +21,8 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         isFirstDisabled: false
     };
 
+    // self.isCollapsed = true;
+
     self.oneAtATime = true;
 
     getTrips();
@@ -59,6 +61,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 data: self.newTrip
             }).then(function(response) {
                     console.log('Trip added');
+                    // self.status.isFirstOpen = false;
                     getTrips();
                 },
                 function(err) {
@@ -82,6 +85,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 data: self.newDay
             }).then(function(response) {
                     console.log('Day added');
+                    // self.isCollapsed = true;
                     self.getTrips();
                 },
                 function(err) {
