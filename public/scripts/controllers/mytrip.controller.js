@@ -22,6 +22,10 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         isFirstDisabled: false
     };
 
+    self.transportModes = ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'];
+    self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
+    self.mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'];
+
     // self.isCollapsed = true;
 
     self.oneAtATime = true;
@@ -71,26 +75,26 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End addTrip
 
-        // Function to update a trip
-        self.updateTrip = function(trip) {
-            console.log('updateTrip', trip);
-            authFactory.getIdToken().then(function(loginUser) {
-                $http({
-                    method: 'PUT',
-                    url: '/trip/' + trip._id,
-                    headers: {
-                        id_token: loginUser.authIdToken
-                    },
-                    data: trip
-                }).then(function(response) {
-                        console.log('Trip updated');
-                        getTrips();
-                    },
-                    function(err) {
-                        console.log('Unable to update trip', err);
-                    });
-            });
-        }; // End updateTrip
+    // Function to update a trip
+    self.updateTrip = function(trip) {
+        console.log('updateTrip', trip);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'PUT',
+                url: '/trip/' + trip._id,
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: trip
+            }).then(function(response) {
+                    console.log('Trip updated');
+                    getTrips();
+                },
+                function(err) {
+                    console.log('Unable to update trip', err);
+                });
+        });
+    }; // End updateTrip
 
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
@@ -131,13 +135,13 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
             }).then(function(response) {
                     console.log('Day added');
                     // self.isCollapsed = true;
-                    self.newDay = {};
                     self.getDays(tripID);
                 },
                 function(err) {
                     console.log('Unable to add day', err);
                 });
         });
+        self.newDay = {};
     }; // End addDay
 
     // Function to GET days
@@ -179,43 +183,47 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End deleteDay
 
-        // Function to Delete all days for a trip
-        deleteTripDays = function(tripID) {
-            console.log('delete days for trip:', tripID);
-            authFactory.getIdToken().then(function(loginUser) {
-                $http({
-                    method: 'DELETE',
-                    url: '/day/trip/' + tripID,
-                    headers: {
-                        id_token: loginUser.authIdToken
-                    }
-                }).then(function(response) {
-                        console.log('Days deleted for trip');
-                    },
-                    function(err) {
-                        console.log('Unable to delete days for trip', err);
-                    });
-            });
-        }; // End deleteTripDays
+    // Function to Delete all days for a trip
+    deleteTripDays = function(tripID) {
+        console.log('delete days for trip:', tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'DELETE',
+                url: '/day/trip/' + tripID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                }
+            }).then(function(response) {
+                    console.log('Days deleted for trip');
+                },
+                function(err) {
+                    console.log('Unable to delete days for trip', err);
+                });
+        });
+    }; // End deleteTripDays
 
     // Add point of interest to new Day
     self.addPOI = function() {
         self.newDay.interesting_locations.push(angular.copy(self.pointOfInterest));
+        self.pointOfInterest = {};
     }; // End addPOI
 
     // Add route to new Day
     self.addRoute = function() {
         self.newDay.routes.push(angular.copy(self.route));
-    }; // End addPOI
+        self.route = {};
+    }; // End addRoute
 
     // Add meal to new Day
     self.addMeal = function() {
         self.newDay.meals.push(angular.copy(self.meal));
-    }; // End addPOI
+        self.meal = {};
+    }; // End addMeal
 
     // Add Recommendation to new Day
     self.addRecommendation = function() {
         self.newDay.recommendations.push(angular.copy(self.recommendation));
-    }; // End addPOI
+        self.recommendation = {};
+    }; // End addRecommendation
 
 }]); // END: TripController
