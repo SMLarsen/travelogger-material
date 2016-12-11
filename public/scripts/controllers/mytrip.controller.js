@@ -22,6 +22,12 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         isFirstDisabled: false
     };
 
+    self.statusInner = {
+        isCustomHeaderOpen: false,
+        isFirstOpen: true,
+        isFirstDisabled: false
+    };
+
     self.transportModes = ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'];
     self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
     self.mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'];
@@ -53,10 +59,10 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
 
     // Function to add a trips
     self.addTrip = function() {
-        console.log('addTrip', self.newTrip);
+        console.log('addTrip:', self.newTrip);
         authFactory.getIdToken().then(function(loginUser) {
             self.newTrip.user_id = loginUser.id;
-            console.log('With id:', self.newTrip);
+            // console.log('With id:', self.newTrip);
             $http({
                 method: 'POST',
                 url: '/trip',
@@ -121,10 +127,10 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     // Function to add a day
     self.addDay = function(tripID) {
         self.newDay.trip_id = tripID;
-        console.log('addDay', self.newDay);
+        console.log('addDay:', self.newDay);
         authFactory.getIdToken().then(function(loginUser) {
             self.newDay.user_id = loginUser.id;
-            console.log('loginUser:', loginUser.id);
+            // console.log('With id:', self.newDay);
             $http({
                 method: 'POST',
                 url: '/day',
@@ -134,14 +140,13 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 data: self.newDay
             }).then(function(response) {
                     console.log('Day added');
-                    // self.isCollapsed = true;
+                    self.newDay = {};
                     self.getDays(tripID);
                 },
                 function(err) {
                     console.log('Unable to add day', err);
                 });
         });
-        self.newDay = {};
     }; // End addDay
 
     // Function to GET days

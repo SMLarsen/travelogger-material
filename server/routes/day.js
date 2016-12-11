@@ -33,7 +33,7 @@ router.post("/", function(req, res) {
 }); // END: POST day route
 
 // Route: Delete a day
-router.delete("/day/:id", function(req, res) {
+router.delete("/one/:id", function(req, res) {
   var dayToDelete = req.params.id;
   console.log('Deleting day:', dayToDelete);
   day.remove({ _id: dayToDelete }, function(err) {

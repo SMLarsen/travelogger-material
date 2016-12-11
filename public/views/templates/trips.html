@@ -1,65 +1,140 @@
 <h2>Trips</h2>
-<div class="col-sm-6 col-sm-offest-3">
-  <script type="text/ng-template" id="group-template.html">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title" style="color:#fa39c3">
+
+<div class="mycontainer">
+    <div class="left-nav">
+
+        <uib-accordion close-others="false">
+          <div uib-accordion-group>
+            <uib-accordion-heading>
+                Add Trip
+                <i class="pull-right glyphicon"></i>
+            </uib-accordion-heading>
+          </div>
+            <div uib-accordion-group ng-repeat="item in tc.items">
+                <uib-accordion-heading>
+                    {{item.desc}}
+                    <i class="pull-right glyphicon"></i>
+                </uib-accordion-heading>
+                <div uib-accordion-group>
+                  <uib-accordion-heading>
+                      Add Day
+                      <i class="pull-right glyphicon"></i>
+                  </uib-accordion-heading>
+                </div>
+
+                <div uib-accordion-group ng-repeat="subitem in item.subitems">
+                  <uib-accordion-heading>
+                      {{subitem.desc}}
+                      <i class="pull-right glyphicon"></i>
+                  </uib-accordion-heading>
+                    <div ng-repeat="subitem2 in subitem.subitems">
+                        <p>{{subitem2.desc}}</p>
+                    </div>
+                </div>
+            </div>
+        </uib-accordion>
+    </div>
+
+    <div class="content">
+    </div>
+</div>
+
+<h2>Trips Old</h2>
+
+
+
+<!-- <div class="col-sm-6 col-sm-offest-3">
+    <script type="text/ng-template" id="group-template.html">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="color:#fa39c3">
           <a href tabindex="0" class="accordion-toggle" ng-click="tc.toggleOpen()" uib-accordion-transclude="heading">
             <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
               {{heading}}
             </span>
           </a>
         </h4>
-      </div>
-      <div class="panel-collapse collapse" uib-collapse="!isOpen">
-        <div class="panel-body" style="text-align: right" ng-transclude></div>
-      </div>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="!isOpen">
+                <div class="panel-body" style="text-align: right" ng-transclude></div>
+            </div>
+        </div>
+    </script>
+
+
+    <div>
+        <h2>Nested Accordion Groups</h2>
+        <div style="padding-top:50px;">
+            <uib-accordion>
+              <div uib-accordion-group heading="Add a Trip">
+                <p>Add trip here</p>
+              </div>
+                <div uib-accordion-group heading="My trip 1">
+                  <p>My trip 1 demos</p>
+                    <uib-accordion close-others="oneAtATime">
+                      <div uib-accordion-group heading="Add a Day">
+                        Add day here
+                      </div>
+                        <div uib-accordion-group heading="Day 1">
+                          <p>Day 1 stuff</p>
+                        </div>
+                        <div uib-accordion-group heading="Day 2">
+                          <p>Day 2 stuff</p>
+                        </div>
+                        <div uib-accordion-group heading="Day 3">
+                          <p>Day 3 stuff</p>
+                        </div>
+                    </uib-accordion>
+                </div>
+            </uib-accordion>
+        </div>
+
+
     </div>
-  </script>
 
-
-<p>
-  <button type="button" class="btn btn-default btn-sm" ng-click="tc.status.open = !tc.status.open">Toggle last panel</button>
-  <button type="button" class="btn btn-default btn-sm" ng-click="tc.status.isFirstDisabled = ! tc.status.isFirstDisabled">Enable / Disable first panel</button>
-</p>
-<p>status.open: {{tc.status.open}}</p>
-<p>status.isFirstDisabled: {{tc.status.isFirstDisabled}}</p>
-<div class="checkbox">
-  <label>
+    <h2>Example</h2>
+    <p>
+        <button type="button" class="btn btn-default btn-sm" ng-click="tc.status.open = !tc.status.open">Toggle last panel</button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="tc.status.isFirstDisabled = ! tc.status.isFirstDisabled">Enable / Disable first panel</button>
+    </p>
+    <p>status.open: {{tc.status.open}}</p>
+    <p>status.isFirstDisabled: {{tc.status.isFirstDisabled}}</p>
+    <div class="checkbox">
+        <label>
     <input type="checkbox" ng-model="tc.oneAtATime">
     Open only one at a time
   </label>
-</div>
-<uib-accordion close-others="oneAtATime">
-  <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="tc.status.isFirstOpen" is-disabled="tc.status.isFirstDisabled">
-    This content is straight in the template.
-  </div>
-  <div uib-accordion-group class="panel-default" heading="{{tc.group.title}}" ng-repeat="group in tc.groups">
-    {{group.content}}
-  </div>
-  <div uib-accordion-group class="panel-default" heading="Dynamic Body Content">
-    <p>The body of the uib-accordion group grows to fit the contents</p>
-    <button type="button" class="btn btn-default btn-sm" ng-click="tc.addItem()">Add Item</button>
-    <div ng-repeat="item in tc.items">{{item}}</div>
-  </div>
-  <div uib-accordion-group class="panel-default" heading="Custom template" template-url="group-template.html">
-    Hello
-  </div>
-  <div uib-accordion-group class="panel-default" is-open="tc.status.isCustomHeaderOpen" template-url="group-template.html">
-    <uib-accordion-heading>
-      Custom template with custom header template <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tc.status.isCustomHeaderOpen, 'glyphicon-chevron-right': !tc.status.isCustomHeaderOpen}"></i>
-    </uib-accordion-heading>
-    World
-  </div>
-  <div uib-accordion-group class="panel-danger" heading="Delete account">
-    <p>Please, to delete your account, click the button below</p>
-    <button class="btn btn-danger">Delete</button>
-  </div>
-  <div uib-accordion-group class="panel-default" is-open="tc.status.open">
-    <uib-accordion-heading>
-      I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tc.status.open, 'glyphicon-chevron-right': !tc.status.open}"></i>
-    </uib-accordion-heading>
-    This is just some content to illustrate fancy headings.
-  </div>
-</uib-accordion>
-</div>
+    </div>
+    <uib-accordion close-others="oneAtATime">
+        <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="tc.status.isFirstOpen" is-disabled="tc.status.isFirstDisabled">
+            This content is straight in the template.
+        </div>
+        <div uib-accordion-group class="panel-default" heading="{{tc.group.title}}" ng-repeat="group in tc.groups">
+            {{group.content}}
+        </div>
+        <div uib-accordion-group class="panel-default" heading="Dynamic Body Content">
+            <p>The body of the uib-accordion group grows to fit the contents</p>
+            <button type="button" class="btn btn-default btn-sm" ng-click="tc.addItem()">Add Item</button>
+            <div ng-repeat="item in tc.items">{{item}}</div>
+        </div>
+        <div uib-accordion-group class="panel-default" heading="Custom template" template-url="group-template.html">
+            Hello
+        </div>
+        <div uib-accordion-group class="panel-default" is-open="tc.status.isCustomHeaderOpen" template-url="group-template.html">
+            <uib-accordion-heading>
+                Custom template with custom header template <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tc.status.isCustomHeaderOpen, 'glyphicon-chevron-right': !tc.status.isCustomHeaderOpen}"></i>
+            </uib-accordion-heading>
+            World
+        </div>
+        <div uib-accordion-group class="panel-danger" heading="Delete account">
+            <p>Please, to delete your account, click the button below</p>
+            <button class="btn btn-danger">Delete</button>
+        </div>
+        <div uib-accordion-group class="panel-default" is-open="tc.status.open">
+            <uib-accordion-heading>
+                I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tc.status.open, 'glyphicon-chevron-right': !tc.status.open}"></i>
+            </uib-accordion-heading>
+            This is just some content to illustrate fancy headings.
+        </div>
+    </uib-accordion> -->
+<!-- </div> -->
