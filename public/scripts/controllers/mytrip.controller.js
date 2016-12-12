@@ -176,7 +176,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
 
     // Function to Update a day's general data
     self.updateDayGeneral = function(day, dayID, tripID) {
-      day._id = dayID;
+        day._id = dayID;
         console.log('update day general:', day, dayID, tripID);
         authFactory.getIdToken().then(function(loginUser) {
             $http({
@@ -195,6 +195,28 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 });
         });
     }; // End updateDay
+
+    // Function to Update a day's points of interest
+    self.updateDayPOI = function(index, dayID, tripID) {
+        changedPOI = self.days[index].interesting_locations;
+        console.log('update day POI:', changedPOI);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/poi/' + dayID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: changedPOI
+            }).then(function(response) {
+                    console.log('Day POI data updated');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to update day POI info', err);
+                });
+        });
+    }; // End updateDayPOI
 
     // Function to Delete a day
     self.deleteDay = function(dayID) {
@@ -258,57 +280,38 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         self.recommendation = {};
     }; // End addRecommendation
 
-// mark user as deleted
-self.deletePOI = function(index, parentIndex) {
-  // console.log(index, parentIndex);
-  self.days[parentIndex].interesting_locations.splice(index, 1);
-};
+    // mark user as deleted
+    self.deletePOI = function(poiID, dayID, tripID) {
+        console.log(poiID, dayID, tripID);
+        // self.days[parentIndex].interesting_locations.splice(index, 1);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'DELETE',
+                url: '/day/poi/' + dayID + '/' + poiID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                }
+            }).then(function(response) {
+                    console.log('Day poi deleted');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to delete day poi', err);
+                });
+        });
+    };
 
-// add user
-self.addPOI = function(parentIndex) {
-  // console.log('addPOI:', parentIndex);
-  var newPOI = {name: '', description: ''};
-  self.days[parentIndex].interesting_locations.push(newPOI);
-};
+    // add user
+    self.addPOI = function(parentIndex) {
+        // console.log('addPOI:', parentIndex);
+        var newPOI = {
+            name: '',
+            description: ''
+        };
+        self.days[parentIndex].interesting_locations.push(newPOI);
+    };
 
-// cancel all changes
-self.cancelPOI = function() {
-  for (var i = self.users.length; i--;) {
-    var user = self.users[i];
-    // undelete
-    if (user.isDeleted) {
-      delete user.isDeleted;
-    }
-    // remove new
-    if (user.isNew) {
-      self.users.splice(i, 1);
-    }
-  }
-};
-
-// save edits
-self.savePOI = function() {
-  var results = [];
-  for (var i = self.users.length; i--;) {
-    var user = self.users[i];
-    // actually delete user
-    if (user.isDeleted) {
-      self.users.splice(i, 1);
-    }
-    // mark as not new
-    if (user.isNew) {
-      user.isNew = false;
-    }
-
-    // send on server
-    results.push($http.post('/saveUser', user));
-  }
-
-  return $q.all(results);
-};
-
-// end from xeditable
-
-
+    // save POI edits
+    self.savePOI = function(index) {}; // End savePOI
 
 }]); // END: TripController

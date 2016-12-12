@@ -45,9 +45,25 @@ router.put('/general/:id', function(req, res) {
         res.sendStatus(200);
       }
     }
-
   );
 }); // END: Update day route
+
+// Route: Delete a day POI
+router.delete('/poi/:dayID/:poiID', function(req, res) {
+  console.log('update day poi: ', req.param.dayID, req.param.poiID);
+  day.findByIdAndUpdate(
+    {_id: req.params.dayID},
+    { $pull: {interesting_locations: { _id: req.params.poiID}}},
+    function(err, data) {
+      if(err) {
+        console.log('Delete POI ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: Update day POI route
 
 // Route: Delete a day
 router.delete("/one/:id", function(req, res) {
