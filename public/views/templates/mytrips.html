@@ -300,11 +300,14 @@
                             {{ place.description || 'empty' }}
                           </span>
                         </td>
-                        <td><button type="button" ng-show="tableformPOI.$visible" ng-click="mtc.deletePOI(place._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button></td>
+                        <td><button type="button" ng-show="tableformPOI.$visible" ng-click="mtc.deletePOI(place._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
+                        <button type="submit" ng-show="tableformPOI.$visible" ng-click="mtc.updateDayPOI($index, day._id, day.trip_id)" class="updateBtn pull-right fa fa-check"></button></td>
                       </tr>
                       <div class="btn-form" ng-show="tableformPOI.$visible">
-                        <tr ng-show="tableformPOI.$visible">
-                          <td></td><td></td><td><button type="button" ng-disabled="tableformPOI.$waiting" ng-click="mtc.addPOI($index)" class="addBtn pull-right fa fa-plus"></button></td>
+                        <tr>
+                          <td><input type="text" class="form-control" ng-model="mtc.newPointOfInterest.name" placeholder="Name"></td>
+                          <td><input type="text" class="form-control" ng-model="mtc.newPointOfInterest.description" placeholder="Description"></td>
+                          <td><button type="button" ng-disabled="tableformPOI.$waiting" ng-click="mtc.addPOI(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
                         </tr>
                       </div>
                     </table>
@@ -317,7 +320,7 @@
                     </div>
                     <div class="btn-form" ng-show="tableformPOI.$visible">
                       <button type="button" ng-disabled="tableformPOI.$waiting" ng-click="tableformPOI.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
-                      <button type="submit" ng-disabled="tableformPOI.$waiting" ng-click="mtc.updateDayPOI($index, day._id, day.trip_id)" class="updateBtn pull-right fa fa-check"></button>
+                      <!-- <button type="submit" ng-disabled="tableformPOI.$waiting" ng-click="mtc.updateDayPOI($index, day._id, day.trip_id)" class="updateBtn pull-right fa fa-check"></button> -->
                     </div>
                   </div>
 

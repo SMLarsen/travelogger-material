@@ -16,10 +16,14 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         meals: [],
         recommendations: []
     };
-    self.pointOfInterest = {};
-    self.route = {};
-    self.meal = {};
-    self.recommendation = {};
+    self.newPointOfInterest = {
+      name: '',
+      description: ''
+    };
+
+    self.newRoute = {};
+    self.newMeal = {};
+    self.newRecommendation = {};
 
     self.status = {
         isCustomHeaderOpen: false,
@@ -257,10 +261,10 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     }; // End deleteTripDays
 
     // Add point of interest to new Day
-    self.addPOI = function() {
-        self.newDay.interesting_locations.push(angular.copy(self.pointOfInterest));
-        self.pointOfInterest = {};
-    }; // End addPOI
+    // self.addPOI = function() {
+    //     self.newDay.interesting_locations.push(angular.copy(self.pointOfInterest));
+    //     self.pointOfInterest = {};
+    // }; // End addPOI
 
     // Add route to new Day
     self.addRoute = function() {
@@ -302,13 +306,25 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     };
 
     // add user
-    self.addPOI = function(parentIndex) {
-        // console.log('addPOI:', parentIndex);
-        var newPOI = {
-            name: '',
-            description: ''
-        };
-        self.days[parentIndex].interesting_locations.push(newPOI);
+    self.addPOI = function(dayID, tripID) {
+        console.log('addPOI:', '\n', 'name:', self.newPointOfInterest.name, '\ndesc:', self.newPointOfInterest.description, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/poi/' + dayID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: self.newPointOfInterest
+            }).then(function(response) {
+                    console.log('POI added');
+                    self.newPointOfInterest = {};
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to add POI', err);
+                });
+        });
     };
 
     // save POI edits

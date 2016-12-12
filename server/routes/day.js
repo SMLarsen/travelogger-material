@@ -48,6 +48,24 @@ router.put('/general/:id', function(req, res) {
   );
 }); // END: Update day route
 
+// Route: Add a point of interest
+router.put("/poi/:id", function(req, res) {
+  console.log('Adding new day:', req.body);
+  day.findByIdAndUpdate(
+    {_id: req.params.id},
+    { $push: {interesting_locations: { name: req.body.name, description: req.body.description}}},
+     {safe: true, upsert: true},
+    function(err, data) {
+      if(err) {
+        console.log('Add POI ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: POST point of interest route
+
 // Route: Delete a day POI
 router.delete('/poi/:dayID/:poiID', function(req, res) {
   console.log('update day poi: ', req.param.dayID, req.param.poiID);
