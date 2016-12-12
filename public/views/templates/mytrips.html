@@ -34,10 +34,10 @@
 
         <!--  START: Show Trips Accordion-group  -->
         <!-- <div uib-accordion-group ng-repeat="trip in mtc.trips" ng-click="mtc.getDays(trip._id)" class="panel-default" is-disabled="mtc.status.isFirstDisabled"> -->
-          <div uib-accordion-group ng-repeat="trip in mtc.trips" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+        <div uib-accordion-group ng-repeat="trip in mtc.trips" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
             <div>
                 <uib-accordion-heading>
-                  <span ng-click="mtc.getDays(trip._id)">{{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}</span>
+                    <span ng-click="mtc.getDays(trip._id)">{{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}</span>
                     <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteTrip(trip._id)"></span>
                     <span class="updateBtn pull-right fa fa-check" ng-click="mtc.updateTrip(trip)"></span>
                 </uib-accordion-heading>
@@ -55,52 +55,52 @@
                 <div class="form-group" ng-model="mtc.newDay.trip_name">
                     <ng-form name="addDayForm">
 
-                        <div class="daySection form-group">
+                      <div class="daySection form-group">
                           <label>General</label><br>
-                            <div class="col-xs-2">
-                                <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
-                            </div>
-                            <div class="col-xs-2">
-                                <label class="sr-only" for="dayEndLocation">Location</label>
-                                <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" placeholder="Where are you?">
-                            </div>
-                            <div class="col-xs-6">
-                                <label class="sr-only">Tag Line</label>
-                                <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line" placeholder="Tag line for the day">
-                            </div>
-                            <div class="col-xs-2">
-                                <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
-                            </div>
-                        </div><br>
+                          <div class="col-xs-2">
+                              <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
+                          </div>
+                          <div class="col-xs-2">
+                              <label class="sr-only" for="dayEndLocation">Location</label>
+                              <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" placeholder="Where are you?">
+                          </div>
+                          <div class="col-xs-6">
+                              <label class="sr-only">Tag Line</label>
+                              <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line" placeholder="Tag line for the day">
+                          </div>
+                          <div class="col-xs-2">
+                              <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
+                          </div>
+                      </div><br>
 
-                        <div class="daySection form-group">
-                            <label class="dayLabel col-xs-12">Points of Interest</label><br>
-                            <div class="col-xs-3">
-                                <input type="text" class="form-control" name="pointOfInterestName" ng-model="mtc.pointOfInterest.name" placeholder="Add point of interest">
-                            </div>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="pointOfInterestDesc" ng-model="mtc.pointOfInterest.description" placeholder="Description">
-                            </div>
-                            <div class="col-xs-1">
-                                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addPOI()"><span class=" fa fa-plus"></span> Add</button>
-                            </div><br>
-                            <div class="col-xs-12">
+                      <div class="daySection form-group">
+                          <label class="dayLabel col-xs-12">Points of Interest</label><br>
+                          <div class="col-xs-3">
+                              <input type="text" class="form-control" name="pointOfInterestName" ng-model="mtc.pointOfInterest.name" placeholder="Add point of interest">
+                          </div>
+                          <div class="col-xs-8">
+                              <input type="text" class="form-control" name="pointOfInterestDesc" ng-model="mtc.pointOfInterest.description" placeholder="Description">
+                          </div>
+                          <div class="col-xs-1">
+                              <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addPOI()"><span class=" fa fa-plus"></span> Add</button>
+                          </div><br>
+                          <div class="col-xs-12">
                               <table class="dayTable table table-hover table-responsive">
-                                <thead class=>
-                                  <tr>
-                                    <th style="width:20%">Name</th>
-                                    <th style="width:80%">Description</th>
-                                  </tr>
-                                </thead>
-                                <tbody class="routes" ng-repeat="place in mtc.newDay.interesting_locations">
-                                  <tr>
-                                    <td>{{place.name}}</td>
-                                    <td>{{place.description}}</td>
-                                </tr>
-                                </tbody>
+                                  <thead class=>
+                                      <tr>
+                                          <th style="width:20%">Name</th>
+                                          <th style="width:80%">Description</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody class="routes" ng-repeat="place in mtc.newDay.interesting_locations">
+                                      <tr>
+                                          <td>{{place.name}}</td>
+                                          <td>{{place.description}}</td>
+                                      </tr>
+                                  </tbody>
                               </table>
-                            </div>
-                        </div>
+                          </div>
+                      </div>
 
                         <div class="daySection form-group">
                             <label class="dayLabel col-xs-12">Routes</label><br>
@@ -126,72 +126,55 @@
                                 <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addRoute()"><span class="fa fa-plus"></span> Add</button>
                             </div>
                             <div class="col-xs-12">
-                              <table class="dayTable table table-hover table-responsive">
-                                <thead class=>
-                                  <tr>
-                                    <th style="width:10%">Name</th>
-                                    <th style="width:10%">Mode</th>
-                                    <th style="width:5%">Distance</th>
-                                    <th style="width:5%">Duration</th>
-                                    <th style="width:20%">Specfics</th>
-                                    <th style="width:50%">Comment</th>
-                                  </tr>
-                                </thead>
-                                <tbody class="routes" ng-repeat="route in mtc.newDay.routes">
-                                  <tr>
-                                    <td>{{route.name}}</td>
-                                    <td>{{route.transport_mode}}</td>
-                                  <td>{{route.distance}}</td>
-                                  <td>{{route.duration}}</td>
-                                  <td>{{route.specifics}}</td>
-                                  <td>{{route.comment}}</td>
-                                </tr>
-                                </tbody>
-                              </table>
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:10%">Name</th>
+                                            <th style="width:10%">Mode</th>
+                                            <th style="width:5%">Distance</th>
+                                            <th style="width:5%">Duration</th>
+                                            <th style="width:20%">Specfics</th>
+                                            <th style="width:50%">Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="routes" ng-repeat="route in mtc.newDay.routes">
+                                        <tr>
+                                            <td>{{route.name}}</td>
+                                            <td>{{route.transport_mode}}</td>
+                                            <td>{{route.distance}}</td>
+                                            <td>{{route.duration}}</td>
+                                            <td>{{route.specifics}}</td>
+                                            <td>{{route.comment}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
+
                         <div class="daySection form-group">
-                            <label class="dayLabel col-xs-12">Meals</label><br>
-                            <div class="col-xs-2">
-                                <select class="form-control" ng-model="mtc.meal.type" ng-options="item for item in mtc.mealTypes"></select>
-                            </div>
-                            <div class="col-xs-4">
-                                <input type="text" class="form-control" name="mealName" ng-model="mtc.meal.name" placeholder="Name">
-                            </div>
-                            <div class="col-xs-6">
-                                <input type="text" class="form-control" name="mealLocation" ng-model="mtc.meal.location" placeholder="Address">
-                            </div>
-                            <div class="col-xs-6">
-                                <input type="text" class="form-control" name="mealDesc" ng-model="mtc.meal.description" placeholder="Description">
-                            </div>
-                            <div class="col-xs-5">
-                                <input type="text" class="form-control" name="mealReference" ng-model="mtc.meal.reference" placeholder="Reference">
-                            </div>
-                            <div class="col-xs-1">
-                                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addMeal()"><span class="fa fa-plus"></span> Add</button>
-                            </div>
+                            <label class="dayLabel col-xs-12">Meals</label>
                             <div class="col-xs-12">
-                              <table class="dayTable table table-hover table-responsive">
-                                <thead class=>
-                                  <tr>
-                                    <th style="width:10%">type</th>
-                                    <th style="width:10%">Name</th>
-                                    <th style="width:20%">Location</th>
-                                    <th style="width:40%">Description</th>
-                                    <th style="width:20%">reference</th>
-                                  </tr>
-                                </thead>
-                                <tbody class="meals" ng-repeat="meal in mtc.newDay.meals">
-                                  <tr>
-                                    <td>{{meal.type}}</td>
-                                    <td>{{meal.name}}</td>
-                                    <td>{{meal.location}}</td>
-                                    <td>{{meal.description}}</td>
-                                    <td>{{meal.reference}}</td>
-                                </tr>
-                                </tbody>
-                              </table>
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:10%">type</th>
+                                            <th style="width:10%">Name</th>
+                                            <th style="width:20%">Location</th>
+                                            <th style="width:40%">Description</th>
+                                            <th style="width:20%">reference</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="meals" ng-repeat="meal in day.meals">
+                                        <tr>
+                                            <td>{{meal.type}}</td>
+                                            <td>{{meal.name}}</td>
+                                            <td>{{meal.location}}</td>
+                                            <td>{{meal.description}}</td>
+                                            <td>{{meal.reference}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
@@ -199,7 +182,7 @@
                             <label class="dayLabel col-xs-12">Lodging</label><br>
                             <div class="col-xs-2">
                                 <label class="sr-only">Type</label>
-                                <select class="form-control" ng-model="mtc.lodging_type" ng-options="item for item in mtc.lodgingTypes"></select>
+                                <select class="form-control" ng-model="day.lodgingTypes_type" ng-options="item for item in day.lodgingTypes"></select>
                             </div>
                             <div class="col-xs-4">
                                 <input type="text" class="form-control" name="lodging_name" ng-model="mtc.newDay.lodging_name" placeholder="Name">
@@ -223,30 +206,24 @@
 
                         <div class="daySection form-group">
                             <label class="dayLabel col-xs-12">Recommendations</label><br>
-                            <div class="col-xs-11">
-                                <input type="text" class="form-control" name="recommendationText" ng-model="mtc.recommendation.text" placeholder="Recommendations?">
-                            </div>
-                            <div class="col-xs-1">
-                                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addRecommendation()"><span class="fa fa-plus"></span> Add</button>
-                            </div>
                             <div class="col-xs-12">
-                              <table class="dayTable table table-hover table-responsive">
-                                <thead class=>
-                                  <tr>
-                                    <th style="width:100%">Recommendation</th>
-\                                  </tr>
-                                </thead>
-                                <tbody class="recommendations" ng-repeat="recommendation in mtc.newDay.recommendations">
-                                  <tr>
-                                    <td>{{recommendation.text}}</td>
-                                </tr>
-                                </tbody>
-                              </table>
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:100%">Recommendation</th>
+                                            \ </tr>
+                                    </thead>
+                                    <tbody class="recommendations" ng-repeat="recommendation in mtc.newDay.recommendations">
+                                        <tr>
+                                            <td>{{recommendation.text}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
                         <div class="form-group">
-                          <label class="dayLabel sr-only">Save</label>
+                            <label class="dayLabel sr-only">Save</label>
                             <div class="col-xs-2 col-xs-offset-5 text-center">
                                 <button class="form-control btn btn-primary btn-lg" ng-click="mtc.addDay(trip._id)">Save</button>
                             </div>
@@ -268,6 +245,160 @@
                 </uib-accordion-heading>
                 <p>{{day}}</p>
                 <p>Day - {{day.date}}</p>
+
+                <div class="form-group" ng-model="mtc.newDay.trip_name">
+                    <ng-form name="addDayForm">
+
+                      <div class="daySection form-group">
+                          <label>General</label><br>
+                          <div class="col-xs-2">
+                              <input type="date" class="form-control" name="date" ng-model="day.date">
+                          </div>
+                          <div class="col-xs-2">
+                              <label class="sr-only" for="dayEndLocation">Location</label>
+                              <input type="text" class="form-control" name="dayEndLocation" ng-model="day.end_location" placeholder="Where are you?">
+                          </div>
+                          <div class="col-xs-6">
+                              <label class="sr-only">Tag Line</label>
+                              <input type="text" class="form-control" name="tag_line" ng-model="day.tag_line" placeholder="Tag line for the day">
+                          </div>
+                          <div class="col-xs-2">
+                              <input type="text" class="form-control" name="weather" ng-model="day.weather" placeholder="Today's Weather">
+                          </div>
+                      </div><br>
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Points of Interest</label><br>
+                            <div class="col-xs-12">
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:20%">Name</th>
+                                            <th style="width:80%">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="routes" ng-repeat="place in day.interesting_locations">
+                                        <tr>
+                                            <td>{{place.name}}</td>
+                                            <td>{{place.description}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Routes</label><br>
+                            <div class="col-xs-12">
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:10%">Name</th>
+                                            <th style="width:10%">Mode</th>
+                                            <th style="width:5%">Distance</th>
+                                            <th style="width:5%">Duration</th>
+                                            <th style="width:20%">Specfics</th>
+                                            <th style="width:50%">Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="routes" ng-repeat="route in day.routes">
+                                        <tr>
+                                            <td>{{route.name}}</td>
+                                            <td>{{route.transport_mode}}</td>
+                                            <td>{{route.distance}}</td>
+                                            <td>{{route.duration}}</td>
+                                            <td>{{route.specifics}}</td>
+                                            <td>{{route.comment}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Meals</label><br>
+                            <div class="col-xs-12">
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:10%">type</th>
+                                            <th style="width:10%">Name</th>
+                                            <th style="width:20%">Location</th>
+                                            <th style="width:40%">Description</th>
+                                            <th style="width:20%">reference</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="meals" ng-repeat="meal in day.meals">
+                                        <tr>
+                                            <td>{{meal.type}}</td>
+                                            <td>{{meal.name}}</td>
+                                            <td>{{meal.location}}</td>
+                                            <td>{{meal.description}}</td>
+                                            <td>{{meal.reference}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Lodging</label><br>
+                            <div class="col-xs-2">
+                                <label class="sr-only">Type</label>
+                                <select class="form-control" ng-model="day.lodgingTypes_type" ng-options="item for item in day.lodgingTypes"></select>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" name="lodging_name" ng-model="day.lodging_name" placeholder="Name">
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="sr-only">Address</label>
+                                <input type="text" class="form-control" name="lodging_address" ng-model="day.lodging_address" placeholder="Address">
+                            </div><br>
+                            <div class="col-xs-12">
+                                <label class="sr-only">Reference</label>
+                                <input type="text" class="form-control" name="lodging_reference" ng-model="day.lodging_reference" placeholder="Reference">
+                            </div>
+                        </div><br>
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Narrative</label><br>
+                            <div class="col-xs-12">
+                                <input type="text" class="form-control" name="narrative" ng-model="day.narrative" placeholder="Describe the day">
+                            </div>
+                        </div><br>
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Recommendations</label><br>
+                            <div class="col-xs-12">
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:100%">Recommendation</th>
+                                             </tr>
+                                    </thead>
+                                    <tbody class="recommendations" ng-repeat="recommendation in day.recommendations">
+                                        <tr>
+                                            <td>{{recommendation.text}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="dayLabel sr-only">Save</label>
+                            <div class="col-xs-2 col-xs-offset-5 text-center">
+                                <button class="form-control btn btn-primary btn-lg" ng-click="mtc.addDay(trip._id)">Save</button>
+                            </div>
+                        </div>
+
+                    </ng-form>
+
+                </div>
             </div>
             <!--  END: Show days accordion group-->
 
