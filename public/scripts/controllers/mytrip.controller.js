@@ -169,6 +169,25 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End getDays
 
+        // Function to Update a day
+        self.updateDay = function(day, dayID) {
+            console.log('update day:', day, dayID);
+            // authFactory.getIdToken().then(function(loginUser) {
+            //     $http({
+            //         method: 'UPDATE',
+            //         url: '/day' + dayID,
+            //         headers: {
+            //             id_token: loginUser.authIdToken
+            //         }
+            //     }).then(function(response) {
+            //             console.log('Day updated');
+            //         },
+            //         function(err) {
+            //             console.log('Unable to update day', err);
+            //         });
+            // });
+        }; // End updateDay
+
     // Function to Delete a day
     self.deleteDay = function(dayID) {
         console.log('delete day:', dayID);

@@ -55,52 +55,52 @@
                 <div class="form-group" ng-model="mtc.newDay.trip_name">
                     <ng-form name="addDayForm">
 
-                      <div class="daySection form-group">
-                          <label>General</label><br>
-                          <div class="col-xs-2">
-                              <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
-                          </div>
-                          <div class="col-xs-2">
-                              <label class="sr-only" for="dayEndLocation">Location</label>
-                              <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" placeholder="Where are you?">
-                          </div>
-                          <div class="col-xs-6">
-                              <label class="sr-only">Tag Line</label>
-                              <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line" placeholder="Tag line for the day">
-                          </div>
-                          <div class="col-xs-2">
-                              <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
-                          </div>
-                      </div><br>
+                        <div class="daySection form-group">
+                            <label>General</label><br>
+                            <div class="col-xs-2">
+                                <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
+                            </div>
+                            <div class="col-xs-2">
+                                <label class="sr-only" for="dayEndLocation">Location</label>
+                                <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" placeholder="Where are you?">
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="sr-only">Tag Line</label>
+                                <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line" placeholder="Tag line for the day">
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
+                            </div>
+                        </div><br>
 
-                      <div class="daySection form-group">
-                          <label class="dayLabel col-xs-12">Points of Interest</label><br>
-                          <div class="col-xs-3">
-                              <input type="text" class="form-control" name="pointOfInterestName" ng-model="mtc.pointOfInterest.name" placeholder="Add point of interest">
-                          </div>
-                          <div class="col-xs-8">
-                              <input type="text" class="form-control" name="pointOfInterestDesc" ng-model="mtc.pointOfInterest.description" placeholder="Description">
-                          </div>
-                          <div class="col-xs-1">
-                              <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addPOI()"><span class=" fa fa-plus"></span> Add</button>
-                          </div><br>
-                          <div class="col-xs-12">
-                              <table class="dayTable table table-hover table-responsive">
-                                  <thead class=>
-                                      <tr>
-                                          <th style="width:20%">Name</th>
-                                          <th style="width:80%">Description</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody class="routes" ng-repeat="place in mtc.newDay.interesting_locations">
-                                      <tr>
-                                          <td>{{place.name}}</td>
-                                          <td>{{place.description}}</td>
-                                      </tr>
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Points of Interest</label><br>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name="pointOfInterestName" ng-model="mtc.pointOfInterest.name" placeholder="Add point of interest">
+                            </div>
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="pointOfInterestDesc" ng-model="mtc.pointOfInterest.description" placeholder="Description">
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addPOI()"><span class=" fa fa-plus"></span> Add</button>
+                            </div><br>
+                            <div class="col-xs-12">
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:20%">Name</th>
+                                            <th style="width:80%">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="routes" ng-repeat="place in mtc.newDay.interesting_locations">
+                                        <tr>
+                                            <td>{{place.name}}</td>
+                                            <td>{{place.description}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
                         <div class="daySection form-group">
                             <label class="dayLabel col-xs-12">Routes</label><br>
@@ -241,31 +241,66 @@
                 <uib-accordion-heading>
                     {{day.date | date:'MM/dd'}} - {{day.end_location}}
                     <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteDay(day._id)"></span>
-                    <span class="updateBtn pull-right fa fa-check"></span>
                 </uib-accordion-heading>
-                <p>{{day}}</p>
-                <p>Day - {{day.date}}</p>
 
-                <div class="form-group" ng-model="mtc.newDay.trip_name">
+                <div class="col-xs-12">
+                  <form editable-form name="editableFormGeneral">
+                      <div class="col-xs-2">
+                          <!-- <span class="title">Date: </span> -->
+                          <span editable-date="day.date" e-name="date" e-required>{{ day.date | date:'MM/dd' }}</span>
+                      </div>
+
+                      <div class="col-xs-2">
+                          <!-- <span class="title">Where: </span> -->
+                          <span editable-text="day.end_location" e-name="end_location" e-required>{{ day.end_location || 'empty' }}</span>
+                      </div>
+
+                      <div class="col-xs-3">
+                          <!-- <span class="title">Tag-line: </span> -->
+                          <span editable-text="day.tag_line" e-name="tag_line" e-required>{{ day.tag_line || 'empty' }}</span>
+                      </div>
+
+                      <div class="col-xs-4">
+                          <!-- <span class="title">Weather: </span> -->
+                          <span editable-text="day.weather" e-name="weather" e-required>{{ day.weather || 'empty' }}</span>
+                      </div>
+
+                      <div>
+                          <!-- button to show form -->
+                          <button type="button" class="editBtn pull-right fa fa-pencil" ng-click="editableFormGeneral.$show()" ng-show="!editableFormGeneral.$visible"></button>
+                          <!-- buttons to submit / cancel form -->
+                          <span ng-show="editableFormGeneral.$visible">
+                            <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormGeneral.$waiting" ng-click="editableFormGeneral.$cancel()"></button>
+                            <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormGeneral.$waiting" ng-click="mtc.updateDay(editableFormGeneral.$data)"></button>
+                          </span>
+                      </div>
+                  </form>
+                </div>
+
+
+
+
+
+                <!-- <div class="form-group" ng-model="mtc.newDay.trip_name">
                     <ng-form name="addDayForm">
 
-                      <div class="daySection form-group">
-                          <label>General</label><br>
-                          <div class="col-xs-2">
-                              <input type="date" class="form-control" name="date" ng-model="day.date">
-                          </div>
-                          <div class="col-xs-2">
-                              <label class="sr-only" for="dayEndLocation">Location</label>
-                              <input type="text" class="form-control" name="dayEndLocation" ng-model="day.end_location" placeholder="Where are you?">
-                          </div>
-                          <div class="col-xs-6">
-                              <label class="sr-only">Tag Line</label>
-                              <input type="text" class="form-control" name="tag_line" ng-model="day.tag_line" placeholder="Tag line for the day">
-                          </div>
-                          <div class="col-xs-2">
-                              <input type="text" class="form-control" name="weather" ng-model="day.weather" placeholder="Today's Weather">
-                          </div>
-                      </div><br>
+                        <div class="daySection form-group">
+                            <label>General</label><br>
+                            <div class="col-xs-2">
+                                <input type="date" class="form-control" name="date" ng-model="day.date">
+                            </div>
+                            <div class="col-xs-2">
+                                <label class="sr-only" for="dayEndLocation">Location</label>
+                                <input type="text" class="form-control" name="dayEndLocation" ng-model="day.end_location" placeholder="Where are you?">
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="sr-only">Tag Line</label>
+                                <input type="text" class="form-control" name="tag_line" ng-model="day.tag_line" placeholder="Tag line for the day">
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="weather" ng-model="day.weather" placeholder="Today's Weather">
+                            </div>
+                        </div><br>
 
                         <div class="daySection form-group">
                             <label class="dayLabel col-xs-12">Points of Interest</label><br>
@@ -378,7 +413,7 @@
                                     <thead class=>
                                         <tr>
                                             <th style="width:100%">Recommendation</th>
-                                             </tr>
+                                        </tr>
                                     </thead>
                                     <tbody class="recommendations" ng-repeat="recommendation in day.recommendations">
                                         <tr>
@@ -397,14 +432,14 @@
                         </div>
 
                     </ng-form>
+                  </div> -->
 
-                </div>
             </div>
-            <!--  END: Show days accordion group-->
+            <!--  END: Show days accord on group-->
 
         </div>
         <!--  END: Days accordion group-->
 
     </uib-accordion>
     <!--  END: Outer Accordion  -->
-</div>
+    </div>
