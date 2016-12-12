@@ -277,30 +277,56 @@
                   </form>
                 </div>
 
+                <!-- Starting Points of Interest -->
 
+                <form editable-form name="tableformPOI" onaftersave="savePOITable()" oncancel="cancel()">
+                  <label class="dayLabel col-xs-12"></label>
+                  <!-- table -->
+                  <div class="col-xs-11">
+                    <table class="table table-bordered table-hover table-condensed">
+                      <tr style="font-weight: bold">
+                        <td style="width:20%">Name</td>
+                        <td style="width:60%">Description</td>
+                        <td style="width:10%"><span ng-show="tableformPOI.$visible">Action</span></td>
+                      </tr>
+                      <tr ng-repeat="place in day.interesting_locations">
+                        <td>
+                          <span editable-text="place.name" e-form="tableformPOI">
+                            {{ place.name || 'empty' }}
+                          </span>
+                        </td>
+                        <td>
+                          <span editable-text="place.description" e-form="tableformPOI">
+                            {{ place.description || 'empty' }}
+                          </span>
+                        </td>
+                        <td><button type="button" ng-show="tableformPOI.$visible" ng-click="mtc.deletePOI($index, $parent.$index)" class="deleteBtn pull-right fa fa-trash"></button></td>
+                      </tr>
+                      <div class="btn-form" ng-show="tableformPOI.$visible">
+                        <tr ng-show="tableformPOI.$visible">
+                          <td></td><td></td><td><button type="button" ng-disabled="tableformPOI.$waiting" ng-click="addUser()" class="addBtn pull-right fa fa-plus"></button></td>
+                        </tr>
+                      </div>
+                    </table>
+                  </div>
+
+                  <div class="col-xs-1">
+                    <!-- buttons -->
+                    <div class="btn-edit">
+                      <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformPOI.$visible" ng-click="tableformPOI.$show()"></button>
+                    </div>
+                    <div class="btn-form" ng-show="tableformPOI.$visible">
+                      <button type="button" ng-disabled="tableformPOI.$waiting" ng-click="tableformPOI.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
+                      <button type="submit" ng-disabled="tableformPOI.$waiting" class="updateBtn pull-right fa fa-check"></button>
+                    </div>
+                  </div>
+
+                </form>
 
 
 
                 <!-- <div class="form-group" ng-model="mtc.newDay.trip_name">
                     <ng-form name="addDayForm">
-
-                        <div class="daySection form-group">
-                            <label>General</label><br>
-                            <div class="col-xs-2">
-                                <input type="date" class="form-control" name="date" ng-model="day.date">
-                            </div>
-                            <div class="col-xs-2">
-                                <label class="sr-only" for="dayEndLocation">Location</label>
-                                <input type="text" class="form-control" name="dayEndLocation" ng-model="day.end_location" placeholder="Where are you?">
-                            </div>
-                            <div class="col-xs-6">
-                                <label class="sr-only">Tag Line</label>
-                                <input type="text" class="form-control" name="tag_line" ng-model="day.tag_line" placeholder="Tag line for the day">
-                            </div>
-                            <div class="col-xs-2">
-                                <input type="text" class="form-control" name="weather" ng-model="day.weather" placeholder="Today's Weather">
-                            </div>
-                        </div><br>
 
                         <div class="daySection form-group">
                             <label class="dayLabel col-xs-12">Points of Interest</label><br>

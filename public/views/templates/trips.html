@@ -1,6 +1,74 @@
 <h2>Trips</h2>
 
-<div class="mycontainer">
+<div>
+  <form editable-form name="tableform" onaftersave="saveTable()" oncancel="cancel()">
+
+    <!-- table -->
+    <table class="table table-bordered table-hover table-condensed">
+      <tr style="font-weight: bold">
+        <td style="width:40%">Name</td>
+        <td style="width:30%">Status</td>
+        <td style="width:30%">Group</td>
+        <td style="width:30%"><span ng-show="tableform.$visible">Action</span></td>
+      </tr>
+      <tr ng-repeat="user in tc.users | filter: tc.filterUser">
+        <td>
+            <!-- editable username (text with validation) -->
+          <span editable-text="tc.user.name" e-form="tableform">
+            {{ user.name || 'empty' }}
+          </span>
+        </td>
+        <td>
+          <!-- editable status (select-local) -->
+          <span editable-select="user.status" e-form="tableform" e-ng-options="s.value as s.text for s in tc.statuses">
+            {{ tc.showStatus(user) }}
+          </span>
+        </td>
+        <td>
+          <!-- editable group (select-remote) -->
+          <span editable-select="user.group" e-form="tableform" e-ng-options="g.value as g.text for g in tc.groups">
+            {{ user.group || 'empty' }}
+          </span>
+        </td>
+        <td><button type="button" ng-show="tableform.$visible" ng-click="tc.deleteUser(user.id)" class="btn btn-danger pull-right">Del</button></td>
+      </tr>
+    </table>
+
+    <!-- buttons -->
+    <div class="btn-edit">
+      <button type="button" class="btn btn-default" ng-show="!tableform.$visible" ng-click="tableform.$show()">
+        edit
+      </button>
+    </div>
+    <div class="btn-form" ng-show="tableform.$visible">
+      <button type="button" ng-disabled="tableform.$waiting" ng-click="tc.addUser()" class="btn btn-default pull-right">add row</button>
+      <button type="submit" ng-disabled="tableform.$waiting" class="btn btn-primary">save</button>
+      <button type="button" ng-disabled="tableform.$waiting" ng-click="tableform.$cancel()" class="btn btn-default">cancel</button>
+    </div>
+
+  </form>
+
+  {{ user }}
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="mycontainer">
     <div class="left-nav">
 
         <uib-accordion close-others="false">
@@ -135,6 +203,6 @@
                 I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tc.status.open, 'glyphicon-chevron-right': !tc.status.open}"></i>
             </uib-accordion-heading>
             This is just some content to illustrate fancy headings.
-        </div>
-    </uib-accordion> -->
+        </div> -->
+    <!-- </uib-accordion> -->
 <!-- </div> -->

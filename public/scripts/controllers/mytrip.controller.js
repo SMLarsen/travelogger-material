@@ -3,6 +3,11 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     var self = this;
     self.trips = [];
     self.days = [];
+    self.pois = [];
+    self.routes = [];
+    self.meals = [];
+    self.recommendations = [];
+
     var authFactory = AuthFactory;
     self.newTrip = {};
     self.newDay = {
@@ -252,5 +257,70 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         self.newDay.recommendations.push(angular.copy(self.recommendation));
         self.recommendation = {};
     }; // End addRecommendation
+
+// from xeditable
+
+// mark user as deleted
+self.deletePOI = function(index, parentIndex) {
+  console.log(index, parentIndex);
+  console.log(self.days[parentIndex].interesting_locations.length);
+  self.days[parentIndex].interesting_locations.splice(index, 1);
+  console.log(self.days[parentIndex].interesting_locations.length);
+  // var filtered = $filter('filter')(self.users, {id: id});
+  // if (filtered.length) {
+  //   filtered[0].isDeleted = true;
+  // }
+};
+
+// add user
+self.addPOI = function() {
+  self.users.push({
+    id: self.users.length+1,
+    name: '',
+    status: null,
+    group: null,
+    isNew: true
+  });
+};
+
+// cancel all changes
+self.cancelPOI = function() {
+  for (var i = self.users.length; i--;) {
+    var user = self.users[i];
+    // undelete
+    if (user.isDeleted) {
+      delete user.isDeleted;
+    }
+    // remove new
+    if (user.isNew) {
+      self.users.splice(i, 1);
+    }
+  }
+};
+
+// save edits
+self.savePOI = function() {
+  var results = [];
+  for (var i = self.users.length; i--;) {
+    var user = self.users[i];
+    // actually delete user
+    if (user.isDeleted) {
+      self.users.splice(i, 1);
+    }
+    // mark as not new
+    if (user.isNew) {
+      user.isNew = false;
+    }
+
+    // send on server
+    results.push($http.post('/saveUser', user));
+  }
+
+  return $q.all(results);
+};
+
+// end from xeditable
+
+
 
 }]); // END: TripController
