@@ -32,6 +32,23 @@ router.post("/", function(req, res) {
   });
 }); // END: POST day route
 
+// Route: Update a day general info
+router.put('/general/:id', function(req, res) {
+  console.log('update day general: ', req.body);
+  var dayToUpdate = req.body;
+  var update = {date: dayToUpdate.date, end_location: dayToUpdate.end_location, tag_line: dayToUpdate.tag_line, weather: dayToUpdate.weather};
+  day.findByIdAndUpdate(req.params.id, update, function(err, data) {
+      if(err) {
+        console.log('Put ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+
+  );
+}); // END: Update day route
+
 // Route: Delete a day
 router.delete("/one/:id", function(req, res) {
   var dayToDelete = req.params.id;

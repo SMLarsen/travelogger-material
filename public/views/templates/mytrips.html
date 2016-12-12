@@ -271,7 +271,7 @@
                           <!-- buttons to submit / cancel form -->
                           <span ng-show="editableFormGeneral.$visible">
                             <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormGeneral.$waiting" ng-click="editableFormGeneral.$cancel()"></button>
-                            <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormGeneral.$waiting" ng-click="mtc.updateDay(editableFormGeneral.$data)"></button>
+                            <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormGeneral.$waiting" ng-click="mtc.updateDayGeneral(editableFormGeneral.$data, day._id, day.trip_id)"></button>
                           </span>
                       </div>
                   </form>

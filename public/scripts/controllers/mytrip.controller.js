@@ -169,24 +169,27 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End getDays
 
-        // Function to Update a day
-        self.updateDay = function(day, dayID) {
-            console.log('update day:', day, dayID);
-            // authFactory.getIdToken().then(function(loginUser) {
-            //     $http({
-            //         method: 'UPDATE',
-            //         url: '/day' + dayID,
-            //         headers: {
-            //             id_token: loginUser.authIdToken
-            //         }
-            //     }).then(function(response) {
-            //             console.log('Day updated');
-            //         },
-            //         function(err) {
-            //             console.log('Unable to update day', err);
-            //         });
-            // });
-        }; // End updateDay
+    // Function to Update a day's general data
+    self.updateDayGeneral = function(day, dayID, tripID) {
+      day._id = dayID;
+        console.log('update day general:', day, dayID, tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/general/' + day._id,
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: day
+            }).then(function(response) {
+                    console.log('Day general data updated');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to update day general info', err);
+                });
+        });
+    }; // End updateDay
 
     // Function to Delete a day
     self.deleteDay = function(dayID) {
