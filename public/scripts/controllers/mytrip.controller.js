@@ -305,7 +305,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     };
 
-    // add user
+    // add poi to day
     self.addPOI = function(dayID, tripID) {
         console.log('addPOI:', '\n', 'name:', self.newPointOfInterest.name, '\ndesc:', self.newPointOfInterest.description, '\ndayID:', dayID, '\ntripID:', tripID);
         authFactory.getIdToken().then(function(loginUser) {
@@ -325,7 +325,29 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                     console.log('Unable to add POI', err);
                 });
         });
-    };
+    }; // End: addPOI
+
+    // update poi
+    self.updatePOI = function(data, dayID, tripID) {
+        console.log('updatePOI:', '\n', 'data:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+        // authFactory.getIdToken().then(function(loginUser) {
+        //     $http({
+        //         method: 'PUT',
+        //         url: '/day/poi/' + dayID,
+        //         headers: {
+        //             id_token: loginUser.authIdToken
+        //         },
+        //         data: self.newPointOfInterest
+        //     }).then(function(response) {
+        //             console.log('POI added');
+        //             self.newPointOfInterest = {};
+        //             self.getDays(tripID);
+        //         },
+        //         function(err) {
+        //             console.log('Unable to add POI', err);
+        //         });
+        // });
+    }; // End: updatePOI
 
     // save POI edits
     self.savePOI = function(index) {}; // End savePOI

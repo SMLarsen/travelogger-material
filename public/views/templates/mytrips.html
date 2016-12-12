@@ -291,17 +291,17 @@
                       </tr>
                       <tr ng-repeat="place in day.interesting_locations">
                         <td>
-                          <span editable-text="place.name" e-form="tableformPOI">
+                          <span editable-text="place.name" class="form-control" e-form="tableformPOI">
                             {{ place.name || 'empty' }}
                           </span>
                         </td>
                         <td>
-                          <span editable-text="place.description" e-form="tableformPOI">
+                          <span editable-text="place.description" class="form-control" e-form="tableformPOI">
                             {{ place.description || 'empty' }}
                           </span>
                         </td>
                         <td><button type="button" ng-show="tableformPOI.$visible" ng-click="mtc.deletePOI(place._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
-                        <button type="submit" ng-show="tableformPOI.$visible" ng-click="mtc.updateDayPOI($index, day._id, day.trip_id)" class="updateBtn pull-right fa fa-check"></button></td>
+                        <button type="submit" ng-show="tableformPOI.$visible" ng-click="mtc.updatePOI(place, day._id, day.trip_id)" class="updateBtn pull-right fa fa-check"></button></td>
                       </tr>
                       <div class="btn-form" ng-show="tableformPOI.$visible">
                         <tr>
