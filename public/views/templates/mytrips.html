@@ -395,9 +395,81 @@
                             <button type="button" ng-disabled="tableformRoute.$waiting" ng-click="tableformRoute.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
                         </div>
                     </div>
-
                 </form>
 
+                <!-- Starting Meals -->
+
+                <form editable-form name="tableformMeals" oncancel="cancel()">
+                    <label class="dayLabel col-xs-12">Eating and Drinking</label>
+                    <!-- table -->
+                    <div class="col-xs-11">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead class=>
+                                <tr>
+                                    <th style="width:10%">type</th>
+                                    <th style="width:10%">Name</th>
+                                    <th style="width:20%">Location</th>
+                                    <th style="width:30%">Description</th>
+                                    <th style="width:20%">reference</th>
+                                    <th style="width:10%"><span ng-show="tableformMeals.$visible">Action</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="meals" ng-repeat="meal in day.meals">
+                                    <td>
+                                        <span editable-select="meal.type" e-ng-options="item for item in mtc.mealTypes">
+                                          {{meal.type || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="meal.name" onaftersave="mtc.updateMeal($index, meal, day._id, day.trip_id)">
+                                          {{meal.name || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="meal.location">
+                                          {{meal.location || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="meal.description">
+                                          {{meal.description || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="meal.reference">
+                                          {{meal.reference || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td><button type="button" ng-show="tableformMeals.$visible" ng-click="mtc.deleteMeal(meal._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
+                                        <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformMeals.$visible"></button></td>
+                                </tr>
+
+                                <div class="btn-form" ng-show="tableformMeals.$visible">
+                                    <tr>
+                                      <td><select type="text" class="form-control" ng-model="mtc.newMeal.type" ng-options="item for item in mtc.mealTypes"></select></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.name" placeholder="Name"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.location" placeholder="Dist"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.description" placeholder="Time"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.reference" placeholder="Details"></td>
+                                        <td><button type="button" ng-disabled="tableformMeals.$waiting" ng-click="mtc.addMeal(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
+                                    </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <!-- buttons -->
+                        <div class="btn-edit">
+                            <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformMeals.$visible" ng-click="tableformMeals.$show()"></button>
+                        </div>
+                        <div class="btn-form" ng-show="tableformMeals.$visible">
+                            <button type="button" ng-disabled="tableformMeals.$waiting" ng-click="tableformMeals.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
+                        </div>
+                    </div>
+
+                </form>
 
 
 
@@ -413,15 +485,6 @@
                             <label class="dayLabel col-xs-12">Meals</label><br>
                             <div class="col-xs-12">
                                 <table class="dayTable table table-hover table-responsive">
-                                    <thead class=>
-                                        <tr>
-                                            <th style="width:10%">type</th>
-                                            <th style="width:10%">Name</th>
-                                            <th style="width:20%">Location</th>
-                                            <th style="width:40%">Description</th>
-                                            <th style="width:20%">reference</th>
-                                        </tr>
-                                    </thead>
                                     <tbody class="meals" ng-repeat="meal in day.meals">
                                         <tr>
                                             <td>{{meal.type}}</td>
