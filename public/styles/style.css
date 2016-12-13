@@ -23,6 +23,21 @@ body {
     background-size:  cover;*/
 }
 
+.guestTrip {
+  background-color: #3072AC;
+  padding: 10px;
+  margin: 5px;
+}
+
+.guestTrip h4 {
+  text-align: center;
+  color: white;
+}
+
+.guestTrip p {
+  color: white;
+}
+
 .top-buffer {
   margin-top:20px;
 }

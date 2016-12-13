@@ -1,5 +1,10 @@
 <h2>Trips</h2>
 
-<div class="guestTrips">
-  <p ng-repeat="trip in tc.trips">{{trip.trip_name}}</p>
+<div ng-repeat="trip in tc.trips">
+  <div class="guestTrip col-xs-3">
+    <h4>{{trip.trip_name}}</h4>
+    <p>Starting <span>{{trip.begin_date | date:'MM/yy'}}</span> at <span>{{trip.begin_location}}</span></p>
+    <p>Ending <span>{{trip.end_date | date:'MM/yy'}}</span> at <span>{{trip.end_location}}</span></p>
+  </div>
+
 </div>
