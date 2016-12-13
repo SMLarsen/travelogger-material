@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var decoder = require('./modules/decoder');
 var trip = require('./routes/trip');
 var day = require('./routes/day');
+var guest = require('./routes/guest');
 var privateData = require('./routes/private-data');
 var mongoConnection = require('./modules/mongo-connection');
 
@@ -16,6 +17,8 @@ app.get('/', function(req, res){
 app.use(bodyParser.json());
 
 mongoConnection.connect();
+
+app.use("/guest", guest);
 
 // Decodes the token in the request header and attaches the decoded token to the request.
 app.use(decoder.token);
