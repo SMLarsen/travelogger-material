@@ -17,8 +17,8 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         recommendations: []
     };
     self.newPointOfInterest = {
-      name: '',
-      description: ''
+        name: '',
+        description: ''
     };
 
     self.newRoute = {};
@@ -200,28 +200,6 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End updateDay
 
-    // Function to Update a day's points of interest
-    self.updateDayPOI = function(index, dayID, tripID) {
-        changedPOI = self.days[index].interesting_locations;
-        console.log('update day POI:', changedPOI);
-        authFactory.getIdToken().then(function(loginUser) {
-            $http({
-                method: 'PUT',
-                url: '/day/poi/' + dayID,
-                headers: {
-                    id_token: loginUser.authIdToken
-                },
-                data: changedPOI
-            }).then(function(response) {
-                    console.log('Day POI data updated');
-                    self.getDays(tripID);
-                },
-                function(err) {
-                    console.log('Unable to update day POI info', err);
-                });
-        });
-    }; // End updateDayPOI
-
     // Function to Delete a day
     self.deleteDay = function(dayID) {
         console.log('delete day:', dayID);
@@ -260,50 +238,25 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End deleteTripDays
 
-    // Add point of interest to new Day
-    // self.addPOI = function() {
-    //     self.newDay.interesting_locations.push(angular.copy(self.pointOfInterest));
-    //     self.pointOfInterest = {};
-    // }; // End addPOI
+    // // Add route to new Day
+    // self.addRoute = function() {
+    //     self.newDay.routes.push(angular.copy(self.route));
+    //     self.route = {};
+    // }; // End addRoute
+    //
+    // // Add meal to new Day
+    // self.addMeal = function() {
+    //     self.newDay.meals.push(angular.copy(self.meal));
+    //     self.meal = {};
+    // }; // End addMeal
+    //
+    // // Add Recommendation to new Day
+    // self.addRecommendation = function() {
+    //     self.newDay.recommendations.push(angular.copy(self.recommendation));
+    //     self.recommendation = {};
+    // }; // End addRecommendation
 
-    // Add route to new Day
-    self.addRoute = function() {
-        self.newDay.routes.push(angular.copy(self.route));
-        self.route = {};
-    }; // End addRoute
-
-    // Add meal to new Day
-    self.addMeal = function() {
-        self.newDay.meals.push(angular.copy(self.meal));
-        self.meal = {};
-    }; // End addMeal
-
-    // Add Recommendation to new Day
-    self.addRecommendation = function() {
-        self.newDay.recommendations.push(angular.copy(self.recommendation));
-        self.recommendation = {};
-    }; // End addRecommendation
-
-    // mark user as deleted
-    self.deletePOI = function(poiID, dayID, tripID) {
-        console.log(poiID, dayID, tripID);
-        // self.days[parentIndex].interesting_locations.splice(index, 1);
-        authFactory.getIdToken().then(function(loginUser) {
-            $http({
-                method: 'DELETE',
-                url: '/day/poi/' + dayID + '/' + poiID,
-                headers: {
-                    id_token: loginUser.authIdToken
-                }
-            }).then(function(response) {
-                    console.log('Day poi deleted');
-                    self.getDays(tripID);
-                },
-                function(err) {
-                    console.log('Unable to delete day poi', err);
-                });
-        });
-    };
+// Point of interest add, update, delete
 
     // add poi to day
     self.addPOI = function(dayID, tripID) {
@@ -329,7 +282,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
 
     // update poi
     self.updatePOI = function(index, data, dayID, tripID) {
-        console.log('updatePOI:', '\nindex:', index ,'\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+        console.log('updatePOI:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
         authFactory.getIdToken().then(function(loginUser) {
             $http({
                 method: 'PUT',
@@ -348,7 +301,91 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End: updatePOI
 
-    // save POI edits
-    self.savePOI = function(index) {}; // End savePOI
+    // Begin: delete point of interest
+    self.deletePOI = function(poiID, dayID, tripID) {
+        console.log(poiID, dayID, tripID);
+        // self.days[parentIndex].interesting_locations.splice(index, 1);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'DELETE',
+                url: '/day/poi/' + dayID + '/' + poiID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                }
+            }).then(function(response) {
+                    console.log('Day poi deleted');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to delete day poi', err);
+                });
+        });
+    };  // End deletePOI
+
+    // Point of interest add, update, delete
+
+        // add route to day
+        self.addRoute = function(dayID, tripID) {
+            console.log('addRoute:', '\n', 'name:', self.newRoute.name, '\ndayID:', dayID, '\ntripID:', tripID);
+            authFactory.getIdToken().then(function(loginUser) {
+                $http({
+                    method: 'PUT',
+                    url: '/day/addroute/' + dayID,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    },
+                    data: self.newRoute
+                }).then(function(response) {
+                        console.log('POI added');
+                        self.newRoute = {};
+                        self.getDays(tripID);
+                    },
+                    function(err) {
+                        console.log('Unable to add POI', err);
+                    });
+            });
+        }; // End: addRoute
+
+        // update route
+        self.updateRoute = function(index, data, dayID, tripID) {
+            console.log('updateRoute:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+            authFactory.getIdToken().then(function(loginUser) {
+                $http({
+                    method: 'PUT',
+                    url: '/day/updateroute/' + dayID + '/' + index,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    },
+                    data: data
+                }).then(function(response) {
+                        console.log('Route updated');
+                        self.getDays(tripID);
+                    },
+                    function(err) {
+                        console.log('Unable to update Route', err);
+                    });
+            });
+        }; // End: updateRoute
+
+        // Begin: delete route
+        self.deleteRoute = function(routeID, dayID, tripID) {
+            console.log(routeID, dayID, tripID);
+            // self.days[parentIndex].interesting_locations.splice(index, 1);
+            authFactory.getIdToken().then(function(loginUser) {
+                $http({
+                    method: 'DELETE',
+                    url: '/day/route/' + dayID + '/' + routeID,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    }
+                }).then(function(response) {
+                        console.log('Day route deleted');
+                        self.getDays(tripID);
+                    },
+                    function(err) {
+                        console.log('Unable to delete day route', err);
+                    });
+            });
+        };  // End deleteRoute
 
 }]); // END: TripController

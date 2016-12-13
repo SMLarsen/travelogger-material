@@ -286,8 +286,8 @@
                         <table class="table table-bordered table-hover table-condensed">
                             <tr style="font-weight: bold">
                                 <td style="width:25%">Name</td>
-                                <td style="width:62%">Description</td>
-                                <td style="width:8%"><span ng-show="tableformPOI.$visible">Action</span></td>
+                                <td style="width:65%">Description</td>
+                                <td style="width:10%"><span ng-show="tableformPOI.$visible">Action</span></td>
                             </tr>
                             <tr ng-repeat="place in day.interesting_locations">
                                 <td>
@@ -335,11 +335,10 @@
                                 <tr>
                                     <th style="width:15%">Name</th>
                                     <th style="width:10%">Mode</th>
-                                    <th style="width:8%">Distance</th>
-                                    <th style="width:8%">Duration</th>
-                                    <th style="width:25%">Specfics</th>
-                                    <th style="width:21%">Comment</th>
-                                    <th style="width:8%"><span ng-show="tableformRoute.$visible">Action</span></th>
+                                    <th style="width:10%">Distance</th>
+                                    <th style="width:10%">Duration</th>
+                                    <th style="width:45%">Specifics</th>
+                                    <th style="width:10%"><span ng-show="tableformRoute.$visible">Action</span></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -369,12 +368,7 @@
                                   {{route.specifics || 'empty' }}
                                 </span>
                                     </td>
-                                    <td>
-                                        <span editable-text="route.comment">
-                                  {{route.comment || 'empty' }}
-                                </span>
-                                    </td>
-                                    <td><button type="button" ng-show="tableformRoute.$visible" ng-click="mtc.deleteRoute(place._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
+                                    <td><button type="button" ng-show="tableformRoute.$visible" ng-click="mtc.deleteRoute(route._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
                                         <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformRoute.$visible"></button></td>
                                 </tr>
 
@@ -382,10 +376,9 @@
                                     <tr>
                                         <td><input type="text" class="form-control" ng-model="mtc.newRoute.name" placeholder="Name"></td>
                                         <td><select type="text" class="form-control" ng-model="mtc.newRoute.transport_mode" ng-options="item for item in mtc.transportModes"></select></td>
-                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.distance" placeholder="Distance"></td>
-                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.duration" placeholder="Duration"></td>
-                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.specifics" placeholder="Specifics"></td>
-                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.comment" placeholder="Comment"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.distance" placeholder="Dist"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.duration" placeholder="Time"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.specifics" placeholder="Details"></td>
                                         <td><button type="button" ng-disabled="tableformRoute.$waiting" ng-click="mtc.addRoute(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
                                     </tr>
                                 </div>

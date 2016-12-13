@@ -32,6 +32,34 @@ router.post("/", function(req, res) {
   });
 }); // END: POST day route
 
+// Route: Delete a day
+router.delete("/one/:id", function(req, res) {
+  var dayToDelete = req.params.id;
+  console.log('Deleting day:', dayToDelete);
+  day.remove({ _id: dayToDelete }, function(err) {
+      if (err) {
+          console.log('There was an error deleting day:', err);
+          res.sendStatus(500);
+      } else {
+          res.send(201);
+      }
+  });
+}); // END: DELETE day route
+
+// Route: Delete all days for a trip
+router.delete("/trip/:id", function(req, res) {
+  var tripDaysToDelete = req.params.id;
+  console.log('Deleting days for trip:', tripDaysToDelete);
+  day.remove({ trip_id: tripDaysToDelete }, function(err) {
+      if (err) {
+          console.log('There was an error deleting days for trip:', err);
+          res.sendStatus(500);
+      } else {
+          res.send(201);
+      }
+  });
+}); // END: DELETE all days for a trip
+
 // Route: Update a day general info
 router.put('/general/:id', function(req, res) {
   console.log('update day general: ', req.body);
@@ -70,8 +98,8 @@ router.put("/addpoi/:id", function(req, res) {
 router.put("/updatepoi/:id/:index", function(req, res) {
   var index = req.params.index;
   console.log('Updating poi:', '\nid:', req.params.id, '\nindex:', index, '\nbody:', req.body);
-  var query = {['interesting_locations.' + index + '.name'] : req.body.name, 
-    ['interesting_locations.' + index + '.description']: req.body.description };
+  var query = {['interesting_locations.' + index + '.name'] : req.body.name,
+    ['interesting_locations.' + index + '.description'] : req.body.description };
     console.log('query', query);
   day.findByIdAndUpdate(
     { _id: req.params.id },
@@ -88,7 +116,7 @@ router.put("/updatepoi/:id/:index", function(req, res) {
   );
 }); // END: Update point of interest route
 
-// Route: Delete a day POI
+// Route: Delete POI
 router.delete('/poi/:dayID/:poiID', function(req, res) {
   console.log('update day poi: ', req.param.dayID, req.param.poiID);
   day.findByIdAndUpdate(
@@ -103,34 +131,68 @@ router.delete('/poi/:dayID/:poiID', function(req, res) {
       }
     }
   );
-}); // END: Update day POI route
+}); // END: Delete POI route
 
-// Route: Delete a day
-router.delete("/one/:id", function(req, res) {
-  var dayToDelete = req.params.id;
-  console.log('Deleting day:', dayToDelete);
-  day.remove({ _id: dayToDelete }, function(err) {
-      if (err) {
-          console.log('There was an error deleting day:', err);
-          res.sendStatus(500);
+// Route: Add a route
+router.put("/addroute/:id", function(req, res) {
+  console.log('Adding route:', req.body);
+  day.findByIdAndUpdate(
+    {_id: req.params.id},
+    { $push: {routes: { name: req.body.name, distance: req.body.duration, transport_mode: req.body.transport_mode, specifics: req.body.specifics, comments: req.body.comments}}},
+     {safe: true, upsert: true},
+    function(err, data) {
+      if(err) {
+        console.log('Add Route ERR: ', err);
+        res.sendStatus(500);
       } else {
-          res.send(201);
+        res.sendStatus(200);
       }
-  });
-}); // END: DELETE day route
+    }
+  );
+}); // END: PUT route route
 
-// Route: Delete all days for a trip
-router.delete("/trip/:id", function(req, res) {
-  var tripDaysToDelete = req.params.id;
-  console.log('Deleting days for trip:', tripDaysToDelete);
-  day.remove({ trip_id: tripDaysToDelete }, function(err) {
-      if (err) {
-          console.log('There was an error deleting days for trip:', err);
-          res.sendStatus(500);
+// Route: Update a route
+router.put("/updateroute/:id/:index", function(req, res) {
+  var index = req.params.index;
+  console.log('Updating route:', '\nid:', req.params.id, '\nindex:', index, '\nbody:', req.body);
+  var query = {['routes.' + index + '.name'] : req.body.name,
+    ['routes.' + index + '.distance'] : req.body.distance,
+    ['routes.' + index + '.duration'] : req.body.duration,
+    ['routes.' + index + '.transport_mode'] : req.body.transport_mode,
+    ['routes.' + index + '.specifics'] : req.body.specifics,
+    ['routes.' + index + '.comments'] : req.body.comments };
+    console.log('query', query);
+  day.findByIdAndUpdate(
+    { _id: req.params.id },
+    { $set: query},
+    //  {safe: true, upsert: true},
+    function(err, data) {
+      if(err) {
+        console.log('Update Route ERR: ', err);
+        res.sendStatus(500);
       } else {
-          res.send(201);
+        res.sendStatus(200);
       }
-  });
-}); // END: DELETE all days for a trip
+    }
+  );
+}); // END: Update route route
+
+// Route: Delete Route
+router.delete('/route/:dayID/:routeID', function(req, res) {
+  console.log('delete route: ', req.param.dayID, req.param.routeID);
+  day.findByIdAndUpdate(
+    {_id: req.params.dayID},
+    { $pull: {routes: { _id: req.params.routeID}}},
+    function(err, data) {
+      if(err) {
+        console.log('Delete Route ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: Delete route route
+
 
 module.exports = router;
