@@ -311,7 +311,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         authFactory.getIdToken().then(function(loginUser) {
             $http({
                 method: 'PUT',
-                url: '/day/poi/' + dayID,
+                url: '/day/addpoi/' + dayID,
                 headers: {
                     id_token: loginUser.authIdToken
                 },
@@ -328,25 +328,24 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     }; // End: addPOI
 
     // update poi
-    self.updatePOI = function(data, dayID, tripID) {
-        console.log('updatePOI:', '\n', 'data:', data, '\ndayID:', dayID, '\ntripID:', tripID);
-        // authFactory.getIdToken().then(function(loginUser) {
-        //     $http({
-        //         method: 'PUT',
-        //         url: '/day/poi/' + dayID,
-        //         headers: {
-        //             id_token: loginUser.authIdToken
-        //         },
-        //         data: self.newPointOfInterest
-        //     }).then(function(response) {
-        //             console.log('POI added');
-        //             self.newPointOfInterest = {};
-        //             self.getDays(tripID);
-        //         },
-        //         function(err) {
-        //             console.log('Unable to add POI', err);
-        //         });
-        // });
+    self.updatePOI = function(index, data, dayID, tripID) {
+        console.log('updatePOI:', '\nindex:', index ,'\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/updatepoi/' + dayID + '/' + index,
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: data
+            }).then(function(response) {
+                    console.log('POI updated');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to update POI', err);
+                });
+        });
     }; // End: updatePOI
 
     // save POI edits

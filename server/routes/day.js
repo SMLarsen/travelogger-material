@@ -49,8 +49,8 @@ router.put('/general/:id', function(req, res) {
 }); // END: Update day route
 
 // Route: Add a point of interest
-router.put("/poi/:id", function(req, res) {
-  console.log('Adding new day:', req.body);
+router.put("/addpoi/:id", function(req, res) {
+  console.log('Adding poi:', req.body);
   day.findByIdAndUpdate(
     {_id: req.params.id},
     { $push: {interesting_locations: { name: req.body.name, description: req.body.description}}},
@@ -64,7 +64,29 @@ router.put("/poi/:id", function(req, res) {
       }
     }
   );
-}); // END: POST point of interest route
+}); // END: PUT point of interest route
+
+// Route: Update a point of interest
+router.put("/updatepoi/:id/:index", function(req, res) {
+  var index = req.params.index;
+  console.log('Updating poi:', '\nid:', req.params.id, '\nindex:', index, '\nbody:', req.body);
+  var query = {['interesting_locations.' + index + '.name'] : req.body.name, 
+    ['interesting_locations.' + index + '.description']: req.body.description };
+    console.log('query', query);
+  day.findByIdAndUpdate(
+    { _id: req.params.id },
+    { $set: query},
+    //  {safe: true, upsert: true},
+    function(err, data) {
+      if(err) {
+        console.log('Update POI ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: Update point of interest route
 
 // Route: Delete a day POI
 router.delete('/poi/:dayID/:poiID', function(req, res) {

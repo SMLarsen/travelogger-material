@@ -279,7 +279,7 @@
 
                 <!-- Starting Points of Interest -->
 
-                <form editable-form name="tableformPOI" onaftersave="savePOITable()" oncancel="cancel()">
+                <form editable-form name="tableformPOI" oncancel="cancel()">
                   <label class="dayLabel col-xs-12"></label>
                   <!-- table -->
                   <div class="col-xs-11">
@@ -291,22 +291,22 @@
                       </tr>
                       <tr ng-repeat="place in day.interesting_locations">
                         <td>
-                          <span editable-text="place.name" class="form-control" e-form="tableformPOI">
+                          <span editable-text="place.name" onaftersave="mtc.updatePOI($index, place, day._id, day.trip_id)">
                             {{ place.name || 'empty' }}
                           </span>
                         </td>
                         <td>
-                          <span editable-text="place.description" class="form-control" e-form="tableformPOI">
+                          <span editable-text="place.description">
                             {{ place.description || 'empty' }}
                           </span>
                         </td>
                         <td><button type="button" ng-show="tableformPOI.$visible" ng-click="mtc.deletePOI(place._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
-                        <button type="submit" ng-show="tableformPOI.$visible" ng-click="mtc.updatePOI(place, day._id, day.trip_id)" class="updateBtn pull-right fa fa-check"></button></td>
+                        <button type="submit"  class="updateBtn pull-right fa fa-check" ng-show="tableformPOI.$visible"></button></td>
                       </tr>
                       <div class="btn-form" ng-show="tableformPOI.$visible">
                         <tr>
-                          <td><input type="text" class="form-control" ng-model="mtc.newPointOfInterest.name" placeholder="Name"></td>
-                          <td><input type="text" class="form-control" ng-model="mtc.newPointOfInterest.description" placeholder="Description"></td>
+                          <td><span type="text" class="form-control" ng-model="mtc.newPointOfInterest.name" placeholder="Name"></span></td>
+                          <td><span type="text" class="form-control" ng-model="mtc.newPointOfInterest.description" placeholder="Description"></span></td>
                           <td><button type="button" ng-disabled="tableformPOI.$waiting" ng-click="mtc.addPOI(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
                         </tr>
                       </div>
