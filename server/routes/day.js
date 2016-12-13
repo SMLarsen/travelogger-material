@@ -212,7 +212,7 @@ router.put("/addmeal/:id", function(req, res) {
   );
 }); // END: PUT meal route
 
-// Route: Update a route
+// Route: Update a meal
 router.put("/updatemeal/:id/:index", function(req, res) {
   var index = req.params.index;
   console.log('Updating meal:', '\nid:', req.params.id, '\nindex:', index, '\nbody:', req.body);
@@ -237,7 +237,7 @@ router.put("/updatemeal/:id/:index", function(req, res) {
   );
 }); // END: Update Meal route
 
-// Route: Delete Route
+// Route: Delete meal
 router.delete('/meal/:dayID/:mealID', function(req, res) {
   console.log('delete meal: ', req.param.dayID, req.param.mealID);
   day.findByIdAndUpdate(
@@ -253,6 +253,62 @@ router.delete('/meal/:dayID/:mealID', function(req, res) {
     }
   );
 }); // END: Delete Meal route
+
+// Route: Add a recommendation
+router.put("/addrecommendation/:id", function(req, res) {
+  console.log('Adding recommendation:', req.body);
+  day.findByIdAndUpdate(
+    {_id: req.params.id},
+    { $push: {recommendations: { text: req.body.text }}},
+     {safe: true, upsert: true},
+    function(err, data) {
+      if(err) {
+        console.log('Add Recommendation ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: PUT recommendation route
+
+// Route: Update a recommendation
+router.put("/updaterecommendation/:id/:index", function(req, res) {
+  var index = req.params.index;
+  console.log('Updating recommendation:', '\nid:', req.params.id, '\nindex:', index, '\nbody:', req.body);
+  var query = {['recommendations.' + index + '.text'] : req.body.text };
+    console.log('query', query);
+  day.findByIdAndUpdate(
+    { _id: req.params.id },
+    { $set: query},
+    //  {safe: true, upsert: true},
+    function(err, data) {
+      if(err) {
+        console.log('Update Recommendation ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: Update Recommendation route
+
+// Route: Delete recommendation
+router.delete('/recommendation/:dayID/:recommendationID', function(req, res) {
+  console.log('delete recommendation: ', req.param.dayID, req.param.mealID);
+  day.findByIdAndUpdate(
+    {_id: req.params.dayID},
+    { $pull: {recommendations: { _id: req.params.mealID}}},
+    function(err, data) {
+      if(err) {
+        console.log('Delete Recommendation ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: Delete Recommendation route
 
 
 module.exports = router;

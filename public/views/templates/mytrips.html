@@ -441,7 +441,7 @@
                                     <th style="width:10%">Name</th>
                                     <th style="width:20%">Location</th>
                                     <th style="width:30%">Description</th>
-                                    <th style="width:20%">reference</th>
+                                    <th style="width:20%">Reference</th>
                                     <th style="width:10%"><span ng-show="tableformMeals.$visible">Action</span></th>
                                 </tr>
                             </thead>
@@ -480,9 +480,9 @@
                                     <tr>
                                         <td><select type="text" class="form-control" ng-model="mtc.newMeal.type" ng-options="item for item in mtc.mealTypes"></select></td>
                                         <td><input type="text" class="form-control" ng-model="mtc.newMeal.name" placeholder="Name"></td>
-                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.location" placeholder="Dist"></td>
-                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.description" placeholder="Time"></td>
-                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.reference" placeholder="Details"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.location" placeholder="Where"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.description" placeholder="What"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.reference" placeholder="Reference e.g., www.joes-place.com"></td>
                                         <td><button type="button" ng-disabled="tableformMeals.$waiting" ng-click="mtc.addMeal(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
                                     </tr>
                                 </div>
@@ -501,46 +501,50 @@
                     </div>
                 </form>
 
+                <!-- Starting recommendations -->
 
+                <form editable-form name="tableformRecommendations" oncancel="cancel()">
+                    <label class="dayLabel col-xs-12">Recommendations</label>
+                    <!-- table -->
+                    <div class="col-xs-11">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead class=>
+                                <tr>
+                                    <th style="width:90%"></th>
+                                    <th style="width:10%"><span ng-show="tableformRecommendations.$visible">Action</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="recommendations" ng-repeat="recommendation in day.recommendations">
+                                    <td>
+                                        <span editable-text="recommendation.text" onaftersave="mtc.updateRecommendation($index, recommendation, day._id, day.trip_id)">
+                                          {{recommendation.text}}
+                                        </span>
+                                    </td>
+                                    <td><button type="button" ng-show="tableformRecommendations.$visible" ng-click="mtc.deleteRecommendation(meal._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
+                                        <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformRecommendations.$visible"></button></td>
+                                </tr>
 
-                <div class="form-group" ng-model="mtc.newDay.trip_name">
-                    <ng-form name="addDayForm">
+                                <div class="btn-form" ng-show="tableformRecommendations.$visible">
+                                    <tr>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newRecommendation.text" placeholder="Add a recommendation"></td>
+                                        <td><button type="button" ng-disabled="tableformRecommendations.$waiting" ng-click="mtc.addRecommendation(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
+                                    </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
 
-
-                        <div class="daySection form-group">
-                            <label class="dayLabel col-xs-12">Narrative</label><br>
-                            <div class="col-xs-12">
-                                <input type="text" class="form-control" name="narrative" ng-model="day.narrative" placeholder="Describe the day">
-                            </div>
-                        </div><br>
-
-                        <div class="daySection form-group">
-                            <label class="dayLabel col-xs-12">Recommendations</label><br>
-                            <div class="col-xs-12">
-                                <table class="dayTable table table-hover table-responsive">
-                                    <thead class=>
-                                        <tr>
-                                            <th style="width:100%">Recommendation</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="recommendations" ng-repeat="recommendation in day.recommendations">
-                                        <tr>
-                                            <td>{{recommendation.text}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="col-xs-1">
+                        <!-- buttons -->
+                        <div class="btn-edit">
+                            <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformRecommendations.$visible" ng-click="tableformRecommendations.$show()"></button>
                         </div>
-
-                        <div class="form-group">
-                            <label class="dayLabel sr-only">Save</label>
-                            <div class="col-xs-2 col-xs-offset-5 text-center">
-                                <button class="form-control btn btn-primary btn-lg" ng-click="mtc.addDay(trip._id)">Save</button>
-                            </div>
+                        <div class="btn-form" ng-show="tableformRecommendations.$visible">
+                            <button type="button" ng-disabled="tableformRecommendations.$waiting" ng-click="tableformRecommendations.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
                         </div>
-
-                    </ng-form>
-                </div>
+                    </div>
+                </form>
 
             </div>
             <!--  END: Show days accord on group-->

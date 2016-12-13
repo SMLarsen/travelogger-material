@@ -454,4 +454,68 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End deleteMeal
 
+        // add recommendation to day
+        self.addRecommendation = function(dayID, tripID) {
+            console.log('addRecommendation:', '\n', 'text:', self.newRecommendation.text, '\ndayID:', dayID, '\ntripID:', tripID);
+            authFactory.getIdToken().then(function(loginUser) {
+                $http({
+                    method: 'PUT',
+                    url: '/day/addrecommendation/' + dayID,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    },
+                    data: self.newRecommendation
+                }).then(function(response) {
+                        console.log('Recommendation added');
+                        self.newRecommendation = {};
+                        self.getDays(tripID);
+                    },
+                    function(err) {
+                        console.log('Unable to add Recommendation', err);
+                    });
+            });
+        }; // End: addRecommendation
+
+        // update recommendation
+        self.updateRecommendation = function(index, data, dayID, tripID) {
+            console.log('updateRecommendation:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+            authFactory.getIdToken().then(function(loginUser) {
+                $http({
+                    method: 'PUT',
+                    url: '/day/updaterecommendation/' + dayID + '/' + index,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    },
+                    data: data
+                }).then(function(response) {
+                        console.log('Recommendation updated');
+                        self.getDays(tripID);
+                    },
+                    function(err) {
+                        console.log('Unable to update Recommendation', err);
+                    });
+            });
+        }; // End: updateRecommendation
+
+        // Begin: delete recommendation
+        self.deleteRecommendation = function(recommendationID, dayID, tripID) {
+            console.log(recommendationID, dayID, tripID);
+            // self.days[parentIndex].interesting_locations.splice(index, 1);
+            authFactory.getIdToken().then(function(loginUser) {
+                $http({
+                    method: 'DELETE',
+                    url: '/day/recommendation/' + dayID + '/' + recommendationID,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    }
+                }).then(function(response) {
+                        console.log('Recommendation deleted');
+                        self.getDays(tripID);
+                    },
+                    function(err) {
+                        console.log('Unable to delete recommendation', err);
+                    });
+            });
+        }; // End delete recommendation
+
 }]); // END: TripController
