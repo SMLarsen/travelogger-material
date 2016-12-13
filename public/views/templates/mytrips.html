@@ -35,16 +35,37 @@
         <!--  START: Show Trips Accordion-group  -->
         <!-- <div uib-accordion-group ng-repeat="trip in mtc.trips" ng-click="mtc.getDays(trip._id)" class="panel-default" is-disabled="mtc.status.isFirstDisabled"> -->
         <div uib-accordion-group ng-repeat="trip in mtc.trips" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
-            <div>
+            <div class="col-xs-12">
                 <uib-accordion-heading>
                     <span ng-click="mtc.getDays(trip._id)">{{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}</span>
                     <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteTrip(trip._id)"></span>
-                    <span class="updateBtn pull-right fa fa-check" ng-click="mtc.updateTrip(trip)"></span>
                 </uib-accordion-heading>
 
-                <h4><a editable-text="trip.travellers" buttons="no">{{trip.travellers || 'empty' }}</a> -- the <a editable-text="trip.trip_name" buttons="no">{{trip.trip_name || 'empty' }}</a> trip</h4>
-                <h5>Starting on <a editable-date="trip.begin_date" buttons="no">{{trip.begin_date | date }}</a> in <a buttons="no" editable-text="trip.begin_location">{{trip.begin_location || 'empty' }}</a>, and ending on <a editable-date="trip.end_date" buttons="no">{{trip.end_date | date }}</a> in <a buttons="no" editable-text="trip.end_location">{{trip.end_location || 'empty' }}</a></h5>
-            </div>
+                <form editable-form name="editableFormTrip">
+                  <div class="tripInfo col-xs-11">
+                    <p>
+                      <span editable-text="trip.travellers" buttons="no">{{trip.travellers || 'empty' }}</span> -- the
+                      <span editable-text="trip.trip_name" buttons="no">{{trip.trip_name || 'empty' }}</span> trip
+                    </p>
+                    <p>Starting on
+                    <span editable-date="trip.begin_date" buttons="no">{{trip.begin_date | date }}</span> in
+                    <span buttons="no" editable-text="trip.begin_location">{{trip.begin_location || 'empty' }}</span> and ending on
+                    <span editable-date="trip.end_date" buttons="no">{{trip.end_date | date }}</span> in
+                    <span buttons="no" editable-text="trip.end_location">{{trip.end_location || 'empty' }}</span>
+                    </p>
+                  </div>
+
+                  <div class="col-xs-1">
+                    <!-- button to show form -->
+                    <button type="button" class="editBtn pull-right fa fa-pencil" ng-click="editableFormTrip.$show()" ng-show="!editableFormTrip.$visible"></button>
+                    <!-- buttons to submit / cancel form -->
+                    <span ng-show="editableFormTrip.$visible">
+                        <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormTrip.$waiting" ng-click="editableFormTrip.$cancel()"></button>
+                        <button type="submit" class="updateBtn fa fa-check" ng-disabled="editableFormTrip.$waiting" ng-click="mtc.updateDayGeneral(editableFormTrip.$data, day._id, day.trip_id)"></button>
+                      </span>
+                  </div>
+                </form>
+            </div><br><br><br>
 
             <!--  START: Add Day -->
             <div uib-accordion-group class="panel-primary" is-disabled="mtc.statusInner.isFirstDisabled">
@@ -243,70 +264,70 @@
                     <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteDay(day._id)"></span>
                 </uib-accordion-heading>
 
-                    <form editable-form name="editableFormGeneral">
-                      <label class="dayLabel col-xs-12">General Information</label>
+                <form editable-form name="editableFormGeneral">
+                    <label class="dayLabel col-xs-12">General Information</label>
+                    <div class="col-xs-2">
+                        <!-- <span class="title">Date: </span> -->
+                        <span editable-date="day.date" e-name="date" e-required>{{ day.date | date:'MM/dd' }}</span>
+                    </div>
+
+                    <div class="col-xs-2">
+                        <!-- <span class="title">Where: </span> -->
+                        <span editable-text="day.end_location" e-name="end_location" e-required>{{ day.end_location || 'empty' }}</span>
+                    </div>
+
+                    <div class="col-xs-3">
+                        <!-- <span class="title">Tag-line: </span> -->
+                        <span editable-text="day.tag_line" e-name="tag_line" e-required>{{ day.tag_line || 'empty' }}</span>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <!-- <span class="title">Weather: </span> -->
+                        <span editable-text="day.weather" e-name="weather" e-required>{{ day.weather || 'empty' }}</span>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <!-- button to show form -->
+                        <button type="button" class="editBtn pull-right fa fa-pencil" ng-click="editableFormGeneral.$show()" ng-show="!editableFormGeneral.$visible"></button>
+                        <!-- buttons to submit / cancel form -->
+                        <span ng-show="editableFormGeneral.$visible">
+                            <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormGeneral.$waiting" ng-click="editableFormGeneral.$cancel()"></button>
+                            <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormGeneral.$waiting" ng-click="mtc.updateDayGeneral(editableFormGeneral.$data, day._id, day.trip_id)"></button>
+                          </span>
+                    </div><br>
+
+                    <label class="daySubLabel col-xs-12">Lodging</label>
+                    <div class="col-xs-12">
+
                         <div class="col-xs-2">
-                            <!-- <span class="title">Date: </span> -->
-                            <span editable-date="day.date" e-name="date" e-required>{{ day.date | date:'MM/dd' }}</span>
+                            <!-- <span class="title">Weather: </span> -->
+                            <!-- <span editable-text="day.lodging_type" e-name="lodging_type">{{ day.lodging_type || 'empty' }}</span> -->
+                            <span editable-select="day.lodging_type" e-name="lodging_type" e-ng-options="item for item in mtc.lodgingTypes">{{ day.lodging_type || 'empty' }}</span>
                         </div>
 
                         <div class="col-xs-2">
+                            <!-- <span class="title">Date: </span> -->
+                            <span editable-text="day.lodging_name" e-name="lodging_name">{{ day.lodging_name || 'empty' }}</span>
+                        </div>
+
+                        <div class="col-xs-4">
                             <!-- <span class="title">Where: </span> -->
-                            <span editable-text="day.end_location" e-name="end_location" e-required>{{ day.end_location || 'empty' }}</span>
+                            <span editable-text="day.lodging_address" e-name="lodging_address">{{ day.lodging_address || 'empty' }}</span>
                         </div>
 
                         <div class="col-xs-3">
                             <!-- <span class="title">Tag-line: </span> -->
-                            <span editable-text="day.tag_line" e-name="tag_line" e-required>{{ day.tag_line || 'empty' }}</span>
+                            <span editable-text="day.lodging_reference" e-name="lodging_reference">{{ day.lodging_reference || 'empty' }}</span>
                         </div>
+                    </div>
 
-                        <div class="col-xs-4">
-                            <!-- <span class="title">Weather: </span> -->
-                            <span editable-text="day.weather" e-name="weather" e-required>{{ day.weather || 'empty' }}</span>
-                        </div>
+                    <label class="daySubLabel col-xs-12">Narrative</label>
+                    <div class="col-xs-11">
+                        <span editable-textarea="day.narrative" e-name="narrative" e-rows="7" e-cols="100%">{{day.narrative}}</span>
 
-                        <div class="col-xs-1">
-                            <!-- button to show form -->
-                            <button type="button" class="editBtn pull-right fa fa-pencil" ng-click="editableFormGeneral.$show()" ng-show="!editableFormGeneral.$visible"></button>
-                            <!-- buttons to submit / cancel form -->
-                            <span ng-show="editableFormGeneral.$visible">
-                            <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormGeneral.$waiting" ng-click="editableFormGeneral.$cancel()"></button>
-                            <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormGeneral.$waiting" ng-click="mtc.updateDayGeneral(editableFormGeneral.$data, day._id, day.trip_id)"></button>
-                          </span>
-                        </div><br>
+                    </div><br>
 
-                        <label class="daySubLabel col-xs-12">Lodging</label>
-                        <div class="col-xs-12">
-
-                            <div class="col-xs-2">
-                                <!-- <span class="title">Weather: </span> -->
-                                <!-- <span editable-text="day.lodging_type" e-name="lodging_type">{{ day.lodging_type || 'empty' }}</span> -->
-                                <span editable-select="day.lodging_type" e-name="lodging_type" e-ng-options="item for item in mtc.lodgingTypes">{{ day.lodging_type || 'empty' }}</span>
-                            </div>
-
-                            <div class="col-xs-2">
-                                <!-- <span class="title">Date: </span> -->
-                                <span editable-text="day.lodging_name" e-name="lodging_name">{{ day.lodging_name || 'empty' }}</span>
-                            </div>
-
-                            <div class="col-xs-4">
-                                <!-- <span class="title">Where: </span> -->
-                                <span editable-text="day.lodging_address" e-name="lodging_address">{{ day.lodging_address || 'empty' }}</span>
-                            </div>
-
-                            <div class="col-xs-3">
-                                <!-- <span class="title">Tag-line: </span> -->
-                                <span editable-text="day.lodging_reference" e-name="lodging_reference">{{ day.lodging_reference || 'empty' }}</span>
-                            </div>
-                        </div>
-
-                        <label class="daySubLabel col-xs-12">Narrative</label>
-                        <div class="col-xs-11">
-                          <span editable-textarea="day.narrative" e-name="narrative" e-rows="7" e-cols="100%">{{day.narrative}}</span>
-
-                        </div><br>
-
-              </form>
+                </form>
 
                 <!-- Starting Points of Interest -->
 
