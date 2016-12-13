@@ -1,10 +1,18 @@
 <h2>Trips</h2>
 
-<div ng-repeat="trip in tc.trips">
-  <div class="guestTrip col-xs-3">
-    <h4>{{trip.trip_name}}</h4>
-    <p>Starting <span>{{trip.begin_date | date:'MM/yy'}}</span> at <span>{{trip.begin_location}}</span></p>
-    <p>Ending <span>{{trip.end_date | date:'MM/yy'}}</span> at <span>{{trip.end_location}}</span></p>
-  </div>
+<div class="col-xs-6 col-xs-offset-6">
+    <section>
+        <label for="searchInput" class="sr-only"><span>Search Trips</span></label>
+        <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Trips" />
+    </section>
+</div>
 
+<div class="col-xs-12">
+  <div ng-repeat="trip in tc.trips | filter:searchInput">
+      <div class="guestTrip col-xs-2">
+          <h4>{{trip.trip_name}}</h4>
+          <p>Starting <span>{{trip.begin_date | date:'MM/yy'}}</span> at <span>{{trip.begin_location}}</span></p>
+          <p>Ending <span>{{trip.end_date | date:'MM/yy'}}</span> at <span>{{trip.end_location}}</span></p>
+      </div>
+  </div>
 </div>

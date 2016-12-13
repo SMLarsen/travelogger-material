@@ -23,6 +23,10 @@ body {
     background-size:  cover;*/
 }
 
+.searchInput {
+  border-radius: 25px;
+}
+
 .guestTrip {
   background-color: #3072AC;
   padding: 10px;
