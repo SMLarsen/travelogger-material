@@ -50,8 +50,14 @@ body {
 }
 
 .dayLabel {
-  margin-top: 5px;
+  margin-top: 10px;
   border-top: 1px solid #3072AC;
+  padding: 5px 0;
+}
+
+.daySubLabel {
+  margin-top: 10px;
+  border-top: 1px solid #97b8df;
   padding: 5px 0;
 }
 

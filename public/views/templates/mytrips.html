@@ -243,8 +243,8 @@
                     <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteDay(day._id)"></span>
                 </uib-accordion-heading>
 
-                <div class="col-xs-12">
                     <form editable-form name="editableFormGeneral">
+                      <label class="dayLabel col-xs-12">General Information</label>
                         <div class="col-xs-2">
                             <!-- <span class="title">Date: </span> -->
                             <span editable-date="day.date" e-name="date" e-required>{{ day.date | date:'MM/dd' }}</span>
@@ -265,7 +265,7 @@
                             <span editable-text="day.weather" e-name="weather" e-required>{{ day.weather || 'empty' }}</span>
                         </div>
 
-                        <div>
+                        <div class="col-xs-1">
                             <!-- button to show form -->
                             <button type="button" class="editBtn pull-right fa fa-pencil" ng-click="editableFormGeneral.$show()" ng-show="!editableFormGeneral.$visible"></button>
                             <!-- buttons to submit / cancel form -->
@@ -273,9 +273,40 @@
                             <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormGeneral.$waiting" ng-click="editableFormGeneral.$cancel()"></button>
                             <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormGeneral.$waiting" ng-click="mtc.updateDayGeneral(editableFormGeneral.$data, day._id, day.trip_id)"></button>
                           </span>
+                        </div><br>
+
+                        <label class="daySubLabel col-xs-12">Lodging</label>
+                        <div class="col-xs-12">
+
+                            <div class="col-xs-2">
+                                <!-- <span class="title">Weather: </span> -->
+                                <!-- <span editable-text="day.lodging_type" e-name="lodging_type">{{ day.lodging_type || 'empty' }}</span> -->
+                                <span editable-select="day.lodging_type" e-name="lodging_type" e-ng-options="item for item in mtc.lodgingTypes">{{ day.lodging_type || 'empty' }}</span>
+                            </div>
+
+                            <div class="col-xs-2">
+                                <!-- <span class="title">Date: </span> -->
+                                <span editable-text="day.lodging_name" e-name="lodging_name">{{ day.lodging_name || 'empty' }}</span>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <!-- <span class="title">Where: </span> -->
+                                <span editable-text="day.lodging_address" e-name="lodging_address">{{ day.lodging_address || 'empty' }}</span>
+                            </div>
+
+                            <div class="col-xs-3">
+                                <!-- <span class="title">Tag-line: </span> -->
+                                <span editable-text="day.lodging_reference" e-name="lodging_reference">{{ day.lodging_reference || 'empty' }}</span>
+                            </div>
                         </div>
-                    </form>
-                </div>
+
+                        <label class="daySubLabel col-xs-12">Narrative</label>
+                        <div class="col-xs-11">
+                          <span editable-textarea="day.narrative" e-name="narrative" e-rows="7" e-cols="100%">{{day.narrative}}</span>
+
+                        </div><br>
+
+              </form>
 
                 <!-- Starting Points of Interest -->
 
@@ -447,7 +478,7 @@
 
                                 <div class="btn-form" ng-show="tableformMeals.$visible">
                                     <tr>
-                                      <td><select type="text" class="form-control" ng-model="mtc.newMeal.type" ng-options="item for item in mtc.mealTypes"></select></td>
+                                        <td><select type="text" class="form-control" ng-model="mtc.newMeal.type" ng-options="item for item in mtc.mealTypes"></select></td>
                                         <td><input type="text" class="form-control" ng-model="mtc.newMeal.name" placeholder="Name"></td>
                                         <td><input type="text" class="form-control" ng-model="mtc.newMeal.location" placeholder="Dist"></td>
                                         <td><input type="text" class="form-control" ng-model="mtc.newMeal.description" placeholder="Time"></td>
@@ -468,54 +499,13 @@
                             <button type="button" ng-disabled="tableformMeals.$waiting" ng-click="tableformMeals.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
                         </div>
                     </div>
-
                 </form>
-
-
-
-
 
 
 
                 <div class="form-group" ng-model="mtc.newDay.trip_name">
                     <ng-form name="addDayForm">
 
-
-                        <div class="daySection form-group">
-                            <label class="dayLabel col-xs-12">Meals</label><br>
-                            <div class="col-xs-12">
-                                <table class="dayTable table table-hover table-responsive">
-                                    <tbody class="meals" ng-repeat="meal in day.meals">
-                                        <tr>
-                                            <td>{{meal.type}}</td>
-                                            <td>{{meal.name}}</td>
-                                            <td>{{meal.location}}</td>
-                                            <td>{{meal.description}}</td>
-                                            <td>{{meal.reference}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="daySection form-group">
-                            <label class="dayLabel col-xs-12">Lodging</label><br>
-                            <div class="col-xs-2">
-                                <label class="sr-only">Type</label>
-                                <select class="form-control" ng-model="day.lodgingTypes_type" ng-options="item for item in day.lodgingTypes"></select>
-                            </div>
-                            <div class="col-xs-4">
-                                <input type="text" class="form-control" name="lodging_name" ng-model="day.lodging_name" placeholder="Name">
-                            </div>
-                            <div class="col-xs-6">
-                                <label class="sr-only">Address</label>
-                                <input type="text" class="form-control" name="lodging_address" ng-model="day.lodging_address" placeholder="Address">
-                            </div><br>
-                            <div class="col-xs-12">
-                                <label class="sr-only">Reference</label>
-                                <input type="text" class="form-control" name="lodging_reference" ng-model="day.lodging_reference" placeholder="Reference">
-                            </div>
-                        </div><br>
 
                         <div class="daySection form-group">
                             <label class="dayLabel col-xs-12">Narrative</label><br>
