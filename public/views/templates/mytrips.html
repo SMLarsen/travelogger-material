@@ -305,8 +305,8 @@
                       </tr>
                       <div class="btn-form" ng-show="tableformPOI.$visible">
                         <tr>
-                          <td><span type="text" class="form-control" ng-model="mtc.newPointOfInterest.name" placeholder="Name"></span></td>
-                          <td><span type="text" class="form-control" ng-model="mtc.newPointOfInterest.description" placeholder="Description"></span></td>
+                          <td><input type="text" class="form-control" ng-model="mtc.newPointOfInterest.name" placeholder="Name"></td>
+                          <td><input type="text" class="form-control" ng-model="mtc.newPointOfInterest.description" placeholder="Description"></td>
                           <td><button type="button" ng-disabled="tableformPOI.$waiting" ng-click="mtc.addPOI(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
                         </tr>
                       </div>
