@@ -256,7 +256,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     //     self.recommendation = {};
     // }; // End addRecommendation
 
-// Point of interest add, update, delete
+    // Point of interest add, update, delete
 
     // add poi to day
     self.addPOI = function(dayID, tripID) {
@@ -320,72 +320,138 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                     console.log('Unable to delete day poi', err);
                 });
         });
-    };  // End deletePOI
+    }; // End deletePOI
 
-    // Point of interest add, update, delete
+    // Route add, update, delete
 
-        // add route to day
-        self.addRoute = function(dayID, tripID) {
-            console.log('addRoute:', '\n', 'name:', self.newRoute.name, '\ndayID:', dayID, '\ntripID:', tripID);
-            authFactory.getIdToken().then(function(loginUser) {
-                $http({
-                    method: 'PUT',
-                    url: '/day/addroute/' + dayID,
-                    headers: {
-                        id_token: loginUser.authIdToken
-                    },
-                    data: self.newRoute
-                }).then(function(response) {
-                        console.log('POI added');
-                        self.newRoute = {};
-                        self.getDays(tripID);
-                    },
-                    function(err) {
-                        console.log('Unable to add POI', err);
-                    });
-            });
-        }; // End: addRoute
+    // add route to day
+    self.addRoute = function(dayID, tripID) {
+        console.log('addRoute:', '\n', 'name:', self.newRoute.name, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/addroute/' + dayID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: self.newRoute
+            }).then(function(response) {
+                    console.log('POI added');
+                    self.newRoute = {};
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to add POI', err);
+                });
+        });
+    }; // End: addRoute
 
-        // update route
-        self.updateRoute = function(index, data, dayID, tripID) {
-            console.log('updateRoute:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
-            authFactory.getIdToken().then(function(loginUser) {
-                $http({
-                    method: 'PUT',
-                    url: '/day/updateroute/' + dayID + '/' + index,
-                    headers: {
-                        id_token: loginUser.authIdToken
-                    },
-                    data: data
-                }).then(function(response) {
-                        console.log('Route updated');
-                        self.getDays(tripID);
-                    },
-                    function(err) {
-                        console.log('Unable to update Route', err);
-                    });
-            });
-        }; // End: updateRoute
+    // update route
+    self.updateRoute = function(index, data, dayID, tripID) {
+        console.log('updateRoute:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/updateroute/' + dayID + '/' + index,
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: data
+            }).then(function(response) {
+                    console.log('Route updated');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to update Route', err);
+                });
+        });
+    }; // End: updateRoute
 
-        // Begin: delete route
-        self.deleteRoute = function(routeID, dayID, tripID) {
-            console.log(routeID, dayID, tripID);
-            // self.days[parentIndex].interesting_locations.splice(index, 1);
-            authFactory.getIdToken().then(function(loginUser) {
-                $http({
-                    method: 'DELETE',
-                    url: '/day/route/' + dayID + '/' + routeID,
-                    headers: {
-                        id_token: loginUser.authIdToken
-                    }
-                }).then(function(response) {
-                        console.log('Day route deleted');
-                        self.getDays(tripID);
-                    },
-                    function(err) {
-                        console.log('Unable to delete day route', err);
-                    });
-            });
-        };  // End deleteRoute
+    // Begin: delete route
+    self.deleteRoute = function(routeID, dayID, tripID) {
+        console.log(routeID, dayID, tripID);
+        // self.days[parentIndex].interesting_locations.splice(index, 1);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'DELETE',
+                url: '/day/route/' + dayID + '/' + routeID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                }
+            }).then(function(response) {
+                    console.log('Day route deleted');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to delete day route', err);
+                });
+        });
+    }; // End deleteRoute
+
+    // Route add, update, delete
+
+    // add meal to day
+    self.addMeal = function(dayID, tripID) {
+        console.log('addMeal:', '\n', 'name:', self.newMeal.name, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/addmeal/' + dayID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: self.newMeal
+            }).then(function(response) {
+                    console.log('POI added');
+                    self.newMeal = {};
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to add POI', err);
+                });
+        });
+    }; // End: addMeal
+
+    // update meal
+    self.updateMeal = function(index, data, dayID, tripID) {
+        console.log('updateMeal:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/updatemeal/' + dayID + '/' + index,
+                headers: {
+                    id_token: loginUser.authIdToken
+                },
+                data: data
+            }).then(function(response) {
+                    console.log('Meal updated');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to update Meal', err);
+                });
+        });
+    }; // End: updateMeal
+
+    // Begin: delete meal
+    self.deleteMeal = function(mealID, dayID, tripID) {
+        console.log(mealID, dayID, tripID);
+        // self.days[parentIndex].interesting_locations.splice(index, 1);
+        authFactory.getIdToken().then(function(loginUser) {
+            $http({
+                method: 'DELETE',
+                url: '/day/meal/' + dayID + '/' + mealID,
+                headers: {
+                    id_token: loginUser.authIdToken
+                }
+            }).then(function(response) {
+                    console.log('Day meal deleted');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to delete day meal', err);
+                });
+        });
+    }; // End deleteMeal
 
 }]); // END: TripController

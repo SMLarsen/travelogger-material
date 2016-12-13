@@ -194,5 +194,65 @@ router.delete('/route/:dayID/:routeID', function(req, res) {
   );
 }); // END: Delete route route
 
+// Route: Add a meal
+router.put("/addmeal/:id", function(req, res) {
+  console.log('Adding meal:', req.body);
+  day.findByIdAndUpdate(
+    {_id: req.params.id},
+    { $push: {meals: { name: req.body.name, type: req.body.type, location: req.body.location, description: req.body.description, reference: req.body.reference}}},
+     {safe: true, upsert: true},
+    function(err, data) {
+      if(err) {
+        console.log('Add Route ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: PUT meal route
+
+// Route: Update a route
+router.put("/updatemeal/:id/:index", function(req, res) {
+  var index = req.params.index;
+  console.log('Updating meal:', '\nid:', req.params.id, '\nindex:', index, '\nbody:', req.body);
+  var query = {['meals.' + index + '.name'] : req.body.name,
+    ['meals.' + index + '.type'] : req.body.type,
+    ['meals.' + index + '.location'] : req.body.location,
+    ['meals.' + index + '.description'] : req.body.description,
+    ['meals.' + index + '.reference'] : req.body.reference };
+    console.log('query', query);
+  day.findByIdAndUpdate(
+    { _id: req.params.id },
+    { $set: query},
+    //  {safe: true, upsert: true},
+    function(err, data) {
+      if(err) {
+        console.log('Update Meal ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: Update Meal route
+
+// Route: Delete Route
+router.delete('/meal/:dayID/:mealID', function(req, res) {
+  console.log('delete meal: ', req.param.dayID, req.param.mealID);
+  day.findByIdAndUpdate(
+    {_id: req.params.dayID},
+    { $pull: {meals: { _id: req.params.mealID}}},
+    function(err, data) {
+      if(err) {
+        console.log('Delete Meal ERR: ', err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
+}); // END: Delete Meal route
+
 
 module.exports = router;
