@@ -1,5 +1,4 @@
 <h2>Days</h2>
-{{dc.tripID}}
 
 <div class="col-xs-6 col-xs-offset-6">
     <section>
@@ -8,11 +7,35 @@
     </section>
 </div>
 
-<div class="col-xs-12">
+<div class="col-xs-3">
   <div ng-repeat="day in dc.days | filter:searchInput">
-      <a class="guestDay">
-
-          <h4>{{day.date | date:'MM/dd'}} - {{day.end_location}}: {{day.tag_line}}</h4>
+    <div class="guestDay">
+      <a ng-click="dc.setDay($index)">
+          <p>{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
       </a>
+    </div>
   </div>
+</div>
+
+<div class="col-xs-8 col-xs-offset-1">
+  <h4>{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</h4>
+  <h3>{{dc.focusDay.tag_line}}</h3>
+  <p><span>{{dc.focusDay.date | date:'MM/dd'}}</span> in <span>{{dc.focusDay.end_location}}</span></p>
+  <p><span>{{dc.focusDay.weather}}</span></p>
+  <p><span>{{dc.focusDay.narrative}}</span></p>
+  <p>Where the night was spent - </p>
+  <p><span>{{dc.focusDay.lodging_type}}</span> - <span>{{dc.focusDay.lodging_name}}</span></p>
+  <p><span>{{dc.focusDay.lodging_address}}</span><span>{{dc.focusDay.lodging_reference}}</span></p>
+
+  <p>Points of Interest</p>
+  <p><span ng-repeat="place in mtc.focusDay.interesting_locations">{{place.name}} - {{place.description}}</span></p>
+
+  <!-- <span>{{dc.focusDay.}}</span>
+  <span>{{dc.focusDay.}}</span>
+  <span>{{dc.focusDay.}}</span>
+  <span>{{dc.focusDay.}}</span>
+  <span>{{dc.focusDay.}}</span>
+  <span>{{dc.focusDay.}}</span>
+  <span>{{dc.focusDay.}}</span> -->
+
 </div>

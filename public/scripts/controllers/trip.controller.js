@@ -9,7 +9,7 @@ app.controller("TripController", ['$http', '$filter', '$q', function($http, $fil
 
     // Function to GET trips
     function getTrips() {
-        $http.get('/guest/trip')
+        $http.get('/guest/trips')
         .then(function(response) {
                 self.trips = response.data;
                 console.log('response.data', response.data);

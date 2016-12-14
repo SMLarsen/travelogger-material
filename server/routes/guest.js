@@ -3,11 +3,27 @@ var router = express.Router();
 var trip = require('../models/trip');
 var day = require('../models/day');
 
-console.log('starting guest');
 
 // Route: Get trip
-router.get('/trip', function(req, res) {
-    console.log('Getting trips');
+router.get('/trip/:id', function(req, res) {
+    var tripID = req.params.id;
+    console.log('Getting single trip:', tripID);
+
+    trip.find({ _id: tripID}).sort({begin_date: -1}).exec(
+       function(err, trip) {
+        if (err) {
+            console.log('Get ERR: ', err);
+            res.sendStatus(500);
+        } else {
+            console.log(trip);
+            res.send(trip);
+        }
+    });
+}); // END: GET trips route
+
+// Route: Get trips
+router.get('/trips', function(req, res) {
+    console.log('Getting all trips');
 
     trip.find({}).sort({begin_date: -1}).exec(
        function(err, trips) {
@@ -19,12 +35,12 @@ router.get('/trip', function(req, res) {
             res.send(trips);
         }
     });
-}); // END: GET trip route
+}); // END: GET trips route
 
 // Route: Get days
 router.get('/day/:id', function(req, res) {
   var tripId = req.params.id;
-  console.log('Looking for days for', tripId);
+  console.log('Getting days for', tripId);
 
   day.find({trip_id: tripId}).sort({date: 1}).exec(function(err, days) {
     if(err) {
