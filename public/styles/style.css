@@ -54,6 +54,10 @@ body {
   text-align: center;
 }
 
+.guestTripInfo p {
+  padding-left: 20px;
+}
+
 .guestTripInfo h3 {
   text-align: center;
 }

@@ -10,7 +10,6 @@ app.controller("DayController", ['$http', '$filter', '$routeParams', function($h
     self.rightButtonDisabled = false;
 
     self.tripID = $routeParams.tripID;
-    console.log(self.tripID);
 
     getDays(self.tripID);
 
@@ -21,6 +20,7 @@ app.controller("DayController", ['$http', '$filter', '$routeParams', function($h
             .then(function(response) {
                     self.days = response.data;
                     console.log('response.data', self.days);
+                    self.focusDay = self.days[0];
                     getTrip(tripID);
                 },
                 function(err) {
