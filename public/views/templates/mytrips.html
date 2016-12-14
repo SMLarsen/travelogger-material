@@ -44,7 +44,7 @@
                 <form editable-form name="editableFormTrip">
                   <div class="tripInfo col-xs-11">
                     <p>
-                      <span editable-text="trip.travellers" buttons="no">{{trip.travellers || 'empty' }}</span> -- the
+                      <span editable-text="trip.travellers" buttons="no" onaftersave="updateTrip(trip)">{{trip.travellers || 'empty' }}</span> -- the
                       <span editable-text="trip.trip_name" buttons="no">{{trip.trip_name || 'empty' }}</span> trip
                     </p>
                     <p>Starting on
@@ -61,7 +61,7 @@
                     <!-- buttons to submit / cancel form -->
                     <span ng-show="editableFormTrip.$visible">
                         <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormTrip.$waiting" ng-click="editableFormTrip.$cancel()"></button>
-                        <button type="submit" class="updateBtn fa fa-check" ng-disabled="editableFormTrip.$waiting" ng-click="mtc.updateDayGeneral(editableFormTrip.$data, day._id, day.trip_id)"></button>
+                        <button type="submit" class="updateBtn fa fa-check" ng-disabled="editableFormTrip.$waiting" ng-click="mtc.updateTrip(editableFormTrip.$data)"></button>
                       </span>
                   </div>
                 </form>
@@ -264,29 +264,29 @@
                   <!-- <span ng-click="isCollapsed = !isCollapsed"> -->
                     {{day.date | date:'MM/dd'}} - {{day.end_location}}
                   <!-- </span> -->
-                    <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteDay(day._id)"></span>
+                    <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteDay(day._id, day.trip_id)"></span>
                 </uib-accordion-heading>
 
                 <form editable-form name="editableFormGeneral">
                     <label class="dayLabel col-xs-12">General Information</label>
                     <div class="col-xs-2">
                         <!-- <span class="title">Date: </span> -->
-                        <span editable-date="day.date" e-name="date" e-required>{{ day.date | date:'MM/dd' }}</span>
+                        <span editable-date="day.date" e-name="date">{{ day.date | date:'MM/dd' }}</span>
                     </div>
 
                     <div class="col-xs-2">
                         <!-- <span class="title">Where: </span> -->
-                        <span editable-text="day.end_location" e-name="end_location" e-required>{{ day.end_location || 'empty' }}</span>
+                        <span editable-text="day.end_location" e-name="end_location">{{ day.end_location || 'empty' }}</span>
                     </div>
 
                     <div class="col-xs-3">
                         <!-- <span class="title">Tag-line: </span> -->
-                        <span editable-text="day.tag_line" e-name="tag_line" e-required>{{ day.tag_line || 'empty' }}</span>
+                        <span editable-text="day.tag_line" e-name="tag_line">{{ day.tag_line || 'empty' }}</span>
                     </div>
 
                     <div class="col-xs-4">
                         <!-- <span class="title">Weather: </span> -->
-                        <span editable-text="day.weather" e-name="weather" e-required>{{ day.weather || 'empty' }}</span>
+                        <span editable-text="day.weather" e-name="weather">{{ day.weather || 'empty' }}</span>
                     </div>
 
                     <div class="col-xs-1">

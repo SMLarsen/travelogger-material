@@ -201,7 +201,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
     }; // End updateDay
 
     // Function to Delete a day
-    self.deleteDay = function(dayID) {
+    self.deleteDay = function(dayID, tripID) {
         console.log('delete day:', dayID);
         authFactory.getIdToken().then(function(loginUser) {
             $http({
@@ -212,6 +212,7 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
                 }
             }).then(function(response) {
                     console.log('Day deleted');
+                    self.getDays(tripID);
                 },
                 function(err) {
                     console.log('Unable to delete day', err);

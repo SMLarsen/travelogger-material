@@ -64,8 +64,19 @@ router.delete("/trip/:id", function(req, res) {
 router.put('/general/:id', function(req, res) {
   console.log('update day general: ', req.body);
   var dayToUpdate = req.body;
-  var update = {date: dayToUpdate.date, end_location: dayToUpdate.end_location, tag_line: dayToUpdate.tag_line, weather: dayToUpdate.weather};
-  day.findByIdAndUpdate(req.params.id, update, function(err, data) {
+  var update = {
+    date: dayToUpdate.date,
+    end_location: dayToUpdate.end_location,
+    tag_line: dayToUpdate.tag_line,
+    lodging_name: dayToUpdate.lodging_name,
+    lodging_address: dayToUpdate.lodging_address,
+    lodging_type: dayToUpdate.lodging_type,
+    lodging_reference: dayToUpdate.lodging_reference,
+    narrative: dayToUpdate.narrative, 
+    weather: dayToUpdate.weather
+  };
+  day.findByIdAndUpdate(req.params.id,
+    update, function(err, data) {
       if(err) {
         console.log('Put ERR: ', err);
         res.sendStatus(500);
