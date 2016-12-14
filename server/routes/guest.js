@@ -9,8 +9,8 @@ console.log('starting guest');
 router.get('/trip', function(req, res) {
     console.log('Getting trips');
 
-    trip.find({
-    }, function(err, trips) {
+    trip.find({}).sort({begin_date: -1}).exec(
+       function(err, trips) {
         if (err) {
             console.log('Get ERR: ', err);
             res.sendStatus(500);
@@ -26,7 +26,7 @@ router.get('/day/:id', function(req, res) {
   var tripId = req.params.id;
   console.log('Looking for days for', tripId);
 
-  day.find({trip_id: tripId}, function(err, days) {
+  day.find({trip_id: tripId}).sort({date: 1}).exec(function(err, days) {
     if(err) {
       console.log('Get days ERR: ', err);
       res.sendStatus(500);

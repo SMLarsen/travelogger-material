@@ -18,11 +18,11 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'TripController',
             controllerAs: 'tc'
         })
-        // .when('/login', {
-        //     templateUrl: '/views/templates/login.html',
-        //     controller: 'LoginController',
-        //     controllerAs: 'lc'
-        // })
+        .when('/days/:tripID', {
+            templateUrl: '/views/templates/days.html',
+            controller: 'DayController',
+            controllerAs: 'dc'
+        })
         .otherwise({
             redirectTo: 'home'
         });

@@ -1,0 +1,18 @@
+<h2>Days</h2>
+{{dc.tripID}}
+
+<div class="col-xs-6 col-xs-offset-6">
+    <section>
+        <label for="searchInput" class="sr-only"><span>Search Days</span></label>
+        <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Trips" />
+    </section>
+</div>
+
+<div class="col-xs-12">
+  <div ng-repeat="day in dc.days | filter:searchInput">
+      <a class="guestDay">
+
+          <h4>{{day.date | date:'MM/dd'}} - {{day.end_location}}: {{day.tag_line}}</h4>
+      </a>
+  </div>
+</div>

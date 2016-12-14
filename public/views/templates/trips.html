@@ -9,10 +9,11 @@
 
 <div class="col-xs-12">
   <div ng-repeat="trip in tc.trips | filter:searchInput">
-      <div class="guestTrip col-xs-2">
+      <a class="guestTrip col-xs-2" ng-href="#days/{{trip._id}}">
+
           <h4>{{trip.trip_name}}</h4>
           <p>Starting <span>{{trip.begin_date | date:'MM/yy'}}</span> at <span>{{trip.begin_location}}</span></p>
           <p>Ending <span>{{trip.end_date | date:'MM/yy'}}</span> at <span>{{trip.end_location}}</span></p>
-      </div>
+      </a>
   </div>
 </div>
