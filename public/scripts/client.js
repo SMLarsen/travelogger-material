@@ -1,4 +1,5 @@
 var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ngAnimate', 'ui.bootstrap', 'xeditable']);
+
 console.log('traveloggerApp running');
 
 app.config(['$routeProvider', function($routeProvider) {

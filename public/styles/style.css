@@ -44,14 +44,24 @@ body {
 
 .guestDay {
   background-color: white;
-  border: 1px solid grey;
-  margin: 5px;
+  /*border: 1px solid grey;*/
+  margin-top: 2px;
   padding: 5px 5px 0 5px;
   box-shadow: 2px 2px 1px darkgrey;
 }
 
-.guestTripInfo h4 {
+.guestDay h4 {
   text-align: center;
+}
+
+.guestTripInfo h3 {
+  text-align: center;
+}
+
+.pageBtn {
+  font-size: 2em;
+  color: white;
+  background-color: #3072AC;
 }
 
 #guestSearchDay {

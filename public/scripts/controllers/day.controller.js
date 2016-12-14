@@ -5,6 +5,9 @@ app.controller("DayController", ['$http', '$filter', '$routeParams', function($h
     self.days = [];
     self.focusDay = {};
     self.focusTrip = {};
+    self.currentDayIndex = 0;
+    self.leftButtonDisabled = true;
+    self.rightButtonDisabled = false;
 
     self.tripID = $routeParams.tripID;
     console.log(self.tripID);
@@ -40,6 +43,33 @@ app.controller("DayController", ['$http', '$filter', '$routeParams', function($h
 
     self.setDay = function(index) {
         self.focusDay = self.days[index];
+        self.currentDayIndex = index;
     };
+
+    // Function to page left
+    self.goLeft = function() {
+        // console.log('Go left from ' + self.currentDayIndex);
+        if (self.currentDayIndex > 0) {
+            self.currentDayIndex = self.currentDayIndex - 1;
+            self.focusDay = self.days[self.currentDayIndex];
+        }
+        if (self.currentDayIndex === 0) {
+            self.leftButtonDisabled = true;
+            self.rightButtonDisabled = false;
+        }
+    }; // End function to page left
+
+    // Function to page right
+    self.goRight = function() {
+        // console.log('Go right from ' + self.currentDayIndex);
+        if (self.currentDayIndex < self.days.length - 1) {
+            self.currentDayIndex = self.currentDayIndex + 1;
+            self.focusDay = self.days[self.currentDayIndex];
+        }
+        if (self.currentDayIndex === self.days.length - 1) {
+          self.leftButtonDisabled = false;
+            self.rightButtonDisabled = true;
+        }
+    }; // End function to page right
 
 }]); // END: DayController
