@@ -7,7 +7,7 @@ router.get('/:id', function(req, res) {
   var tripId = req.params.id;
   console.log('Looking for days for', tripId);
 
-  day.find({trip_id: tripId}, function(err, days) {
+  day.find({trip_id: tripId}).sort({date: 1}).exec(function(err, days) {
     if(err) {
       console.log('Get days ERR: ', err);
       res.sendStatus(500);
@@ -72,7 +72,7 @@ router.put('/general/:id', function(req, res) {
     lodging_address: dayToUpdate.lodging_address,
     lodging_type: dayToUpdate.lodging_type,
     lodging_reference: dayToUpdate.lodging_reference,
-    narrative: dayToUpdate.narrative, 
+    narrative: dayToUpdate.narrative,
     weather: dayToUpdate.weather
   };
   day.findByIdAndUpdate(req.params.id,

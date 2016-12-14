@@ -25,29 +25,36 @@
             <h3>{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
             <h4>{{dc.focusDay.end_location}}, {{dc.focusDay.weather}}</h4>
             <p>{{dc.focusDay.narrative}}</p>
-            <h4>Lodging</h4>
-            <p>{{dc.focusDay.lodging_name}}</p>
-            <p>{{dc.focusDay.lodging_address}}</p><p>{{dc.focusDay.lodging_type}} - {{dc.focusDay.lodging_reference}}</p>
 
-            <h4>Eating and Drinking</h4>
-            <ul ng-repeat="meal in dc.focusDay.meals">
-                <li>{{meal.name}} - {{meal.description}}</li>
-            </ul>
+            <div class="col-xs-4">
+              <h4>Lodging</h4>
+              <p>{{dc.focusDay.lodging_name}}</p>
+              <p>{{dc.focusDay.lodging_address}}</p><p>{{dc.focusDay.lodging_type}} - {{dc.focusDay.lodging_reference}}</p>
 
-            <h4>Points of Interest</h4>
-            <ul ng-repeat="place in dc.focusDay.interesting_locations">
-                <li>{{place.name}} - {{place.description}}</li>
-            </ul>
+              <h4>Eating and Drinking</h4>
+              <ul ng-repeat="meal in dc.focusDay.meals">
+                  <li>{{meal.name}} - {{meal.description}}</li>
+              </ul>
 
-            <h4>Recommendations</h4>
-            <ul ng-repeat="recommendation in dc.focusDay.recommendations">
-                <li>{{recommendation.text}}</li>
-            </ul>
+              <h4>Points of Interest</h4>
+              <ul ng-repeat="place in dc.focusDay.interesting_locations">
+                  <li>{{place.name}} - {{place.description}}</li>
+              </ul>
 
-            <h4>Route</h4>
-            <ul ng-repeat="route in dc.focusDay.interesting_routes">
-                <li>{{route.name}} - {{route.description}}</li>
-            </ul>
+              <h4>Recommendations</h4>
+              <ul ng-repeat="recommendation in dc.focusDay.recommendations">
+                  <li>{{recommendation.text}}</li>
+              </ul>
+
+              <h4>Route</h4>
+              <ul ng-repeat="route in dc.focusDay.interesting_routes">
+                  <li>{{route.name}} - {{route.description}}</li>
+              </ul>
+            </div>
+
+            <div class="col-xs-8 ">
+              <img class="guestDayImg" src="../assets/images/DSC03504-2.jpg" alt="travel picture">
+            </div>
 
         </div>
     </div>
