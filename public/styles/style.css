@@ -50,6 +50,15 @@ body {
   box-shadow: 2px 2px 1px darkgrey;
 }
 
+.guestTripInfo h4 {
+  text-align: center;
+}
+
+#guestSearchDay {
+  margin: 5px 5px 15px 5px;
+  padding: 5px 5px 0 5px;
+}
+
 .top-buffer {
   margin-top:20px;
 }

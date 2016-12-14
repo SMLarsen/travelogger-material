@@ -1,13 +1,9 @@
-<h2>Days</h2>
-
-<div class="col-xs-6 col-xs-offset-6">
-    <section>
-        <label for="searchInput" class="sr-only"><span>Search Days</span></label>
-        <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Trips" />
-    </section>
-</div>
-
 <div class="col-xs-3">
+    <section id="guestSearchDay">
+        <label for="searchInput" class="sr-only"><span>Search Days</span></label>
+        <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Days" />
+    </section>
+
   <div ng-repeat="day in dc.days | filter:searchInput">
     <div class="guestDay">
       <a ng-click="dc.setDay($index)">
@@ -18,7 +14,11 @@
 </div>
 
 <div class="col-xs-8 col-xs-offset-1">
-  <h4>{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</h4>
+  <div class="guestTripInfo">
+    <h2>{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</h2>
+    <h4>{{dc.focusTrip.travellers}} started in {{dc.focusTrip.begin_location}}, and ended in {{dc.focusTrip.end_location}}</h4>
+  </div>
+
   <h3>{{dc.focusDay.tag_line}}</h3>
   <p><span>{{dc.focusDay.date | date:'MM/dd'}}</span> in <span>{{dc.focusDay.end_location}}</span></p>
   <p><span>{{dc.focusDay.weather}}</span></p>

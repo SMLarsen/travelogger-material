@@ -10,7 +10,6 @@ app.controller("DayController", ['$http', '$filter', '$routeParams', function($h
     console.log(self.tripID);
 
     getDays(self.tripID);
-    getTrip(self.tripID);
 
     // Function to GET days
     function getDays(tripID) {
@@ -19,6 +18,7 @@ app.controller("DayController", ['$http', '$filter', '$routeParams', function($h
             .then(function(response) {
                     self.days = response.data;
                     console.log('response.data', self.days);
+                    getTrip(tripID);
                 },
                 function(err) {
                     console.log('Unable to retrieve days', err);
@@ -30,8 +30,8 @@ app.controller("DayController", ['$http', '$filter', '$routeParams', function($h
         console.log('getting trip for:', tripID);
         $http.get('/guest/trip/' + tripID)
             .then(function(response) {
-                    self.focusTrip = response.data;
-                    console.log('Trip returned:', self.focusTrip.trip_name);
+                    self.focusTrip = response.data[0];
+                    console.log('Trip returned:', self.focusTrip);
                 },
                 function(err) {
                     console.log('Unable to retrieve days', err);
