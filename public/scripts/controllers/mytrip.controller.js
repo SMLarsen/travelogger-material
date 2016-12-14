@@ -239,23 +239,23 @@ app.controller("MyTripController", ["$http", "AuthFactory", function($http, Auth
         });
     }; // End deleteTripDays
 
-    // // Add route to new Day
-    // self.addRoute = function() {
-    //     self.newDay.routes.push(angular.copy(self.route));
-    //     self.route = {};
-    // }; // End addRoute
-    //
-    // // Add meal to new Day
-    // self.addMeal = function() {
-    //     self.newDay.meals.push(angular.copy(self.meal));
-    //     self.meal = {};
-    // }; // End addMeal
-    //
-    // // Add Recommendation to new Day
-    // self.addRecommendation = function() {
-    //     self.newDay.recommendations.push(angular.copy(self.recommendation));
-    //     self.recommendation = {};
-    // }; // End addRecommendation
+    // Add route row to new Day
+    self.addRouteRow = function() {
+        self.newDay.routes.push(angular.copy(self.route));
+        self.route = {};
+    }; // End addRouteRow
+
+    // Add meal row to new Day
+    self.addMealRow = function() {
+        self.newDay.meals.push(angular.copy(self.meal));
+        self.meal = {};
+    }; // End addMeal
+
+    // Add Recommendation row to new Day
+    self.addRecommendationRow = function() {
+        self.newDay.recommendations.push(angular.copy(self.recommendation));
+        self.recommendation = {};
+    }; // End addRecommendation
 
     // Point of interest add, update, delete
 
