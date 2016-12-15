@@ -9,6 +9,11 @@ var guest = require('./routes/guest');
 var privateData = require('./routes/private-data');
 var mongoConnection = require('./modules/mongo-connection');
 
+
+var morgan          = require('morgan');
+var methodOverride  = require('method-override');
+
+
 // Middleware on ALL requests
 app.use(express.static('public'));
 app.get('/', function(req, res){
@@ -17,6 +22,7 @@ app.get('/', function(req, res){
 app.use(bodyParser.json());
 
 mongoConnection.connect();
+require('./routes/routes.js')(app);
 
 app.use("/guest", guest);
 

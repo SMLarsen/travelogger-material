@@ -2,6 +2,19 @@
     cursor: pointer;
 }
 
+/*#map {
+  height: 100%;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}*/
+
+.angular-google-map-container {
+  height: 400px;
+}
+
 #navView a {
     border: 2px solid white;
     color: white;
@@ -16,7 +29,7 @@ main {
 h1 {
     text-align: center;
     font-size: 10em;
-    color: #115ae7;
+    color: #c3143e;
     font-weight: bolder;
 }
 

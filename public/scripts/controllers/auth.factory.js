@@ -39,7 +39,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                 }).then(function(response) {
                         loginUser.authIdToken = idToken;
                         loginUser.id = response.data._id;
-                        console.log('loginUser:', loginUser);
+                        // console.log('loginUser:', loginUser);
                         console.log('current user authorized', currentUser.email);
                     },
                     function(err) {

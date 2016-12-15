@@ -15,7 +15,10 @@
     "firebase": "^3.6.3",
     "firebase-admin": "^4.0.3",
     "install": "^0.8.2",
-    "mongoose": "^4.7.1"
+    "method-override": "^2.3.7",
+    "mongoose": "^4.7.1",
+    "morgan": "^1.7.0",
+    "ngmap": "^1.17.8"
   },
   "devDependencies": {},
   "scripts": {
