@@ -26,7 +26,7 @@
             <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
             <p class="h4">{{dc.focusTrip.travellers}} started in {{dc.focusTrip.begin_location}}, and ended in {{dc.focusTrip.end_location}}</p>
             <div class="col-xs-12 col-md-12">
-                <h3>{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
+                <h3 class="guestDayTitle">{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
                 <h4>{{dc.focusDay.end_location}}, {{dc.focusDay.weather}}</h4>
                 <p>{{dc.focusDay.narrative}}</p>
 
