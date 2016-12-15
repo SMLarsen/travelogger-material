@@ -3,21 +3,21 @@
 }
 
 #navView a {
-  border: 2px solid white;
-  color: white;
-  margin: 5px;
-  border-radius: 10px;
+    border: 2px solid white;
+    color: white;
+    margin: 5px;
+    border-radius: 10px;
 }
 
 main {
-  margin: 70px;
+    margin: 70px;
 }
 
 h1 {
-  text-align: center;
-  font-size: 10em;
-  color: #e77811;
-  font-weight: bolder;
+    text-align: center;
+    font-size: 10em;
+    color: #115ae7;
+    font-weight: bolder;
 }
 
 h2 {
@@ -25,116 +25,133 @@ h2 {
 }
 
 body {
-  background-color: #83cba6;
+    background-color: white;
     /*background-image: url(../assets/images/DSC03504-2.jpg);
     background-size:  cover;*/
 }
 
+
+/*.uib-tab a {
+  background-color: red;
+    border: 5px solid #000;
+  }
+
+  .uib-tab.active a {
+    background-color: blue;
+      border: 5px solid #000;
+}*/
+
+.guestTabView {
+    margin-top: 20px;
+}
+
 .searchInput {
-  border-radius: 25px;
+    border-radius: 25px;
 }
 
 .guestTrip {
-  background-color: #3072AC;
-  padding: 10px;
-  margin: 5px;
+    background-color: #3072AC;
+    padding: 10px;
+    margin: 5px;
+    box-shadow: 4px 4px 2px darkgrey
 }
 
 .guestTrip h4 {
-  text-align: center;
-  color: white;
+    text-align: center;
+    color: white;
 }
 
 .guestTrip p {
-  color: white;
+    text-align: center;
+    color: white;
 }
 
 .guestDay {
-  background-color: white;
-  /*margin-top: 2px;*/
-  padding: 5px 5px 0 5px;
-  box-shadow: 2px 2px 1px darkgrey;
+    background-color: #3072AC;
+    padding: 5px 5px 0 5px;
+    box-shadow: 2px 2px 1px darkgrey;
 }
 
-.guestDay h4 {
-  text-align: center;
+.guestDay p {
+    text-align: center;
+    color: white;
 }
 
 .guestDayImg {
-  height: 350px;
-  width: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .guestTripInfo p {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
 .guestTripInfo h3 {
-  text-align: center;
+    text-align: center;
 }
 
 .pageBtn {
-  width: 50px;
-  font-size: 2em;
-  color: white;
-  background-color: #3072AC;
+    width: 50px;
+    font-size: 2em;
+    color: white;
+    background-color: #3072AC;
 }
 
 #guestSearchDay {
-  margin: 5px 5px 15px 5px;
-  padding: 5px 5px 0 5px;
+    margin: 5px 5px 15px 5px;
+    padding: 5px 5px 0 5px;
 }
 
 .top-buffer {
-  margin-top:20px;
+    margin-top: 20px;
 }
 
 .tripInfo {
-font-size: 1.2em;
+    font-size: 1.2em;
 }
 
 .editBtn {
-  color: green;
+    color: green;
 }
 
 .addBtn {
-  color: #3072AC;
+    color: #3072AC;
 }
 
 .deleteBtn {
-  padding-left: 5px;
-  color: red;
+    padding-left: 5px;
+    color: red;
 }
 
 .cancelBtn {
-  color: red;
+    color: red;
 }
 
 .updateBtn {
-  color: green;
+    color: green;
 }
 
 .dayTable th {
-  text-align: center;
-  color: grey;
+    text-align: center;
+    color: grey;
 }
 
 .dayLabel {
-  margin-top: 10px;
-  border-top: 1px solid #3072AC;
-  padding: 5px 0;
+    margin-top: 10px;
+    border-top: 1px solid #3072AC;
+    padding: 5px 0;
 }
 
 .daySubLabel {
-  margin-top: 10px;
-  border-top: 1px solid #d5d9de;
-  padding: 5px 0;
+    margin-top: 10px;
+    border-top: 1px solid #d5d9de;
+    padding: 5px 0;
 }
 
 #navView {
     position: fixed;
     top: 0px;
-    background-color: #e77811;
+    background-color: #3072AC;
     color: white;
     padding: 5px;
     width: 100%;
@@ -146,7 +163,7 @@ font-size: 1.2em;
     bottom: 0px;
     height: 30px;
     width: 100%;
-    background: #e77811;
+    background: #3072AC;
 }
 
 #footerView p {

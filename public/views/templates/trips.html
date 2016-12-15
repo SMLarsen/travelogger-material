@@ -1,10 +1,13 @@
-<h2>Trips</h2>
+<div class="col-xs-4 col-xs-offset-4">
+  <h2>Trips</h2>
+</div>
 
-<div class="col-xs-6 col-xs-offset-6">
-    <section>
+
+<div class="col-xs-4">
+    <h2>
         <label for="searchInput" class="sr-only"><span>Search Trips</span></label>
         <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Trips" />
-    </section>
+    </h2>
 </div>
 
 <div class="col-xs-12">
@@ -12,8 +15,9 @@
       <a class="guestTrip col-xs-12 col-md-2" ng-href="#days/{{trip._id}}">
 
           <h4>{{trip.trip_name}}</h4>
-          <p>Starting <span>{{trip.begin_date | date:'MM/yy'}}</span> at <span>{{trip.begin_location}}</span></p>
-          <p>Ending <span>{{trip.end_date | date:'MM/yy'}}</span> at <span>{{trip.end_location}}</span></p>
+          <p>From {{trip.begin_date | date:'MM/yy'}} to {{trip.end_date | date:'MM/yy'}}</p>
+          <p>Starting in {{trip.begin_location}}</p>
+          <p>Ending in {{trip.end_location}}</p>
       </a>
   </div>
 </div>
