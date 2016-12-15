@@ -1,4 +1,4 @@
-<div class="col-xs-2">
+<div class="col-xs-12 col-md-2">
     <section id="guestSearchDay">
         <label for="searchInput" class="sr-only"><span>Search Days</span></label>
         <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Days" />
@@ -7,30 +7,30 @@
     <div ng-repeat="day in dc.days | filter:searchInput">
         <div class="guestDay">
             <a ng-click="dc.setDay($index)">
-                <p>{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
+                <p class="h6">{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
             </a>
         </div>
     </div>
 </div>
 
-<div class="col-xs-10">
+<div class="col-xs-12 col-md-10">
 
   <uib-tabset justified="true">
       <uib-tab heading="Details">
 
         <div class="guestTabView">
-        <div class="col-xs-1">
+        <div class="col-xs-1 col-md-1">
             <button type="button" ng-disabled="dc.leftonDisabled" ng-click="dc.goLeft()" class="pageBtn pull-right fa fa-caret-left"></button>
         </div>
-        <div class="guestTripInfo col-xs-10">
-            <h2>{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</h2>
-            <h4>{{dc.focusTrip.travellers}} started in {{dc.focusTrip.begin_location}}, and ended in {{dc.focusTrip.end_location}}</h4>
-            <div class="col-xs-12">
+        <div class="guestTripInfo col-xs-10 col-md-10">
+            <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
+            <p class="h4">{{dc.focusTrip.travellers}} started in {{dc.focusTrip.begin_location}}, and ended in {{dc.focusTrip.end_location}}</p>
+            <div class="col-xs-12 col-md-12">
                 <h3>{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
                 <h4>{{dc.focusDay.end_location}}, {{dc.focusDay.weather}}</h4>
                 <p>{{dc.focusDay.narrative}}</p>
 
-                <div class="col-xs-4">
+                <div class="col-xs-12 col-md-4">
                   <h4>Lodging</h4>
                   <p>{{dc.focusDay.lodging_name}}</p>
                   <p>{{dc.focusDay.lodging_address}}</p><p>{{dc.focusDay.lodging_type}} - {{dc.focusDay.lodging_reference}}</p>
@@ -56,13 +56,13 @@
                   </ul>
                 </div>
 
-                <div class="col-xs-8 ">
+                <div class="col-xs-12 col-md-8 ">
                   <img class="guestDayImg" src="../assets/images/DSC03504-2.jpg" alt="travel picture">
                 </div>
 
             </div>
         </div>
-        <div class="col-xs-1">
+        <div class="col-xs-1 col-md-1">
             <button type="button" ng-disabled="dc.rightButtonDisabled" ng-click="dc.goRight()" class="pageBtn pull-left fa fa-caret-right"></button>
         </div>
       </div>
