@@ -36,13 +36,22 @@ html, body {
 }
 
 .navbar-brand {
-  font-size: 3em;
+  font-size: 1.5em;
     font-family: 'Molle', cursive;
     font-family: 'Rock Salt', cursive;
 }
 
 .navbar-brand:hover, .navbar-brand:focus {
   background-color: #c3143e;
+}
+
+#homeTag {
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 2.5em;
+  font-family: 'Sriracha', cursive;
+  color: #c3143e;
 }
 
 main {
@@ -52,6 +61,7 @@ main {
 h1 {
     text-align: center;
     font-size: 10em;
+    font-style: italic;
     color: #c3143e;
     font-weight: bolder;
 }
@@ -98,7 +108,7 @@ body {
 }
 
 .guestTrip {
-    background-color: #3072AC;
+    background-color: #cadef1;
     padding: 10px;
     margin: 5px;
     box-shadow: 4px 4px 2px darkgrey;
@@ -112,12 +122,12 @@ body {
 
 .guestTrip h4 {
     text-align: center;
-    color: white;
+    color: #3072AC;
 }
 
 .guestTrip p {
     text-align: center;
-    color: white;
+    color: #3072AC;
 }
 
 .guestDay {

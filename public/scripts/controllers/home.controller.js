@@ -18,13 +18,23 @@ app.controller("HomeController", [function($scope) {
     }, {
         image: "../../assets/images/DSC02365.jpg"
     }, {
+        image: "../../assets/images/DSC04663.jpg"
+    }, {
+        image: "../../assets/images/DSC08296.jpg"
+    }, {
+        image: "../../assets/images/DSC01566-2.jpg"
+    }, {
         image: "../../assets/images/DSC01324.jpg"
+    }, {
+        image: "../../assets/images/DSC08886.jpg"
     }, {
         image: "../../assets/images/DSC02459.jpg"
     }, {
         image: "../../assets/images/DSC02810.jpg"
     }, {
         image: "../../assets/images/DSC02643.jpg"
+    }, {
+        image: "../../assets/images/DSC08528.jpg"
     }, {
         image: "../../assets/images/DSC02665.jpg"
     }, {
