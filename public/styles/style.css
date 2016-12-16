@@ -16,6 +16,14 @@ html, body {
     height: 400px;
 }
 
+#bootstrap-overrides .navButton:hover{
+  background-color: #c3143e;
+}
+
+#bootstrap-overrides .navButton:focus{
+  background-color: #c3143e;
+}
+
 #navView a {
     /*border: 2px solid white;*/
     color: white;
@@ -31,6 +39,10 @@ html, body {
   font-size: 3em;
     font-family: 'Molle', cursive;
     font-family: 'Rock Salt', cursive;
+}
+
+.navbar-brand:hover, .navbar-brand:focus {
+  background-color: #c3143e;
 }
 
 main {
@@ -65,16 +77,17 @@ body {
     background-size:  cover;*/
 }
 
+#homePics {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 
-/*.uib-tab a {
-  background-color: red;
-    border: 5px solid #000;
-  }
-
-  .uib-tab.active a {
-    background-color: blue;
-      border: 5px solid #000;
-}*/
+.homeImg {
+  margin: 10px 19px;
+  /*max-width: 200px;
+  height: auto;*/
+}
 
 .guestTabView {
     margin-top: 20px;
@@ -88,7 +101,13 @@ body {
     background-color: #3072AC;
     padding: 10px;
     margin: 5px;
-    box-shadow: 4px 4px 2px darkgrey
+    box-shadow: 4px 4px 2px darkgrey;
+}
+
+.guestTrip:hover {
+    bottom: -2px;
+    left: 2px;
+    box-shadow: 3px 3px 1px #887f7d;
 }
 
 .guestTrip h4 {
