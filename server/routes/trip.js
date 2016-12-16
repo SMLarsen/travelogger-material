@@ -9,7 +9,7 @@ router.get('/:id', function(req, res) {
 
     // db.getCollection('trips').find({user_id: ObjectId("5846e1b67ce266827e41dd32")})
 
-    trip.find({user_id: userId}).sort({begin_date: -1}).exec(
+    trip.find({user_id: userId}).sort({begin_date: 1}).exec(
       function(err, trips) {
         if (err) {
             console.log('Get ERR: ', err);

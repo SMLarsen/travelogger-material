@@ -4,15 +4,19 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="#home">Home</a>
+                <a class="navbar-brand" href="#home">Tlog</a>
             </div>
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#mytrips">My Trips</a></li>
+                    <!-- <li><a href="#mytrips">My Trips</a></li>
                     <li><a href="#trips">Trips</a></li>
                     <li><a ng-click="nc.logOut()" ng-show="nc.isUserLoggedIn"> Logout </a></li>
-                    <li><a ng-click="nc.logIn()" ng-show="!nc.isUserLoggedIn"> Login </a></li>
+                    <li><a ng-click="nc.logIn()" ng-show="!nc.isUserLoggedIn"> Login </a></li> -->
+                    <li><a href="#mytrips"><i class="navButton fa fa-suitcase" aria-hidden="true"></i></a></li>
+                    <li><a href="#trips"><i class="navButton fa fa-globe" aria-hidden="true"></i></a></li>
+                    <li><a ng-click="nc.logOut()" ng-show="nc.isUserLoggedIn"><i class="navButton fa fa-sign-out" aria-hidden="true"></i></a></li>
+                    <li><a ng-click="nc.logIn()" ng-show="!nc.isUserLoggedIn"><i class="navButton fa fa-sign-in" aria-hidden="true"></i></a></li>
 
                 </ul>
             </div>

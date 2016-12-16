@@ -1,6 +1,7 @@
 <div>
-
+  <div id="bodyView">
     <h2>My Trips</h2>
+  </div>
 
     <!--  START:  Outer Accordion  -->
     <uib-accordion close-others="oneAtATime">
@@ -24,7 +25,7 @@
                         <input type="text" class="form-control" name="end_location" ng-model="mtc.newTrip.end_location">
                         <label>Travellers</label>
                         <input type="text" class="form-control" name="travellers" ng-model="mtc.newTrip.travellers">
-                        <button class="btn btn-default btn-md" ng-click="mtc.addTrip()">Save</button>
+                        <button class="btn btn-primary btn-lg" ng-click="mtc.addTrip()">Save</button>
                     </ng-form>
                 </div>
 
@@ -269,7 +270,7 @@
                         <div class="form-group">
                             <label class="dayLabel sr-only">Save</label>
                             <div class="col-xs-2 col-xs-offset-5 text-center">
-                                <button class="form-control btn btn-primary btn-lg" ng-click="mtc.addDay(trip._id)">Save</button>
+                                <button class="btn btn-primary btn-lg" ng-click="mtc.addDay(trip._id)">Save</button>
                             </div>
                         </div>
 

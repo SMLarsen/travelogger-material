@@ -2,6 +2,7 @@
     cursor: pointer;
 }
 
+
 /*#map {
   height: 100%;
 }
@@ -12,18 +13,28 @@ html, body {
 }*/
 
 .angular-google-map-container {
-  height: 400px;
+    height: 400px;
 }
 
 #navView a {
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     color: white;
     margin: 5px;
     border-radius: 10px;
 }
 
+.navButton {
+    font-size: 3em;
+}
+
+.navbar-brand {
+  font-size: 3em;
+    font-family: 'Molle', cursive;
+    font-family: 'Rock Salt', cursive;
+}
+
 main {
-    margin: 70px;
+    margin: 80px;
 }
 
 h1 {
@@ -42,10 +53,9 @@ h1 {
 }
 
 .guestDayTitle {
-  text-align: center;
-  color: #c3143e;
-  margin-bottom: 20px;
-
+    text-align: center;
+    color: #c3143e;
+    margin-bottom: 20px;
 }
 
 body {
@@ -133,6 +143,10 @@ body {
 
 .tripInfo {
     font-size: 1.2em;
+}
+
+.editBtn, .addBtn, .deleteBtn, .updateBtn, .cancelBtn {
+  font-size: 1.5em;
 }
 
 .editBtn {
