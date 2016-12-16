@@ -1,4 +1,4 @@
-app.controller("DayController", ['$scope', '$http', '$filter', '$routeParams', '$rootScope', 'geolocation', 'gservice', function($scope, $http, $filter, $routeParams, $rootScope, geolocation, gservice) {
+app.controller("DayController", ['$scope', '$http', '$filter', '$routeParams', '$rootScope', 'NgMap', function($scope, $http, $filter, $routeParams, $rootScope, NgMap) {
     console.log('DayController started');
     var self = this;
 
@@ -10,78 +10,6 @@ app.controller("DayController", ['$scope', '$http', '$filter', '$routeParams', '
     self.rightButtonDisabled = false;
 
     self.tripID = $routeParams.tripID;
-
-//===================
-
-// Initializes Variables
-// ----------------------------------------------------------------------------
-self.formData = {};
-var coords = {};
-var lat = 0;
-var long = 0;
-
-// Set initial coordinates to the center of the US
-self.formData.latitude = 39.500;
-self.formData.longitude = -98.350;
-
-// Functions
-// ----------------------------------------------------------------------------
-
-// Get User's actual coordinates based on HTML5 at window load
-geolocation.getLocation().then(function(data) {
-
-    // Set the latitude and longitude equal to the HTML5 coordinates
-    coords = {
-        lat: data.coords.latitude,
-        long: data.coords.longitude
-    };
-
-    // Display coordinates in location textboxes rounded to three decimal points
-    self.formData.longitude = parseFloat(coords.long).toFixed(3);
-    self.formData.latitude = parseFloat(coords.lat).toFixed(3);
-
-    // Display message confirming that the coordinates verified.
-    self.formData.htmlverified = "Yep (Thanks for giving us real data!)";
-
-    gservice.refresh(self.formData.latitude, self.formData.longitude);
-
-});
-
-
-// Get coordinates based on mouse click. When a click event is detected....
-$rootScope.$on("clicked", function() {
-
-    // Run the gservice functions associated with identifying coordinates
-    $scope.$apply(function() {
-        self.formData.latitude = parseFloat(gservice.clickLat).toFixed(3);
-        self.formData.longitude = parseFloat(gservice.clickLong).toFixed(3);
-        self.formData.htmlverified = "Nope (Thanks for spamming my map...)";
-    });
-});
-
-// Creates a new user based on the form fields
-self.createUser = function() {
-
-    // Grabs all of the text box fields
-    var userData = {
-        username: self.formData.username,
-        gender: self.formData.gender,
-        age: self.formData.age,
-        favlang: self.formData.favlang,
-        location: [self.formData.longitude, self.formData.latitude],
-        htmlverified: self.formData.htmlverified
-    };
-
-
-            // Refresh the map with new data
-            gservice.refresh(self.formData.latitude, self.formData.longitude);
-            self.formData.latitude = 39.500;
-            self.formData.longitude = -98.350;
-
-
-
-};
-//===================
 
     getDays(self.tripID);
 

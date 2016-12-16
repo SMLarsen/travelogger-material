@@ -1,6 +1,3 @@
-<main>
-    <script src="https://maps.googleapis.com/maps/api/js??key=AIzaSyC8oiFGfsJDPgURZZdIOKtCjZJKNJUlwKo&callback=initMap" async defer></script>
-</main>
 <div class="col-xs-12 col-md-2">
     <section id="guestSearchDay">
         <label for="searchInput" class="sr-only"><span>Search Days</span></label>
@@ -10,7 +7,7 @@
     <div ng-repeat="day in dc.days | filter:searchInput">
         <div class="guestDay">
             <a ng-click="dc.setDay($index)">
-                <p>{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
+                <p class="h6">{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
             </a>
         </div>
     </div>
@@ -18,77 +15,54 @@
 
 <div class="col-xs-12 col-md-10">
 
-    <uib-tabset justified="true">
-        <uib-tab heading="Details">
+        <div class="guestTabView">
+        <div class="col-xs-1 col-md-1">
+            <button type="button" ng-disabled="dc.leftonDisabled" ng-click="dc.goLeft()" class="pageBtn pull-right fa fa-caret-left"></button>
+        </div>
+        <div class="guestTripInfo col-xs-10 col-md-10">
+            <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
+            <p class="h4">{{dc.focusTrip.travellers}} started in {{dc.focusTrip.begin_location}}, and ended in {{dc.focusTrip.end_location}}</p>
+            <div class="col-xs-12 col-md-12">
+                <h3 class="guestDayTitle">{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
+                <h4>{{dc.focusDay.end_location}}, {{dc.focusDay.weather}}</h4>
+                <p>{{dc.focusDay.narrative}}</p>
 
-            <div class="guestTabView">
-                <div class="col-xs-1 col-md-1">
-                    <button type="button" ng-disabled="dc.leftonDisabled" ng-click="dc.goLeft()" class="pageBtn pull-right fa fa-caret-left"></button>
+                <div class="col-xs-12 col-md-4">
+                  <h4>Lodging</h4>
+                  <p>{{dc.focusDay.lodging_name}}</p>
+                  <p>{{dc.focusDay.lodging_address}}</p><p>{{dc.focusDay.lodging_type}} - {{dc.focusDay.lodging_reference}}</p>
+
+                  <h4>Eating and Drinking</h4>
+                  <ul ng-repeat="meal in dc.focusDay.meals">
+                      <li>{{meal.name}} - {{meal.description}}</li>
+                  </ul>
+
+                  <h4>Points of Interest</h4>
+                  <ul ng-repeat="place in dc.focusDay.interesting_locations">
+                      <li>{{place.name}} - {{place.description}}</li>
+                  </ul>
+
+                  <h4>Recommendations</h4>
+                  <ul ng-repeat="recommendation in dc.focusDay.recommendations">
+                      <li>{{recommendation.text}}</li>
+                  </ul>
+
+                  <h4>Route</h4>
+                  <ul ng-repeat="route in dc.focusDay.interesting_routes">
+                      <li>{{route.name}} - {{route.description}}</li>
+                  </ul>
                 </div>
-                <div class="guestTripInfo col-xs-10 col-md-10">
-                    <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
-                    <p class="h4">{{dc.focusTrip.travellers}} started in {{dc.focusTrip.begin_location}}, and ended in {{dc.focusTrip.end_location}}</p>
-                    <div class="col-xs-12 col-md-12">
-                        <h3 class="guestDayTitle">{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
-                        <h4>{{dc.focusDay.end_location}}, {{dc.focusDay.weather}}</h4>
-                        <p>{{dc.focusDay.narrative}}</p>
 
-                        <div class="col-xs-12 col-md-4">
-                            <h4>Lodging</h4>
-                            <p>{{dc.focusDay.lodging_name}}</p>
-                            <p>{{dc.focusDay.lodging_address}}</p>
-                            <p>{{dc.focusDay.lodging_type}} - {{dc.focusDay.lodging_reference}}</p>
-
-                            <h4>Eating and Drinking</h4>
-                            <ul ng-repeat="meal in dc.focusDay.meals">
-                                <li>{{meal.name}} - {{meal.description}}</li>
-                            </ul>
-
-                            <h4>Points of Interest</h4>
-                            <ul ng-repeat="place in dc.focusDay.interesting_locations">
-                                <li>{{place.name}} - {{place.description}}</li>
-                            </ul>
-
-                            <h4>Recommendations</h4>
-                            <ul ng-repeat="recommendation in dc.focusDay.recommendations">
-                                <li>{{recommendation.text}}</li>
-                            </ul>
-
-                            <h4>Route</h4>
-                            <ul ng-repeat="route in dc.focusDay.interesting_routes">
-                                <li>{{route.name}} - {{route.description}}</li>
-                            </ul>
-                        </div>
-
-                        <div class="col-xs-12 col-md-8 ">
-                            <img class="guestDayImg" src="../assets/images/DSC01898.jpg" alt="travel picture">
-                        </div>
-
-                    </div>
+                <div class="col-xs-12 col-md-8 ">
+                  <img class="guestDayImg" src="../assets/images/DSC02680.jpg" alt="travel picture">
                 </div>
-                <div class="col-xs-1 col-md-1">
-                    <button type="button" ng-disabled="dc.rightButtonDisabled" ng-click="dc.goRight()" class="pageBtn pull-left fa fa-caret-right"></button>
-                </div>
+
             </div>
-        </uib-tab>
-        <uib-tab heading="Map View">
-            <div class="guestTabView">
-                <h2>Map View</h2>
-                <!-- Map and Side Panel -->
-                <div class="row content">
-                        <!-- Google Map -->
-                        <div class="col-md-10 col-md-offset-1">
-                            <div id="map" style="width:100%; height:500px"></div>
-                        </div>
-                </div>
-            </div>
-        </uib-tab>
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <button type="button" ng-disabled="dc.rightButtonDisabled" ng-click="dc.goRight()" class="pageBtn pull-left fa fa-caret-right"></button>
+        </div>
+      </div>
 
-        <uib-tab heading="Photos">
-            <div class="guestTabView">
-                <h2>Photo View</h2>
-            </div>
-        </uib-tab>
-    </uib-tabset>
-
+      <ng-map center="[44.832906, -93.300212]" default-style="false" class="mapSize"></ng-map>
 </div>
