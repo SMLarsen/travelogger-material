@@ -60,7 +60,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
             });
 
 
-    // Function to add a trips
+    // Function to add a trip
     self.addTrip = function() {
         self.newTrip.user_id = loginUser.id;
         myTripFactory.addTrip(self.newTrip)
@@ -80,34 +80,26 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
                     console.log('Unable to add trip', err);
                 }
             );
-    };
-
-
-
-
-    // console.log('addTrip:', self.newTrip);
-    // authFactory.getIdToken().then(function(loginUser) {
-    //     self.newTrip.user_id = loginUser.id;
-    //     // console.log('With id:', self.newTrip);
-    //     $http({
-    //         method: 'POST',
-    //         url: '/trip',
-    //         headers: {
-    //             id_token: loginUser.authIdToken
-    //         },
-    //         data: self.newTrip
-    //     }).then(function(response) {
-    //             console.log('Trip added');
-    //             self.newTrip = {};
-    //             getTrips();
-    //         },
-    //         function(err) {
-    //             console.log('Unable to add trip', err);
-    //         });
-    // });
-    // }; // End addTrip
+    }; // End addTrip
 
     // // Function to update a trip
+    self.updateTrip = function(trip) {
+        myTripFactory.updateTrip(trip)
+            .then(function(response) {
+                    myTripFactory.getTrips()
+                        .then(function(response) {
+                                self.trips = response;
+                                console.log('Trip updated', self.trips);
+                            },
+                            function(err) {
+                                console.log('Error updating trips', err);
+                            });
+
+                },
+                function(err) {
+                    console.log('Unable to update trip', err);
+                }
+            );
     // self.updateTrip = function(trip) {
     // console.log('updateTrip', trip);
     // authFactory.getIdToken().then(function(loginUser) {
@@ -126,7 +118,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     //             console.log('Unable to update trip', err);
     //         });
     // });
-    // }; // End updateTrip
+    }; // End updateTrip
     //
     // // Function to delete a trip
     // self.deleteTrip = function(tripID) {
