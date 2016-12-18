@@ -2,6 +2,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     console.log('MyTripFactory started');
 
     var authFactory = AuthFactory;
+    var loginUser = '';
 
     var trips = [];
     var days = [];
@@ -29,47 +30,50 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     // Function to GET trips
     function getTrips() {
         return authFactory.getIdToken().then(function(loginUser) {
+          loginUser = loginUser;
             return $http({
-                method: 'GET',
-                url: '/trip/' + loginUser.id,
-                headers: {
-                    id_token: loginUser.authIdToken
-                }
-            }).then(function(response) {
-                    trips = response.data;
-                    console.log('My Trips:', trips);
-                    return trips;
-                },
-                function(err) {
-                    console.log('Unable to retrieve trips', err);
-                    return;
-                });
+                    method: 'GET',
+                    url: '/trip/' + loginUser.id,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    }
+                })
+                .then(function(response) {
+                        trips = response.data;
+                        console.log('My Trips:', trips);
+                        return trips;
+                    },
+                    function(err) {
+                        console.log('Unable to retrieve trips', err);
+                        return;
+                    });
         });
     } // End getTrips
 
-    // // Function to add a trips
-    // addTrip = function() {
-    //     console.log('addTrip:', newTrip);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         newTrip.user_id = loginUser.id;
-    //         // console.log('With id:', newTrip);
-    //         $http({
-    //             method: 'POST',
-    //             url: '/trip',
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             },
-    //             data: newTrip
-    //         }).then(function(response) {
-    //                 console.log('Trip added');
-    //                 newTrip = {};
-    //                 getTrips();
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to add trip', err);
-    //             });
-    //     });
-    // }; // End addTrip
+    // Function to add a trips
+    function addTrip(newTrip) {
+        console.log('addTrip:', newTrip);
+        return authFactory.getIdToken()
+            .then(function(loginUser) {
+                return $http({
+                        method: 'POST',
+                        url: '/trip',
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        },
+                        data: newTrip
+                    })
+                    .then(function(response) {
+                            console.log('Trip added');
+                            newTrip = {};
+                            return;
+                        },
+                        function(err) {
+                            console.log('Unable to add trip', err);
+                            return;
+                        });
+            });
+    } // End addTrip
 
     // Function to update a trip
     // updateTrip = function(trip) {
@@ -535,9 +539,9 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     var publicApi = {
         getTrips: function() {
             return getTrips();
-            // },
-            // getTrip: function(tripID) {
-            //     return getTrip(tripID);
+        },
+        addTrip: function(newTrip) {
+            return addTrip(newTrip);
             // },
             // getDays: function(tripID) {
             //     return getDays(tripID);
@@ -545,5 +549,4 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     };
 
     return publicApi;
-
 }]); // END: MyTripFactory

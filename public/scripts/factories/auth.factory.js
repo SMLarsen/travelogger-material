@@ -87,6 +87,9 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
         },
         logOut: function() {
             return logOut();
+        },
+        getLoginUser: function() {
+            return loginUser;
         }
     };
 
