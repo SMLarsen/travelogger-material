@@ -1,35 +1,27 @@
-app.controller("TripController", ['$http', '$filter', '$q', function($http, $filter, $q) {
+app.controller("TripController", ['TripFactory', '$http', '$filter', '$q', function(TripFactory, $http, $filter, $q) {
     console.log('TripController started');
     var self = this;
+    var tripFactory = TripFactory;
 
     self.trips = [];
     self.days = [];
 
-    getTrips();
-
-    // Function to GET trips
-    function getTrips() {
-        $http.get('/guest/trips')
+    tripFactory.getTrips()
         .then(function(response) {
-                self.trips = response.data;
-                console.log('response.data', response.data);
-            },
-            function(err) {
-                console.log('Unable to retrieve trips', err);
+                self.trips = response;
             });
-    } // End getTrips
 
-    // Function to GET days
-    self.getDays = function(tripID) {
-        console.log('getting days for:', tripID);
-        $http.get('/guest/day/' + tripID)
-        .then(function(response) {
-                self.days = response.data;
-                console.log('response.data', self.days);
-            },
-            function(err) {
-                console.log('Unable to retrieve days', err);
-            });
-    }; // End getDays
+    // Function to get all trips
+    self.getTrips = function() {
+        tripFactory.getTrips()
+            .then(function(response) {
+                    self.trips = response;
+                    console.log('All trips:', response);
+                },
+                function(err) {
+                    console.log('Unable to retrieve trips', err);
+                });
+        console.log(self.trips);
+    }; // End: tripFactory.getTrips
 
 }]); // END: TripController

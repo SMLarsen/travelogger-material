@@ -1,6 +1,7 @@
-app.controller("DayController", ['$scope', '$http', '$filter', '$routeParams', '$rootScope', 'NgMap', function($scope, $http, $filter, $routeParams, $rootScope, NgMap) {
+app.controller("DayController", ['TripFactory', '$http', '$filter', '$routeParams', '$rootScope', 'NgMap', function(TripFactory, $http, $filter, $routeParams, $rootScope, NgMap) {
     console.log('DayController started');
     var self = this;
+    var tripFactory = TripFactory;
 
     self.days = [];
     self.focusDay = {};
@@ -10,36 +11,22 @@ app.controller("DayController", ['$scope', '$http', '$filter', '$routeParams', '
     self.rightButtonDisabled = false;
 
     self.tripID = $routeParams.tripID;
+    console.log('Trip Factory:', self.tripID);
 
-    getDays(self.tripID);
-
-    // Function to GET days
-    function getDays(tripID) {
-        console.log('getting days for:', tripID);
-        $http.get('/guest/day/' + tripID)
-            .then(function(response) {
-                    self.days = response.data;
-                    console.log('response.data', self.days);
-                    self.focusDay = self.days[0];
-                    getTrip(tripID);
-                },
-                function(err) {
-                    console.log('Unable to retrieve days', err);
-                });
-    } // End getDays
-
-    // Function to GET trip
-    function getTrip(tripID) {
-        console.log('getting trip for:', tripID);
-        $http.get('/guest/trip/' + tripID)
-            .then(function(response) {
-                    self.focusTrip = response.data[0];
-                    console.log('Trip returned:', self.focusTrip);
-                },
-                function(err) {
-                    console.log('Unable to retrieve days', err);
-                });
-    } // End getTrip
+    tripFactory.getDays(self.tripID)
+        .then(function(response) {
+            self.days = response;
+            self.focusDay = self.days[0];
+            console.log('Days:', response);
+            tripFactory.getTrip(self.tripID)
+                .then(function(response) {
+                        self.focusTrip = response;
+                        console.log('Inner getTrip');
+                    },
+                    function(err) {
+                        console.log('Error getting inner trip');
+                    });
+        });
 
     self.setDay = function(index) {
         self.focusDay = self.days[index];
@@ -67,7 +54,7 @@ app.controller("DayController", ['$scope', '$http', '$filter', '$routeParams', '
             self.focusDay = self.days[self.currentDayIndex];
         }
         if (self.currentDayIndex === self.days.length - 1) {
-          self.leftButtonDisabled = false;
+            self.leftButtonDisabled = false;
             self.rightButtonDisabled = true;
         }
     }; // End function to page right
