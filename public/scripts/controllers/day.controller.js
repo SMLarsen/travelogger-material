@@ -1,4 +1,4 @@
-app.controller("DayController", ['TripFactory', '$http', '$filter', '$routeParams', '$rootScope', 'NgMap', function(TripFactory, $http, $filter, $routeParams, $rootScope, NgMap) {
+app.controller("DayController", ['TripFactory', '$http', '$filter', '$routeParams', 'NgMap', function(TripFactory, $http, $filter, $routeParams, NgMap) {
     console.log('DayController started');
     var self = this;
     var tripFactory = TripFactory;
@@ -24,7 +24,7 @@ app.controller("DayController", ['TripFactory', '$http', '$filter', '$routeParam
                         console.log('Inner getTrip');
                     },
                     function(err) {
-                        console.log('Error getting inner trip');
+                        console.log('Error getting trip');
                     });
         });
 
