@@ -265,89 +265,85 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     // Begin: delete point of interest
     self.deletePOI = function(poiID, dayID, tripID) {
         console.log('Delete POI:', poiID, dayID, tripID);
-            myTripFactory.deletePOI(poiID, dayID)
-                .then(function(response) {
-                        myTripFactory.getDays(tripID)
-                            .then(function(response) {
-                                    self.days = response;
-                                    console.log('POI deleted');
-                                },
-                                function(err) {
-                                    console.log('Error getting days after POI delete', err);
-                                });
-                    },
-                    function(err) {
-                        console.log('Unable to delete POI', err);
-                    });
+        myTripFactory.deletePOI(poiID, dayID)
+            .then(function(response) {
+                    myTripFactory.getDays(tripID)
+                        .then(function(response) {
+                                self.days = response;
+                                console.log('POI deleted');
+                            },
+                            function(err) {
+                                console.log('Error getting days after POI delete', err);
+                            });
+                },
+                function(err) {
+                    console.log('Unable to delete POI', err);
+                });
     }; // End deletePOI
 
-    // // Route add, update, delete
-    //
-    // // add route to day
-    // self.addRoute = function(dayID, tripID) {
-    // console.log('addRoute:', '\n', 'name:', self.newRoute.name, '\ndayID:', dayID, '\ntripID:', tripID);
-    // authFactory.getIdToken().then(function(loginUser) {
-    //     $http({
-    //         method: 'PUT',
-    //         url: '/day/addroute/' + dayID,
-    //         headers: {
-    //             id_token: loginUser.authIdToken
-    //         },
-    //         data: self.newRoute
-    //     }).then(function(response) {
-    //             console.log('POI added');
-    //             self.newRoute = {};
-    //             self.getDays(tripID);
-    //         },
-    //         function(err) {
-    //             console.log('Unable to add POI', err);
-    //         });
-    // });
-    // }; // End: addRoute
-    //
-    // // update route
-    // self.updateRoute = function(index, data, dayID, tripID) {
-    // console.log('updateRoute:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
-    // authFactory.getIdToken().then(function(loginUser) {
-    //     $http({
-    //         method: 'PUT',
-    //         url: '/day/updateroute/' + dayID + '/' + index,
-    //         headers: {
-    //             id_token: loginUser.authIdToken
-    //         },
-    //         data: data
-    //     }).then(function(response) {
-    //             console.log('Route updated');
-    //             self.getDays(tripID);
-    //         },
-    //         function(err) {
-    //             console.log('Unable to update Route', err);
-    //         });
-    // });
-    // }; // End: updateRoute
-    //
-    // // Begin: delete route
-    // self.deleteRoute = function(routeID, dayID, tripID) {
-    // console.log(routeID, dayID, tripID);
-    // // self.days[parentIndex].interesting_locations.splice(index, 1);
-    // authFactory.getIdToken().then(function(loginUser) {
-    //     $http({
-    //         method: 'DELETE',
-    //         url: '/day/route/' + dayID + '/' + routeID,
-    //         headers: {
-    //             id_token: loginUser.authIdToken
-    //         }
-    //     }).then(function(response) {
-    //             console.log('Day route deleted');
-    //             self.getDays(tripID);
-    //         },
-    //         function(err) {
-    //             console.log('Unable to delete day route', err);
-    //         });
-    // });
-    // }; // End deleteRoute
-    //
-    // // Route add, update, delete
+    // Route add, update, delete
+
+    // add route to day
+    self.addRoute = function(dayID, tripID) {
+        console.log('addRoute:', '\n', 'name:', self.newRoute.name, '\ndayID:', dayID, '\ntripID:', tripID);
+        myTripFactory.addRoute(self.newRoute, dayID)
+            .then(function(response) {
+                    myTripFactory.getDays(tripID)
+                        .then(function(response) {
+                                self.newDay = {};
+                                self.days = response;
+                                console.log('Route added', self.days);
+                            },
+                            function(err) {
+                                console.log('Error adding Route', err);
+                            });
+                },
+                function(err) {
+                    console.log('Unable to add Route', err);
+                }
+            );
+    }; // End: addRoute
+
+    // update route
+    self.updateRoute = function(index, data, dayID, tripID) {
+        console.log('updateRoute:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+        myTripFactory.updateRoute(index, data, dayID)
+            .then(function(response) {
+                    myTripFactory.getDays(tripID)
+                        .then(function(response) {
+                                self.days = response;
+                                console.log('Route updated');
+                            },
+                            function(err) {
+                                console.log('Error updating Route', err);
+                            });
+                },
+                function(err) {
+                    console.log('Unable to update Route', err);
+                }
+            );
+    }; // End: updateRoute
+
+    // Begin: delete route
+    self.deleteRoute = function(routeID, dayID, tripID) {
+        console.log('Delete Route:', routeID, dayID, tripID);
+        myTripFactory.deleteRoute(routeID, dayID)
+            .then(function(response) {
+                    myTripFactory.getDays(tripID)
+                        .then(function(response) {
+                                self.days = response;
+                                console.log('Route deleted');
+                            },
+                            function(err) {
+                                console.log('Error getting days after Route delete', err);
+                            });
+                },
+                function(err) {
+                    console.log('Unable to delete Route', err);
+                });
+    }; // End deleteRoute
+
+    // // Meal add, update, delete
     //
     // // add meal to day
     // self.addMeal = function(dayID, tripID) {
