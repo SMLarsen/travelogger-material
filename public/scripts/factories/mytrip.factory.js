@@ -100,7 +100,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     } // End updateTrip
 
     // Function to delete a trip
-    deleteTrip = function(tripID) {
+    function deleteTrip(tripID) {
         console.log('deleteTrip:', tripID);
         return authFactory.getIdToken()
             .then(function(loginUser) {
@@ -120,114 +120,128 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                             return;
                         });
             });
-    }; // End deleteTrip
+    } // End deleteTrip
 
-    // // Function to add a day
-    // addDay = function(tripID) {
-    //     newDay.trip_id = tripID;
-    //     console.log('addDay:', newDay);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         newDay.user_id = loginUser.id;
-    //         // console.log('With id:', newDay);
-    //         $http({
-    //             method: 'POST',
-    //             url: '/day',
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             },
-    //             data: newDay
-    //         }).then(function(response) {
-    //                 console.log('Day added');
-    //                 newDay = {};
-    //                 getDays(tripID);
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to add day', err);
-    //             });
-    //     });
-    // }; // End addDay
-    //
-    // // Function to GET days
-    // getDays = function(tripID) {
-    //     console.log('getting days for:', tripID);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         $http({
-    //             method: 'GET',
-    //             url: '/day/' + tripID,
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             }
-    //         }).then(function(response) {
-    //                 days = response.data;
-    //                 console.log('response.data', days);
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to retrieve days', err);
-    //             });
-    //     });
-    // }; // End getDays
-    //
-    // // Function to Update a day's general data
-    // updateDayGeneral = function(day, dayID, tripID) {
-    //     day._id = dayID;
-    //     console.log('update day general:', day, dayID, tripID);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         $http({
-    //             method: 'PUT',
-    //             url: '/day/general/' + day._id,
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             },
-    //             data: day
-    //         }).then(function(response) {
-    //                 console.log('Day general data updated');
-    //                 getDays(tripID);
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to update day general info', err);
-    //             });
-    //     });
-    // }; // End updateDay
-    //
-    // // Function to Delete a day
-    // deleteDay = function(dayID, tripID) {
-    //     console.log('delete day:', dayID);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         $http({
-    //             method: 'DELETE',
-    //             url: '/day/one/' + dayID,
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             }
-    //         }).then(function(response) {
-    //                 console.log('Day deleted');
-    //                 getDays(tripID);
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to delete day', err);
-    //             });
-    //     });
-    // }; // End deleteDay
-    //
-    // // Function to Delete all days for a trip
-    // deleteTripDays = function(tripID) {
-    //     console.log('delete days for trip:', tripID);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         $http({
-    //             method: 'DELETE',
-    //             url: '/day/trip/' + tripID,
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             }
-    //         }).then(function(response) {
-    //                 console.log('Days deleted for trip');
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to delete days for trip', err);
-    //             });
-    //     });
-    // }; // End deleteTripDays
-    //
+    // Function to add a day
+    function addDay(newDay) {
+        console.log('addDay:', newDay);
+        return authFactory.getIdToken()
+            .then(function(loginUser) {
+                return $http({
+                        method: 'POST',
+                        url: '/day',
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        },
+                        data: newDay
+                    })
+                    .then(function(response) {
+                            console.log('Day added');
+                            newTrip = {};
+                            return;
+                        },
+                        function(err) {
+                            console.log('Unable to add new Day', err);
+                            return;
+                        }
+                    );
+
+            });
+    } // End addDay
+
+    // Function to GET days
+    function getDays(tripID) {
+        return authFactory.getIdToken().then(function(loginUser) {
+            loginUser = loginUser;
+            return $http({
+                    method: 'GET',
+                    url: '/day/' + tripID,
+                    headers: {
+                        id_token: loginUser.authIdToken
+                    }
+                })
+                .then(function(response) {
+                        days = response.data;
+                        console.log('My Days:', days);
+                        return days;
+                    },
+                    function(err) {
+                        console.log('Unable to retrieve days', err);
+                        return;
+                    });
+        });
+    } // End getDays
+
+    // Function to Update a day's general data
+    function updateDayGeneral(day) {
+        console.log('updateDayGeneral:', day);
+        return authFactory.getIdToken()
+            .then(function(loginUser) {
+                return $http({
+                        method: 'PUT',
+                        url: '/day/general/' + day._id,
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        },
+                        data: day
+                    })
+                    .then(function(response) {
+                            console.log('Day general info updated');
+                            return;
+                        },
+                        function(err) {
+                            console.log('Unable to update day general info', err);
+                            return;
+                        });
+            });
+    } // End updateDay
+
+    // Function to Delete a day
+    function deleteDay(dayID) {
+        console.log('deleteDay:', dayID);
+        return authFactory.getIdToken()
+            .then(function(loginUser) {
+                return $http({
+                        method: 'DELETE',
+                        url: '/day/one/' + dayID,
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        }
+                    })
+                    .then(function(response) {
+                            console.log('Day deleted');
+                            return;
+                        },
+                        function(err) {
+                            console.log('Unable to delete day', err);
+                            return;
+                        });
+            });
+    } // End deleteDay
+
+    // Function to Delete all days for a trip
+    function deleteTripDays(tripID) {
+        console.log('delete days for trip:', tripID);
+        return authFactory.getIdToken()
+            .then(function(loginUser) {
+                return $http({
+                        method: 'DELETE',
+                        url: '/day/trip/' + tripID,
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        }
+                    })
+                    .then(function(response) {
+                            console.log('Days deleted for trip');
+                            return;
+                        },
+                        function(err) {
+                            console.log('Unable to delete days for trip', err);
+                            return;
+                        });
+            });
+    } // End deleteTripDays
+
     // // add poi to day
     // addPOI = function(dayID, tripID) {
     //     console.log('addPOI:', '\n', 'name:', newPointOfInterest.name, '\ndesc:', newPointOfInterest.description, '\ndayID:', dayID, '\ntripID:', tripID);
@@ -555,9 +569,18 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         },
         addDay: function(trip) {
             return addDay(trip);
-            // },
-            // getDays: function(tripID) {
-            //     return getDays(tripID);
+        },
+        getDays: function(tripID) {
+            return getDays(tripID);
+        },
+        updateDayGeneral: function(day) {
+            return updateDayGeneral(day);
+        },
+        deleteDay: function(dayID) {
+            return deleteDay(dayID);
+        },
+        deleteTripDays: function(tripID) {
+            return deleteTripDays(tripID);
         }
     };
 
