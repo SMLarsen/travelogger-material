@@ -32,7 +32,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
         if (currentUser) {
             // This is where we make our call to our server
             firebaseUser.getToken().then(function(idToken) {
-                $http({
+                return $http({
                     method: 'GET',
                     url: '/privateData',
                     headers: {
