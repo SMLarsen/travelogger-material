@@ -98,29 +98,30 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         });
             });
     } // End updateTrip
-    //
-    // // Function to delete a trip
-    // deleteTrip = function(tripID) {
-    //     console.log('delete trip:', tripID);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         $http({
-    //             method: 'DELETE',
-    //             url: '/trip/' + tripID,
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             }
-    //         }).then(function(response) {
-    //                 console.log('Trip deleted');
-    //                 deleteTripDays(tripID);
-    //                 getTrips();
-    //
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to delete trip', err);
-    //             });
-    //     });
-    // }; // End deleteTrip
-    //
+
+    // Function to delete a trip
+    deleteTrip = function(tripID) {
+        console.log('deleteTrip:', tripID);
+        return authFactory.getIdToken()
+            .then(function(loginUser) {
+                return $http({
+                        method: 'DELETE',
+                        url: '/trip/' + tripID,
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        }
+                    })
+                    .then(function(response) {
+                            console.log('Trip deleted');
+                            return;
+                        },
+                        function(err) {
+                            console.log('Unable to delete trip', err);
+                            return;
+                        });
+            });
+    }; // End deleteTrip
+
     // // Function to add a day
     // addDay = function(tripID) {
     //     newDay.trip_id = tripID;
@@ -548,6 +549,12 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         },
         updateTrip: function(trip) {
             return addTrip(trip);
+        },
+        deleteTrip: function(trip) {
+            return deleteTrip(trip);
+        },
+        addDay: function(trip) {
+            return addDay(trip);
             // },
             // getDays: function(tripID) {
             //     return getDays(tripID);
