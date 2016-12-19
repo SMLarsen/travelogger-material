@@ -9,7 +9,7 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="navButton" href="#mytrips"><i class="fa fa-suitcase" aria-hidden="true"></i></a></li>
+                    <li><a class="navButton" href="#mytrips" ng-show="nc.isUserLoggedIn"><i class="fa fa-suitcase" aria-hidden="true"></i></a></li>
                     <li><a class="navButton" href="#trips"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
                     <li><a class="navButton" ng-click="nc.logOut()" ng-show="nc.isUserLoggedIn"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
                     <li><a class="navButton" ng-click="nc.logIn()" ng-show="!nc.isUserLoggedIn"><i class="fa fa-sign-in" aria-hidden="true"></i></a></li>

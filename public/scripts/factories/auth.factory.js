@@ -6,6 +6,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
     var newUser = {};
     var loginUser = {};
     var authIdToken = '';
+    var isUserLoggedIn = false;
 
     // Authenticates user at login
     logIn = function() {
@@ -13,6 +14,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
             return auth.$signInWithPopup("google").then(function(firebaseUser) {
                 console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
                 currentUser = firebaseUser;
+                isUserLoggedIn = true;
                 return currentUser;
             }).catch(function(error) {
                 console.log("Authentication failed: ", error);
@@ -39,22 +41,25 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                 }).then(function(response) {
                         loginUser.authIdToken = idToken;
                         loginUser.id = response.data._id;
-                        // console.log('loginUser:', loginUser);
-                        console.log('current user authorized', currentUser.email);
+                        isUserLoggedIn = true;
+                        console.log('current user authorized', currentUser.email, isUserLoggedIn);
                     },
                     function(err) {
+                        isUserLoggedIn = false;
                         console.log('current user not registered', err);
                     });
             });
         } else {
             console.log('Not logged in or not authorized.');
             currentUser = {};
+            isUserLoggedIn = false;
         }
     }); // End $onAuthStateChanged
 
     // Function handles user log out
     logOut = function() {
         return auth.$signOut().then(function() {
+            isUserLoggedIn = false;
             console.log('Logging the user out!');
         });
     }; // END: logOut
@@ -79,6 +84,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
 
     var publicApi = {
         currentUser: currentUser,
+        isUserLoggedIn: isUserLoggedIn,
         getIdToken: function() {
             return getIdToken();
         },
