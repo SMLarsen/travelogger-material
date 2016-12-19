@@ -131,9 +131,9 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
         console.log('addDay:', self.newDay);
         myTripFactory.addDay(self.newDay)
             .then(function(response) {
-                    self.newDay = {};
                     myTripFactory.getDays(tripID)
                         .then(function(response) {
+                                self.newDay = {};
                                 self.days = response;
                                 console.log('Day added', self.days);
                             },
@@ -166,7 +166,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
         console.log('update day general:', day, dayID, tripID);
         myTripFactory.updateDayGeneral(day)
             .then(function(response) {
-                    myTripFactory.getDays()
+                    myTripFactory.getDays(tripID)
                         .then(function(response) {
                                 self.days = response;
                                 console.log('Day updated', self.trips);
@@ -183,108 +183,104 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
 
     // Function to Delete a day
     self.deleteDay = function(dayID, tripID) {
-    console.log('delete day:', dayID);
-    authFactory.getIdToken().then(function(loginUser) {
-        $http({
-            method: 'DELETE',
-            url: '/day/one/' + dayID,
-            headers: {
-                id_token: loginUser.authIdToken
-            }
-        }).then(function(response) {
-                console.log('Day deleted');
-                self.getDays(tripID);
-            },
-            function(err) {
-                console.log('Unable to delete day', err);
-            });
-    });
+        console.log('delete day:', dayID);
+        myTripFactory.deleteDay(dayID)
+            .then(function(response) {
+                    myTripFactory.getDays(tripID)
+                        .then(function(response) {
+                                self.days = response;
+                                console.log('Day deleted', self.days);
+                            },
+                            function(err) {
+                                console.log('Error getting days after delete', err);
+                            });
+                },
+                function(err) {
+                    console.log('Unable to delete day', err);
+                });
     }; // End deleteDay
 
-    // // Add route row to new Day
-    // self.addRouteRow = function() {
-    // self.newDay.routes.push(angular.copy(self.route));
-    // self.route = {};
-    // }; // End addRouteRow
-    //
-    // // Add meal row to new Day
-    // self.addMealRow = function() {
-    // self.newDay.meals.push(angular.copy(self.meal));
-    // self.meal = {};
-    // }; // End addMeal
-    //
-    // // Add Recommendation row to new Day
-    // self.addRecommendationRow = function() {
-    // self.newDay.recommendations.push(angular.copy(self.recommendation));
-    // self.recommendation = {};
-    // }; // End addRecommendation
-    //
-    // // Point of interest add, update, delete
-    //
-    // // add poi to day
-    // self.addPOI = function(dayID, tripID) {
-    // console.log('addPOI:', '\n', 'name:', self.newPointOfInterest.name, '\ndesc:', self.newPointOfInterest.description, '\ndayID:', dayID, '\ntripID:', tripID);
-    // authFactory.getIdToken().then(function(loginUser) {
-    //     $http({
-    //         method: 'PUT',
-    //         url: '/day/addpoi/' + dayID,
-    //         headers: {
-    //             id_token: loginUser.authIdToken
-    //         },
-    //         data: self.newPointOfInterest
-    //     }).then(function(response) {
-    //             console.log('POI added');
-    //             self.newPointOfInterest = {};
-    //             self.getDays(tripID);
-    //         },
-    //         function(err) {
-    //             console.log('Unable to add POI', err);
-    //         });
-    // });
-    // }; // End: addPOI
-    //
-    // // update poi
-    // self.updatePOI = function(index, data, dayID, tripID) {
-    // console.log('updatePOI:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
-    // authFactory.getIdToken().then(function(loginUser) {
-    //     $http({
-    //         method: 'PUT',
-    //         url: '/day/updatepoi/' + dayID + '/' + index,
-    //         headers: {
-    //             id_token: loginUser.authIdToken
-    //         },
-    //         data: data
-    //     }).then(function(response) {
-    //             console.log('POI updated');
-    //             self.getDays(tripID);
-    //         },
-    //         function(err) {
-    //             console.log('Unable to update POI', err);
-    //         });
-    // });
-    // }; // End: updatePOI
-    //
-    // // Begin: delete point of interest
-    // self.deletePOI = function(poiID, dayID, tripID) {
-    // console.log(poiID, dayID, tripID);
-    // // self.days[parentIndex].interesting_locations.splice(index, 1);
-    // authFactory.getIdToken().then(function(loginUser) {
-    //     $http({
-    //         method: 'DELETE',
-    //         url: '/day/poi/' + dayID + '/' + poiID,
-    //         headers: {
-    //             id_token: loginUser.authIdToken
-    //         }
-    //     }).then(function(response) {
-    //             console.log('Day poi deleted');
-    //             self.getDays(tripID);
-    //         },
-    //         function(err) {
-    //             console.log('Unable to delete day poi', err);
-    //         });
-    // });
-    // }; // End deletePOI
-    //
+    // Add route row to new Day
+    self.addRouteRow = function() {
+        self.newDay.routes.push(angular.copy(self.route));
+        self.route = {};
+    }; // End addRouteRow
+
+    // Add meal row to new Day
+    self.addMealRow = function() {
+        self.newDay.meals.push(angular.copy(self.meal));
+        self.meal = {};
+    }; // End addMeal
+
+    // Add Recommendation row to new Day
+    self.addRecommendationRow = function() {
+        self.newDay.recommendations.push(angular.copy(self.recommendation));
+        self.recommendation = {};
+    }; // End addRecommendation
+
+    // Point of interest add, update, delete
+
+    // add poi to day
+    self.addPOI = function(dayID, tripID) {
+        console.log('addPOI:', '\n', 'name:', self.newPointOfInterest.name, '\ndesc:', self.newPointOfInterest.description, '\ndayID:', dayID, '\ntripID:', tripID);
+        myTripFactory.addPOI(self.newPointOfInterest, dayID)
+            .then(function(response) {
+                    myTripFactory.getDays(tripID)
+                        .then(function(response) {
+                                self.newDay = {};
+                                self.days = response;
+                                console.log('POI added', self.days);
+                            },
+                            function(err) {
+                                console.log('Error adding POI', err);
+                            });
+
+                },
+                function(err) {
+                    console.log('Unable to add POI', err);
+                }
+            );
+    }; // End: addPOI
+
+    // update poi
+    self.updatePOI = function(index, data, dayID, tripID) {
+        console.log('updatePOI:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+        myTripFactory.updatePOI(index, data, dayID)
+            .then(function(response) {
+                    myTripFactory.getDays(tripID)
+                        .then(function(response) {
+                                self.days = response;
+                                console.log('POI updated');
+                            },
+                            function(err) {
+                                console.log('Error updating POI', err);
+                            });
+                },
+                function(err) {
+                    console.log('Unable to update POI', err);
+                }
+            );
+    }; // End: updatePOI
+
+    // Begin: delete point of interest
+    self.deletePOI = function(poiID, dayID, tripID) {
+        console.log('Delete POI:', poiID, dayID, tripID);
+            myTripFactory.deletePOI(poiID, dayID)
+                .then(function(response) {
+                        myTripFactory.getDays(tripID)
+                            .then(function(response) {
+                                    self.days = response;
+                                    console.log('POI deleted');
+                                },
+                                function(err) {
+                                    console.log('Error getting days after POI delete', err);
+                                });
+                    },
+                    function(err) {
+                        console.log('Unable to delete POI', err);
+                    });
+    }; // End deletePOI
+
     // // Route add, update, delete
     //
     // // add route to day

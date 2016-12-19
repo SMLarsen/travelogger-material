@@ -242,70 +242,79 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
             });
     } // End deleteTripDays
 
-    // // add poi to day
-    // addPOI = function(dayID, tripID) {
-    //     console.log('addPOI:', '\n', 'name:', newPointOfInterest.name, '\ndesc:', newPointOfInterest.description, '\ndayID:', dayID, '\ntripID:', tripID);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         $http({
-    //             method: 'PUT',
-    //             url: '/day/addpoi/' + dayID,
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             },
-    //             data: newPointOfInterest
-    //         }).then(function(response) {
-    //                 console.log('POI added');
-    //                 newPointOfInterest = {};
-    //                 getDays(tripID);
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to add POI', err);
-    //             });
-    //     });
-    // }; // End: addPOI
-    //
-    // // update poi
-    // updatePOI = function(index, data, dayID, tripID) {
-    //     console.log('updatePOI:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         $http({
-    //             method: 'PUT',
-    //             url: '/day/updatepoi/' + dayID + '/' + index,
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             },
-    //             data: data
-    //         }).then(function(response) {
-    //                 console.log('POI updated');
-    //                 getDays(tripID);
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to update POI', err);
-    //             });
-    //     });
-    // }; // End: updatePOI
-    //
-    // // Begin: delete point of interest
-    // deletePOI = function(poiID, dayID, tripID) {
-    //     console.log(poiID, dayID, tripID);
-    //     // days[parentIndex].interesting_locations.splice(index, 1);
-    //     authFactory.getIdToken().then(function(loginUser) {
-    //         $http({
-    //             method: 'DELETE',
-    //             url: '/day/poi/' + dayID + '/' + poiID,
-    //             headers: {
-    //                 id_token: loginUser.authIdToken
-    //             }
-    //         }).then(function(response) {
-    //                 console.log('Day poi deleted');
-    //                 getDays(tripID);
-    //             },
-    //             function(err) {
-    //                 console.log('Unable to delete day poi', err);
-    //             });
-    //     });
-    // }; // End deletePOI
-    //
+    // add poi to day
+    function addPOI(newPointOfInterest, dayID) {
+        console.log('addPOI:', '\n', 'name:', newPointOfInterest.name, '\ndesc:', newPointOfInterest.description, '\ndayID:', dayID);
+        return authFactory.getIdToken()
+            .then(function(loginUser) {
+                return $http({
+                        method: 'PUT',
+                        url: '/day/addpoi/' + dayID,
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        },
+                        data: newPointOfInterest
+                    })
+                    .then(function(response) {
+                            console.log('POI added');
+                            newTrip = {};
+                            return;
+                        },
+                        function(err) {
+                            console.log('Unable to add new POI', err);
+                            return;
+                        }
+                    );
+            });
+    } // End: addPOI
+
+    // update poi
+    function updatePOI(index, data, dayID) {
+        console.log('updatePOI:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID);
+        return authFactory.getIdToken()
+            .then(function(loginUser) {
+                return $http({
+                        method: 'PUT',
+                        url: '/day/updatepoi/' + dayID + '/' + index,
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        },
+                        data: data
+                    })
+                    .then(function(response) {
+                            console.log('Day POI info updated');
+                            return;
+                        },
+                        function(err) {
+                            console.log('Unable to update day POI info', err);
+                            return;
+                        });
+            });
+    } // End: updatePOI
+
+    // Begin: delete point of interest
+    function deletePOI(poiID, dayID) {
+        console.log('Delete POI:', poiID, dayID);
+        return authFactory.getIdToken()
+            .then(function(loginUser) {
+                return $http({
+                        method: 'DELETE',
+                        url: '/day/poi/' + dayID + '/' + poiID,
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        }
+                    })
+                    .then(function(response) {
+                            console.log('POI deleted');
+                            return;
+                        },
+                        function(err) {
+                            console.log('Unable to delete POI', err);
+                            return;
+                        });
+            });
+    } // End deletePOI
+
     // // Route add, update, delete
     //
     // // add route to day
@@ -581,8 +590,17 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         },
         deleteTripDays: function(tripID) {
             return deleteTripDays(tripID);
+        },
+        addPOI: function(newPointOfInterest, dayID) {
+            return addPOI(newPointOfInterest, dayID);
+        },
+        updatePOI: function(index, data, dayID) {
+            return updatePOI(index, data, dayID);
+        },
+        deletePOI: function(poiID, dayID) {
+            return deletePOI(poiID, dayID);
         }
     };
 
     return publicApi;
-}]); // END: MyTripFactory
+}]); // END: MyTripFactory updatePOI(index, data, dayID)
