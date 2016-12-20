@@ -1,4 +1,4 @@
-app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFactory) {
+app.controller("NavController", ["$http", "AuthFactory", "$location", function($http, AuthFactory, $location) {
     console.log('NavController started');
     var self = this;
     var authFactory = AuthFactory;
@@ -20,14 +20,18 @@ app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFac
                 authFactory.idToken = currentUser.idToken;
                 self.isUserLoggedIn = true;
                 authFactory.isUserLoggedIn = self.isUserLoggedIn;
+                $location.path('mytrips');
             });
     }; // End Login
 
     // Function to Logout
     self.logOut = function() {
-        authFactory.logOut();
-        authFactory.isUserLoggedIn = false;
-        authFactory.isUserLoggedIn = self.isUserLoggedIn;
+        authFactory.logOut().then(function(response) {
+          self.isUserLoggedIn = false;
+          authFactory.isUserLoggedIn = self.isUserLoggedIn;
+          $location.path('home');
+          console.log(self.isUserLoggedIn);
+        });
     }; // End Logout
 
 }]); // END: NavController

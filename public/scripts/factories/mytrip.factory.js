@@ -29,25 +29,29 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to GET trips
     function getTrips() {
-        return authFactory.getIdToken().then(function(loginUser) {
-            loginUser = loginUser;
-            return $http({
-                    method: 'GET',
-                    url: '/trip/' + loginUser.id,
-                    headers: {
-                        id_token: loginUser.authIdToken
-                    }
-                })
-                .then(function(response) {
-                        trips = response.data;
-                        console.log('My Trips:', trips);
-                        return trips;
-                    },
-                    function(err) {
-                        console.log('Unable to retrieve trips', err);
-                        return;
-                    });
-        });
+        if (authFactory.isUserLoggedIn) {
+            return authFactory.getIdToken().then(function(loginUser) {
+                loginUser = loginUser;
+                return $http({
+                        method: 'GET',
+                        url: '/trip/' + loginUser.id,
+                        headers: {
+                            id_token: loginUser.authIdToken
+                        }
+                    })
+                    .then(function(response) {
+                            trips = response.data;
+                            console.log('My Trips:', trips);
+                            return trips;
+                        },
+                        function(err) {
+                            console.log('Unable to retrieve trips', err);
+                            return;
+                        });
+            });
+        } else {
+            return;
+        }
     } // End getTrips
 
     // Function to add a trips
