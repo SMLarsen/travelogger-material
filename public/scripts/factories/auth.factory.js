@@ -10,7 +10,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
 
     // Authenticates user at login
     logIn = function() {
-        if (currentUser !== {}) {
+        // if (currentUser) {
             return auth.$signInWithPopup("google").then(function(firebaseUser) {
                 console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
                 currentUser = firebaseUser;
@@ -19,17 +19,19 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
             }).catch(function(error) {
                 console.log("Authentication failed: ", error);
             });
-        } else {
-            return;
-        }
+        // } else {
+        //     return;
+        // }
     }; // END: logIn
 
     // Runs when user changes authentication states (logs in or out)
     auth.$onAuthStateChanged(function(firebaseUser) {
         // firebaseUser will be null if not logged in
-        currentUser = firebaseUser;
-        // console.log('State changed - currentUser:', currentUser);
-        if (currentUser) {
+        console.log('State changed - currentUser:', currentUser);
+        console.log('State changed - firebaseUser:', firebaseUser);
+        console.log('currentUser true? ', currentUser === true);
+        if (currentUser !== false) {
+          currentUser = firebaseUser;
             // This is where we make our call to our server
             firebaseUser.getToken().then(function(idToken) {
                 return $http({
@@ -66,7 +68,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
 
     // Function get idToken
     getIdToken = function() {
-        // console.log('getIdToken currentUser', currentUser);
+        console.log('getIdToken currentUser', currentUser);
         if (currentUser) {
             // This is where we make our call to our server
             return currentUser.getToken().then(function(idToken) {
@@ -76,6 +78,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                 },
                 function(err) {
                     console.log('current user not registered', err);
+                    return;
                 });
         } else {
             return;
