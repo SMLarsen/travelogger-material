@@ -16,7 +16,7 @@ app.controller("NavController", ["$http", "AuthFactory", "$location", function($
     self.logIn = function() {
         authFactory.logIn()
             .then(function(currentUser) {
-                console.log('lc current user', currentUser);
+                // console.log('lc current user', currentUser);
                 authFactory.idToken = currentUser.idToken;
                 self.isUserLoggedIn = true;
                 authFactory.isUserLoggedIn = self.isUserLoggedIn;

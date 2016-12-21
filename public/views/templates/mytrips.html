@@ -7,7 +7,7 @@
     <uib-accordion close-others="oneAtATime">
 
         <!--  START:  Add Trip Accordion-group  -->
-        <div uib-accordion-group class="panel-primary" heading="Add a Trip">
+        <div uib-accordion-group is-open="false" class="panel-primary" heading="Add a Trip">
             <form name="tripAdd" novalidate>
 
                 <div class="form-group" ng-model="mtc.newTrip.trip_name">
@@ -76,7 +76,7 @@
                         <!-- buttons to submit / cancel form -->
                         <span ng-show="editableFormTrip.$visible">
                         <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormTrip.$waiting" ng-click="editableFormTrip.$cancel()"></button>
-                        <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormTrip.$waiting" ng-click="mtc.updateTrip(editableFormTrip.$data)"></button>
+                        <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormTrip.$waiting" ng-click="mtc.updateTripStatus($index)"></button>
                       </span>
                     </div>
                 </form>
