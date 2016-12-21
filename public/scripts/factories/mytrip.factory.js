@@ -552,7 +552,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
             return addTrip(newTrip);
         },
         updateTrip: function(trip) {
-            return addTrip(trip);
+            return updateTrip(trip);
         },
         deleteTrip: function(trip) {
             return deleteTrip(trip);

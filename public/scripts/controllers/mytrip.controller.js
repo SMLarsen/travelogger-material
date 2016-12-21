@@ -82,9 +82,10 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
 
     // // Function to update a trip
     self.updateTrip = function(trip) {
+        console.log('updateTrip:', trip);
         myTripFactory.updateTrip(trip)
             .then(function(response) {
-                    myTripFactory.updateTrip(trip)
+                    myTripFactory.getTrips()
                         .then(function(response) {
                                 self.trips = response;
                                 console.log('Trip updated', self.trips);
