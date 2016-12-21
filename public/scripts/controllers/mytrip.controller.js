@@ -46,7 +46,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
 
     self.oneAtATime = true;
 
-    var loginUser = authFactory.getLoginUser();
+    var currentUser = authFactory.currentUser;
 
     myTripFactory.getTrips()
         .then(function(response) {
@@ -60,7 +60,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
 
     // Function to add a trip
     self.addTrip = function() {
-        self.newTrip.user_id = loginUser.id;
+        self.newTrip.user_id = currentUser.id;
         myTripFactory.addTrip(self.newTrip)
             .then(function(response) {
                     self.newTrip = {};
@@ -126,7 +126,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
 
     // // Function to add a day
     self.addDay = function(tripID) {
-        self.newDay.user_id = loginUser.id;
+        self.newDay.user_id = currentUser.id;
         self.newDay.trip_id = tripID;
         console.log('addDay:', self.newDay);
         myTripFactory.addDay(self.newDay)
@@ -348,12 +348,12 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     // // add meal to day
     // self.addMeal = function(dayID, tripID) {
     // console.log('addMeal:', '\n', 'name:', self.newMeal.name, '\ndayID:', dayID, '\ntripID:', tripID);
-    // authFactory.getIdToken().then(function(loginUser) {
+    // authFactory.getIdToken().then(function(currentUser) {
     //     $http({
     //         method: 'PUT',
     //         url: '/day/addmeal/' + dayID,
     //         headers: {
-    //             id_token: loginUser.authIdToken
+    //             id_token: currentUser.authIdToken
     //         },
     //         data: self.newMeal
     //     }).then(function(response) {
@@ -370,12 +370,12 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     // // update meal
     // self.updateMeal = function(index, data, dayID, tripID) {
     // console.log('updateMeal:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
-    // authFactory.getIdToken().then(function(loginUser) {
+    // authFactory.getIdToken().then(function(currentUser) {
     //     $http({
     //         method: 'PUT',
     //         url: '/day/updatemeal/' + dayID + '/' + index,
     //         headers: {
-    //             id_token: loginUser.authIdToken
+    //             id_token: currentUser.authIdToken
     //         },
     //         data: data
     //     }).then(function(response) {
@@ -392,12 +392,12 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     // self.deleteMeal = function(mealID, dayID, tripID) {
     // console.log(mealID, dayID, tripID);
     // // self.days[parentIndex].interesting_locations.splice(index, 1);
-    // authFactory.getIdToken().then(function(loginUser) {
+    // authFactory.getIdToken().then(function(currentUser) {
     //     $http({
     //         method: 'DELETE',
     //         url: '/day/meal/' + dayID + '/' + mealID,
     //         headers: {
-    //             id_token: loginUser.authIdToken
+    //             id_token: currentUser.authIdToken
     //         }
     //     }).then(function(response) {
     //             console.log('Day meal deleted');
@@ -412,12 +412,12 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     // // add recommendation to day
     // self.addRecommendation = function(dayID, tripID) {
     // console.log('addRecommendation:', '\n', 'text:', self.newRecommendation.text, '\ndayID:', dayID, '\ntripID:', tripID);
-    // authFactory.getIdToken().then(function(loginUser) {
+    // authFactory.getIdToken().then(function(currentUser) {
     //     $http({
     //         method: 'PUT',
     //         url: '/day/addrecommendation/' + dayID,
     //         headers: {
-    //             id_token: loginUser.authIdToken
+    //             id_token: currentUser.authIdToken
     //         },
     //         data: self.newRecommendation
     //     }).then(function(response) {
@@ -434,12 +434,12 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     // // update recommendation
     // self.updateRecommendation = function(index, data, dayID, tripID) {
     // console.log('updateRecommendation:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
-    // authFactory.getIdToken().then(function(loginUser) {
+    // authFactory.getIdToken().then(function(currentUser) {
     //     $http({
     //         method: 'PUT',
     //         url: '/day/updaterecommendation/' + dayID + '/' + index,
     //         headers: {
-    //             id_token: loginUser.authIdToken
+    //             id_token: currentUser.authIdToken
     //         },
     //         data: data
     //     }).then(function(response) {
@@ -456,12 +456,12 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     // self.deleteRecommendation = function(recommendationID, dayID, tripID) {
     // console.log(recommendationID, dayID, tripID);
     // // self.days[parentIndex].interesting_locations.splice(index, 1);
-    // authFactory.getIdToken().then(function(loginUser) {
+    // authFactory.getIdToken().then(function(currentUser) {
     //     $http({
     //         method: 'DELETE',
     //         url: '/day/recommendation/' + dayID + '/' + recommendationID,
     //         headers: {
-    //             id_token: loginUser.authIdToken
+    //             id_token: currentUser.authIdToken
     //         }
     //     }).then(function(response) {
     //             console.log('Recommendation deleted');

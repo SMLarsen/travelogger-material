@@ -4,57 +4,44 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
 
     var currentUser = {};
     var newUser = {};
-    var loginUser = {};
-    var authIdToken = '';
     var isUserLoggedIn = false;
 
     // Authenticates user at login
     logIn = function() {
-        if (currentUser !== {}) {
-            return auth.$signInWithPopup("google").then(function(firebaseUser) {
+        return auth.$signInWithPopup("google")
+            .then(function(firebaseUser) {
                 console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
-                currentUser = firebaseUser;
+                currentUser = firebaseUser.user;
                 isUserLoggedIn = true;
-                return currentUser;
-            }).catch(function(error) {
-                console.log("Authentication failed: ", error);
-            });
-        } else {
-            return;
-        }
-    }; // END: logIn
-
-    // Runs when user changes authentication states (logs in or out)
-    auth.$onAuthStateChanged(function(firebaseUser) {
-        // firebaseUser will be null if not logged in
-        currentUser = firebaseUser;
-        // console.log('State changed - currentUser:', currentUser);
-        if (currentUser) {
-            // This is where we make our call to our server
-            firebaseUser.getToken().then(function(idToken) {
-                return $http({
-                    method: 'GET',
-                    url: '/privateData',
-                    headers: {
-                        id_token: idToken
-                    }
-                }).then(function(response) {
-                        loginUser.authIdToken = idToken;
-                        loginUser.id = response.data._id;
-                        isUserLoggedIn = true;
-                        console.log('current user authorized', currentUser.email, isUserLoggedIn);
-                    },
-                    function(err) {
-                        isUserLoggedIn = false;
-                        console.log('current user not registered', err);
+                console.log('currentUser', currentUser);
+                // This is where we make our call to our server
+                return currentUser.getToken()
+                    .then(function(idToken) {
+                        return $http({
+                                method: 'GET',
+                                url: '/privateData',
+                                headers: {
+                                    id_token: idToken
+                                }
+                            })
+                            .then(function(response) {
+                                    currentUser.authIdToken = idToken;
+                                    currentUser.id = response.data._id;
+                                    isUserLoggedIn = true;
+                                    console.log('current user authorized', currentUser.email, isUserLoggedIn);
+                                    return currentUser;
+                                },
+                                function(err) {
+                                    isUserLoggedIn = false;
+                                    console.log('current user not registered', err);
+                                    return;
+                                })
+                            .catch(function(error) {
+                                console.log("Authentication failed: ", error);
+                            });
                     });
             });
-        } else {
-            console.log('Not logged in or not authorized.');
-            currentUser = {};
-            isUserLoggedIn = false;
-        }
-    }); // End $onAuthStateChanged
+    }; // END: logIn
 
     // Function handles user log out
     logOut = function() {
@@ -70,12 +57,13 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
         if (currentUser) {
             // This is where we make our call to our server
             return currentUser.getToken().then(function(idToken) {
-                    authIdToken = idToken;
+                    currentUser.authIdToken = idToken;
                     console.log('got current user idToken:', currentUser.email);
-                    return loginUser;
+                    return currentUser;
                 },
                 function(err) {
                     console.log('current user not registered', err);
+                    return;
                 });
         } else {
             return;
@@ -94,8 +82,8 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
         logOut: function() {
             return logOut();
         },
-        getLoginUser: function() {
-            return loginUser;
+        getcurrentUser: function() {
+            return currentUser;
         }
     };
 
