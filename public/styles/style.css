@@ -2,16 +2,6 @@
     cursor: pointer;
 }
 
-
-/*#map {
-  height: 100%;
-}
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}*/
-
 .angular-google-map-container {
     height: 400px;
 }
@@ -60,9 +50,10 @@ main {
 
 h1 {
     text-align: center;
-    font-size: 10em;
+    font-size: 6em;
     font-style: italic;
     color: #c3143e;
+    font-family: 'Sriracha', cursive;
     font-weight: bolder;
 }
 
@@ -94,7 +85,7 @@ body {
 }
 
 .homeImg {
-  margin: 10px 19px;
+  margin: 2px;
   /*max-width: 200px;
   height: auto;*/
 }

@@ -22,6 +22,8 @@ app.controller("HomeController", [function($scope) {
     }, {
         image: "../../assets/images/DSC08296.jpg"
     }, {
+        image: "../../assets/images/DSC00658.jpg"
+    }, {
         image: "../../assets/images/DSC01566-2.jpg"
     }, {
         image: "../../assets/images/DSC01324.jpg"
@@ -60,5 +62,18 @@ app.controller("HomeController", [function($scope) {
     }, {
         image: "../../assets/images/DSC00576.jpg"
     }];
+
+    shuffleArray(self.slides);
+
+    // Function to shuffle an array
+    function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    } // End shuffleArray
 
 }]); // END: HomeController
