@@ -27,7 +27,7 @@ app.config(['$routeProvider', function($routeProvider) {
         .when('/maps', {
             templateUrl: '/views/templates/maps.html',
             controller: 'MapController',
-            controllerAs: 'tc'
+            controllerAs: 'mc'
         })
         .otherwise({
             redirectTo: 'home'
