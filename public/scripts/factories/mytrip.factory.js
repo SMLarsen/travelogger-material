@@ -29,7 +29,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to GET trips
     function getTrips() {
-        console.log('authfact isUserLoggedIn', authFactory.isUserLoggedIn);
+        // console.log('authfact isUserLoggedIn', authFactory.isUserLoggedIn);
         if (authFactory.isUserLoggedIn) {
             return authFactory.getIdToken().then(function(currentUser) {
                 currentUser = currentUser;

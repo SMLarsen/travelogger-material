@@ -31,6 +31,10 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     var openState = {
         openstate: false
     };
+    self.addTripStatus = false;
+    self.addDayStatus = false;
+    self.tripStatus = [];
+    self.dayStatus = [];
 
     self.statusInner = {
         isCustomHeaderOpen: false,
@@ -65,7 +69,6 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
         for (var i = 0; i < self.trips.length; i++) {
             self.tripStatus.push(openState);
         }
-        console.log(self.tripStatus);
     }
     // End buildTripStatusArray
 
@@ -77,6 +80,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
                     myTripFactory.getTrips()
                         .then(function(response) {
                                 self.trips = response;
+                                self.addTripStatus = false;
                                 console.log('Trips added', self.trips);
                             },
                             function(err) {
@@ -182,9 +186,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
         self.dayStatus = [];
         for (var i = 0; i < self.days.length; i++) {
             self.dayStatus.push(openState);
-            console.log(i, self.dayStatus);
         }
-        console.log(self.dayStatus);
     }
     // End buildTripStatusArray
 

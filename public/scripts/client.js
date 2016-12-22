@@ -24,6 +24,11 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'DayController',
             controllerAs: 'dc'
         })
+        .when('/maps', {
+            templateUrl: '/views/templates/maps.html',
+            controller: 'MapController',
+            controllerAs: 'tc'
+        })
         .otherwise({
             redirectTo: 'home'
         });
