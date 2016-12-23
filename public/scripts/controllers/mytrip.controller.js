@@ -65,21 +65,27 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
 
     // function to geocode destination
     self.pinDestinationLocation = function() {
-        self.newTrip.destination_location = locationGeocode(self.newTrip.destination);
+      locationGeocode(self.newTrip.destination).then(function(result) {
+        self.newTrip.destination_location = result;
+      });
     }; // end pinDestinationLocation
 
     // function to geocode destination
     self.pinBeginLocation = function() {
-        self.newTrip.begin_location = locationGeocode(self.newTrip.begin_location);
+      locationGeocode(self.newTrip.begin_location).then(function(result) {
+        self.newTrip.begin_map_location = result;
+      });
     }; // end pinBeginLocation
 
     // function to geocode destination
     self.pinEndLocation = function() {
-        self.newTrip.end_location = locationGeocode(self.newTrip.end_location);
+      locationGeocode(self.newTrip.end_location).then(function(result) {
+        self.newTrip.end_map_location = result;
+      });
     }; // end pinEndLocation
 
     function locationGeocode(address) {
-        GeoCoder.geocode({
+        return GeoCoder.geocode({
             address: address
         }).then(function(result) {
             console.log('Address geocode result:', result[0]);
@@ -98,6 +104,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
 
     // Function to add a trip
     self.addTrip = function() {
+      console.log('add trip:', self.newTrip);
         myTripFactory.addTrip(self.newTrip)
             .then(function(response) {
                     self.newTrip = {};
