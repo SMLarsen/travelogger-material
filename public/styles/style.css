@@ -188,7 +188,12 @@ body {
     color: red;
 }
 
-.cancelBtn {
+.pinBtn {
+  margin-left: 15px;
+  width: 20px;
+}
+
+.cancelBtn, .pinBtn {
     color: red;
 }
 

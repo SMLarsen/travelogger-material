@@ -8,24 +8,46 @@
 
         <!--  START:  Add Trip Accordion-group  -->
         <div uib-accordion-group is-collapsed="true" class="panel-primary" heading="Add a Trip">
-            <form name="tripAdd" novalidate>
+            <form name="tripAdd" class="form-horizontal" novalidate>
 
                 <div class="form-group" ng-model="mtc.newTrip.trip_name">
                     <ng-form name="addTripForm">
-                        <label>Trip Name</label>
-                        <input type="text" class="form-control" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
-                        <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
-                        <label>Starting Date</label>
-                        <input type="date" class="form-control" name="begin_date" ng-model="mtc.newTrip.begin_date">
-                        <label>Starting Location</label>
-                        <input type="text" class="form-control" name="begin_location" ng-model="mtc.newTrip.begin_location">
-                        <label>Ending Date</label>
-                        <input type="date" class="form-control" name="end_date" ng-model="mtc.newTrip.end_date">
-                        <label>Ending Location</label>
-                        <input type="text" class="form-control" name="end_location" ng-model="mtc.newTrip.end_location">
-                        <label>Travellers</label>
-                        <input type="text" class="form-control" name="travellers" ng-model="mtc.newTrip.travellers">
-                        <button class="btn btn-primary btn-lg" ng-click="mtc.addTrip()">Save</button>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Trip Name</label>
+                            <input type="text" class="col-xs-7" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
+                            <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Destination</label>
+                            <input type="text" class="col-xs-7" name="trip_name" ng-model="mtc.newTrip.trip_name">
+                            <button class="pinBtn col-xs-1" ng-click="mtc.pinLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Starting Date</label>
+                            <input type="date" class="col-xs-7" name="begin_date" ng-model="mtc.newTrip.begin_date">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Starting Location</label>
+                            <input type="text" class="col-xs-7" name="begin_location" ng-model="mtc.newTrip.begin_location">
+                            <button class="pinBtn col-xs-1" ng-click="mtc.pinLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Ending Date</label>
+                            <input type="date" class="col-xs-7" name="end_date" ng-model="mtc.newTrip.end_date">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Ending Location</label>
+                            <input type="text" class="col-xs-7" name="end_location" ng-model="mtc.newTrip.end_location">
+                            <button class="pinBtn col-xs-1" ng-click="mtc.pinLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                    </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Travellers</label>
+                            <input type="text" class="col-xs-7" name="travellers" ng-model="mtc.newTrip.travellers">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary col-xs-1 col-xs-offset-5" ng-click="mtc.addTrip()">Save</button>
+                            <button type="button" class="btn btn-default col-xs-1" ng-disabled="tripAdd.$waiting" ng-click="tripAdd.$cancel()">Cancel</button>
+                        </div>
                     </ng-form>
                 </div>
 
@@ -44,30 +66,30 @@
 
                 <form editable-form name="editableFormTrip">
                     <div class="tripInfo col-xs-10">
-                      <div class="col-xs-6">
-                        <label class="col-xs-5">Trip Name: </label>
-                        <span editable-text="trip.trip_name" buttons="no">{{trip.trip_name || 'empty' }}</span>
-                      </div>
-                      <div class="col-xs-6">
-                        <label class="col-xs-5">Travellers: </label>
-                          <span editable-text="trip.travellers" buttons="no" onaftersave="mtc.updateTrip(trip)">{{trip.travellers || 'empty' }}</span>
-                      </div>
-                      <div class="col-xs-6">
-                        <label class="col-xs-5">Starting Date: </label>
-                        <span editable-date="trip.begin_date" autotext="auto" buttons="no">{{trip.begin_date | date }}</span>
-                      </div>
-                      <div class="col-xs-6">
-                        <label class="col-xs-5">Starting Location: </label>
-                        <span buttons="no" editable-text="trip.begin_location">{{trip.begin_location || 'empty' }}</span>
-                      </div>
-                      <div class="col-xs-6">
-                        <label class="col-xs-5">Ending Date: </label>
-                        <span editable-date="trip.end_date" buttons="no">{{trip.end_date | date }}</span>
-                      </div>
-                      <div class="col-xs-6">
-                        <label class="col-xs-5">Ending Location: </label>
-                        <span buttons="no" editable-text="trip.end_location">{{trip.end_location || 'empty' }}</span>
-                      </div>
+                        <div class="col-xs-6">
+                            <label class="col-xs-5">Trip Name: </label>
+                            <span editable-text="trip.trip_name" buttons="no">{{trip.trip_name || 'empty' }}</span>
+                        </div>
+                        <div class="col-xs-6">
+                            <label class="col-xs-5">Travellers: </label>
+                            <span editable-text="trip.travellers" buttons="no" onaftersave="mtc.updateTrip(trip)">{{trip.travellers || 'empty' }}</span>
+                        </div>
+                        <div class="col-xs-6">
+                            <label class="col-xs-5">Starting Date: </label>
+                            <span editable-date="trip.begin_date" autotext="auto" buttons="no">{{trip.begin_date | date }}</span>
+                        </div>
+                        <div class="col-xs-6">
+                            <label class="col-xs-5">Starting Location: </label>
+                            <span buttons="no" editable-text="trip.begin_location">{{trip.begin_location || 'empty' }}</span>
+                        </div>
+                        <div class="col-xs-6">
+                            <label class="col-xs-5">Ending Date: </label>
+                            <span editable-date="trip.end_date" buttons="no">{{trip.end_date | date }}</span>
+                        </div>
+                        <div class="col-xs-6">
+                            <label class="col-xs-5">Ending Location: </label>
+                            <span buttons="no" editable-text="trip.end_location">{{trip.end_location || 'empty' }}</span>
+                        </div>
                     </div>
 
                     <div class="col-xs-2">
