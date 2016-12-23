@@ -1,4 +1,4 @@
-app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', function(MyTripFactory, $http, AuthFactory) {
+app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'NgMap', 'GeoCoder', function(MyTripFactory, $http, AuthFactory, NgMap, GeoCoder) {
     console.log('MyTripController started');
     var self = this;
 
@@ -63,6 +63,17 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
                 console.log('Error getting trips', err);
             });
 
+    // function to geocode destination
+    self.pinDestinationLocation = function() {
+        GeoCoder.geocode({
+            address: self.newTrip.destination
+        }).then(function(result) {
+          self.newTrip.destination_location = result[0];
+          console.log(self.newTrip.destination_location);
+        });
+    }; // end pinDestinationLocation
+
+
     // Function to set up collapse/expand status for trip panels
     function buildTripStatusArray() {
         self.tripStatus = [];
@@ -116,8 +127,8 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
     }; // End updateTrip
 
     self.updateTripStatus = function(index) {
-      console.log('updateTripStatus', index);
-      self.tripStatus[index].openState = false;
+        console.log('updateTripStatus', index);
+        self.tripStatus[index].openState = false;
     };
 
     // Function to delete a trip
@@ -377,130 +388,130 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', fun
 
     // add meal to day
     self.addMeal = function(dayID, tripID) {
-    console.log('addMeal:', '\n', 'name:', self.newMeal.name, '\ndayID:', dayID, '\ntripID:', tripID);
-    authFactory.getIdToken().then(function(currentUser) {
-        $http({
-            method: 'PUT',
-            url: '/day/addmeal/' + dayID,
-            headers: {
-                id_token: currentUser.authIdToken
-            },
-            data: self.newMeal
-        }).then(function(response) {
-                console.log('POI added');
-                self.newMeal = {};
-                self.getDays(tripID);
-            },
-            function(err) {
-                console.log('Unable to add POI', err);
-            });
-    });
+        console.log('addMeal:', '\n', 'name:', self.newMeal.name, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(currentUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/addmeal/' + dayID,
+                headers: {
+                    id_token: currentUser.authIdToken
+                },
+                data: self.newMeal
+            }).then(function(response) {
+                    console.log('POI added');
+                    self.newMeal = {};
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to add POI', err);
+                });
+        });
     }; // End: addMeal
 
     // update meal
     self.updateMeal = function(index, data, dayID, tripID) {
-    console.log('updateMeal:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
-    authFactory.getIdToken().then(function(currentUser) {
-        $http({
-            method: 'PUT',
-            url: '/day/updatemeal/' + dayID + '/' + index,
-            headers: {
-                id_token: currentUser.authIdToken
-            },
-            data: data
-        }).then(function(response) {
-                console.log('Meal updated');
-                self.getDays(tripID);
-            },
-            function(err) {
-                console.log('Unable to update Meal', err);
-            });
-    });
+        console.log('updateMeal:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(currentUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/updatemeal/' + dayID + '/' + index,
+                headers: {
+                    id_token: currentUser.authIdToken
+                },
+                data: data
+            }).then(function(response) {
+                    console.log('Meal updated');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to update Meal', err);
+                });
+        });
     }; // End: updateMeal
 
     // Begin: delete meal
     self.deleteMeal = function(mealID, dayID, tripID) {
-    console.log(mealID, dayID, tripID);
-    // self.days[parentIndex].interesting_locations.splice(index, 1);
-    authFactory.getIdToken().then(function(currentUser) {
-        $http({
-            method: 'DELETE',
-            url: '/day/meal/' + dayID + '/' + mealID,
-            headers: {
-                id_token: currentUser.authIdToken
-            }
-        }).then(function(response) {
-                console.log('Day meal deleted');
-                self.getDays(tripID);
-            },
-            function(err) {
-                console.log('Unable to delete day meal', err);
-            });
-    });
+        console.log(mealID, dayID, tripID);
+        // self.days[parentIndex].interesting_locations.splice(index, 1);
+        authFactory.getIdToken().then(function(currentUser) {
+            $http({
+                method: 'DELETE',
+                url: '/day/meal/' + dayID + '/' + mealID,
+                headers: {
+                    id_token: currentUser.authIdToken
+                }
+            }).then(function(response) {
+                    console.log('Day meal deleted');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to delete day meal', err);
+                });
+        });
     }; // End deleteMeal
 
     // add recommendation to day
     self.addRecommendation = function(dayID, tripID) {
-    console.log('addRecommendation:', '\n', 'text:', self.newRecommendation.text, '\ndayID:', dayID, '\ntripID:', tripID);
-    authFactory.getIdToken().then(function(currentUser) {
-        $http({
-            method: 'PUT',
-            url: '/day/addrecommendation/' + dayID,
-            headers: {
-                id_token: currentUser.authIdToken
-            },
-            data: self.newRecommendation
-        }).then(function(response) {
-                console.log('Recommendation added');
-                self.newRecommendation = {};
-                self.getDays(tripID);
-            },
-            function(err) {
-                console.log('Unable to add Recommendation', err);
-            });
-    });
+        console.log('addRecommendation:', '\n', 'text:', self.newRecommendation.text, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(currentUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/addrecommendation/' + dayID,
+                headers: {
+                    id_token: currentUser.authIdToken
+                },
+                data: self.newRecommendation
+            }).then(function(response) {
+                    console.log('Recommendation added');
+                    self.newRecommendation = {};
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to add Recommendation', err);
+                });
+        });
     }; // End: addRecommendation
 
     // update recommendation
     self.updateRecommendation = function(index, data, dayID, tripID) {
-    console.log('updateRecommendation:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
-    authFactory.getIdToken().then(function(currentUser) {
-        $http({
-            method: 'PUT',
-            url: '/day/updaterecommendation/' + dayID + '/' + index,
-            headers: {
-                id_token: currentUser.authIdToken
-            },
-            data: data
-        }).then(function(response) {
-                console.log('Recommendation updated');
-                self.getDays(tripID);
-            },
-            function(err) {
-                console.log('Unable to update Recommendation', err);
-            });
-    });
+        console.log('updateRecommendation:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID, '\ntripID:', tripID);
+        authFactory.getIdToken().then(function(currentUser) {
+            $http({
+                method: 'PUT',
+                url: '/day/updaterecommendation/' + dayID + '/' + index,
+                headers: {
+                    id_token: currentUser.authIdToken
+                },
+                data: data
+            }).then(function(response) {
+                    console.log('Recommendation updated');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to update Recommendation', err);
+                });
+        });
     }; // End: updateRecommendation
 
     // Begin: delete recommendation
     self.deleteRecommendation = function(recommendationID, dayID, tripID) {
-    console.log(recommendationID, dayID, tripID);
-    // self.days[parentIndex].interesting_locations.splice(index, 1);
-    authFactory.getIdToken().then(function(currentUser) {
-        $http({
-            method: 'DELETE',
-            url: '/day/recommendation/' + dayID + '/' + recommendationID,
-            headers: {
-                id_token: currentUser.authIdToken
-            }
-        }).then(function(response) {
-                console.log('Recommendation deleted');
-                self.getDays(tripID);
-            },
-            function(err) {
-                console.log('Unable to delete recommendation', err);
-            });
-    });
+        console.log(recommendationID, dayID, tripID);
+        // self.days[parentIndex].interesting_locations.splice(index, 1);
+        authFactory.getIdToken().then(function(currentUser) {
+            $http({
+                method: 'DELETE',
+                url: '/day/recommendation/' + dayID + '/' + recommendationID,
+                headers: {
+                    id_token: currentUser.authIdToken
+                }
+            }).then(function(response) {
+                    console.log('Recommendation deleted');
+                    self.getDays(tripID);
+                },
+                function(err) {
+                    console.log('Unable to delete recommendation', err);
+                });
+        });
     }; // End delete recommendation
 
 }]); // END: MyTripController
