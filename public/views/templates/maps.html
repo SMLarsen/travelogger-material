@@ -1,10 +1,24 @@
 <label for="adress">Address: </label>
-    <input type="text" name="address" ng-model="mc.newAddress">
-    <button type="button" name="button" ng-click="mc.findAddress()">Find Location</button>
-    <p>Lat: <span>{{mc.lat}}</span></p>
-    <p>Lng: <span>{{mc.lng}}</span></p>
+<input type="text" name="address" ng-model="mc.newAddress">
+<button type="button" name="button" ng-click="mc.findAddress()">Find Location</button>
+<p>Lat: <span>{{mc.lat}}</span></p>
+<p>Lng: <span>{{mc.lng}}</span></p>
 
-    <ng-map default-style="true" center="current-location" zoom="6">
-        <info-window position="current-location">
-        </info-window>
-    </ng-map>
+<ul ng-repeat="place in mc.locationArray">
+    <li>{{place.name}} - {{place.pos}}</li>
+</ul>
+
+<ng-map default-style="true" center="[{{mc.lat}}, {{mc.lng}}]" zoom="9">
+    <info-window position="current-location">
+    </info-window>
+    <marker ng-repeat="p in mc.locationArray" position="{{p.pos}}" data="{{mc.locationArray[$index].name}}" on-click="showData()" ; title="pos: {{p.pos}}"></marker>
+
+    <!-- <directions
+       draggable="true"
+       panel="directions-panel"
+       travel-mode="DRIVING"
+       origin="mc.startLocation"
+       destination="mc.endLocation">
+     </directions> -->
+
+</ng-map>
