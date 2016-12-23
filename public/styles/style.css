@@ -165,7 +165,7 @@ body {
     font-size: 1.2em;
 }
 
-.tripInfo label {
+.tripInfo .title {
   text-align: right;
   font-weight: 200;
 
