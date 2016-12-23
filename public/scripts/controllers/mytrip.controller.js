@@ -65,14 +65,27 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
 
     // function to geocode destination
     self.pinDestinationLocation = function() {
-        GeoCoder.geocode({
-            address: self.newTrip.destination
-        }).then(function(result) {
-          self.newTrip.destination_location = result[0];
-          console.log(self.newTrip.destination_location);
-        });
+        self.newTrip.destination_location = locationGeocode(self.newTrip.destination);
     }; // end pinDestinationLocation
 
+    // function to geocode destination
+    self.pinBeginLocation = function() {
+        self.newTrip.begin_location = locationGeocode(self.newTrip.begin_location);
+    }; // end pinBeginLocation
+
+    // function to geocode destination
+    self.pinEndLocation = function() {
+        self.newTrip.end_location = locationGeocode(self.newTrip.end_location);
+    }; // end pinEndLocation
+
+    function locationGeocode(address) {
+        GeoCoder.geocode({
+            address: address
+        }).then(function(result) {
+            console.log('Address geocode result:', result[0]);
+            return result[0];
+        });
+    }
 
     // Function to set up collapse/expand status for trip panels
     function buildTripStatusArray() {
