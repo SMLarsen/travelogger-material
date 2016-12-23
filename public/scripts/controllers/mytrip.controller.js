@@ -53,11 +53,13 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
 
     var currentUser = authFactory.currentUser;
 
+    // Get all trips for the user
     myTripFactory.getTrips()
         .then(function(response) {
                 self.trips = response;
                 console.log('Trips returned', self.trips);
                 buildTripStatusArray();
+                self.trips.forEach(formatDates);
             },
             function(err) {
                 console.log('Error getting trips', err);
@@ -101,6 +103,12 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
         }
     }
     // End buildTripStatusArray
+
+    // Function to set dates as date objects
+    function formatDates(item, index) {
+      item.begin_date = new Date(item.begin_date);
+      item.end_date = new Date(item.end_date);
+    } // End formatDates
 
     // Function to add a trip
     self.addTrip = function() {
