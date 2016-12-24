@@ -8,43 +8,56 @@
 
         <!--  START:  Add Trip Accordion-group  -->
         <div uib-accordion-group is-collapsed="true" ng-click="isopen=!isopen" class="panel-primary" heading="Add a Trip">
-            <form name="tripAdd" class="form-horizontal" novalidate>
-                <div class="form-group">
-                    <label class="control-label col-xs-3">Trip Name</label>
-                    <input type="text" class="col-xs-7" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
-                    <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
+
+            <div class="col-xs-12 col-md-12">
+                <div class="col-xs-12 col-md-8">
+                    <form name="tripAdd" class="form-horizontal" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Trip Name</label>
+                            <input type="text" class="col-xs-7" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
+                            <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Destination</label>
+                            <input type="text" class="col-xs-7" name="trip_name" ng-model="mtc.newTrip.destination">
+                            <button class="pinBtn col-xs-1" ng-click="mtc.pinDestinationLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Starting Date</label>
+                            <input type="date" class="col-xs-7" name="begin_date" ng-model="mtc.newTrip.begin_date">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Starting Location</label>
+                            <input type="text" class="col-xs-7" name="begin_location" ng-model="mtc.newTrip.begin_location">
+                            <button class="pinBtn col-xs-1" ng-click="mtc.pinBeginLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Ending Date</label>
+                            <input type="date" class="col-xs-7" name="end_date" ng-model="mtc.newTrip.end_date">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Ending Location</label>
+                            <input type="text" class="col-xs-7" name="end_location" ng-model="mtc.newTrip.end_location">
+                            <button class="pinBtn col-xs-1" ng-click="mtc.pinEndLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Travellers</label>
+                            <input type="text" class="col-xs-7" name="travellers" ng-model="mtc.newTrip.travellers">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary col-xs-2 col-xs-offset-5" ng-click="mtc.addTrip()">Save</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-3">Destination</label>
-                    <input type="text" class="col-xs-7" name="trip_name" ng-model="mtc.newTrip.destination">
-                    <button class="pinBtn col-xs-1" ng-click="mtc.pinDestinationLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+
+                <div class="col-xs-12 col-md-4">
+                    <ng-map default-style="true" center="40.71, -74.21" zoom="12">
+                        <info-window position="current-location">
+                        </info-window>
+                        <marker ng-repeat="p in mc.locationArray" position="{{p.pos}}" data="{{mc.locationArray[$index].name}}" on-click="showData()" ; title="pos: {{p.pos}}"></marker>
+                    </ng-map>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-3">Starting Date</label>
-                    <input type="date" class="col-xs-7" name="begin_date" ng-model="mtc.newTrip.begin_date">
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-3">Starting Location</label>
-                    <input type="text" class="col-xs-7" name="begin_location" ng-model="mtc.newTrip.begin_location">
-                    <button class="pinBtn col-xs-1" ng-click="mtc.pinBeginLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-3">Ending Date</label>
-                    <input type="date" class="col-xs-7" name="end_date" ng-model="mtc.newTrip.end_date">
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-3">Ending Location</label>
-                    <input type="text" class="col-xs-7" name="end_location" ng-model="mtc.newTrip.end_location">
-                    <button class="pinBtn col-xs-1" ng-click="mtc.pinEndLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-3">Travellers</label>
-                    <input type="text" class="col-xs-7" name="travellers" ng-model="mtc.newTrip.travellers">
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary col-xs-2 col-xs-offset-5" ng-click="mtc.addTrip()">Save</button>
-                </div>
-            </form>
+            </div>
         </div>
         <!--  END: Add Trip Accordion-group  -->
 

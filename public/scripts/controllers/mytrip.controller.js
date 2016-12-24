@@ -27,6 +27,9 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
     self.newRoute = {};
     self.newMeal = {};
     self.newRecommendation = {};
+    self.destinationMapLocation = {};
+    self.beginMapLocation = {};
+    self.endMapLocation = {};
 
     var openState = {
         openstate: false
@@ -53,6 +56,12 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
 
     var currentUser = authFactory.currentUser;
 
+    self.data = [];
+    self.positions = [];
+    self.showData = function() {
+        alert(this.data.foo);
+    };
+
     // Get all trips for the user
     myTripFactory.getTrips()
         .then(function(response) {
@@ -67,23 +76,26 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
 
     // function to geocode destination
     self.pinDestinationLocation = function() {
-      locationGeocode(self.newTrip.destination).then(function(result) {
-        self.newTrip.destination_location = result;
-      });
+        locationGeocode(self.newTrip.destination)
+            .then(function(result) {
+                self.newTrip.destination_location = result;
+                self.positions.push(result.geometry.location);
+                console.log('positions:', self.positions);
+            });
     }; // end pinDestinationLocation
 
     // function to geocode destination
     self.pinBeginLocation = function() {
-      locationGeocode(self.newTrip.begin_location).then(function(result) {
-        self.newTrip.begin_map_location = result;
-      });
+        locationGeocode(self.newTrip.begin_location).then(function(result) {
+            self.newTrip.begin_map_location = result;
+        });
     }; // end pinBeginLocation
 
     // function to geocode destination
     self.pinEndLocation = function() {
-      locationGeocode(self.newTrip.end_location).then(function(result) {
-        self.newTrip.end_map_location = result;
-      });
+        locationGeocode(self.newTrip.end_location).then(function(result) {
+            self.newTrip.end_map_location = result;
+        });
     }; // end pinEndLocation
 
     function locationGeocode(address) {
@@ -101,18 +113,17 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
         for (var i = 0; i < self.trips.length; i++) {
             self.tripStatus.push(openState);
         }
-    }
-    // End buildTripStatusArray
+    } // End buildTripStatusArray
 
     // Function to set dates as date objects
     function formatDates(item, index) {
-      item.begin_date = new Date(item.begin_date);
-      item.end_date = new Date(item.end_date);
+        item.begin_date = new Date(item.begin_date);
+        item.end_date = new Date(item.end_date);
     } // End formatDates
 
     // Function to add a trip
     self.addTrip = function() {
-      console.log('add trip:', self.newTrip);
+        console.log('add trip:', self.newTrip);
         myTripFactory.addTrip(self.newTrip)
             .then(function(response) {
                     self.newTrip = {};
