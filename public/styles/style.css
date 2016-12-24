@@ -61,6 +61,10 @@ h1 {
     text-align: center;
 }
 
+.bottomMargin {
+  margin-bottom: 30px;
+}
+
 .h4 {
     text-align: center;
 }
@@ -150,6 +154,11 @@ body {
     font-size: 2em;
     color: white;
     background-color: #3072AC;
+}
+
+.fa-plus-circle {
+  font-size: 1.5em;
+  color: #3072AC;
 }
 
 #guestSearchDay {

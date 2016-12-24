@@ -1,0 +1,661 @@
+<div>
+    <div id="bodyView">
+        <h2>My Trips</h2>
+    </div>
+
+    <!--  START:  Outer Accordion  -->
+    <uib-accordion close-others="oneAtATime">
+
+        <!--  START:  Add Trip Accordion-group  -->
+        <div uib-accordion-group is-collapsed="true" ng-click="isopen=!isopen" class="panel-primary" heading="Add a Trip">
+
+            <div class="col-xs-12 col-md-12">
+                <div class="col-xs-12 col-md-8">
+                    <form name="tripAdd" class="form-horizontal" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Trip Name</label>
+                            <input type="text" class="col-xs-7" name="trip_name" ng-model="mtc.newTrip.trip_name" required>
+                            <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Destination</label>
+                            <input type="text" class="col-xs-7" name="trip_name" ng-model="mtc.newTrip.destination">
+                            <button class="pinBtn col-xs-1" ng-click="mtc.pinDestinationLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Starting Date</label>
+                            <input type="date" class="col-xs-7" name="begin_date" ng-model="mtc.newTrip.begin_date">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Starting Location</label>
+                            <input type="text" class="col-xs-7" name="begin_location" ng-model="mtc.newTrip.begin_location">
+                            <button class="pinBtn col-xs-1" ng-click="mtc.pinBeginLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Ending Date</label>
+                            <input type="date" class="col-xs-7" name="end_date" ng-model="mtc.newTrip.end_date">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Ending Location</label>
+                            <input type="text" class="col-xs-7" name="end_location" ng-model="mtc.newTrip.end_location">
+                            <button class="pinBtn col-xs-1" ng-click="mtc.pinEndLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Travellers</label>
+                            <input type="text" class="col-xs-7" name="travellers" ng-model="mtc.newTrip.travellers">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary col-xs-2 col-xs-offset-5" ng-click="mtc.addTrip()">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-xs-12 col-md-4">
+                    <ng-map default-style="true" center="40.71, -74.21" zoom="12">
+                        <info-window position="current-location">
+                        </info-window>
+                        <marker ng-repeat="p in mc.locationArray" position="{{p.pos}}" data="{{mc.locationArray[$index].name}}" on-click="showData()" ; title="pos: {{p.pos}}"></marker>
+                    </ng-map>
+                </div>
+            </div>
+        </div>
+        <!--  END: Add Trip Accordion-group  -->
+
+        <!--  START: Show Trips Accordion-group  -->
+        <!-- <div uib-accordion-group ng-repeat="trip in mtc.trips" ng-click="mtc.getDays(trip._id)" class="panel-default" is-disabled="mtc.status.isFirstDisabled"> -->
+        <div uib-accordion-group ng-repeat="trip in mtc.trips" close-others="true" class="panel-default" is-disabled="mtc.status.isFirstDisabled">
+            <div class="col-xs-12">
+                <uib-accordion-heading>
+                    <span ng-click="mtc.getDays(trip._id)">{{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}</span>
+                    <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteTrip(trip._id)"></span>
+                </uib-accordion-heading>
+
+                <form editable-form name="editableFormTrip" class="form-horizontal" novalidate>
+
+                    <div class="tripInfo">
+                        <div class="col-xs-10">
+                            <div>
+                                <span class="title col-xs-3">Trip Name: </span>
+                                <span class="col-xs-9" editable-text="trip.trip_name" buttons="no">{{trip.trip_name || 'empty' }}</span>
+                            </div>
+                            <div>
+                                <span class="title col-xs-3">Destination: </span>
+                                <span class="col-xs-3" editable-text="trip.destination" buttons="no" onaftersave="mtc.updateTrip(trip)">{{trip.destination || 'empty' }}</span>
+                                <span ng-show="editableFormTrip.$visible">
+                              <button class="pinBtn" ng-click="mtc.pinBeginLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                            </span>
+                            </div>
+                            <div>
+                                <span class="title col-xs-3">Travellers: </span>
+                                <span class="col-xs-3" editable-text="trip.travellers" buttons="no" onaftersave="mtc.updateTrip(trip)">{{trip.travellers || 'empty' }}</span>
+                            </div>
+                            <div>
+                                <span class="title col-xs-3">Starting Date: </span>
+                                <span class="col-xs-3" editable-date="trip.begin_date" autotext="auto" buttons="no">{{trip.begin_date | date }}</span>
+                            </div>
+                            <div>
+                                <span class="title col-xs-3">Starting Location: </span>
+                                <span class="col-xs-3" buttons="no" editable-text="trip.begin_location">{{trip.begin_location || 'empty' }}</span>
+                                <span ng-show="editableFormTrip.$visible">
+                              <button class="pinBtn" ng-click="mtc.pinBeginLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                            </span>
+                            </div>
+                            <div>
+                                <span class="title col-xs-3">Ending Date: </span>
+                                <span class="col-xs-3" editable-date="trip.end_date" buttons="no">{{trip.end_date | date }}</span>
+                            </div>
+                            <div>
+                                <span class="title col-xs-3">Ending Location: </span>
+                                <span class="col-xs-3" buttons="no" editable-text="trip.end_location">{{trip.end_location || 'empty' }}</span>
+                                <span ng-show="editableFormTrip.$visible">
+                              <button class="pinBtn" ng-click="mtc.pinBeginLocation()"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
+                            </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-2">
+                            <!-- button to show form -->
+                            <button type="button" class="editBtn pull-right fa fa-pencil" ng-click="editableFormTrip.$show()" ng-show="!editableFormTrip.$visible"></button>
+                            <!-- buttons to submit / cancel form -->
+                            <span ng-show="editableFormTrip.$visible">
+                        <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormTrip.$waiting" ng-click="editableFormTrip.$cancel()"></button>
+                        <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormTrip.$waiting" ng-click="mtc.updateTripStatus($index)"></button>
+                      </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br><br><br>
+            <hr>
+
+            <!--  START: Add Day -->
+            <div uib-accordion-group is-collapsed="true" ng-click="isopen=!isopen" class="panel-primary" heading="Add a Day">
+                <div class="form-group" ng-model="mtc.newDay.trip_name">
+                    <form name="addDayForm">
+
+                        <div class="daySection form-group">
+                            <label>General</label><br>
+                            <div class="col-xs-2">
+                                <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
+                            </div>
+                            <div class="col-xs-2">
+                                <label class="sr-only" for="dayEndLocation">Location</label>
+                                <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" placeholder="Where are you?">
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="sr-only">Tag Line</label>
+                                <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line" placeholder="Tag line for the day">
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
+                            </div>
+                        </div><br>
+
+                        <div class="daySection form-group">
+                            <div class="col-xs-12">
+                                <input type="text" class="form-control" name="narrative" ng-model="mtc.newDay.narrative" placeholder="Describe the day">
+                            </div>
+                        </div><br>
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Points of Interest</label><br>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name="pointOfInterestName" ng-model="mtc.pointOfInterest.name" placeholder="Add point of interest">
+                            </div>
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="pointOfInterestDesc" ng-model="mtc.pointOfInterest.description" placeholder="Description">
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addPOIRow()"><span class=" fa fa-plus"></span> Add</button>
+                            </div><br>
+                            <div class="col-xs-12">
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:20%">Name</th>
+                                            <th style="width:80%">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="routes" ng-repeat="place in mtc.newDay.interesting_locations">
+                                        <tr>
+                                            <td>{{place.name}}</td>
+                                            <td>{{place.description}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Routes</label><br>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="routeName" ng-model="mtc.route.name" placeholder="Point on route">
+                            </div>
+                            <div class="col-xs-1">
+                                <select class="form-control" ng-model="mtc.route.transport_mode" ng-options="item for item in mtc.transportModes"></select>
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="routeDistance" ng-model="mtc.route.distance" placeholder="Distance">
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="routeDuration" ng-model="mtc.route.duration" placeholder="Duration">
+                            </div>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control" name="routeSpecifics" ng-model="mtc.route.specifics" placeholder="Specifics">
+                            </div><br>
+                            <div class="col-xs-11">
+                                <input type="text" class="form-control" name="routeComment" ng-model="mtc.route.comment" placeholder="Comments">
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addRouteRow()"><span class="fa fa-plus"></span> Add</button>
+                            </div>
+                            <div class="col-xs-12">
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:10%">Name</th>
+                                            <th style="width:10%">Mode</th>
+                                            <th style="width:5%">Distance</th>
+                                            <th style="width:5%">Duration</th>
+                                            <th style="width:20%">Specfics</th>
+                                            <th style="width:50%">Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="routes" ng-repeat="route in mtc.newDay.routes">
+                                        <tr>
+                                            <td>{{route.name}}</td>
+                                            <td>{{route.transport_mode}}</td>
+                                            <td>{{route.distance}}</td>
+                                            <td>{{route.duration}}</td>
+                                            <td>{{route.specifics}}</td>
+                                            <td>{{route.comment}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Meals</label>
+                            <div class="col-xs-1">
+                                <select class="form-control" ng-model="mtc.meal.type" ng-options="item for item in mtc.mealTypes"></select>
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="mealName" ng-model="mtc.meal.name" placeholder="Name">
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="mealDistance" ng-model="mtc.meal.location" placeholder="Where">
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="mealDuration" ng-model="mtc.meal.description" placeholder="Describe it">
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" name="routeSpecifics" ng-model="mtc.route.reference" placeholder="reference (url)">
+                            </div><br>
+                            <div class="col-xs-1">
+                                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addMealRow()"><span class="fa fa-plus"></span> Add</button>
+                            </div>
+                            <div class="col-xs-12">
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:10%">type</th>
+                                            <th style="width:10%">Name</th>
+                                            <th style="width:20%">Location</th>
+                                            <th style="width:40%">Description</th>
+                                            <th style="width:20%">reference</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="meals" ng-repeat="meal in day.meals">
+                                        <tr>
+                                            <td>{{meal.type}}</td>
+                                            <td>{{meal.name}}</td>
+                                            <td>{{meal.location}}</td>
+                                            <td>{{meal.description}}</td>
+                                            <td>{{meal.reference}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Lodging</label><br>
+                            <div class="col-xs-2">
+                                <label class="sr-only">Type</label>
+                                <select class="form-control" ng-model="day.lodgingTypes_type" ng-options="item for item in day.lodgingTypes"></select>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" name="lodging_name" ng-model="mtc.newDay.lodging_name" placeholder="Name">
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="sr-only">Address</label>
+                                <input type="text" class="form-control" name="lodging_address" ng-model="mtc.newDay.lodging_address" placeholder="Address">
+                            </div><br>
+                            <div class="col-xs-12">
+                                <label class="sr-only">Reference</label>
+                                <input type="text" class="form-control" name="lodging_reference" ng-model="mtc.newDay.lodging_reference" placeholder="Reference">
+                            </div>
+                        </div><br>
+
+                        <div class="daySection form-group">
+                            <label class="dayLabel col-xs-12">Recommendations</label><br>
+                            <div class="col-xs-11">
+                                <input type="text" class="form-control" ng-model="mtc.recommendation.text" placeholder="Recommendations?">
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addRecommendationRow()"><span class="fa fa-plus"></span> Add</button>
+                            </div>
+                            <div class="col-xs-12">
+                                <table class="dayTable table table-hover table-responsive">
+                                    <thead class=>
+                                        <tr>
+                                            <th style="width:100%">Recommendation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="recommendations" ng-repeat="recommendation in mtc.newDay.recommendations">
+                                        <tr>
+                                            <td>{{recommendation.text}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="dayLabel sr-only">Save</label>
+                            <div class="col-xs-2 col-xs-offset-5 text-center">
+                                <button class="btn btn-primary btn-lg" ng-click="mtc.addDay(trip._id)">Save</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+            <!--  END: Add day accordion-group (within a trip)  -->
+
+            <!--  START: Show days accordion group (within a trip) -->
+            <div uib-accordion-group ng-repeat="day in mtc.days" class="panel-default">
+                <!-- <div uib-accordion-group ng-repeat="day in mtc.days" class="panel-default"> -->
+                <uib-accordion-heading>
+                    <!-- <span ng-click="isCollapsed = !isCollapsed"> -->
+                    {{day.date | date:'MM/dd'}} - {{day.end_location}}
+                    <!-- </span> -->
+                    <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteDay(day._id, day.trip_id)"></span>
+                </uib-accordion-heading>
+
+                <form editable-form name="editableFormGeneral">
+                    <label class="dayLabel col-xs-12">General Information</label>
+                    <div class="col-xs-2">
+                        <!-- <span class="title">Date: </span> -->
+                        <span editable-date="day.date" e-name="date">{{ day.date | date:'MM/dd' }}</span>
+                    </div>
+
+                    <div class="col-xs-2">
+                        <!-- <span class="title">Where: </span> -->
+                        <span editable-text="day.end_location" e-name="end_location">{{ day.end_location || 'empty' }}</span>
+                    </div>
+
+                    <div class="col-xs-3">
+                        <!-- <span class="title">Tag-line: </span> -->
+                        <span editable-text="day.tag_line" e-name="tag_line">{{ day.tag_line || 'empty' }}</span>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <!-- <span class="title">Weather: </span> -->
+                        <span editable-text="day.weather" e-name="weather">{{ day.weather || 'empty' }}</span>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <!-- button to show form -->
+                        <button type="button" class="editBtn pull-right fa fa-pencil" ng-click="editableFormGeneral.$show()" ng-show="!editableFormGeneral.$visible"></button>
+                        <!-- buttons to submit / cancel form -->
+                        <span ng-show="editableFormGeneral.$visible">
+                            <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormGeneral.$waiting" ng-click="editableFormGeneral.$cancel()"></button>
+                            <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormGeneral.$waiting" ng-click="mtc.updateDayGeneral(editableFormGeneral.$data, day._id, day.trip_id)"></button>
+                          </span>
+                    </div><br>
+
+                    <label class="daySubLabel col-xs-12">Lodging</label>
+                    <div class="col-xs-12">
+
+                        <div class="col-xs-2">
+                            <!-- <span class="title">Weather: </span> -->
+                            <!-- <span editable-text="day.lodging_type" e-name="lodging_type">{{ day.lodging_type || 'empty' }}</span> -->
+                            <span editable-select="day.lodging_type" e-name="lodging_type" e-ng-options="item for item in mtc.lodgingTypes">{{ day.lodging_type || 'empty' }}</span>
+                        </div>
+
+                        <div class="col-xs-2">
+                            <!-- <span class="title">Date: </span> -->
+                            <span editable-text="day.lodging_name" e-name="lodging_name">{{ day.lodging_name || 'empty' }}</span>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <!-- <span class="title">Where: </span> -->
+                            <span editable-text="day.lodging_address" e-name="lodging_address">{{ day.lodging_address || 'empty' }}</span>
+                        </div>
+
+                        <div class="col-xs-3">
+                            <!-- <span class="title">Tag-line: </span> -->
+                            <span editable-text="day.lodging_reference" e-name="lodging_reference">{{ day.lodging_reference || 'empty' }}</span>
+                        </div>
+                    </div>
+
+                    <label class="daySubLabel col-xs-12">Narrative</label>
+                    <div class="col-xs-11">
+                        <span editable-textarea="day.narrative" e-name="narrative" e-rows="7" e-cols="100%">{{day.narrative}}</span>
+
+                    </div><br>
+
+                </form>
+
+                <!-- Starting Points of Interest -->
+
+                <form editable-form name="tableformPOI" oncancel="cancel()">
+                    <label class="dayLabel col-xs-12">Points of Interest</label>
+                    <!-- table -->
+                    <div class="col-xs-11">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <tr style="font-weight: bold">
+                                <td style="width:25%">Name</td>
+                                <td style="width:65%">Description</td>
+                                <td style="width:10%"><span ng-show="tableformPOI.$visible">Action</span></td>
+                            </tr>
+                            <tr ng-repeat="place in day.interesting_locations">
+                                <td>
+                                    <span editable-text="place.name" onaftersave="mtc.updatePOI($index, place, day._id, day.trip_id)">
+                            {{ place.name || 'empty' }}
+                          </span>
+                                </td>
+                                <td>
+                                    <span editable-text="place.description">
+                            {{ place.description || 'empty' }}
+                          </span>
+                                </td>
+                                <td><button type="button" ng-show="tableformPOI.$visible" ng-click="mtc.deletePOI(place._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
+                                    <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformPOI.$visible"></button></td>
+                            </tr>
+                            <div class="btn-form" ng-show="tableformPOI.$visible">
+                                <tr>
+                                    <td><input type="text" class="form-control" ng-model="mtc.newPointOfInterest.name" placeholder="Name"></td>
+                                    <td><input type="text" class="form-control" ng-model="mtc.newPointOfInterest.description" placeholder="Description"></td>
+                                    <td><button type="button" ng-disabled="tableformPOI.$waiting" ng-click="mtc.addPOI(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
+                                </tr>
+                            </div>
+                        </table>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <!-- buttons -->
+                        <div class="btn-edit">
+                            <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformPOI.$visible" ng-click="tableformPOI.$show()"></button>
+                        </div>
+                        <div class="btn-form" ng-show="tableformPOI.$visible">
+                            <button type="button" ng-disabled="tableformPOI.$waiting" ng-click="tableformPOI.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Starting Travel Route -->
+
+                <form editable-form name="tableformRoute" oncancel="cancel()">
+                    <label class="dayLabel col-xs-12">Route</label>
+                    <!-- table -->
+                    <div class="col-xs-11">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead class=>
+                                <tr>
+                                    <th style="width:15%">Name</th>
+                                    <th style="width:10%">Mode</th>
+                                    <th style="width:10%">Distance</th>
+                                    <th style="width:10%">Duration</th>
+                                    <th style="width:45%">Specifics</th>
+                                    <th style="width:10%"><span ng-show="tableformRoute.$visible">Action</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="routes" ng-repeat="route in day.routes">
+                                    <td>
+                                        <span editable-text="route.name" onaftersave="mtc.updateRoute($index, route, day._id, day.trip_id)">
+                                  {{route.name || 'empty' }}
+                                </span>
+                                    </td>
+                                    <td>
+                                        <span editable-select="route.transport_mode" e-ng-options="item for item in mtc.transportModes">
+                                  {{route.transport_mode || 'empty' }}
+                                </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="route.distance">
+                                  {{route.distance || 'empty' }}
+                                </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="route.duration">
+                                  {{route.duration || 'empty' }}
+                                </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="route.specifics">
+                                  {{route.specifics || 'empty' }}
+                                </span>
+                                    </td>
+                                    <td><button type="button" ng-show="tableformRoute.$visible" ng-click="mtc.deleteRoute(route._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
+                                        <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformRoute.$visible"></button></td>
+                                </tr>
+
+                                <div class="btn-form" ng-show="tableformRoute.$visible">
+                                    <tr>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.name" placeholder="Name"></td>
+                                        <td><select type="text" class="form-control" ng-model="mtc.newRoute.transport_mode" ng-options="item for item in mtc.transportModes"></select></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.distance" placeholder="Dist"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.duration" placeholder="Time"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newRoute.specifics" placeholder="Details"></td>
+                                        <td><button type="button" ng-disabled="tableformRoute.$waiting" ng-click="mtc.addRoute(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
+                                    </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <!-- buttons -->
+                        <div class="btn-edit">
+                            <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformRoute.$visible" ng-click="tableformRoute.$show()"></button>
+                        </div>
+                        <div class="btn-form" ng-show="tableformRoute.$visible">
+                            <button type="button" ng-disabled="tableformRoute.$waiting" ng-click="tableformRoute.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Starting Meals -->
+
+                <form editable-form name="tableformMeals" oncancel="cancel()">
+                    <label class="dayLabel col-xs-12">Eating and Drinking</label>
+                    <!-- table -->
+                    <div class="col-xs-11">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead class=>
+                                <tr>
+                                    <th style="width:10%">type</th>
+                                    <th style="width:10%">Name</th>
+                                    <th style="width:20%">Location</th>
+                                    <th style="width:30%">Description</th>
+                                    <th style="width:20%">Reference</th>
+                                    <th style="width:10%"><span ng-show="tableformMeals.$visible">Action</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="meals" ng-repeat="meal in day.meals">
+                                    <td>
+                                        <span editable-select="meal.type" e-ng-options="item for item in mtc.mealTypes">
+                                          {{meal.type || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="meal.name" onaftersave="mtc.updateMeal($index, meal, day._id, day.trip_id)">
+                                          {{meal.name || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="meal.location">
+                                          {{meal.location || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="meal.description">
+                                          {{meal.description || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="meal.reference">
+                                          {{meal.reference || 'empty' }}
+                                        </span>
+                                    </td>
+                                    <td><button type="button" ng-show="tableformMeals.$visible" ng-click="mtc.deleteMeal(meal._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
+                                        <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformMeals.$visible"></button></td>
+                                </tr>
+
+                                <div class="btn-form" ng-show="tableformMeals.$visible">
+                                    <tr>
+                                        <td><select type="text" class="form-control" ng-model="mtc.newMeal.type" ng-options="item for item in mtc.mealTypes"></select></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.name" placeholder="Name"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.location" placeholder="Where"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.description" placeholder="What"></td>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newMeal.reference" placeholder="Reference e.g., www.joes-place.com"></td>
+                                        <td><button type="button" ng-disabled="tableformMeals.$waiting" ng-click="mtc.addMeal(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
+                                    </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <!-- buttons -->
+                        <div class="btn-edit">
+                            <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformMeals.$visible" ng-click="tableformMeals.$show()"></button>
+                        </div>
+                        <div class="btn-form" ng-show="tableformMeals.$visible">
+                            <button type="button" ng-disabled="tableformMeals.$waiting" ng-click="tableformMeals.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Starting recommendations -->
+
+                <form editable-form name="tableformRecommendations" oncancel="cancel()">
+                    <label class="dayLabel col-xs-12">Recommendations</label>
+                    <!-- table -->
+                    <div class="col-xs-11">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead class=>
+                                <tr>
+                                    <th style="width:90%"></th>
+                                    <th style="width:10%"><span ng-show="tableformRecommendations.$visible">Action</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="recommendations" ng-repeat="recommendation in day.recommendations">
+                                    <td>
+                                        <span editable-text="recommendation.text" onaftersave="mtc.updateRecommendation($index, recommendation, day._id, day.trip_id)">
+                                          {{recommendation.text}}
+                                        </span>
+                                    </td>
+                                    <td><button type="button" ng-show="tableformRecommendations.$visible" ng-click="mtc.deleteRecommendation(meal._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
+                                        <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformRecommendations.$visible"></button></td>
+                                </tr>
+
+                                <div class="btn-form" ng-show="tableformRecommendations.$visible">
+                                    <tr>
+                                        <td><input type="text" class="form-control" ng-model="mtc.newRecommendation.text" placeholder="Add a recommendation"></td>
+                                        <td><button type="button" ng-disabled="tableformRecommendations.$waiting" ng-click="mtc.addRecommendation(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
+                                    </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <!-- buttons -->
+                        <div class="btn-edit">
+                            <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformRecommendations.$visible" ng-click="tableformRecommendations.$show()"></button>
+                        </div>
+                        <div class="btn-form" ng-show="tableformRecommendations.$visible">
+                            <button type="button" ng-disabled="tableformRecommendations.$waiting" ng-click="tableformRecommendations.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!--  END: Show days accord on group-->
+
+        </div>
+        <!--  END: Days accordion group-->
+
+    </uib-accordion>
+    <!--  END: Outer Accordion  -->
+</div>
