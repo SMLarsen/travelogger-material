@@ -24,4 +24,24 @@ app.controller('MyDayController', ['MyTripFactory', '$http', 'AuthFactory', '$ro
                 });
     } // End getDays
 
+
+    // Function to Delete a day
+    self.deleteDay = function(dayID, tripID) {
+        console.log('delete day:', dayID);
+        myTripFactory.deleteDay(dayID)
+            .then(function(response) {
+                    myTripFactory.getDays(tripID)
+                        .then(function(response) {
+                                self.days = response;
+                                console.log('Day deleted');
+                            },
+                            function(err) {
+                                console.log('Error getting days after delete', err);
+                            });
+                },
+                function(err) {
+                    console.log('Unable to delete day', err);
+                });
+    }; // End deleteDay
+
 }]); // END: MyDayController
