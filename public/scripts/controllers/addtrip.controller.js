@@ -9,50 +9,57 @@ app.controller('AddTripController', ['MyTripFactory', '$location', '$http', 'Aut
     self.newTrip = {};
     self.positions = [];
 
+    self.newAddress = '';
+    self.location = {};
+    self.lat = '';
+    self.lng = '';
+    self.locationArray = [];
+    self.startLocation = '';
+    self.endLocation = '';
+
+    function buildLocationArray() {
+        var newLocation = {
+            pos: [self.lat, self.lng],
+            name: self.newAddress
+        };
+        self.locationArray.push(newLocation);
+        console.log(self.locationArray);
+        self.startLocation = self.locationArray[0];
+        self.endLocation = self.locationArray[self.locationArray.length - 1];
+        console.log('start:', self.startLocation);
+        console.log('stop:', self.endLocation);
+    }
+
+    self.findAddress = function(address) {
+        GeoCoder.geocode({
+            address: address
+        }).then(function(result) {
+            self.location = result[0].geometry.location;
+            self.lat = self.location.lat();
+            self.lng = self.location.lng();
+            console.log("Latitude: " + self.lat);
+            console.log("Longitude: " + self.lng);
+            buildLocationArray();
+        });
+    };
+
     // function to geocode destination
     self.pinDestinationLocation = function() {
-        locationGeocode(self.newTrip.destination)
-            .then(function(result) {
-                self.newTrip.destination_location = location;
-            });
+        self.findAddress(self.newTrip.destination);
+        self.newTrip.destination_location = self.location;
     }; // end pinDestinationLocation
 
     // function to geocode destination
     self.pinBeginLocation = function() {
-        locationGeocode(self.newTrip.begin_location)
-            .then(function(result) {
-                self.newTrip.begin_map_location = location;
-            });
+        self.findAddress(self.newTrip.begin_location);
+        self.newTrip.begin_map_location = self.location;
     }; // end pinBeginLocation
 
     // function to geocode destination
     self.pinEndLocation = function() {
-        locationGeocode(self.newTrip.end_location)
-            .then(function(result) {
-                self.newTrip.end_map_location = location;
-            });
+        self.findAddress(self.newTrip.end_location);
+        self.newTrip.end_map_location = self.location;
     }; // end pinEndLocation
-
-    function locationGeocode(address) {
-        return GeoCoder.geocode({
-            address: address
-        }).then(function(result) {
-            console.log('results:', result);
-            var lat = result[0].geometry.location.lat;
-            var lng = result[0].geometry.location.lng;
-            console.log("lat:", lat, "lng", lng);
-            var location = {
-                pos: [
-                    lat,
-                    lng,
-                ]
-            };
-            self.newTrip.end_map_location = location;
-            self.positions.push(location);
-            console.log('positions:', self.positions);
-            return location;
-        });
-    }
 
     // Function to set dates as date objects
     function formatDates(item, index) {

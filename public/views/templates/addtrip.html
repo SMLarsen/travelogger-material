@@ -2,12 +2,11 @@
     <div id="bodyView">
         <h2>Add a Trip</h2>
     </div>
-
     <div class="col-xs-12 col-md-6">
-        <ng-map default-style="true" center="current-location" zoom="12">
+        <ng-map default-style="true" center="[{{atc.lat}}, {{atc.lng}}]" zoom="9">
             <info-window position="current-location">
             </info-window>
-            <marker ng-repeat="p in atc.positions" position="{{p.pos}}"></marker>
+            <marker ng-repeat="p in atc.locationArray" position="{{p.pos}}"></marker>
         </ng-map>
     </div>
 

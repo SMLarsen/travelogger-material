@@ -157,7 +157,7 @@ body {
 .fa-plus-circle {
     font-size: 5em;
     color: #3072AC;
-    position: absolute;
+    position: fixed;
     bottom: 50px;
     right: 30px;
 }
@@ -174,10 +174,6 @@ body {
 
 .fa-plus {
     font-size: 2em;
-}
-
-.spacer {
-    margin-bottom: 300px;
 }
 
 .daySection input {
