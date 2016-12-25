@@ -6,12 +6,12 @@
     height: 400px;
 }
 
-#bootstrap-overrides .navButton:hover{
-  background-color: #c3143e;
+#bootstrap-overrides .navButton:hover {
+    background-color: #c3143e;
 }
 
-#bootstrap-overrides .navButton:focus{
-  background-color: #c3143e;
+#bootstrap-overrides .navButton:focus {
+    background-color: #c3143e;
 }
 
 #navView a {
@@ -26,22 +26,22 @@
 }
 
 .navbar-brand {
-  font-size: 1.5em;
+    font-size: 1.5em;
     font-family: 'Molle', cursive;
     font-family: 'Rock Salt', cursive;
 }
 
 .navbar-brand:hover, .navbar-brand:focus {
-  background-color: #c3143e;
+    background-color: #c3143e;
 }
 
 #homeTag {
-  text-align: center;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 2.5em;
-  font-family: 'Sriracha', cursive;
-  color: #c3143e;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 2.5em;
+    font-family: 'Sriracha', cursive;
+    color: #c3143e;
 }
 
 main {
@@ -62,7 +62,7 @@ h1 {
 }
 
 .bottomMargin {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .h4 {
@@ -78,19 +78,17 @@ h1 {
 body {
     background-color: white;
     color: #3072AC;
-    /*background-image: url(../assets/images/DSC03504-2.jpg);
-    background-size:  cover;*/
 }
 
 #homePics {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .homeImg {
-  margin: 2px;
-  /*max-width: 200px;
+    margin: 2px;
+    /*max-width: 200px;
   height: auto;*/
 }
 
@@ -157,14 +155,24 @@ body {
 }
 
 .fa-plus-circle {
-  font-size: 5em;
-  color: #3072AC;
-  position: absolute;
-  bottom: 50px;
-  right: 30px;
+    font-size: 5em;
+    color: #3072AC;
+    position: absolute;
+    bottom: 50px;
+    right: 30px;
 }
 
+.fa-plus {
+    font-size: 2em;
+}
 
+.spacer {
+    margin-bottom: 300px;
+}
+
+.daySection input {
+    margin: 3px 3px;
+}
 
 #guestSearchDay {
     margin: 5px 5px 15px 5px;
@@ -180,17 +188,23 @@ body {
 }
 
 .tripInfo .title {
-  text-align: right;
-  font-weight: 200;
-
+    text-align: right;
+    font-weight: 200;
 }
 
 .editBtn, .addBtn, .deleteBtn, .updateBtn, .cancelBtn, .pinBtn {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 .btnGroup {
-  text-align: center;
+    text-align: center;
+}
+
+.addDayBtnGroup {
+  position: fixed;
+  left: 0px;
+  bottom: 30px;
+
 }
 
 .editBtn {
@@ -207,8 +221,8 @@ body {
 }
 
 .pinBtn {
-  margin-left: 15px;
-  width: 20px;
+    margin-left: 15px;
+    width: 20px;
 }
 
 .cancelBtn, .pinBtn {
@@ -260,48 +274,51 @@ body {
     color: white;
 }
 
+
 /*Google Maps Styling*/
+
 .controls {
-  margin-top: 10px;
-  border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  height: 32px;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 #pac-input {
-  background-color: #fff;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300;
-  margin-left: 12px;
-  padding: 0 11px 0 13px;
-  text-overflow: ellipsis;
-  width: 300px;
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
 }
 
 #pac-input:focus {
-  border-color: #4d90fe;
+    border-color: #4d90fe;
 }
 
 .pac-container {
-  font-family: Roboto;
+    font-family: Roboto;
 }
 
 #type-selector {
-  color: #fff;
-  background-color: #4d90fe;
-  padding: 5px 11px 0px 11px;
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
 }
 
 #type-selector label {
-  font-family: Roboto;
-  font-size: 13px;
-  font-weight: 300;
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
 }
+
 #target {
-  width: 345px;
+    width: 345px;
 }

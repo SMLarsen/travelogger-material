@@ -6,41 +6,36 @@
     <form name="addDayForm">
 
         <div class="daySection form-group">
-            <label>General</label><br>
-            <div class="col-xs-2">
-                <input type="date" class="form-control" name="date" ng-model="mtc.newDay.date">
+            <label class="dayLabel col-xs-12">General</label>
+            <div class="form-group">
+                <input type="date" class="col-xs-12 col-md-5" name="date" ng-model="adc.newDay.date">
             </div>
-            <div class="col-xs-2">
-                <label class="sr-only" for="dayEndLocation">Location</label>
-                <input type="text" class="form-control" name="dayEndLocation" ng-model="mtc.newDay.end_location" placeholder="Where are you?">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-6" name="dayEndLocation" ng-model="adc.newDay.end_location" placeholder="Where are you?">
             </div>
-            <div class="col-xs-6">
-                <label class="sr-only">Tag Line</label>
-                <input type="text" class="form-control" name="tag_line" ng-model="mtc.newDay.tag_line" placeholder="Tag line for the day">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-8" name="tag_line" ng-model="adc.newDay.tag_line" placeholder="Tag line for the day">
             </div>
-            <div class="col-xs-2">
-                <input type="text" class="form-control" name="weather" ng-model="mtc.newDay.weather" placeholder="Today's Weather">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-3" name="weather" ng-model="adc.newDay.weather" placeholder="Today's Weather">
             </div>
-        </div><br>
+            <div class="form-group">
+                <input type="textarea" class="col-xs-12 col-md-11" name="narrative" ng-model="adc.newDay.narrative" placeholder="Describe the day">
+            </div>
+        </div>
 
         <div class="daySection form-group">
-            <div class="col-xs-12">
-                <input type="text" class="form-control" name="narrative" ng-model="mtc.newDay.narrative" placeholder="Describe the day">
+            <label class="dayLabel col-xs-12">Points of Interest</label>
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-3" name="pointOfInterestName" ng-model="adc.pointOfInterest.name" placeholder="Add point of interest">
             </div>
-        </div><br>
-
-        <div class="daySection form-group">
-            <label class="dayLabel col-xs-12">Points of Interest</label><br>
-            <div class="col-xs-3">
-                <input type="text" class="form-control" name="pointOfInterestName" ng-model="mtc.pointOfInterest.name" placeholder="Add point of interest">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-7" name="pointOfInterestDesc" ng-model="adc.pointOfInterest.description" placeholder="Description">
             </div>
-            <div class="col-xs-8">
-                <input type="text" class="form-control" name="pointOfInterestDesc" ng-model="mtc.pointOfInterest.description" placeholder="Description">
-            </div>
-            <div class="col-xs-1">
-                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addPOIRow()"><span class=" fa fa-plus"></span> Add</button>
+            <div class="col-xs-1 col-md-1">
+                <a ng-click="adc.addPOIRow()"><i class="fa fa-plus" aria-hidden="true"></i></a>
             </div><br>
-            <div class="col-xs-12">
+            <div class="col-xs-12 col-md-11">
                 <table class="dayTable table table-hover table-responsive">
                     <thead class=>
                         <tr>
@@ -48,7 +43,7 @@
                             <th style="width:80%">Description</th>
                         </tr>
                     </thead>
-                    <tbody class="routes" ng-repeat="place in mtc.newDay.interesting_locations">
+                    <tbody class="routes" ng-repeat="place in adc.newDay.interesting_locations">
                         <tr>
                             <td>{{place.name}}</td>
                             <td>{{place.description}}</td>
@@ -59,29 +54,29 @@
         </div>
 
         <div class="daySection form-group">
-            <label class="dayLabel col-xs-12">Routes</label><br>
-            <div class="col-xs-2">
-                <input type="text" class="form-control" name="routeName" ng-model="mtc.route.name" placeholder="Point on route">
+            <label class="dayLabel col-xs-12">Routes</label>
+            <div class="form-group">
+                <select class="col-xs-12 col-md-2" ng-model="adc.route.transport_mode" ng-options="item for item in adc.transportModes"></select>
             </div>
-            <div class="col-xs-1">
-                <select class="form-control" ng-model="mtc.route.transport_mode" ng-options="item for item in mtc.transportModes"></select>
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-4" name="routeName" ng-model="adc.route.name" placeholder="Point on route">
             </div>
-            <div class="col-xs-2">
-                <input type="text" class="form-control" name="routeDistance" ng-model="mtc.route.distance" placeholder="Distance">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-1" name="routeDistance" ng-model="adc.route.distance" placeholder="Distance">
             </div>
-            <div class="col-xs-2">
-                <input type="text" class="form-control" name="routeDuration" ng-model="mtc.route.duration" placeholder="Duration">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-1" name="routeDuration" ng-model="adc.route.duration" placeholder="Duration">
             </div>
-            <div class="col-xs-5">
-                <input type="text" class="form-control" name="routeSpecifics" ng-model="mtc.route.specifics" placeholder="Specifics">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-3" name="routeSpecifics" ng-model="adc.route.specifics" placeholder="Specifics">
             </div><br>
-            <div class="col-xs-11">
-                <input type="text" class="form-control" name="routeComment" ng-model="mtc.route.comment" placeholder="Comments">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-10" name="routeComment" ng-model="adc.route.comment" placeholder="Comments">
             </div>
-            <div class="col-xs-1">
-                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addRouteRow()"><span class="fa fa-plus"></span> Add</button>
+            <div class="col-xs-1 col-md-1">
+                <a ng-click="adc.addRouteRow()"><i class="fa fa-plus" aria-hidden="true"></i></a>
             </div>
-            <div class="col-xs-12">
+            <div class="col-xs-12 col-md-11">
                 <table class="dayTable table table-hover table-responsive">
                     <thead class=>
                         <tr>
@@ -93,7 +88,7 @@
                             <th style="width:50%">Comment</th>
                         </tr>
                     </thead>
-                    <tbody class="routes" ng-repeat="route in mtc.newDay.routes">
+                    <tbody class="routes" ng-repeat="route in adc.newDay.routes">
                         <tr>
                             <td>{{route.name}}</td>
                             <td>{{route.transport_mode}}</td>
@@ -110,25 +105,25 @@
 
         <div class="daySection form-group">
             <label class="dayLabel col-xs-12">Meals</label>
-            <div class="col-xs-1">
-                <select class="form-control" ng-model="mtc.meal.type" ng-options="item for item in mtc.mealTypes"></select>
+            <div class="form-group">
+                <select class="col-xs-12 col-md-2" ng-model="adc.meal.type" ng-options="item for item in adc.mealTypes"></select>
             </div>
-            <div class="col-xs-2">
-                <input type="text" class="form-control" name="mealName" ng-model="mtc.meal.name" placeholder="Name">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-3" name="mealName" ng-model="adc.meal.name" placeholder="Name">
             </div>
-            <div class="col-xs-2">
-                <input type="text" class="form-control" name="mealDistance" ng-model="mtc.meal.location" placeholder="Where">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-6" name="mealLocation" ng-model="adc.meal.location" placeholder="Where">
             </div>
-            <div class="col-xs-2">
-                <input type="text" class="form-control" name="mealDuration" ng-model="mtc.meal.description" placeholder="Describe it">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-4" name="mealDescription" ng-model="adc.meal.description" placeholder="Describe it">
             </div>
-            <div class="col-xs-4">
-                <input type="text" class="form-control" name="routeSpecifics" ng-model="mtc.route.reference" placeholder="reference (url)">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-6" name="routeReference" ng-model="adc.route.reference" placeholder="reference (url)">
             </div><br>
-            <div class="col-xs-1">
-                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addMealRow()"><span class="fa fa-plus"></span> Add</button>
+            <div class="col-xs-1 col-md-1">
+                <a ng-click="adc.addMealRow()"><i class="fa fa-plus" aria-hidden="true"></i></a>
             </div>
-            <div class="col-xs-12">
+            <div class="col-xs-12 col-md-11">
                 <table class="dayTable table table-hover table-responsive">
                     <thead class=>
                         <tr>
@@ -139,7 +134,7 @@
                             <th style="width:20%">reference</th>
                         </tr>
                     </thead>
-                    <tbody class="meals" ng-repeat="meal in day.meals">
+                    <tbody class="meals" ng-repeat="meal in adc.meals">
                         <tr>
                             <td>{{meal.type}}</td>
                             <td>{{meal.name}}</td>
@@ -153,40 +148,37 @@
         </div>
 
         <div class="daySection form-group">
-            <label class="dayLabel col-xs-12">Lodging</label><br>
-            <div class="col-xs-2">
-                <label class="sr-only">Type</label>
-                <select class="form-control" ng-model="day.lodgingTypes_type" ng-options="item for item in day.lodgingTypes"></select>
+            <label class="dayLabel col-xs-12 col-md-12">Lodging</label><br>
+            <div class="form-group">
+                <select class="col-xs-12 col-md-2" ng-model="adc.lodgingTypes_type" ng-options="item for item in adc.lodgingTypes"></select>
             </div>
-            <div class="col-xs-4">
-                <input type="text" class="form-control" name="lodging_name" ng-model="mtc.newDay.lodging_name" placeholder="Name">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-3" name="lodging_name" ng-model="adc.newDay.lodging_name" placeholder="Name">
             </div>
-            <div class="col-xs-6">
-                <label class="sr-only">Address</label>
-                <input type="text" class="form-control" name="lodging_address" ng-model="mtc.newDay.lodging_address" placeholder="Address">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-6" name="lodging_address" ng-model="adc.newDay.lodging_address" placeholder="Address">
             </div><br>
-            <div class="col-xs-12">
-                <label class="sr-only">Reference</label>
-                <input type="text" class="form-control" name="lodging_reference" ng-model="mtc.newDay.lodging_reference" placeholder="Reference">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-11" name="lodging_reference" ng-model="adc.newDay.lodging_reference" placeholder="Reference">
             </div>
         </div><br>
 
         <div class="daySection form-group">
             <label class="dayLabel col-xs-12">Recommendations</label><br>
-            <div class="col-xs-11">
-                <input type="text" class="form-control" ng-model="mtc.recommendation.text" placeholder="Recommendations?">
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-10" ng-model="adc.recommendation.text" placeholder="Recommendations?">
             </div>
-            <div class="col-xs-1">
-                <button type="button" class="form-control btn btn-xs btn-default" ng-click="mtc.addRecommendationRow()"><span class="fa fa-plus"></span> Add</button>
+            <div class="col-xs-1 col-md-1">
+                <a ng-click="adc.addRecommendationRow()"><i class="fa fa-plus" aria-hidden="true"></i></a>
             </div>
-            <div class="col-xs-12">
+            <div class="col-xs-12 cl-md-11">
                 <table class="dayTable table table-hover table-responsive">
                     <thead class=>
                         <tr>
                             <th style="width:100%">Recommendation</th>
                         </tr>
                     </thead>
-                    <tbody class="recommendations" ng-repeat="recommendation in mtc.newDay.recommendations">
+                    <tbody class="recommendations" ng-repeat="recommendation in adc.newDay.recommendations">
                         <tr>
                             <td>{{recommendation.text}}</td>
                         </tr>
@@ -195,12 +187,12 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="dayLabel sr-only">Save</label>
-            <div class="col-xs-2 col-xs-offset-5 text-center">
-                <button class="btn btn-primary btn-lg" ng-click="mtc.addDay(trip._id)">Save</button>
+            <div class="form-group addDayBtnGroup btnGroup col-xs-12 col-md-11">
+                <button class="btn btn-primary" ng-click="adc.addDay(trip._id)">Save</button>
+                <button class="btn btn-default" ng-click="adc.cancel()">Cancel</button>
             </div>
-        </div>
+            <div class="spacer">
 
+            </div>
     </form>
 </div>

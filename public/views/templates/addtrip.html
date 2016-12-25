@@ -4,10 +4,10 @@
     </div>
 
     <div class="col-xs-12 col-md-6">
-        <ng-map default-style="true" center="40.71, -74.21" zoom="12">
+        <ng-map default-style="true" center="current-location" zoom="12">
             <info-window position="current-location">
             </info-window>
-            <marker ng-repeat="p in mc.locationArray" position="{{p.pos}}" data="{{mc.locationArray[$index].name}}" on-click="showData()" ; title="pos: {{p.pos}}"></marker>
+            <marker ng-repeat="p in atc.positions" position="{{p.pos}}"></marker>
         </ng-map>
     </div>
 

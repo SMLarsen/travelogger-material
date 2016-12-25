@@ -7,37 +7,50 @@ app.controller('AddTripController', ['MyTripFactory', '$location', '$http', 'Aut
     var currentUser = authFactory.currentUser;
 
     self.newTrip = {};
+    self.positions = [];
 
     // function to geocode destination
     self.pinDestinationLocation = function() {
         locationGeocode(self.newTrip.destination)
             .then(function(result) {
-                self.newTrip.destination_location = result;
-                self.positions.push(result.geometry.location);
-                console.log('positions:', self.positions);
+                self.newTrip.destination_location = location;
             });
     }; // end pinDestinationLocation
 
     // function to geocode destination
     self.pinBeginLocation = function() {
-        locationGeocode(self.newTrip.begin_location).then(function(result) {
-            self.newTrip.begin_map_location = result;
-        });
+        locationGeocode(self.newTrip.begin_location)
+            .then(function(result) {
+                self.newTrip.begin_map_location = location;
+            });
     }; // end pinBeginLocation
 
     // function to geocode destination
     self.pinEndLocation = function() {
-        locationGeocode(self.newTrip.end_location).then(function(result) {
-            self.newTrip.end_map_location = result;
-        });
+        locationGeocode(self.newTrip.end_location)
+            .then(function(result) {
+                self.newTrip.end_map_location = location;
+            });
     }; // end pinEndLocation
 
     function locationGeocode(address) {
         return GeoCoder.geocode({
             address: address
         }).then(function(result) {
-            console.log('Address geocode result:', result[0]);
-            return result[0];
+            console.log('results:', result);
+            var lat = result[0].geometry.location.lat;
+            var lng = result[0].geometry.location.lng;
+            console.log("lat:", lat, "lng", lng);
+            var location = {
+                pos: [
+                    lat,
+                    lng,
+                ]
+            };
+            self.newTrip.end_map_location = location;
+            self.positions.push(location);
+            console.log('positions:', self.positions);
+            return location;
         });
     }
 
@@ -58,6 +71,8 @@ app.controller('AddTripController', ['MyTripFactory', '$location', '$http', 'Aut
                                 self.trips = response;
                                 self.addTripStatus = false;
                                 console.log('Trips added', self.trips);
+                                self.newTrip = {};
+                                $location.path('mytrips');
                             },
                             function(err) {
                                 console.log('Error getting trips', err);
@@ -71,8 +86,8 @@ app.controller('AddTripController', ['MyTripFactory', '$location', '$http', 'Aut
     }; // End addTrip
 
     self.cancel = function() {
-      self.newTrip = {};
-      $location.path('mytrips');
+        self.newTrip = {};
+        $location.path('mytrips');
     };
 
 }]); // END: MyTripController
