@@ -13,13 +13,16 @@
                 {{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}
                 <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteTrip(trip._id)"></span>
             </uib-accordion-heading>
-            <a href="#mydays/{{trip._id}}">
-                <div>
-                    <p>Destination: {{trip.destination}}, Travellers: {{trip.travellers}}</p>
-                    <p>Starting: {{trip.begin_date | date }} -- {{trip.begin_location}}</p>
-                    <p>Ending: {{trip.end_date | date }} -- {{trip.end_location}}</p>
-                </div>
-            </a>
+            <div class="col-xs-12 col-md-12">
+              <div class="col-xs-2 col-md-2">
+                <p><a href="#mydays/{{trip._id}}"><i class="fa fa-calendar" aria-hidden="true"></i></a></p>
+              </div>
+                  <div class="col-xs-10 col-md-9">
+                      <p>Destination: {{trip.destination}}, Travellers: {{trip.travellers}}</p>
+                      <p>Starting: {{trip.begin_date | date }} -- {{trip.begin_location}}</p>
+                      <p>Ending: {{trip.end_date | date }} -- {{trip.end_location}}</p>
+                  </div>
+            </div>
         </div>
     </uib-accordion>
     <div uib-accordion-group>

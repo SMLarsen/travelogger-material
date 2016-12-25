@@ -162,6 +162,16 @@ body {
     right: 30px;
 }
 
+.fa-calendar {
+  position: relative;
+  top: 1px;
+    font-size: 5em;
+    color: #3072AC;
+    position: absolute;
+    bottom: 50px;
+    right: 30px;
+}
+
 .fa-plus {
     font-size: 2em;
 }
