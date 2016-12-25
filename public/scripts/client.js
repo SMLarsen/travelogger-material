@@ -19,7 +19,7 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'MyTripController',
             controllerAs: 'mtc'
         })
-        .when('/mydays', {
+        .when('/mydays/:tripID', {
             templateUrl: '/views/templates/mydays.html',
             controller: 'MyDayController',
             controllerAs: 'mdc'

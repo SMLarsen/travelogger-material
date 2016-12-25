@@ -156,7 +156,7 @@ body {
     background-color: #3072AC;
 }
 
-.fa-plus-circle {
+.fa-plus-circle, .fa-eye {
   font-size: 1.5em;
   color: #3072AC;
 }

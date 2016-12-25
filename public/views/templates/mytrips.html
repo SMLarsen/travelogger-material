@@ -1,17 +1,18 @@
 <div>
     <div id="bodyView">
-        <!-- <h2>My Trips<i ng-click="mtc.addTrip()" class="pull-right fa fa-plus-circle" aria-hidden="true"></i></h2> -->
         <h2 class="bottomMargin">My Trips<a href="#addtrip"><i class="pull-right fa fa-plus-circle" aria-hidden="true"></i></a></h2>
 
     </div>
 
     <uib-accordion close-others="true">
         <div uib-accordion-group class="panel-default" heading="{{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}" ng-repeat="trip in mtc.trips">
+          <a href="#mydays/{{trip._id}}">
             <div>
                 <p>Destination: {{trip.destination}}, Travellers: {{trip.travellers}}</p>
                 <p>Starting: {{trip.begin_date | date }} -- {{trip.begin_location}}</p>
                 <p>Ending: {{trip.end_date | date }} -- {{trip.end_location}}</p>
             </div>
+            </a>
         </div>
     </uib-accordion>
     <div uib-accordion-group>
