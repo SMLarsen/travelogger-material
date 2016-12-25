@@ -185,8 +185,12 @@ body {
 
 }
 
-.editBtn, .addBtn, .deleteBtn, .updateBtn, .cancelBtn {
+.editBtn, .addBtn, .deleteBtn, .updateBtn, .cancelBtn, .pinBtn {
   font-size: 1.5em;
+}
+
+.btnGroup {
+  text-align: center;
 }
 
 .editBtn {
