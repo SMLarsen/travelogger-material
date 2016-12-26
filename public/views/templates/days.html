@@ -17,7 +17,7 @@
 
     <div class="guestTabView">
         <div class="col-xs-1 col-md-1">
-          <div class="btn" ng-click="dc.goLeft()"><i class="pull-right fa fa-arrow-circle-o-left" aria-hidden="true"></i></div>
+            <div class="btn" ng-click="dc.goLeft()"><i class="pull-right fa fa-arrow-circle-o-left" aria-hidden="true"></i></div>
         </div>
         <div class="guestTripInfo col-xs-10 col-md-10">
             <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
@@ -61,9 +61,7 @@
             </div>
         </div>
         <div class="col-xs-1 col-md-1">
-          <div class="btn" ng-click="dc.goRight()" ><i class="pull-right fa fa-arrow-circle-o-right" aria-hidden="true"></i></div>
-
-            <!-- <button type="button" ng-disabled="dc.rightButtonDisabled" ng-click="dc.goRight()" class="pageBtn pull-left fa fa-arrow-circle-o-right"></button> -->
+            <div class="btn" ng-click="dc.goRight()"><i class="pull-right fa fa-arrow-circle-o-right" aria-hidden="true"></i></div>
         </div>
     </div>
 </div>

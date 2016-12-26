@@ -155,8 +155,24 @@ body {
 }
 
 .fa-arrow-circle-o-right, .fa-arrow-circle-o-left {
-  font-size: 3em;
-  color: #3072AC;
+    font-size: 3em;
+    color: #3072AC;
+}
+
+.fa-ban {
+    color: red;
+    font-size: 3em;
+    position: fixed;
+    top: 50%;
+    right: 30px;
+}
+
+.fa-floppy-o {
+    color: green;
+    font-size: 3em;
+    position: fixed;
+    top: 40%;
+    right: 30px;
 }
 
 .fa-plus-circle {
@@ -168,8 +184,8 @@ body {
 }
 
 .fa-calendar {
-  position: relative;
-  top: 1px;
+    position: relative;
+    top: 1px;
     font-size: 5em;
     color: #3072AC;
     position: absolute;
@@ -212,10 +228,9 @@ body {
 }
 
 .addDayBtnGroup {
-  position: fixed;
-  left: 0px;
-  bottom: 30px;
-
+    position: fixed;
+    left: 0px;
+    bottom: 30px;
 }
 
 .editBtn {
