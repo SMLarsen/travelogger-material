@@ -154,6 +154,11 @@ body {
     background-color: #3072AC;
 }
 
+.fa-arrow-circle-o-right, .fa-arrow-circle-o-left {
+  font-size: 3em;
+  color: #3072AC;
+}
+
 .fa-plus-circle {
     font-size: 5em;
     color: #3072AC;

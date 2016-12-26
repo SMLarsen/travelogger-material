@@ -13,11 +13,7 @@ app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
         meals: [],
         recommendations: []
     };
-    self.newPointOfInterest = {
-        name: '',
-        description: ''
-    };
-
+    self.newPointOfInterest = {};
     self.newRoute = {};
     self.newMeal = {};
     self.newRecommendation = {};
@@ -79,9 +75,9 @@ app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
     } // End formatDates
 
     // // Function to add a day
-    self.addDay = function(tripID) {
+    self.addDay = function() {
         self.newDay.user_id = currentUser.id;
-        self.newDay.trip_id = tripID;
+        self.newDay.trip_id = self.tripID;
         console.log('addDay:', self.newDay);
         myTripFactory.addDay(self.newDay)
             .then(function(response) {
@@ -96,20 +92,26 @@ app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
 
     // Add route row to new Day
     self.addRouteRow = function() {
-        self.newDay.routes.push(angular.copy(self.route));
-        self.route = {};
+        self.newDay.routes.push(angular.copy(self.newRoute));
+        self.newRoute = {};
     }; // End addRouteRow
+
+    // Add recommendation row to new Day
+    self.addRecommendationRow = function() {
+        self.newDay.recommendations.push(angular.copy(self.newRecommendation));
+        self.newRecommendation = {};
+    }; // End addMeal
 
     // Add meal row to new Day
     self.addMealRow = function() {
-        self.newDay.meals.push(angular.copy(self.meal));
-        self.meal = {};
+        self.newDay.meals.push(angular.copy(self.newMeal));
+        self.newMeal = {};
     }; // End addMeal
 
     // Add Recommendation row to new Day
     self.addRecommendationRow = function() {
-        self.newDay.recommendations.push(angular.copy(self.recommendation));
-        self.recommendation = {};
+        self.newDay.recommendations.push(angular.copy(self.newRecommendation));
+        self.newRecommendation = {};
     }; // End addRecommendation
 
     self.cancel = function() {
