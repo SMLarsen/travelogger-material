@@ -9,6 +9,7 @@ app.controller("DayController", ['TripFactory', '$http', '$filter', '$routeParam
     self.currentDayIndex = 0;
     self.leftButtonDisabled = true;
     self.rightButtonDisabled = false;
+    self.locationArray = [];
 
     self.tripID = $routeParams.tripID;
     console.log('Trip Factory:', self.tripID);
@@ -18,45 +19,62 @@ app.controller("DayController", ['TripFactory', '$http', '$filter', '$routeParam
             self.days = response;
             self.focusDay = self.days[0];
             console.log('Days:', response);
+            self.days.forEach(buildLocationArray);
+            console.log('location array:', self.locationArray);
             tripFactory.getTrip(self.tripID)
                 .then(function(response) {
                         self.focusTrip = response;
-                        console.log('Inner getTrip');
                     },
                     function(err) {
                         console.log('Error getting trip');
                     });
         });
 
+    function buildLocationArray(item, index) {
+        if (item.end_map_location !== undefined) {
+            self.locationArray.push(item.end_map_location);
+        }
+    }
+
     self.setDay = function(index) {
         self.focusDay = self.days[index];
         self.currentDayIndex = index;
+        self.setDisabled(index);
     };
 
     // Function to page left
     self.goLeft = function() {
-        // console.log('Go left from ' + self.currentDayIndex);
+        console.log('Go left from ' + self.currentDayIndex);
         if (self.currentDayIndex > 0) {
             self.currentDayIndex = self.currentDayIndex - 1;
             self.focusDay = self.days[self.currentDayIndex];
-        }
-        if (self.currentDayIndex === 0) {
-            self.leftButtonDisabled = true;
-            self.rightButtonDisabled = false;
+            self.setDisabled(self.currentDayIndex);
         }
     }; // End function to page left
 
     // Function to page right
     self.goRight = function() {
-        // console.log('Go right from ' + self.currentDayIndex);
+        console.log('Go right from ' + self.currentDayIndex);
         if (self.currentDayIndex < self.days.length - 1) {
             self.currentDayIndex = self.currentDayIndex + 1;
             self.focusDay = self.days[self.currentDayIndex];
-        }
-        if (self.currentDayIndex === self.days.length - 1) {
-            self.leftButtonDisabled = false;
-            self.rightButtonDisabled = true;
+            self.setDisabled(self.currentDayIndex);
         }
     }; // End function to page right
+
+    // function to set left right arrow disabled
+    self.setDisabled = function(index) {
+      if (index === 0) {
+        self.leftButtonDisabled = true;
+        self.rightButtonDisabled = false;
+      } else
+      if (index === self.days.length - 1) {
+        self.leftButtonDisabled = false;
+        self.rightButtonDisabled = true;
+      } else {
+        self.leftButtonDisabled = false;
+        self.rightButtonDisabled = false;
+      }
+    }; // end setDisabled
 
 }]); // END: DayController

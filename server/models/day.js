@@ -36,6 +36,7 @@ var daySchema = new Schema({
     trip_id: ObjectId,
     date: Date,
     end_location: String,
+    end_map_location: String,
     tag_line: String,
     interesting_locations: [Interesting_location],
     routes: [Route],

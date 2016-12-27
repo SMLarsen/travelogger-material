@@ -124,14 +124,23 @@ body {
 }
 
 .guestDay {
-    background-color: #3072AC;
-    padding: 5px 5px 0 5px;
+    margin: 1px 0;
+    border: 1px solid lightgrey;
+    padding: 1px 5px;
     box-shadow: 2px 2px 1px darkgrey;
+}
+
+.guestDay:hover {
+  background-color: lightgrey;
+}
+
+.guestDay:active {
+  background-color: lightgrey;
 }
 
 .guestDay p {
     text-align: center;
-    color: white;
+    color: #3072AC;
 }
 
 .guestDayImg {
@@ -152,6 +161,10 @@ body {
     font-size: 2em;
     color: white;
     background-color: #3072AC;
+}
+
+.btn:disabled {
+  color: #6eb0eb;
 }
 
 .fa-arrow-circle-o-right, .fa-arrow-circle-o-left {
