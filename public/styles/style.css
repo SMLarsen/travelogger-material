@@ -191,20 +191,32 @@ body {
   color: #6eb0eb;
 }
 
-.fa-ban {
-    color: red;
-    font-size: 3em;
-    position: fixed;
-    top: 50%;
-    right: 30px;
+.sideBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  border: 1px solid lightgrey;
+  height: 70px;
+  width: 70px;
+  line-height: 70px;
+  border-radius: 35px;
+  box-shadow: 2px 2px 1px lightgrey;
 }
 
-.fa-floppy-o {
-    color: green;
-    font-size: 3em;
-    position: fixed;
-    top: 40%;
-    right: 30px;
+.sideBtnSave {
+  color: green;
+  bottom: 130px;
+  right: 30px;
+  font-size: 3.5em;
+}
+
+.sideBtnCancel {
+  color: red;
+  bottom: 50px;
+  right: 30px;
+  font-size: 3.5em;
+  padding: 0px;
 }
 
 .fa-plus-circle {
