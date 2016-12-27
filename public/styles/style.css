@@ -123,12 +123,26 @@ body {
     color: #3072AC;
 }
 
-#guestSearchDay {
-  margin: 1px -30px 0 -90px;
+/*#guestSearchDay {
+  margin: 1px -300px 0 -90px;
+  width: 100%
+}*/
+
+#dayView {
+  width: 100%;
+  display: inline-flex;
+}
+
+#daySelect {
+  width: 10%;
+}
+
+#dayDisplay {
+  width: 90%;
 }
 
 .guestDay {
-    margin: 1px -30px 0 -90px;
+    margin: 1px -20px 0 -70px;
     border: 1px solid lightgrey;
     padding: 1px 5px;
     box-shadow: 2px 2px 1px darkgrey;

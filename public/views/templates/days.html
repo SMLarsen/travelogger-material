@@ -1,73 +1,76 @@
-<div class="col-xs-12 col-md-2">
-    <section id="guestSearchDay">
-        <label for="searchInput" class="sr-only"><span>Search Days</span></label>
-        <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Days" />
-    </section>
+<div id="dayView">
+  <div id="daySelect">
+      <div id="guestSearchDay">
+          <label for="searchInput" class="sr-only"><span>Search Days</span></label>
+          <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Days" />
+      </div>
 
-    <div ng-repeat="day in dc.days | filter:searchInput">
-        <div class="guestDay">
-            <a ng-click="dc.setDay($index)">
-                <p>{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
-            </a>
-        </div>
-    </div>
-</div>
+      <div ng-repeat="day in dc.days | filter:searchInput">
+          <div class="guestDay">
+              <a ng-click="dc.setDay($index)">
+                  <p>{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
+              </a>
+          </div>
+      </div>
+  </div>
 
-<div class="col-xs-12 col-md-10">
+  <div id="dayDisplay">
 
-    <!-- <ng-map default-style="true" center="current-location" zoom="9">
-        <info-window position="current-location">
-        </info-window>
-        <marker ng-repeat="p in dc.locationArray" position="{{p.pos}}"></marker>
-    </ng-map> -->
+      <!-- <ng-map default-style="true" center="current-location" zoom="9">
+          <info-window position="current-location">
+          </info-window>
+          <marker ng-repeat="p in dc.locationArray" position="{{p.pos}}"></marker>
+      </ng-map> -->
 
-    <div class="guestTabView">
-        <div class="col-xs-1 col-md-1">
-            <div class="btn arrowBtn" ng-disabled="dc.leftButtonDisabled" ng-click="dc.goLeft()"><i class="pull-left fa fa-arrow-circle-o-left" aria-hidden="true"></i></div>
-        </div>
-        <div class="guestTripInfo col-xs-10 col-md-10">
-            <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
-            <p class="h4">{{dc.focusTrip.travellers}} started in {{dc.focusTrip.begin_location}}, and ended in {{dc.focusTrip.end_location}}</p>
-            <div class="col-xs-12 col-md-12">
-                <h3 class="guestDayTitle">{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
-                <h4>{{dc.focusDay.end_location}}, {{dc.focusDay.weather}}</h4>
-                <p>{{dc.focusDay.narrative}}</p>
+      <div class="guestTabView">
+          <div class="col-xs-1 col-md-1">
+              <div class="btn arrowBtn" ng-disabled="dc.leftButtonDisabled" ng-click="dc.goLeft()"><i class="pull-left fa fa-arrow-circle-o-left" aria-hidden="true"></i></div>
+          </div>
+          <div class="guestTripInfo col-xs-10 col-md-10">
+              <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
+              <p class="h4">{{dc.focusTrip.travellers}} started in {{dc.focusTrip.begin_location}}, and ended in {{dc.focusTrip.end_location}}</p>
+              <div>
+                  <h3 class="guestDayTitle">{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
 
-                <div class="col-xs-12 col-md-4">
-                    <h4>Lodging</h4>
-                    <p>{{dc.focusDay.lodging_name}}</p>
-                    <p>{{dc.focusDay.lodging_address}}</p>
-                    <p>{{dc.focusDay.lodging_type}} - {{dc.focusDay.lodging_reference}}</p>
+                  <div>
+                      <img class="guestDayImg" src="../assets/images/DSC02680.jpg" alt="travel picture">
+                  </div>
 
-                    <h4>Eating and Drinking</h4>
-                    <ul ng-repeat="meal in dc.focusDay.meals">
-                        <li>{{meal.name}} - {{meal.description}}</li>
-                    </ul>
+                  <h4>{{dc.focusDay.end_location}}, {{dc.focusDay.weather}}</h4>
+                  <p>{{dc.focusDay.narrative}}</p>
 
-                    <h4>Points of Interest</h4>
-                    <ul ng-repeat="place in dc.focusDay.interesting_locations">
-                        <li>{{place.name}} - {{place.description}}</li>
-                    </ul>
+                  <div>
+                      <h4>Lodging</h4>
+                      <p>{{dc.focusDay.lodging_name}}</p>
+                      <p>{{dc.focusDay.lodging_address}}</p>
+                      <p>{{dc.focusDay.lodging_type}} - {{dc.focusDay.lodging_reference}}</p>
 
-                    <h4>Recommendations</h4>
-                    <ul ng-repeat="recommendation in dc.focusDay.recommendations">
-                        <li>{{recommendation.text}}</li>
-                    </ul>
+                      <h4>Eating and Drinking</h4>
+                      <ul ng-repeat="meal in dc.focusDay.meals">
+                          <li>{{meal.name}} - {{meal.description}}</li>
+                      </ul>
 
-                    <h4>Route</h4>
-                    <ul ng-repeat="route in dc.focusDay.interesting_routes">
-                        <li>{{route.name}} - {{route.description}}</li>
-                    </ul>
-                </div>
+                      <h4>Points of Interest</h4>
+                      <ul ng-repeat="place in dc.focusDay.interesting_locations">
+                          <li>{{place.name}} - {{place.description}}</li>
+                      </ul>
 
-                <div class="col-xs-12 col-md-8 ">
-                    <img class="guestDayImg" src="../assets/images/DSC02680.jpg" alt="travel picture">
-                </div>
+                      <h4>Recommendations</h4>
+                      <ul ng-repeat="recommendation in dc.focusDay.recommendations">
+                          <li>{{recommendation.text}}</li>
+                      </ul>
 
-            </div>
-        </div>
-        <div class="col-xs-1 col-md-1">
-            <div class="btn arrowBtn" ng-disabled="dc.rightButtonDisabled" ng-click="dc.goRight()"><i class="pull-right fa fa-arrow-circle-o-right" aria-hidden="true"></i></div>
-        </div>
-    </div>
+                      <h4>Route</h4>
+                      <ul ng-repeat="route in dc.focusDay.interesting_routes">
+                          <li>{{route.name}} - {{route.description}}</li>
+                      </ul>
+                  </div>
+
+              </div>
+          </div>
+          <div class="col-xs-1 col-md-1">
+              <div class="btn arrowBtn" ng-disabled="dc.rightButtonDisabled" ng-click="dc.goRight()"><i class="pull-right fa fa-arrow-circle-o-right" aria-hidden="true"></i></div>
+          </div>
+      </div>
+  </div>
 </div>
