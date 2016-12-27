@@ -123,8 +123,12 @@ body {
     color: #3072AC;
 }
 
+#guestSearchDay {
+  margin: 1px -30px 0 -90px;
+}
+
 .guestDay {
-    margin: 1px 0;
+    margin: 1px -30px 0 -90px;
     border: 1px solid lightgrey;
     padding: 1px 5px;
     box-shadow: 2px 2px 1px darkgrey;
@@ -139,7 +143,8 @@ body {
 }
 
 .guestDay p {
-    text-align: center;
+    /*text-align: center;*/
+    padding: 10px 5px 0 10px;
     color: #3072AC;
 }
 
@@ -163,13 +168,13 @@ body {
     background-color: #3072AC;
 }
 
-.btn:disabled {
-  color: #6eb0eb;
+.arrowBtn {
+  font-size: 3em;
+  color: #3072AC;
 }
 
-.fa-arrow-circle-o-right, .fa-arrow-circle-o-left {
-    font-size: 3em;
-    color: #3072AC;
+.arrowBtn:disabled {
+  color: #6eb0eb;
 }
 
 .fa-ban {
