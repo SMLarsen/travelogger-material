@@ -2,7 +2,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     console.log('MyTripFactory started');
 
     var authFactory = AuthFactory;
-    var currentUser = '';
+    var currentUser = authFactory.currentUser;
 
     var trips = [];
     var days = [];
@@ -32,10 +32,9 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         // console.log('authfact isUserLoggedIn', authFactory.isUserLoggedIn);
         if (authFactory.isUserLoggedIn) {
             return authFactory.getIdToken().then(function(currentUser) {
-                currentUser = currentUser;
                 return $http({
                         method: 'GET',
-                        url: '/trip/' + currentUser.id,
+                        url: '/trip/all/' + currentUser.id,
                         headers: {
                             id_token: currentUser.authIdToken
                         }
@@ -54,6 +53,33 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
             return;
         }
     } // End getTrips
+
+        // Function to GET a trip
+        function getTrip(tripID) {
+            // console.log('authfact isUserLoggedIn', authFactory.isUserLoggedIn);
+            if (authFactory.isUserLoggedIn) {
+                return authFactory.getIdToken().then(function(currentUser) {
+                    return $http({
+                            method: 'GET',
+                            url: '/trip/one/' + tripID,
+                            headers: {
+                                id_token: currentUser.authIdToken
+                            }
+                        })
+                        .then(function(response) {
+                                trip = response.data[0];
+                                console.log('My Trip:', trip);
+                                return trip;
+                            },
+                            function(err) {
+                                console.log('Unable to retrieve trip', err);
+                                return;
+                            });
+                });
+            } else {
+                return;
+            }
+        } // End getTrip
 
     // Function to add a trips
     function addTrip(newTrip) {
@@ -159,7 +185,6 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     // Function to GET days
     function getDays(tripID) {
         return authFactory.getIdToken().then(function(currentUser) {
-            currentUser = currentUser;
             return $http({
                     method: 'GET',
                     url: '/day/' + tripID,
@@ -549,6 +574,9 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     var publicApi = {
         getTrips: function() {
             return getTrips();
+        },
+        getTrip: function(tripID) {
+            return getTrip(tripID);
         },
         addTrip: function(newTrip) {
             return addTrip(newTrip);

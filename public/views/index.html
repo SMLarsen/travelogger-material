@@ -26,15 +26,16 @@
 
     <script type="text/javascript" src="scripts/client.js"></script>
     <script type="text/javascript" src="scripts/factories/auth.factory.js"></script>
+    <script type="text/javascript" src="scripts/controllers/login.controller.js"></script>
     <script type="text/javascript" src="scripts/factories/trip.factory.js"></script>
     <script type="text/javascript" src="scripts/factories/mytrip.factory.js"></script>
     <script type="text/javascript" src="scripts/controllers/nav.controller.js"></script>
-    <script type="text/javascript" src="scripts/controllers/login.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/trip.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/day.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/mytrip.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/myday.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/addtrip.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/edittrip.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/addday.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/home.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/map.controller.js"></script>
@@ -46,17 +47,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Molle:400i|Rock+Salt" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Tillana" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css" />
 </head>
 
 <body class="container-fullwidth" id="bootstrap-overrides">
 
-  <div ng-include="'views/templates/nav.html'"></div>
-  <br>
-  <main ng-view></main>
+    <div ng-include="'views/templates/nav.html'"></div>
+    <br>
+    <main ng-view></main>
 
-  <div ng-include="'views/templates/footer.html'"></div>
+    <div ng-include="'views/templates/footer.html'"></div>
 
 </body>
 

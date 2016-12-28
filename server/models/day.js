@@ -11,6 +11,7 @@ var Interesting_location = new Schema({
 
 var Route = new Schema({
   name: String,
+  route_map_location: Object,
   distance: String,
   duration: String,
   transport_mode: String,
@@ -22,6 +23,7 @@ var Meal = new Schema({
   type: String,
   name: String,
   location: String,
+  meal_map_location: Object,
   description: String,
   reference: String
 });
@@ -36,13 +38,14 @@ var daySchema = new Schema({
     trip_id: ObjectId,
     date: Date,
     end_location: String,
-    end_map_location: String,
+    end_map_location: Object,
     tag_line: String,
     interesting_locations: [Interesting_location],
     routes: [Route],
     meals: [Meal],
     lodging_name: String,
     lodging_address: String,
+    lodging_map_location: Object,
     lodging_type: String,
     lodging_reference: String,
     narrative: String,

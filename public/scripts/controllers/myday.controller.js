@@ -5,6 +5,7 @@ app.controller('MyDayController', ['MyTripFactory', '$http', 'AuthFactory', '$ro
     var authFactory = AuthFactory;
 
     self.tripID = $routeParams.tripID;
+    console.log('MyDayController tripID:', self.tripID);
 
     self.days = [];
 

@@ -4,9 +4,15 @@
     </div>
 
     <div>
+        <a class="btn sideBtn sideBtnSave" ng-click="adc.addDay()"><i class="pull-right fa fa-check" aria-hidden="true"></i></a>
+        <a class="btn sideBtn sideBtnCancel" ng-click="adc.cancel()"><i class="pull-right fa fa-ban" aria-hidden="true"></i></a>
+    </div>
+
+<!--
+    <div>
         <div class="btn" ng-click="adc.addDay()"><i class="pull-right fa fa-floppy-o" aria-hidden="true"></i></div>
         <div class="btn" ng-click="adc.cancel()"><i class="pull-right fa fa-ban" aria-hidden="true"></i></div>
-    </div>
+    </div> -->
 
     <form name="addDayForm">
 
@@ -32,10 +38,10 @@
         <div class="daySection form-group">
             <label class="dayLabel col-xs-12">Points of Interest</label>
             <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-3" name="pointOfInterestName" ng-model="adc.newPointOfInterest.name" placeholder="Add point of interest">
+                <input type="text" class="col-xs-12 col-md-5" name="pointOfInterestName" ng-model="adc.newPointOfInterest.name" placeholder="Description">
             </div>
             <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-7" name="pointOfInterestDesc" ng-model="adc.newPointOfInterest.description" placeholder="Description">
+                <input type="text" class="col-xs-12 col-md-5" name="pointOfInterestDesc" ng-model="adc.newPointOfInterest.description" placeholder="Address">
             </div>
             <div class="col-xs-1 col-md-1">
                 <a ng-click="adc.addPOIRow()"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -64,16 +70,16 @@
                 <select class="col-xs-12 col-md-2" ng-model="adc.route.transport_mode" ng-options="item for item in adc.transportModes"></select>
             </div>
             <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-4" name="routeName" ng-model="adc.newRoute.name" placeholder="Point on route">
+                <input type="text" class="col-xs-12 col-md-4" name="routeName" ng-model="adc.newRoute.name" placeholder="Address">
             </div>
             <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-1" name="routeDistance" ng-model="adc.newRoute.distance" placeholder="Distance">
+                <input type="text" class="col-xs-12 col-md-1" name="routeDistance" ng-model="adc.newRoute.distance" placeholder="Dist">
             </div>
             <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-1" name="routeDuration" ng-model="adc.newRoute.duration" placeholder="Duration">
+                <input type="text" class="col-xs-12 col-md-1" name="routeDuration" ng-model="adc.newRoute.duration" placeholder="Dur">
             </div>
             <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-3" name="routeSpecifics" ng-model="adc.newRoute.specifics" placeholder="Specifics">
+                <input type="text" class="col-xs-12 col-md-3" name="routeSpecifics" ng-model="adc.newRoute.specifics" placeholder="Specs">
             </div><br>
             <div class="form-group">
                 <input type="text" class="col-xs-12 col-md-10" name="routeComment" ng-model="adc.newRoute.comment" placeholder="Comments">
@@ -117,7 +123,7 @@
                 <input type="text" class="col-xs-12 col-md-3" name="mealName" ng-model="adc.newMeal.name" placeholder="Name">
             </div>
             <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-6" name="mealLocation" ng-model="adc.newMeal.location" placeholder="Where">
+                <input type="text" class="col-xs-12 col-md-6" name="mealLocation" ng-model="adc.newMeal.location" placeholder="Address">
             </div>
             <div class="form-group">
                 <input type="text" class="col-xs-12 col-md-4" name="mealDescription" ng-model="adc.newMeal.description" placeholder="Describe it">

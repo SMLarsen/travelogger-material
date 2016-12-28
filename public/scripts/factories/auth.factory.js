@@ -28,7 +28,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                                     currentUser.authIdToken = idToken;
                                     currentUser.id = response.data._id;
                                     isUserLoggedIn = true;
-                                    console.log('current user authorized', currentUser.email, isUserLoggedIn);
+                                    console.log('current user authorized', currentUser.id, isUserLoggedIn);
                                     return currentUser;
                                 },
                                 function(err) {

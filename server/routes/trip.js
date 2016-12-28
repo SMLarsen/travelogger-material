@@ -2,13 +2,10 @@ var express = require('express');
 var router = express.Router();
 var trip = require('../models/trip');
 
-// Route: Get trip
-router.get('/:id', function(req, res) {
+// Route: Get trips
+router.get('/all/:id', function(req, res) {
     var userId = req.params.id;
     console.log('Looking for trips for', userId);
-
-    // db.getCollection('trips').find({user_id: ObjectId("5846e1b67ce266827e41dd32")})
-
     trip.find({user_id: userId}).sort({begin_date: 1}).exec(
       function(err, trips) {
         if (err) {
@@ -19,7 +16,23 @@ router.get('/:id', function(req, res) {
             res.send(trips);
         }
     });
-}); // END: GET trip route
+}); // END: GET trips route
+
+// Route: Get a trip
+router.get('/one/:tripID', function(req, res) {
+    var tripID = req.params.tripID;
+    console.log('Looking for trips for', tripID);
+    trip.find({_id: tripID}).exec(
+      function(err, trip) {
+        if (err) {
+            console.log('Get ERR: ', err);
+            res.sendStatus(500);
+        } else {
+            console.log(trip);
+            res.send(trip);
+        }
+    });
+}); // END: GET a trip route
 
 // Route: Add a trip
 router.post("/", function(req, res) {

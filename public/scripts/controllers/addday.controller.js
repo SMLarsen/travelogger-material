@@ -4,6 +4,7 @@ app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
     var myTripFactory = MyTripFactory;
     var authFactory = AuthFactory;
     var currentUser = authFactory.currentUser;
+    console.log('addDay currentUser.id', currentUser.id);
 
     self.tripID = $routeParams.tripID;
 
@@ -28,45 +29,11 @@ app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
     self.tripIndex = 0;
     self.dayIndex = 0;
 
-
     self.data = [];
     self.positions = [];
     self.showData = function() {
         alert(this.data.foo);
     };
-
-    // function to geocode destination
-    self.pinDestinationLocation = function() {
-        locationGeocode(self.newTrip.destination)
-            .then(function(result) {
-                self.newTrip.destination_location = result;
-                self.positions.push(result.geometry.location);
-                console.log('positions:', self.positions);
-            });
-    }; // end pinDestinationLocation
-
-    // function to geocode destination
-    self.pinBeginLocation = function() {
-        locationGeocode(self.newTrip.begin_location).then(function(result) {
-            self.newTrip.begin_map_location = result;
-        });
-    }; // end pinBeginLocation
-
-    // function to geocode destination
-    self.pinEndLocation = function() {
-        locationGeocode(self.newTrip.end_location).then(function(result) {
-            self.newTrip.end_map_location = result;
-        });
-    }; // end pinEndLocation
-
-    function locationGeocode(address) {
-        return GeoCoder.geocode({
-            address: address
-        }).then(function(result) {
-            console.log('Address geocode result:', result[0]);
-            return result[0];
-        });
-    }
 
     // Function to set dates as date objects
     function formatDates(item, index) {
@@ -79,16 +46,34 @@ app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
         self.newDay.user_id = currentUser.id;
         self.newDay.trip_id = self.tripID;
         console.log('addDay:', self.newDay);
-        myTripFactory.addDay(self.newDay)
-            .then(function(response) {
-                    self.newDay = {};
-                    self.days = response;
-                    console.log('Day added', self.days);
-                },
-                function(err) {
-                    console.log('Error adding day', err);
-                });
+        GeoCoder.geocode({
+                address: self.newDay.end_location
+            })
+            .then(function(result) {
+                self.newDay.end_map_location = result[0];
+                console.log('addDay post geocode:', self.newDay);
+                myTripFactory.addDay(self.newDay)
+                    .then(function(response) {
+                            self.newDay = {};
+                            self.days = response;
+                            console.log('Day added');
+                        },
+                        function(err) {
+                            console.log('Error adding day', err);
+                        });
+            });
     }; // End addDay
+
+    function locationGeocode(address) {
+        console.log('address to geocode:', address);
+        GeoCoder.geocode({
+                address: address
+            })
+            .then(function(result) {
+                console.log('Address geocode result:', result[0]);
+                self.newDay.end_map_location = result[0];
+            });
+    }
 
     // Add route row to new Day
     self.addRouteRow = function() {
@@ -113,6 +98,14 @@ app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
         self.newDay.recommendations.push(angular.copy(self.newRecommendation));
         self.newRecommendation = {};
     }; // End addRecommendation
+
+    // function to geocode destination
+    self.pinEndLocation = function() {
+        locationGeocode(self.newDay.end_location)
+            .then(function(result) {
+                self.newDay.end_map_location = result;
+            });
+    }; // end pinEndLocation
 
     self.cancel = function() {
         self.newDay = {};
