@@ -1,26 +1,29 @@
-app.controller("MapController", ['$http', '$filter', '$routeParams', 'NgMap', 'GeoCoder', function($http, $filter, $routeParams, NgMap, GeoCoder) {
+app.controller("MapController", ['MyTripFactory', '$http', '$filter', '$routeParams', 'NgMap', 'GeoCoder', function(MyTripFactory, $http, $filter, $routeParams, NgMap, GeoCoder) {
     console.log('MapController started');
     var self = this;
-
+    var myTripFactory = MyTripFactory;
     self.newAddress = '';
     self.location = {};
     self.lat = '';
     self.lng = '';
     self.locationArray = [];
-    self.startLocation = '';
-    self.endLocation = '';
 
-    function buildLocationArray() {
-        var newLocation = {
-            pos: [self.lat, self.lng],
-            name: self.newAddress
-        };
-        self.locationArray.push(newLocation);
-        console.log(self.locationArray);
-        self.startLocation = self.locationArray[0];
-        self.endLocation = self.locationArray[self.locationArray.length - 1];
-        console.log('start:', self.startLocation);
-        console.log('stop:', self.endLocation);
+    // Get all trips for the user
+    myTripFactory.getTrips()
+        .then(function(response) {
+                var trips = response;
+                console.log('Trips returned', trips);
+                trips.forEach(buildLocationArray);
+                console.log('locationArray:', self.locationArray);
+            },
+            function(err) {
+                console.log('Error getting trips', err);
+            });
+
+    function buildLocationArray(item, index) {
+      if (item.destination_location) {
+        self.locationArray.push(item.destination_location);
+      }
     }
 
     self.findAddress = function() {
@@ -37,4 +40,6 @@ app.controller("MapController", ['$http', '$filter', '$routeParams', 'NgMap', 'G
         });
     };
 
-}]); // END: DayController
+
+
+}]); // END: MapController
