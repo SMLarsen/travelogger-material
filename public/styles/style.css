@@ -2,9 +2,9 @@
     cursor: pointer;
 }
 
-.angular-google-map-container {
-    height: 400px;
-}
+/*.angular-google-map-container {
+    height: 100px;
+}*/
 
 #bootstrap-overrides .navButton:hover {
     background-color: #c3143e;
@@ -139,19 +139,32 @@ body {
 }
 
 #daySelect {
-    width: 10%;
+    width: 20%;
+    margin: 0 2px;
 }
 
 #dayDisplay {
-    width: 90%;
+    width: 80%;
+}
+
+.dayTopRow {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2px;
+}
+
+.dayGraphic {
+  height: 40%;
+  width: 50%;
+  margin: 2px;
 }
 
 .guestDay {
-    margin: 1px -20px 0 -70px;
+    margin: 1px 0 0 -70px;
     border: 1px solid lightgrey;
     padding: 1px 5px;
     box-shadow: 2px 2px 1px darkgrey;
-    font-family: 'Schoolbell', cursive;
 }
 
 .guestDay:hover {

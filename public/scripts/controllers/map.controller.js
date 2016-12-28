@@ -12,9 +12,7 @@ app.controller("MapController", ['MyTripFactory', '$http', '$filter', '$routePar
     myTripFactory.getTrips()
         .then(function(response) {
                 var trips = response;
-                console.log('Trips returned', trips);
                 trips.forEach(buildLocationArray);
-                console.log('locationArray:', self.locationArray);
             },
             function(err) {
                 console.log('Error getting trips', err);
@@ -27,7 +25,6 @@ app.controller("MapController", ['MyTripFactory', '$http', '$filter', '$routePar
     }
 
     self.findAddress = function() {
-
         GeoCoder.geocode({
             address: self.newAddress
         }).then(function(result) {
@@ -39,7 +36,5 @@ app.controller("MapController", ['MyTripFactory', '$http', '$filter', '$routePar
             buildLocationArray();
         });
     };
-
-
 
 }]); // END: MapController

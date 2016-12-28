@@ -45,13 +45,10 @@ app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
     self.addDay = function() {
         self.newDay.user_id = currentUser.id;
         self.newDay.trip_id = self.tripID;
-        console.log('addDay:', self.newDay);
-        GeoCoder.geocode({
-                address: self.newDay.end_location
-            })
+        self.findAddress(self.newDay.end_location)
             .then(function(result) {
-                self.newDay.end_map_location = result[0];
-                console.log('addDay post geocode:', self.newDay);
+              self.newDay.end_map_location = self.newLocation;
+                // console.log('addDay post geocode:', self.newDay);
                 myTripFactory.addDay(self.newDay)
                     .then(function(response) {
                             self.newDay = {};
@@ -99,13 +96,18 @@ app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
         self.newRecommendation = {};
     }; // End addRecommendation
 
-    // function to geocode destination
-    self.pinEndLocation = function() {
-        locationGeocode(self.newDay.end_location)
-            .then(function(result) {
-                self.newDay.end_map_location = result;
-            });
-    }; // end pinEndLocation
+    self.findAddress = function(address) {
+        return GeoCoder.geocode({
+            address: address
+        }).then(function(result) {
+            var location = result[0].geometry.location;
+            self.lat = location.lat();
+            self.lng = location.lng();
+            self.newLocation = {
+                pos: [self.lat, self.lng]
+            };
+        });
+    };
 
     self.cancel = function() {
         self.newDay = {};
