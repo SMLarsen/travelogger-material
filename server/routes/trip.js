@@ -6,7 +6,7 @@ var trip = require('../models/trip');
 router.get('/all/:id', function(req, res) {
     var userId = req.params.id;
     console.log('Looking for trips for', userId);
-    trip.find({user_id: userId}).sort({begin_date: 1}).exec(
+    trip.find({user_id: userId}).sort({begin_date: -1}).exec(
       function(err, trips) {
         if (err) {
             console.log('Get ERR: ', err);
