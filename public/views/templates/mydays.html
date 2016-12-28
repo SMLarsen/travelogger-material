@@ -16,308 +16,167 @@
                 <span class="deleteBtn pull-right fa fa-trash" ng-click="mdc.deleteDay(day._id, day.trip_id)"></span>
             </uib-accordion-heading>
 
-            <form editable-form name="editableFormGeneral">
-                <label class="dayLabel col-xs-12">General Information</label>
+            <label class="dayLabel col-xs-12">General Information</label>
+            <div class="col-xs-2">
+                <span>{{ day.date | date:'MM/dd' }}</span>
+            </div>
+
+            <div class="col-xs-2">
+                <span>{{ day.end_location || 'empty' }}</span>
+            </div>
+
+            <div class="col-xs-3">
+                <span>{{ day.tag_line || 'empty' }}</span>
+            </div>
+
+            <div class="col-xs-4">
+                <span>{{ day.weather || 'empty' }}</span>
+            </div>
+
+            <div class="col-xs-1">
+                <a href="#editday/{{day._id}}" class="editBtn pull-right fa fa-pencil"></a>
+            </div><br>
+
+            <label class="daySubLabel col-xs-12">Lodging</label>
+            <div class="col-xs-12">
+
                 <div class="col-xs-2">
-                    <span editable-date="day.date" e-name="date">{{ day.date | date:'MM/dd' }}</span>
+                    <span ng-options="item for item in mdc.lodgingTypes">{{ day.lodging_type || 'empty' }}</span>
                 </div>
 
                 <div class="col-xs-2">
-                    <!-- <span class="title">Where: </span> -->
-                    <span editable-text="day.end_location" e-name="end_location">{{ day.end_location || 'empty' }}</span>
+                    <span>{{ day.lodging_name || 'empty' }}</span>
+                </div>
+
+                <div class="col-xs-4">
+                    <span>{{ day.lodging_address || 'empty' }}</span>
                 </div>
 
                 <div class="col-xs-3">
                     <!-- <span class="title">Tag-line: </span> -->
-                    <span editable-text="day.tag_line" e-name="tag_line">{{ day.tag_line || 'empty' }}</span>
+                    <span>{{ day.lodging_reference || 'empty' }}</span>
                 </div>
+            </div>
 
-                <div class="col-xs-4">
-                    <!-- <span class="title">Weather: </span> -->
-                    <span editable-text="day.weather" e-name="weather">{{ day.weather || 'empty' }}</span>
-                </div>
+            <label class="daySubLabel col-xs-12">Narrative</label>
+            <div class="col-xs-12">
+                <span>{{day.narrative}}</span>
 
-                <div class="col-xs-1">
-                    <!-- button to show form -->
-                    <button type="button" class="editBtn pull-right fa fa-pencil" ng-click="editableFormGeneral.$show()" ng-show="!editableFormGeneral.$visible"></button>
-                    <!-- buttons to submit / cancel form -->
-                    <span ng-show="editableFormGeneral.$visible">
-                            <button type="button" class="cancelBtn pull-right fa fa-ban" ng-disabled="editableFormGeneral.$waiting" ng-click="editableFormGeneral.$cancel()"></button>
-                            <button type="submit" class="updateBtn pull-right fa fa-check" ng-disabled="editableFormGeneral.$waiting" ng-click="mdc.updateDayGeneral(editableFormGeneral.$data, day._id, day.trip_id)"></button>
-                          </span>
-                </div><br>
+            </div><br>
 
-                <label class="daySubLabel col-xs-12">Lodging</label>
-                <div class="col-xs-12">
-
-                    <div class="col-xs-2">
-                        <!-- <span class="title">Weather: </span> -->
-                        <!-- <span editable-text="day.lodging_type" e-name="lodging_type">{{ day.lodging_type || 'empty' }}</span> -->
-                        <span editable-select="day.lodging_type" e-name="lodging_type" e-ng-options="item for item in mdc.lodgingTypes">{{ day.lodging_type || 'empty' }}</span>
-                    </div>
-
-                    <div class="col-xs-2">
-                        <!-- <span class="title">Date: </span> -->
-                        <span editable-text="day.lodging_name" e-name="lodging_name">{{ day.lodging_name || 'empty' }}</span>
-                    </div>
-
-                    <div class="col-xs-4">
-                        <!-- <span class="title">Where: </span> -->
-                        <span editable-text="day.lodging_address" e-name="lodging_address">{{ day.lodging_address || 'empty' }}</span>
-                    </div>
-
-                    <div class="col-xs-3">
-                        <!-- <span class="title">Tag-line: </span> -->
-                        <span editable-text="day.lodging_reference" e-name="lodging_reference">{{ day.lodging_reference || 'empty' }}</span>
-                    </div>
-                </div>
-
-                <label class="daySubLabel col-xs-12">Narrative</label>
-                <div class="col-xs-11">
-                    <span editable-textarea="day.narrative" e-name="narrative" e-rows="7" e-cols="100%">{{day.narrative}}</span>
-
-                </div><br>
-
-            </form>
-
-            <!-- Starting Points of Interest -->
-
-            <form editable-form name="tableformPOI" oncancel="cancel()">
-                <label class="dayLabel col-xs-12">Points of Interest</label>
-                <!-- table -->
-                <div class="col-xs-11">
-                    <table class="table table-bordered table-hover table-condensed">
-                        <tr style="font-weight: bold">
-                            <td style="width:25%">Name</td>
-                            <td style="width:65%">Description</td>
-                            <td style="width:10%"><span ng-show="tableformPOI.$visible">Action</span></td>
-                        </tr>
-                        <tr ng-repeat="place in day.interesting_locations">
-                            <td>
-                                <span editable-text="place.name" onaftersave="mdc.updatePOI($index, place, day._id, day.trip_id)">
+            <label class="dayLabel col-xs-12">Points of Interest</label>
+            <!-- table -->
+            <div class="col-xs-11">
+                <table class="table table-bordered table-hover table-condensed">
+                    <tr style="font-weight: bold">
+                        <td style="width:30%">Name</td>
+                        <td style="width:70%">Description</td>
+                    </tr>
+                    <tr ng-repeat="place in day.interesting_locations">
+                        <td>
+                            <span>
                             {{ place.name || 'empty' }}
                           </span>
-                            </td>
-                            <td>
-                                <span editable-text="place.description">
+                        </td>
+                        <td>
+                            <span>
                             {{ place.description || 'empty' }}
                           </span>
-                            </td>
-                            <td><button type="button" ng-show="tableformPOI.$visible" ng-click="mdc.deletePOI(place._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
-                                <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformPOI.$visible"></button></td>
-                        </tr>
-                        <div class="btn-form" ng-show="tableformPOI.$visible">
-                            <tr>
-                                <td><input type="text" class="form-control" ng-model="mdc.newPointOfInterest.name" placeholder="Name"></td>
-                                <td><input type="text" class="form-control" ng-model="mdc.newPointOfInterest.description" placeholder="Description"></td>
-                                <td><button type="button" ng-disabled="tableformPOI.$waiting" ng-click="mdc.addPOI(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
-                            </tr>
-                        </div>
-                    </table>
-                </div>
-
-                <div class="col-xs-1">
-                    <!-- buttons -->
-                    <div class="btn-edit">
-                        <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformPOI.$visible" ng-click="tableformPOI.$show()"></button>
-                    </div>
-                    <div class="btn-form" ng-show="tableformPOI.$visible">
-                        <button type="button" ng-disabled="tableformPOI.$waiting" ng-click="tableformPOI.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
-                    </div>
-                </div>
-            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
             <!-- Starting Travel Route -->
 
-            <form editable-form name="tableformRoute" oncancel="cancel()">
-                <label class="dayLabel col-xs-12">Route</label>
-                <!-- table -->
-                <div class="col-xs-11">
-                    <table class="table table-bordered table-hover table-condensed">
-                        <thead class=>
-                            <tr>
-                                <th style="width:15%">Name</th>
-                                <th style="width:10%">Mode</th>
-                                <th style="width:10%">Distance</th>
-                                <th style="width:10%">Duration</th>
-                                <th style="width:45%">Specifics</th>
-                                <th style="width:10%"><span ng-show="tableformRoute.$visible">Action</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="routes" ng-repeat="route in day.routes">
-                                <td>
-                                    <span editable-text="route.name" onaftersave="mdc.updateRoute($index, route, day._id, day.trip_id)">
-                                  {{route.name || 'empty' }}
-                                </span>
-                                </td>
-                                <td>
-                                    <span editable-select="route.transport_mode" e-ng-options="item for item in mdc.transportModes">
-                                  {{route.transport_mode || 'empty' }}
-                                </span>
-                                </td>
-                                <td>
-                                    <span editable-text="route.distance">
-                                  {{route.distance || 'empty' }}
-                                </span>
-                                </td>
-                                <td>
-                                    <span editable-text="route.duration">
-                                  {{route.duration || 'empty' }}
-                                </span>
-                                </td>
-                                <td>
-                                    <span editable-text="route.specifics">
-                                  {{route.specifics || 'empty' }}
-                                </span>
-                                </td>
-                                <td><button type="button" ng-show="tableformRoute.$visible" ng-click="mdc.deleteRoute(route._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
-                                    <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformRoute.$visible"></button></td>
-                            </tr>
-
-                            <div class="btn-form" ng-show="tableformRoute.$visible">
-                                <tr>
-                                    <td><input type="text" class="form-control" ng-model="mdc.newRoute.name" placeholder="Name"></td>
-                                    <td><select type="text" class="form-control" ng-model="mdc.newRoute.transport_mode" ng-options="item for item in mdc.transportModes"></select></td>
-                                    <td><input type="text" class="form-control" ng-model="mdc.newRoute.distance" placeholder="Dist"></td>
-                                    <td><input type="text" class="form-control" ng-model="mdc.newRoute.duration" placeholder="Time"></td>
-                                    <td><input type="text" class="form-control" ng-model="mdc.newRoute.specifics" placeholder="Details"></td>
-                                    <td><button type="button" ng-disabled="tableformRoute.$waiting" ng-click="mdc.addRoute(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
-                                </tr>
-                            </div>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="col-xs-1">
-                    <!-- buttons -->
-                    <div class="btn-edit">
-                        <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformRoute.$visible" ng-click="tableformRoute.$show()"></button>
-                    </div>
-                    <div class="btn-form" ng-show="tableformRoute.$visible">
-                        <button type="button" ng-disabled="tableformRoute.$waiting" ng-click="tableformRoute.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
-                    </div>
-                </div>
-            </form>
+            <label class="dayLabel col-xs-12">Route</label>
+            <!-- table -->
+            <div class="col-xs-11">
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead class=>
+                        <tr>
+                            <th style="width:15%">Name</th>
+                            <th style="width:10%">Mode</th>
+                            <th style="width:10%">Distance</th>
+                            <th style="width:10%">Duration</th>
+                            <th style="width:45%">Specifics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="routes" ng-repeat="route in day.routes">
+                            <td>
+                                <span>{{route.name || 'empty' }}</span>
+                            </td>
+                            <td>
+                                <span>{{route.transport_mode || 'empty' }}</span>
+                            </td>
+                            <td>
+                                <span>{{route.distance || 'empty' }}</span>
+                            </td>
+                            <td>
+                                <span>{{route.duration || 'empty' }}</span>
+                            </td>
+                            <td>
+                                <span>{{route.specifics || 'empty' }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <!-- Starting Meals -->
 
-            <form editable-form name="tableformMeals" oncancel="cancel()">
-                <label class="dayLabel col-xs-12">Eating and Drinking</label>
-                <!-- table -->
-                <div class="col-xs-11">
-                    <table class="table table-bordered table-hover table-condensed">
-                        <thead class=>
-                            <tr>
-                                <th style="width:10%">type</th>
-                                <th style="width:10%">Name</th>
-                                <th style="width:20%">Location</th>
-                                <th style="width:30%">Description</th>
-                                <th style="width:20%">Reference</th>
-                                <th style="width:10%"><span ng-show="tableformMeals.$visible">Action</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="meals" ng-repeat="meal in day.meals">
-                                <td>
-                                    <span editable-select="meal.type" e-ng-options="item for item in mdc.mealTypes">
-                                          {{meal.type || 'empty' }}
-                                        </span>
-                                </td>
-                                <td>
-                                    <span editable-text="meal.name" onaftersave="mdc.updateMeal($index, meal, day._id, day.trip_id)">
-                                          {{meal.name || 'empty' }}
-                                        </span>
-                                </td>
-                                <td>
-                                    <span editable-text="meal.location">
-                                          {{meal.location || 'empty' }}
-                                        </span>
-                                </td>
-                                <td>
-                                    <span editable-text="meal.description">
-                                          {{meal.description || 'empty' }}
-                                        </span>
-                                </td>
-                                <td>
-                                    <span editable-text="meal.reference">
-                                          {{meal.reference || 'empty' }}
-                                        </span>
-                                </td>
-                                <td><button type="button" ng-show="tableformMeals.$visible" ng-click="mdc.deleteMeal(meal._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
-                                    <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformMeals.$visible"></button></td>
-                            </tr>
+            <label class="dayLabel col-xs-12">Eating and Drinking</label>
+            <div class="col-xs-12">
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead class=>
+                        <tr>
+                            <th style="width:10%">type</th>
+                            <th style="width:15%">Name</th>
+                            <th style="width:25%">Location</th>
+                            <th style="width:30%">Description</th>
+                            <th style="width:20%">Reference</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="meals" ng-repeat="meal in day.meals">
+                            <td>
+                                <span>{{meal.type || 'empty' }}</span>
+                            </td>
+                            <td>
+                                <span>{{meal.name || 'empty' }}</span>
+                            </td>
+                            <td>
+                                <span>{{meal.location || 'empty' }}</span>
+                            </td>
+                            <td>
+                                <span>{{meal.description || 'empty' }}</span>
+                            </td>
+                            <td>
+                                <span>{{meal.reference || 'empty' }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                            <div class="btn-form" ng-show="tableformMeals.$visible">
-                                <tr>
-                                    <td><select type="text" class="form-control" ng-model="mdc.newMeal.type" ng-options="item for item in mdc.mealTypes"></select></td>
-                                    <td><input type="text" class="form-control" ng-model="mdc.newMeal.name" placeholder="Name"></td>
-                                    <td><input type="text" class="form-control" ng-model="mdc.newMeal.location" placeholder="Where"></td>
-                                    <td><input type="text" class="form-control" ng-model="mdc.newMeal.description" placeholder="What"></td>
-                                    <td><input type="text" class="form-control" ng-model="mdc.newMeal.reference" placeholder="Reference e.g., www.joes-place.com"></td>
-                                    <td><button type="button" ng-disabled="tableformMeals.$waiting" ng-click="mdc.addMeal(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
-                                </tr>
-                            </div>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="col-xs-1">
-                    <!-- buttons -->
-                    <div class="btn-edit">
-                        <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformMeals.$visible" ng-click="tableformMeals.$show()"></button>
-                    </div>
-                    <div class="btn-form" ng-show="tableformMeals.$visible">
-                        <button type="button" ng-disabled="tableformMeals.$waiting" ng-click="tableformMeals.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
-                    </div>
-                </div>
-            </form>
-
-            <!-- Starting recommendations -->
-
-            <form editable-form name="tableformRecommendations" oncancel="cancel()">
-                <label class="dayLabel col-xs-12">Recommendations</label>
-                <!-- table -->
-                <div class="col-xs-11">
-                    <table class="table table-bordered table-hover table-condensed">
-                        <thead class=>
-                            <tr>
-                                <th style="width:90%"></th>
-                                <th style="width:10%"><span ng-show="tableformRecommendations.$visible">Action</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="recommendations" ng-repeat="recommendation in day.recommendations">
-                                <td>
-                                    <span editable-text="recommendation.text" onaftersave="mdc.updateRecommendation($index, recommendation, day._id, day.trip_id)">
-                                          {{recommendation.text}}
-                                        </span>
-                                </td>
-                                <td><button type="button" ng-show="tableformRecommendations.$visible" ng-click="mdc.deleteRecommendation(meal._id, day._id, day.trip_id)" class="deleteBtn pull-right fa fa-trash"></button>
-                                    <button type="submit" class="updateBtn pull-right fa fa-check" ng-show="tableformRecommendations.$visible"></button></td>
-                            </tr>
-
-                            <div class="btn-form" ng-show="tableformRecommendations.$visible">
-                                <tr>
-                                    <td><input type="text" class="form-control" ng-model="mdc.newRecommendation.text" placeholder="Add a recommendation"></td>
-                                    <td><button type="button" ng-disabled="tableformRecommendations.$waiting" ng-click="mdc.addRecommendation(day._id, day.trip_id)" class="addBtn pull-right fa fa-plus"></button></td>
-                                </tr>
-                            </div>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="col-xs-1">
-                    <!-- buttons -->
-                    <div class="btn-edit">
-                        <button type="button" class="editBtn pull-right fa fa-pencil" ng-show="!tableformRecommendations.$visible" ng-click="tableformRecommendations.$show()"></button>
-                    </div>
-                    <div class="btn-form" ng-show="tableformRecommendations.$visible">
-                        <button type="button" ng-disabled="tableformRecommendations.$waiting" ng-click="tableformRecommendations.$cancel()" class="cancelBtn pull-right fa fa-ban"></button>
-                    </div>
-                </div>
-            </form>
-
+            <label class="dayLabel col-xs-12">Recommendations</label>
+            <div class="col-xs-12">
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead class=>
+                        <tr>
+                            <th style="width:100%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="recommendations" ng-repeat="recommendation in day.recommendations">
+                            <td>
+                                <span>{{recommendation.text}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </uib-accordion>
