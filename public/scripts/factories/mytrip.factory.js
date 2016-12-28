@@ -187,7 +187,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         return authFactory.getIdToken().then(function(currentUser) {
             return $http({
                     method: 'GET',
-                    url: '/day/' + tripID,
+                    url: '/day/all/' + tripID,
                     headers: {
                         id_token: currentUser.authIdToken
                     }
@@ -203,6 +203,28 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     });
         });
     } // End getDays
+
+        // Function to GET a day
+        function getDay(tripID) {
+            return authFactory.getIdToken().then(function(currentUser) {
+                return $http({
+                        method: 'GET',
+                        url: '/day/one/' + tripID,
+                        headers: {
+                            id_token: currentUser.authIdToken
+                        }
+                    })
+                    .then(function(response) {
+                            day = response.data;
+                            console.log('My Day:', day);
+                            return day;
+                        },
+                        function(err) {
+                            console.log('Unable to retrieve day', err);
+                            return;
+                        });
+            });
+        } // End getDay
 
     // Function to Update a day's general data
     function updateDayGeneral(day) {

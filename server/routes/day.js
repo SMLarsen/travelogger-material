@@ -3,7 +3,7 @@ var router = express.Router();
 var day = require('../models/day');
 
 // Route: Get days
-router.get('/:id', function(req, res) {
+router.get('/all/:id', function(req, res) {
   var tripId = req.params.id;
   console.log('Looking for days for', tripId);
 
@@ -17,6 +17,22 @@ router.get('/:id', function(req, res) {
     }
   });
 }); // END: GET days route
+
+// Route: Get a day
+router.get('/one/:id', function(req, res) {
+  var dayId = req.params.id;
+  console.log('Looking for day for', dayId);
+
+  day.find({_id: dayId}).exec(function(err, days) {
+    if(err) {
+      console.log('Get days ERR: ', err);
+      res.sendStatus(500);
+    } else {
+      console.log(day);
+      res.send(day);
+    }
+  });
+}); // END: GET a day route
 
 // Route: Add a day
 router.post("/", function(req, res) {

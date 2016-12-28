@@ -39,6 +39,11 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'AddDayController',
             controllerAs: 'adc'
         })
+        .when('/editday/:dayID', {
+            templateUrl: '/views/templates/editday.html',
+            controller: 'EditDayController',
+            controllerAs: 'edc'
+        })
         .when('/days/:tripID', {
             templateUrl: '/views/templates/days.html',
             controller: 'DayController',
