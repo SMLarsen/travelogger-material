@@ -1,11 +1,11 @@
-app.controller('EditDayController', ['MyTripFactory', '$http', 'AuthFactory', 'NgMap', 'GeoCoder', '$location', '$pointParams', function(MyTripFactory, $http, AuthFactory, NgMap, GeoCoder, $location, $pointParams) {
+app.controller('EditDayController', ['MyTripFactory', '$location', '$http', 'AuthFactory', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, $location, $http, AuthFactory, NgMap, GeoCoder, $routeParams) {
     console.log('EditDayController started');
     var self = this;
+
     var myTripFactory = MyTripFactory;
     var authFactory = AuthFactory;
     var currentUser = authFactory.currentUser;
-
-    self.dayID = $pointParams.dayID;
+    var dayID = $routeParams.dayID;
 
     self.day = {
         interesting_locations: [],
@@ -115,4 +115,4 @@ app.controller('EditDayController', ['MyTripFactory', '$http', 'AuthFactory', 'N
         $location.path('mydays/:' + self.tripID);
     };
 
-}]); // END: EditDayController
+}]); // END: MyTripController

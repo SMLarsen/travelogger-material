@@ -615,6 +615,9 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         getDays: function(tripID) {
             return getDays(tripID);
         },
+        getDay: function(dayID) {
+            return getDay(dayID);
+        },
         updateDayGeneral: function(day) {
             return updateDayGeneral(day);
         },
