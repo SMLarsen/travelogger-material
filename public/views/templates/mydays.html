@@ -16,7 +16,9 @@
                 <span class="deleteBtn pull-right fa fa-trash" ng-click="mdc.deleteDay(day._id, day.trip_id)"></span>
             </uib-accordion-heading>
 
-            <label class="dayLabel col-xs-12">General Information</label>
+            <label class="dayLabel col-xs-12">General Information
+                <a href="#editday/{{day._id}}" class="editBtn pull-right fa fa-pencil"></a>
+            </label>
             <div class="col-xs-2">
                 <span>{{ day.date | date:'MM/dd' }}</span>
             </div>
@@ -32,10 +34,6 @@
             <div class="col-xs-4">
                 <span>{{ day.weather || 'empty' }}</span>
             </div>
-
-            <div class="col-xs-1">
-                <a href="#editday/{{day._id}}" class="editBtn pull-right fa fa-pencil"></a>
-            </div><br>
 
             <label class="daySubLabel col-xs-12">Lodging</label>
             <div class="col-xs-12">
@@ -179,7 +177,7 @@
             </div>
         </div>
 
-  </div>
+    </div>
     <div uib-accordion-group>
     </div>
 </div>

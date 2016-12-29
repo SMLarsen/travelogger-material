@@ -5,7 +5,9 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     var currentUser = authFactory.currentUser;
 
     var trips = [];
+    var trip = {};
     var days = [];
+    var day = {};
     var pois = [];
     var routes = [];
     var meals = [];
@@ -54,11 +56,11 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         }
     } // End getTrips
 
-        // Function to GET a trip
-        function getTrip(tripID) {
-            // console.log('authfact isUserLoggedIn', authFactory.isUserLoggedIn);
-            if (authFactory.isUserLoggedIn) {
-                return authFactory.getIdToken().then(function(currentUser) {
+    // Function to GET a trip
+    function getTrip(tripID) {
+        if (authFactory.isUserLoggedIn) {
+            return authFactory.getIdToken()
+                .then(function(currentUser) {
                     return $http({
                             method: 'GET',
                             url: '/trip/one/' + tripID,
@@ -76,10 +78,10 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                                 return;
                             });
                 });
-            } else {
-                return;
-            }
-        } // End getTrip
+        } else {
+            return;
+        }
+    } // End getTrip
 
     // Function to add a trips
     function addTrip(newTrip) {
@@ -204,19 +206,20 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         });
     } // End getDays
 
-        // Function to GET a day
-        function getDay(tripID) {
-            return authFactory.getIdToken().then(function(currentUser) {
+    // Function to GET a day
+    function getDay(dayID) {
+        return authFactory.getIdToken()
+            .then(function(currentUser) {
                 return $http({
                         method: 'GET',
-                        url: '/day/one/' + tripID,
+                        url: '/day/one/' + dayID,
                         headers: {
                             id_token: currentUser.authIdToken
                         }
                     })
                     .then(function(response) {
-                            day = response.data;
-                            console.log('My Day:', day);
+                            day = response.data[0];
+                            // console.log('My Day:', day);
                             return day;
                         },
                         function(err) {
@@ -224,29 +227,30 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                             return;
                         });
             });
-        } // End getDay
+    } // End getDay
 
-    // Function to Update a day's general data
-    function updateDayGeneral(day) {
-        console.log('updateDayGeneral:', day);
+    // Function to Update a day
+    function updateDay(day) {
+        console.log('updateDay:', day);
         return authFactory.getIdToken()
             .then(function(currentUser) {
-                return $http({
-                        method: 'PUT',
-                        url: '/day/general/' + day._id,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        },
-                        data: day
-                    })
+                return deleteDay(day._id)
                     .then(function(response) {
-                            console.log('Day general info updated');
-                            return;
+                            delete day._id;
+                            return addDay(day)
+                                .then(function(response) {
+                                        console.log('Day updated (deleted/added)');
+                                        return;
+                                    },
+                                    function(err) {
+                                        console.log('Unable to update (add) day', err);
+                                        return;
+                                    });
                         },
                         function(err) {
-                            console.log('Unable to update day general info', err);
-                            return;
-                        });
+                            console.log("Unable to update (delete) day", err);
+                        }
+                    );
             });
     } // End updateDay
 
@@ -296,303 +300,6 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
             });
     } // End deleteTripDays
 
-    // add poi to day
-    function addPOI(newPointOfInterest, dayID) {
-        console.log('addPOI:', '\n', 'name:', newPointOfInterest.name, '\ndesc:', newPointOfInterest.description, '\ndayID:', dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'PUT',
-                        url: '/day/addpoi/' + dayID,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        },
-                        data: newPointOfInterest
-                    })
-                    .then(function(response) {
-                            console.log('POI added');
-                            newTrip = {};
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to add new POI', err);
-                            return;
-                        }
-                    );
-            });
-    } // End: addPOI
-
-    // update poi
-    function updatePOI(index, data, dayID) {
-        console.log('updatePOI:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'PUT',
-                        url: '/day/updatepoi/' + dayID + '/' + index,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        },
-                        data: data
-                    })
-                    .then(function(response) {
-                            console.log('Day POI info updated');
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to update day POI info', err);
-                            return;
-                        });
-            });
-    } // End: updatePOI
-
-    // Begin: delete point of interest
-    function deletePOI(poiID, dayID) {
-        console.log('Delete POI:', poiID, dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'DELETE',
-                        url: '/day/poi/' + dayID + '/' + poiID,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        }
-                    })
-                    .then(function(response) {
-                            console.log('POI deleted');
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to delete POI', err);
-                            return;
-                        });
-            });
-    } // End deletePOI
-
-    // Route add, update, delete
-
-    // add route to day
-    function addRoute(newRoute, dayID) {
-        console.log('addRoute:', '\n', 'name:', newRoute.name, '\ndayID:', dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'PUT',
-                        url: '/day/addroute/' + dayID,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        },
-                        data: newRoute
-                    })
-                    .then(function(response) {
-                            console.log('Route added');
-                            newTrip = {};
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to add new Route', err);
-                            return;
-                        }
-                    );
-            });
-    } // End: addRoute
-
-    // update route
-
-    function updateRoute(index, data, dayID) {
-        console.log('updateRoute:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'PUT',
-                        url: '/day/updateroute/' + dayID + '/' + index,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        },
-                        data: data
-                    })
-                    .then(function(response) {
-                            console.log('Day Route info updated');
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to update day Route info', err);
-                            return;
-                        });
-            });
-    } // End: updateRoute
-
-    // Begin: delete route
-    function deleteRoute(routeID, dayID) {
-        console.log('Delete Route:', routeID, dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'DELETE',
-                        url: '/day/route/' + dayID + '/' + routeID,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        }
-                    })
-                    .then(function(response) {
-                            console.log('Route deleted');
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to delete Route', err);
-                            return;
-                        });
-            });
-    } // End deleteRoute
-
-    // Meal add, update, delete
-
-    // add meal to day
-    function addMeal(newMeal, dayID) {
-        console.log('addMeal:', '\n', 'name:', newMeal.name, '\ndayID:', dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'PUT',
-                        url: '/day/addmeal/' + dayID,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        },
-                        data: newMeal
-                    })
-                    .then(function(response) {
-                            console.log('Meal added');
-                            newTrip = {};
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to add new Meal', err);
-                            return;
-                        }
-                    );
-            });
-    } // End: addMeal
-
-    // update meal
-    function updateMeal(index, data, dayID) {
-        console.log('updateMeal:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'PUT',
-                        url: '/day/updatemeal/' + dayID + '/' + index,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        },
-                        data: data
-                    })
-                    .then(function(response) {
-                            console.log('Day Meal info updated');
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to update day Meal info', err);
-                            return;
-                        });
-            });
-    } // End: updateMeal
-
-    // Begin: delete meal
-    function deleteMeal(mealID, dayID) {
-        console.log('Delete Meal:', mealID, dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'DELETE',
-                        url: '/day/meal/' + dayID + '/' + mealID,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        }
-                    })
-                    .then(function(response) {
-                            console.log('Meal deleted');
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to delete Meal', err);
-                            return;
-                        });
-            });
-    } // End deleteMeal
-
-    // add recommendation to day
-    function addRecommendation(newRecommendation, dayID) {
-        console.log('addRecommendation:', '\n', 'name:', newRecommendation.text, '\ndayID:', dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'PUT',
-                        url: '/day/addrecommendation/' + dayID,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        },
-                        data: newRecommendation
-                    })
-                    .then(function(response) {
-                            console.log('Recommendation added');
-                            newTrip = {};
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to add new Recommendation', err);
-                            return;
-                        }
-                    );
-            });
-    } // End: addRecommendation
-
-    // update recommendation
-    function updateRecommendation(index, data, dayID) {
-        console.log('updateRecommendation:', '\nindex:', index, '\ndata:', data, '\ndayID:', dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'PUT',
-                        url: '/day/updaterecommendation/' + dayID + '/' + index,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        },
-                        data: data
-                    })
-                    .then(function(response) {
-                            console.log('Day Recommendation info updated');
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to update day Recommendation info', err);
-                            return;
-                        });
-            });
-    } // End: updateRecommendation
-
-    // Begin: delete recommendation
-    function deleteRecommendation(recommendationID, dayID) {
-        console.log('Delete Recommendation:', recommendationID, dayID);
-        return authFactory.getIdToken()
-            .then(function(currentUser) {
-                return $http({
-                        method: 'DELETE',
-                        url: '/day/recommendation/' + dayID + '/' + recommendationID,
-                        headers: {
-                            id_token: currentUser.authIdToken
-                        }
-                    })
-                    .then(function(response) {
-                            console.log('Recommendation deleted');
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to delete Recommendation', err);
-                            return;
-                        });
-            });
-    } // End delete recommendation
-
     var publicApi = {
         getTrips: function() {
             return getTrips();
@@ -618,50 +325,14 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         getDay: function(dayID) {
             return getDay(dayID);
         },
-        updateDayGeneral: function(day) {
-            return updateDayGeneral(day);
+        updateDay: function(day) {
+            return updateDay(day);
         },
         deleteDay: function(dayID) {
             return deleteDay(dayID);
         },
         deleteTripDays: function(tripID) {
             return deleteTripDays(tripID);
-        },
-        addPOI: function(newPointOfInterest, dayID) {
-            return addPOI(newPointOfInterest, dayID);
-        },
-        updatePOI: function(index, data, dayID) {
-            return updatePOI(index, data, dayID);
-        },
-        deletePOI: function(poiID, dayID) {
-            return deletePOI(poiID, dayID);
-        },
-        addRoute: function(newRoute, dayID) {
-            return addRoute(newRoute, dayID);
-        },
-        updateRoute: function(index, data, dayID) {
-            return updateRoute(index, data, dayID);
-        },
-        deleteRoute: function(routeID, dayID) {
-            return deleteRoute(routeID, dayID);
-        },
-        addMeal: function(newMeal, dayID) {
-            return addMeal(newMeal, dayID);
-        },
-        updateMeal: function(index, data, dayID) {
-            return updateMeal(index, data, dayID);
-        },
-        deleteMeal: function(mealID, dayID) {
-            return deleteMeal(mealID, dayID);
-        },
-        addRecommendation: function(newRecommendation, dayID) {
-            return addRecommendation(newRecommendation, dayID);
-        },
-        updateRecommendation: function(index, data, dayID) {
-            return updateRecommendation(index, data, dayID);
-        },
-        deleteRecommendation: function(recommendationID, dayID) {
-            return deleteRecommendation(recommendationID, dayID);
         }
     };
 

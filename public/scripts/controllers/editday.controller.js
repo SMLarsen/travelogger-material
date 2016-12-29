@@ -7,94 +7,68 @@ app.controller('EditDayController', ['MyTripFactory', '$location', '$http', 'Aut
     var currentUser = authFactory.currentUser;
     var dayID = $routeParams.dayID;
 
-    self.day = {
-        interesting_locations: [],
-        points: [],
-        meals: [],
-        recommendations: []
-    };
-    self.pointOfInterest = {};
-    self.newpoint = {};
-    self.meal = {};
-    self.recommendation = {};
+    self.day = {};
+    self.newRoute = {};
+    self.newPOI = {};
+    self.newMeal = {};
+    self.newRecommendation = {};
 
     self.transportModes = ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'];
     self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
     self.mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'];
 
-    // Function to set dates as date objects
-    function formatDates(item, index) {
-        item.end_date = new Date(item.end_date);
-    } // End formatDates
+    myTripFactory.getDay(dayID)
+        .then(function(response) {
+                self.day = response;
+                self.tripID = self.day.trip_id;
+                self.day.date = new Date(self.day.date);
+                console.log('Day returned:', self.day);
+            },
+            function(err) {
+                console.log('Error getting day', err);
+            });
 
-    getDay(self.dayID);
-
-    // Function to GET a day
-    function getDay(dayID) {
-        myTripFactory.getDay(dayID)
-            .then(function(response) {
-                    self.day = response;
-                    self.tripID = self.day.trip_id;
-                    console.log('Day returned', self.days);
-                },
-                function(err) {
-                    console.log('Error getting day', err);
-                });
-    } // End getDay
-
-    // // Function to add a day
-    self.addDay = function() {
+    // // Function to update a day
+    self.updateDay = function() {
         self.day.user_id = currentUser.id;
         self.day.trip_id = self.tripID;
         self.findAddress(self.day.end_location)
             .then(function(result) {
-              self.day.end_map_location = self.newLocation;
-                // console.log('addDay post geocode:', self.day);
-                myTripFactory.addDay(self.day)
+                self.day.end_map_location = self.newLocation;
+                console.log('updateDay post geocode:', self.day);
+                myTripFactory.updateDay(self.day)
                     .then(function(response) {
                             self.day = {};
-                            self.days = response;
-                            console.log('Day added');
+                            console.log('Day updated');
                         },
                         function(err) {
-                            console.log('Error adding day', err);
+                            console.log('Error updating day', err);
                         });
             });
-    }; // End addDay
+    }; // End updateDay
 
-    function locationGeocode(address) {
-        console.log('address to geocode:', address);
-        GeoCoder.geocode({
-                address: address
-            })
-            .then(function(result) {
-                console.log('Address geocode result:', result[0]);
-                self.day.end_map_location = result[0];
-            });
-    }
-
-    // Add point row to new Day
-    self.addpointRow = function() {
-        self.day.points.push(angular.copy(self.newpoint));
-        self.newpoint = {};
+    // Add point row to Day
+    self.addPOIRow = function() {
+        self.day.interesting_locations.push(angular.copy(self.newPOI));
+        self.newPOI = {};
     }; // End addpointRow
 
-    // Add recommendation row to new Day
+    // Add recommendation row to Day
     self.addRecommendationRow = function() {
-        self.day.recommendations.push(angular.copy(self.recommendation));
-        self.recommendation = {};
+        self.day.recommendations.push(angular.copy(self.newRecommendation));
+        self.newRecommendation = {};
     }; // End addMeal
 
-    // Add meal row to new Day
+    // Add meal row to Day
     self.addMealRow = function() {
-        self.day.meals.push(angular.copy(self.meal));
-        self.meal = {};
+        self.day.meals.push(angular.copy(self.newMeal));
+        self.newMeal = {};
     }; // End addMeal
 
-    // Add Recommendation row to new Day
-    self.addRecommendationRow = function() {
-        self.day.recommendations.push(angular.copy(self.recommendation));
-        self.recommendation = {};
+    // Add Route row to Day
+    self.addRouteRow = function() {
+        self.day.recommendations.push(angular.copy(self.newRoute));
+        self.newRoute = {};
     }; // End addRecommendation
 
     self.findAddress = function(address) {
@@ -111,8 +85,9 @@ app.controller('EditDayController', ['MyTripFactory', '$location', '$http', 'Aut
     };
 
     self.cancel = function() {
+        console.log('Cancel tripID:', self.tripID);
         self.day = {};
-        $location.path('mydays/:' + self.tripID);
+        $location.path('mydays/' + self.tripID);
     };
 
 }]); // END: MyTripController
