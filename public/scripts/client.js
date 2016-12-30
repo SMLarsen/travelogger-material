@@ -54,6 +54,11 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'MapController',
             controllerAs: 'mc'
         })
+        .when('/pics', {
+            templateUrl: '/views/templates/pics.html',
+            controller: 'PicController',
+            controllerAs: 'pc'
+        })
         .otherwise({
             redirectTo: 'home'
         });
