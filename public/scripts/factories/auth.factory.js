@@ -13,8 +13,6 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                 console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
                 currentUser = firebaseUser.user;
                 isUserLoggedIn = true;
-                // console.log('currentUser', currentUser);
-                // This is where we make our call to our server
                 return currentUser.getToken()
                     .then(function(idToken) {
                         return $http({

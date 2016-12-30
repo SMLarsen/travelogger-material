@@ -51,6 +51,8 @@ var daySchema = new Schema({
     narrative: String,
     recommendations: [Recommendation],
     weather: String,
+    photo_url: String,
+    photo_caption: String,
     date_added: {
         type: Date,
         default: Date.now

@@ -8,12 +8,6 @@
         <a class="btn sideBtn sideBtnCancel" ng-click="adc.cancel()"><i class="pull-right fa fa-ban" aria-hidden="true"></i></a>
     </div>
 
-<!--
-    <div>
-        <div class="btn" ng-click="adc.addDay()"><i class="pull-right fa fa-floppy-o" aria-hidden="true"></i></div>
-        <div class="btn" ng-click="adc.cancel()"><i class="pull-right fa fa-ban" aria-hidden="true"></i></div>
-    </div> -->
-
     <form name="addDayForm">
 
         <div class="daySection form-group">
@@ -32,6 +26,12 @@
             </div>
             <div class="form-group">
                 <input type="textarea" class="col-xs-12 col-md-11" name="narrative" ng-model="adc.newDay.narrative" placeholder="Describe the day">
+            </div>
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-5" name="photo_caption" ng-model="adc.newDay.photo_caption" placeholder="Photo Caption">
+            </div>
+            <div class="form-group">
+                <input type="text" class="col-xs-12 col-md-6" name="photo_url" ng-model="adc.newDay.photo_url" placeholder="URL of photo">
             </div>
         </div>
 

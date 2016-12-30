@@ -18,6 +18,22 @@ router.get('/all/:id', function(req, res) {
   });
 }); // END: GET days route
 
+// Route: Get user's days
+router.get('/user/:id', function(req, res) {
+  var userId = req.params.id;
+  console.log('Looking for days for', userId);
+
+  day.find({user_id: userId}).sort({date: -1}).exec(function(err, days) {
+    if(err) {
+      console.log('Get days ERR: ', err);
+      res.sendStatus(500);
+    } else {
+      console.log(days);
+      res.send(days);
+    }
+  });
+}); // END: GET user's days route
+
 // Route: Get a day
 router.get('/one/:id', function(req, res) {
   var dayId = req.params.id;

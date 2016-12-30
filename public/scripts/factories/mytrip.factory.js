@@ -3,7 +3,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     var authFactory = AuthFactory;
     var currentUser = authFactory.currentUser;
-
+    console.log('currentUser', currentUser);
     var trips = [];
     var trip = {};
     var days = [];
@@ -184,7 +184,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
             });
     } // End addDay
 
-    // Function to GET days
+    // Function to GET days for trip
     function getDays(tripID) {
         return authFactory.getIdToken().then(function(currentUser) {
             return $http({
@@ -205,6 +205,30 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     });
         });
     } // End getDays
+
+
+    // Function to GET all days for user
+    function getUserDays(userID) {
+      console.log('getUserDays user:', userID);
+        return authFactory.getIdToken().then(function(currentUser) {
+            return $http({
+                    method: 'GET',
+                    url: '/day/user/' + userID,
+                    headers: {
+                        id_token: currentUser.authIdToken
+                    }
+                })
+                .then(function(response) {
+                        days = response.data;
+                        console.log('User Days:', days);
+                        return days;
+                    },
+                    function(err) {
+                        console.log('Unable to retrieve user days', err);
+                        return;
+                    });
+        });
+    } // End getUserDays
 
     // Function to GET a day
     function getDay(dayID) {
@@ -321,6 +345,9 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         },
         getDays: function(tripID) {
             return getDays(tripID);
+        },
+        getUserDays: function(userID) {
+            return getUserDays(userID);
         },
         getDay: function(dayID) {
             return getDay(dayID);
