@@ -1,16 +1,14 @@
 <div>
-  <div id="bodyView">
-      <h2>My Trips Map</h2>
-  </div>
+    <div id="bodyView">
+        <h2>My Trips Map</h2>
+    </div>
 
-  <label for="address">Address: </label>
-  <input type="text" name="address" ng-model="mc.newAddress">
-  <button type="button" name="button" ng-click="mc.findAddress()">Find Location</button>
-
-  <ng-map default-style="true" center="[{{mc.lat}}, {{mc.lng}}]" zoom="9" zoom-to-include-markers="auto">
-      <info-window position="current-location">
-      </info-window>
-      <marker ng-repeat="p in mc.locationArray" position="{{p.pos}}" data="{{mc.locationArray[$index].name}}" on-click="showData()" ; title="pos: {{p.pos}}"></marker>
-  </ng-map>
+    <div id="map-container">
+        <ng-map default-style="true" center="[{{mc.lat}}, {{mc.lng}}]" zoom="11" zoom-to-include-markers="auto">
+            <info-window position="current-location">
+            </info-window>
+            <marker ng-repeat="p in mc.locationArray" position="{{p.pos}}" data="{{mc.locationArray[$index].name}}" on-click="showData()" ; title="pos: {{p.pos}}"></marker>
+        </ng-map>
+    </div>
 
 </div>

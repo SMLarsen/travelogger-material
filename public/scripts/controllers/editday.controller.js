@@ -40,6 +40,7 @@ app.controller('EditDayController', ['MyTripFactory', '$location', '$http', 'Aut
                     .then(function(response) {
                             self.day = {};
                             console.log('Day updated');
+                            self.cancel();
                         },
                         function(err) {
                             console.log('Error updating day', err);
