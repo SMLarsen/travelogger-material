@@ -1,10 +1,20 @@
 <div>
     <div id="bodyView">
-        <h2>My Pictures</h2>
+        <h2>
+          <span>My Pictures</span>
+          <div id="searchPics">
+              <label for="searchInput" class="sr-only"><span>Search Photos</span></label>
+              <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Days" />
+          </div>
+        </h2>
     </div>
 
-    <div id="pic-container">
 
+    <div id="pic-container col-xs-12">
+        <div class="picView col-xs-12 col-md-4" ng-repeat="pic in pc.photoArray | filter:searchInput">
+            <img src="{{pic.photo_url}}" alt="{{pic.photo_caption}}"><br>
+            <caption>{{pic.photo_caption}}</caption>
+        </div>
     </div>
 
 </div>

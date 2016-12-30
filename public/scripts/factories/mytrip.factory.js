@@ -43,7 +43,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     })
                     .then(function(response) {
                             trips = response.data;
-                            console.log('My Trips:', trips);
+                            // console.log('My Trips:', trips);
                             return trips;
                         },
                         function(err) {

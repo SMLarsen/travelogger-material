@@ -37,6 +37,12 @@ var tripSchema = new Schema({
     travellers: {
         type: String
     },
+    photo_url: {
+        type: String
+    },
+    photo_caption: {
+        type: String
+    },
     date_added: {
         type: Date,
         default: Date.now

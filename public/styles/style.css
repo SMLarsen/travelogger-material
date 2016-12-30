@@ -60,7 +60,7 @@ h1 {
     font-size: 6em;
     font-style: italic;
     color: #DC143C;
-    font-family: 'Sriracha', cursive;
+    font-family: 'Trade Winds', cursive;
     font-weight: bolder;
 }
 
@@ -108,7 +108,7 @@ body {
 }
 
 .guestTrip {
-    background-color: #FF7F50;
+    background-color: 	#1d7042;
     color: white;
     border-radius: 35px 0 0 35px;
     padding-left: 15px;
@@ -201,6 +201,11 @@ body {
 .guestTripInfo h3 {
     text-align: center;
 }
+
+.picView img {
+  width: 80%;
+}
+
 
 .pageBtn {
     width: 50px;

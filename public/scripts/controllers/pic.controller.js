@@ -1,40 +1,32 @@
-app.controller("PicController", ['MyTripFactory', '$http', '$filter', '$routeParams', 'NgMap', 'GeoCoder', function(MyTripFactory, $http, $filter, $routeParams, NgMap, GeoCoder) {
+app.controller("PicController", ['MyTripFactory', '$http', '$filter', function(MyTripFactory, $http, $filter) {
     console.log('PicController started');
     var self = this;
     var myTripFactory = MyTripFactory;
-    self.newAddress = '';
-    self.location = {};
-    self.lat = '';
-    self.lng = '';
-    self.locationArray = [];
+    self.photoArray = [];
 
     // Get all trips for the user
     myTripFactory.getTrips()
         .then(function(response) {
                 var trips = response;
-                trips.forEach(buildLocationArray);
+                trips.forEach(buildPicArray);
+                console.log("photoArray:", self.photoArray);
             },
             function(err) {
-                console.log('Error getting trips', err);
+                console.log('Error getting trips for pics', err);
             });
 
-    function buildLocationArray(item, index) {
-      if (item.destination_location) {
-        self.locationArray.push(item.destination_location);
-      }
+    function buildPicArray(item, index) {
+        var pic = {
+            photo_url: item.photo_url,
+            photo_caption: item.photo_caption
+        };
+        if (item.photo_url) {
+            self.photoArray.push(pic);
+        }
     }
 
-    self.findAddress = function() {
-        GeoCoder.geocode({
-            address: self.newAddress
-        }).then(function(result) {
-            self.location = result[0].geometry.location;
-            self.lat = self.location.lat();
-            self.lng = self.location.lng();
-            console.log("Latitude: " + self.lat);
-            console.log("Longitude: " + self.lng);
-            buildLocationArray();
-        });
+    self.refresh = function() {
+        alert("Hello pics!");
     };
 
 }]); // END: PicController

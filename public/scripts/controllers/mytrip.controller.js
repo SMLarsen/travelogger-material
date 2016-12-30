@@ -12,7 +12,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
     myTripFactory.getTrips()
         .then(function(response) {
                 self.trips = response;
-                console.log('Trips returned', self.trips);
+                // console.log('Trips returned', self.trips);
                 self.trips.forEach(formatDates);
             },
             function(err) {
@@ -35,7 +35,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
                         .then(function(response) {
                                 self.trips = response;
                                 self.addTripStatus = false;
-                                console.log('Trips added', self.trips);
+                                console.log('Trips added');
                             },
                             function(err) {
                                 console.log('Error getting trips', err);
@@ -57,7 +57,7 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
                                 myTripFactory.getTrips()
                                     .then(function(response) {
                                             self.trips = response;
-                                            console.log('Trip deleted', self.trips);
+                                            console.log('Trip deleted');
                                         },
                                         function(err) {
                                             console.log('Error getting trips after delete', err);

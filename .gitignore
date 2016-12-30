@@ -3,3 +3,4 @@ node_modules
 *.log
 firebase-service-account.json
 maps.api.md
+config.js
