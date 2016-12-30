@@ -105,10 +105,11 @@ body {
 
 .searchInput {
     border-radius: 25px;
+    margin-left: -40px;
 }
 
 .guestTrip {
-    background-color: 	#1d7042;
+    background-color: 	#2d985c;
     color: white;
     border-radius: 35px 0 0 35px;
     padding-left: 15px;
@@ -120,7 +121,7 @@ body {
 .guestTrip:hover {
     bottom: -2px;
     left: 2px;
-    box-shadow: 3px 3px 1px #887f7d;
+    box-shadow: 0 0 0 #887f7d;
 }
 
 
@@ -153,12 +154,16 @@ body {
 }
 
 #daySelect {
-    width: 20%;
+    width: 15%;
     margin: 0 2px;
 }
 
 #dayDisplay {
-    width: 80%;
+    width: 75%;
+}
+
+.dayArrow {
+  width: 5%;
 }
 
 .dayTopRow {
@@ -170,13 +175,14 @@ body {
 
 .guestDay {
     margin: 1px 0 0 -70px;
-    border: 1px solid lightgrey;
+    /*border: 1px solid lightgrey;*/
+    background-color: lightgrey;
     padding: 1px 5px;
-    box-shadow: 2px 2px 1px darkgrey;
+    /*box-shadow: 2px 2px 1px darkgrey;*/
 }
 
 .guestDay:hover {
-    background-color: lightgrey;
+    background-color: darkgrey;
 }
 
 .guestDay:active {
@@ -442,7 +448,11 @@ div#map-container div[full-screen-toggle] {
 }
 
 .dayGraphic {
-    height: 40%;
-    width: 100%;
+    height: 45%;
+    width: 45%;
     margin: 2px;
+}
+
+#dayDisplay .dayMap ng-map {
+  width: 100%;
 }

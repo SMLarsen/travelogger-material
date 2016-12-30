@@ -1,37 +1,34 @@
-<div id="dayView">
-    <div id="daySelect">
+<div id="dayView col-xs-12 col-md-12">
+    <div id="daySelect" class="col-xs-12 col-md-2">
         <div id="guestSearchDay">
             <label for="searchInput" class="sr-only"><span>Search Days</span></label>
             <input class="searchInput form-control" type="text" name="searchInput" ng-model="searchInput" placeholder="Search Days" />
         </div>
 
-        <div ng-repeat="day in dc.days | filter:searchInput">
-            <div class="guestDay">
-                <a ng-click="dc.setDay($index)">
-                    <p>{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
-                </a>
-            </div>
+        <div class="guestDay" ng-repeat="day in dc.days | filter:searchInput">
+            <a ng-click="dc.setDay($index)">
+                <p>{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
+            </a>
         </div>
     </div>
 
-    <div id="dayDisplay">
-      <div class="dayTopRow">
-        <div class="dayGraphic dayMap">
-            <ng-map default-style="true" center="current-location" zoom="9">
-                <info-window position="current-location">
-                </info-window>
-                <marker ng-repeat="p in dc.locationArray" position="{{p.pos}}"></marker>
-            </ng-map>
+    <div class="dayArrow col-xs-1 col-md-1">
+        <div class="btn arrowBtn" ng-disabled="dc.leftButtonDisabled" ng-click="dc.goLeft()"><i class="pull-left fa fa-arrow-circle-o-left" aria-hidden="true"></i></div>
+    </div>
+
+    <div id="dayDisplay" class="col-xs-10 col-md-8">
+            <div class="dayGraphic dayMap col-xs-12 col--md-4">
+                <ng-map default-style="true" center="current-location" zoom="9">
+                    <info-window position="current-location">
+                    </info-window>
+                    <marker ng-repeat="p in dc.locationArray" position="{{p.pos}}"></marker>
+                </ng-map>
+            </div>
+        <div class="dayGraphic col-xs-12 col--md-4">
+            <img class="guestDayImg" src="../assets/images/DSC02680.jpg" alt="travel picture">
         </div>
-      </div>
-      <div class="dayGraphic">
-          <img class="guestDayImg" src="../assets/images/DSC02680.jpg" alt="travel picture">
-      </div>
 
         <div class="guestTabView">
-            <div class="col-xs-1 col-md-1">
-                <div class="btn arrowBtn" ng-disabled="dc.leftButtonDisabled" ng-click="dc.goLeft()"><i class="pull-left fa fa-arrow-circle-o-left" aria-hidden="true"></i></div>
-            </div>
             <div class="guestTripInfo col-xs-10 col-md-10">
                 <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
                 <p class="h4">{{dc.focusTrip.travellers}} started in {{dc.focusTrip.begin_location}}, and ended in {{dc.focusTrip.end_location}}</p>
@@ -71,9 +68,11 @@
 
                 </div>
             </div>
-            <div class="col-xs-1 col-md-1">
-                <div class="btn arrowBtn" ng-disabled="dc.rightButtonDisabled" ng-click="dc.goRight()"><i class="pull-right fa fa-arrow-circle-o-right" aria-hidden="true"></i></div>
-            </div>
+
         </div>
+    </div>
+
+    <div class="dayArrow col-xs-1 col-md-1">
+        <div class="btn arrowBtn" ng-disabled="dc.rightButtonDisabled" ng-click="dc.goRight()"><i class="pull-right fa fa-arrow-circle-o-right" aria-hidden="true"></i></div>
     </div>
 </div>
