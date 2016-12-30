@@ -12,12 +12,9 @@
 
 <div class="col-xs-12">
   <div ng-repeat="trip in tc.trips | filter:searchInput">
-      <a class="guestTrip col-xs-12 col-md-2" ng-href="#days/{{trip._id}}">
+      <a class="guestTrip col-xs-12 col-md-3" ng-href="#days/{{trip._id}}">
 
-          <h4>{{trip.trip_name}}</h4>
-          <p>From {{trip.begin_date | date:'MM/yy'}} to {{trip.end_date | date:'MM/yy'}}</p>
-          <p>Starting in {{trip.begin_location}}</p>
-          <p>Ending in {{trip.end_location}}</p>
+          <h4><i class="fa fa-globe" aria-hidden="true"></i><span>{{trip.begin_date | date:'MM/yy'}} - {{trip.trip_name}}</span></h4>
       </a>
   </div>
 </div>

@@ -7,11 +7,11 @@
 }
 
 #bootstrap-overrides .navButton:hover {
-    background-color: #c3143e;
+    background-color: #DC143C;
 }
 
 #bootstrap-overrides .navButton:focus {
-    background-color: #c3143e;
+    background-color: #DC143C;
 }
 
 #navView a {
@@ -26,13 +26,15 @@
 }
 
 .navbar-brand {
-    font-size: 1.5em;
-    font-family: 'Molle', cursive;
-    font-family: 'Rock Salt', cursive;
+    font-size: 2em;
+    font-family: 'Trade Winds', cursive;
+    /*font-style: italic;
+    font-weight: bold;*/
+    padding-top: 25px;
 }
 
 .navbar-brand:hover, .navbar-brand:focus {
-    background-color: #c3143e;
+    background-color: #DC143C;
 }
 
 #homeTag {
@@ -41,7 +43,7 @@
     font-weight: bold;
     font-size: 2.5em;
     font-family: 'Sriracha', cursive;
-    color: #c3143e;
+    color: #DC143C;
 }
 
 main {
@@ -52,7 +54,7 @@ h1 {
     text-align: center;
     font-size: 6em;
     font-style: italic;
-    color: #c3143e;
+    color: #DC143C;
     font-family: 'Sriracha', cursive;
     font-weight: bolder;
 }
@@ -71,12 +73,12 @@ h1 {
 
 .guestDayTitle {
     text-align: center;
-    color: #c3143e;
+    color: #DC143C;
     margin-bottom: 20px;
 }
 
 body {
-    background-color: white;
+    background-color: #F5F5F5;
     color: #3072AC;
 }
 
@@ -96,19 +98,17 @@ body {
     margin-top: 20px;
 }
 
-
-/*.guestTripInfo {
-  font-family: 'Tillana', cursive;
-}*/
-
 .searchInput {
     border-radius: 25px;
 }
 
 .guestTrip {
-    background-color: #cadef1;
-    padding: 10px;
-    margin: 5px;
+    background-color: #FF7F50;
+    color: white;
+    border-radius: 35px 0 0 35px;
+    padding-left: 15px;
+    width: 30%;
+    margin: 5px 15px 5px 15px;
     box-shadow: 4px 4px 2px darkgrey;
 }
 
@@ -118,14 +118,22 @@ body {
     box-shadow: 3px 3px 1px #887f7d;
 }
 
-.guestTrip h4 {
-    text-align: center;
+
+/*.guestTrip h4 {
     color: #3072AC;
+}*/
+
+.guestTrip span {
+    padding-left: 20px;
 }
 
 .guestTrip p {
     text-align: center;
     color: #3072AC;
+}
+
+.guestTrip .fa-globe {
+    font-size: 2em;
 }
 
 
@@ -152,12 +160,6 @@ body {
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
-    margin: 2px;
-}
-
-.dayGraphic {
-    height: 40%;
-    width: 50%;
     margin: 2px;
 }
 
@@ -416,8 +418,20 @@ div#map-container div[full-screen-toggle] {
     right: 100px;
 }
 
-ng-map {
+#map-container ng-map {
     display: block;
     width: 800px;
     height: 800px;
+}
+
+.dayMap ng-map {
+    display: block;
+    width: 800px;
+    height: 800px;
+}
+
+.dayGraphic {
+    height: 40%;
+    width: 100%;
+    margin: 2px;
 }
