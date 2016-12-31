@@ -27,14 +27,12 @@
             </ng-map>
         </div>
         <div class="dayGraphic col-xs-12 col--md-7">
-            <img class="guestDayImg" src="../assets/images/DSC02680.jpg" alt="travel picture">
+            <img class="guestDayImg" src="{{dc.focusDay.photo_url}}" alt="{{dc.focusDay.photo_caption}}">
         </div>
 
         <div class="guestTabView">
             <div class="guestTripInfo col-xs-10 col-md-10">
                 <h3 class="guestDayTitle">{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
-
-
                 <h4>{{dc.focusDay.end_location}}, {{dc.focusDay.weather}}</h4>
                 <p>{{dc.focusDay.narrative}}</p>
 
