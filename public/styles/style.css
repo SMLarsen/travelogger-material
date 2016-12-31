@@ -7,11 +7,11 @@
 }
 
 #bootstrap-overrides .navButton:hover {
-    background-color: #DC143C;
+    background-color: #FF3D3D;
 }
 
 #bootstrap-overrides .navButton:focus {
-    background-color: #DC143C;
+    background-color: #FF3D3D;
 }
 
 .navBarBtn {
@@ -39,7 +39,7 @@
 }
 
 .navbar-brand:hover, .navbar-brand:focus {
-    background-color: #DC143C;
+    background-color: #FF3D3D;
 }
 
 #homeTag {
@@ -48,7 +48,7 @@
     font-weight: bold;
     font-size: 2.5em;
     font-family: 'Sriracha', cursive;
-    color: #DC143C;
+    color: #FF3D3D;
 }
 
 main {
@@ -59,7 +59,7 @@ h1 {
     text-align: center;
     font-size: 6em;
     font-style: italic;
-    color: #DC143C;
+    color: #FF3D3D;
     font-family: 'Trade Winds', cursive;
     font-weight: bolder;
 }
@@ -78,13 +78,13 @@ h1 {
 
 .guestDayTitle {
     text-align: center;
-    color: #DC143C;
+    color: #FF3D3D;
     margin-bottom: 20px;
 }
 
 body {
-    background-color: #F5F5F5;
-    color: #3072AC;
+  background-color: #FFB04A;
+    color: #0E4E7C;
 }
 
 #homePics {
@@ -109,7 +109,7 @@ body {
 }
 
 .guestTrip {
-    background-color: 	#2d985c;
+    background-color: 	#FF3D3D;
     color: white;
     border-radius: 35px 0 0 35px;
     padding-left: 15px;
@@ -126,7 +126,7 @@ body {
 
 
 /*.guestTrip h4 {
-    color: #3072AC;
+    color: #0E4E7C;
 }*/
 
 .guestTrip span {
@@ -135,7 +135,7 @@ body {
 
 .guestTrip p {
     text-align: center;
-    color: #3072AC;
+    color: #0E4E7C;
 }
 
 .guestTrip .fa-globe {
@@ -178,7 +178,7 @@ body {
 .guestDay {
     margin: 1px 0 0 -70px;
     /*border: 1px solid lightgrey;*/
-    background-color: lightgrey;
+    background-color: #F49821;
     padding: 1px 5px;
     /*box-shadow: 2px 2px 1px darkgrey;*/
 }
@@ -194,12 +194,12 @@ body {
 .guestDay p {
     /*text-align: center;*/
     padding: 10px 5px 0 10px;
-    color: #3072AC;
+    color: #0E4E7C;
 }
 
 .guestDayImg {
-    max-width: 100%;
-    height: auto;
+    height: 300px;
+    max-width: auto;
 }
 
 .guestTripInfo p {
@@ -220,12 +220,12 @@ body {
     width: 50px;
     font-size: 2em;
     color: white;
-    background-color: #3072AC;
+    background-color: #1E689C;
 }
 
 .arrowBtn {
     font-size: 3em;
-    color: #3072AC;
+    color: #0E4E7C;
 }
 
 .arrowBtn:disabled {
@@ -262,7 +262,7 @@ body {
 
 .fa-plus-circle {
     font-size: 3.5em;
-    color: #3072AC;
+    color: #0E4E7C;
     position: fixed;
     bottom: 50px;
     right: 5px;
@@ -272,7 +272,7 @@ body {
     position: relative;
     top: 1px;
     font-size: 5em;
-    color: #3072AC;
+    color: #0E4E7C;
     position: absolute;
     bottom: 50px;
     right: 30px;
@@ -323,7 +323,7 @@ body {
 }
 
 .addBtn {
-    color: #3072AC;
+    color: #0E4E7C;
 }
 
 .deleteBtn {
@@ -351,7 +351,7 @@ body {
 
 .dayLabel {
     margin-top: 10px;
-    border-top: 1px solid #3072AC;
+    border-top: 1px solid #0E4E7C;
     padding: 5px 0;
 }
 
@@ -364,7 +364,7 @@ body {
 #navView {
     position: fixed;
     top: 0px;
-    background-color: #3072AC;
+    background-color: #1E689C;
     color: white;
     padding: 5px;
     width: 100%;
@@ -376,7 +376,7 @@ body {
     bottom: 0px;
     height: 30px;
     width: 100%;
-    background: #3072AC;
+    background-color: #1E689C;
 }
 
 #footerView p {

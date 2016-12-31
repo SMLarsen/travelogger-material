@@ -1,4 +1,4 @@
-app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'NgMap', 'GeoCoder', function(MyTripFactory, $http, AuthFactory, NgMap, GeoCoder) {
+app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', function(MyTripFactory, AuthFactory) {
     console.log('MyTripController started');
     var self = this;
     var myTripFactory = MyTripFactory;
@@ -25,28 +25,6 @@ app.controller('MyTripController', ['MyTripFactory', '$http', 'AuthFactory', 'Ng
         item.end_date = new Date(item.end_date);
     } // End formatDates
 
-    // Function to add a trip
-    self.addTrip = function() {
-        console.log('add trip:', self.newTrip);
-        myTripFactory.addTrip(self.newTrip)
-            .then(function(response) {
-                    self.newTrip = {};
-                    myTripFactory.getTrips()
-                        .then(function(response) {
-                                self.trips = response;
-                                self.addTripStatus = false;
-                                console.log('Trips added');
-                            },
-                            function(err) {
-                                console.log('Error getting trips', err);
-                            });
-
-                },
-                function(err) {
-                    console.log('Unable to add trip', err);
-                }
-            );
-    }; // End addTrip
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
       console.log('tripID:', tripID);

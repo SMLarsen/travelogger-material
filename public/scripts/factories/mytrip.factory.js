@@ -161,6 +161,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         console.log('addDay:', newDay);
         return authFactory.getIdToken()
             .then(function(currentUser) {
+                newDay.user_id = currentUser.id;
                 return $http({
                         method: 'POST',
                         url: '/day',
@@ -208,7 +209,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to GET all days for user
     function getUserDays(userID) {
-      console.log('getUserDays user:', userID);
+        console.log('getUserDays user:', userID);
         return authFactory.getIdToken().then(function(currentUser) {
             return $http({
                     method: 'GET',
@@ -257,6 +258,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         console.log('updateDay:', day);
         return authFactory.getIdToken()
             .then(function(currentUser) {
+                day.user_id = currentUser.id;
                 return deleteDay(day._id)
                     .then(function(response) {
                             delete day._id;

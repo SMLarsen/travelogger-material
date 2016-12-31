@@ -1,4 +1,4 @@
-app.controller('AddDayController', ['MyTripFactory', '$http', 'AuthFactory', 'NgMap', 'GeoCoder', '$location', '$routeParams', function(MyTripFactory, $http, AuthFactory, NgMap, GeoCoder, $location, $routeParams) {
+app.controller('AddDayController', ['MyTripFactory', 'AuthFactory', 'NgMap', 'GeoCoder', '$location', '$routeParams', function(MyTripFactory, AuthFactory, NgMap, GeoCoder, $location, $routeParams) {
     console.log('AddDayController started');
     var self = this;
     var myTripFactory = MyTripFactory;
