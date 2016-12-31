@@ -20,10 +20,13 @@
         <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
 
         <div class="dayGraphic dayMap col-xs-12 col--md-5">
-            <ng-map default-style="true" center="current-location" zoom="9">
-                <info-window position="current-location">
-                </info-window>
-                <marker ng-repeat="p in dc.locationArray" position="{{p.pos}}"></marker>
+            <ng-map default-style="true" center="{{dc.focusDay.end_map_location.pos}}" zoom="10">
+              <marker position="{{dc.focusDay.end_map_location.pos}}"
+                 animation="DROP"
+                 draggable="true"></marker>
+                <!-- <info-window position="current-location">
+                </info-window> -->
+                <!-- <marker ng-repeat="p in dc.locationArray" position="{{p.pos}}"></marker> -->
             </ng-map>
         </div>
         <div class="dayGraphic col-xs-12 col--md-7">
