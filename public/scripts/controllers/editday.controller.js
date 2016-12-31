@@ -4,7 +4,8 @@ app.controller('EditDayController', ['MyTripFactory', '$location', '$http', 'Aut
 
     var myTripFactory = MyTripFactory;
     var authFactory = AuthFactory;
-    var currentUser = authFactory.currentUser;
+    var currentUser = authFactory.getCurrentUser();
+    console.log('EditDayController:', currentUser);
     var dayID = $routeParams.dayID;
 
     self.day = {};
@@ -32,6 +33,7 @@ app.controller('EditDayController', ['MyTripFactory', '$location', '$http', 'Aut
     self.updateDay = function() {
         self.day.user_id = currentUser.id;
         self.day.trip_id = self.tripID;
+        console.log('EditDayController day:', self.day);
         self.findAddress(self.day.end_location)
             .then(function(result) {
                 self.day.end_map_location = self.newLocation;

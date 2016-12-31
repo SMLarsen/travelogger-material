@@ -2,8 +2,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     console.log('MyTripFactory started');
 
     var authFactory = AuthFactory;
-    var currentUser = authFactory.currentUser;
-    console.log('currentUser', currentUser);
+    var currentUser = authFactory.getCurrentUser;
     var trips = [];
     var trip = {};
     var days = [];

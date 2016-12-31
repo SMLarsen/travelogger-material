@@ -68,6 +68,37 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
         }
     }; // End getIdToken
 
+    // Get current user if not already there
+    getCurrentUser = function() {
+        if (currentUser) {
+            return currentUser;
+        } else {
+            return currentUser.getToken()
+                .then(function(idToken) {
+                    return $http({
+                            method: 'GET',
+                            url: '/privateData',
+                            headers: {
+                                id_token: idToken
+                            }
+                        })
+                        .then(function(response) {
+                                currentUser.id = response.data._id;
+                                console.log('current user authorized', currentUser.id, isUserLoggedIn);
+                                return currentUser;
+                            },
+                            function(err) {
+                                isUserLoggedIn = false;
+                                console.log('current user not registered', err);
+                                return;
+                            })
+                        .catch(function(error) {
+                            console.log("Authentication failed: ", error);
+                        });
+                });
+        }
+    };
+
     var publicApi = {
         currentUser: currentUser,
         isUserLoggedIn: isUserLoggedIn,
@@ -81,7 +112,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
             return logOut();
         },
         getcurrentUser: function() {
-            return currentUser;
+            return getCurrentUser();
         }
     };
 
