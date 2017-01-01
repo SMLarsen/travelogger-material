@@ -84,7 +84,7 @@ h1 {
 
 body {
   background-color: #FFB04A;
-    color: #0E4E7C;
+    color: #1E689C;
 }
 
 #homePics {
@@ -112,13 +112,14 @@ body {
     background-color: 	#FF3D3D;
     color: white;
     border-radius: 35px 0 0 35px;
-    padding-left: 15px;
-    width: 30%;
-    margin: 5px 15px 5px 15px;
+    padding: 2px 0 5px 15px;
+    margin: 4px;
+    margin-top: 4px;
     box-shadow: 4px 4px 2px darkgrey;
 }
 
 .guestTrip:hover {
+    color: #1E689C;
     bottom: -2px;
     left: 2px;
     box-shadow: 0 0 0 #887f7d;
@@ -126,7 +127,7 @@ body {
 
 
 /*.guestTrip h4 {
-    color: #0E4E7C;
+    color: #1E689C;
 }*/
 
 .guestTrip span {
@@ -135,7 +136,7 @@ body {
 
 .guestTrip p {
     text-align: center;
-    color: #0E4E7C;
+    color: #1E689C;
 }
 
 .guestTrip .fa-globe {
@@ -194,7 +195,7 @@ body {
 .guestDay p {
     /*text-align: center;*/
     padding: 10px 5px 0 10px;
-    color: #0E4E7C;
+    color: #1E689C;
 }
 
 .guestDayImg {
@@ -225,7 +226,7 @@ body {
 
 .arrowBtn {
     font-size: 3em;
-    color: #0E4E7C;
+    color: #1E689C;
 }
 
 .arrowBtn:disabled {
@@ -262,7 +263,7 @@ body {
 
 .fa-plus-circle {
     font-size: 3.5em;
-    color: #0E4E7C;
+    color: #1E689C;
     position: fixed;
     bottom: 50px;
     right: 5px;
@@ -272,7 +273,7 @@ body {
     position: relative;
     top: 1px;
     font-size: 5em;
-    color: #0E4E7C;
+    color: #1E689C;
     position: absolute;
     bottom: 50px;
     right: 30px;
@@ -323,7 +324,7 @@ body {
 }
 
 .addBtn {
-    color: #0E4E7C;
+    color: #1E689C;
 }
 
 .deleteBtn {
@@ -351,7 +352,7 @@ body {
 
 .dayLabel {
     margin-top: 10px;
-    border-top: 1px solid #0E4E7C;
+    border-top: 1px solid #1E689C;
     padding: 5px 0;
 }
 
