@@ -80,6 +80,7 @@ h1 {
 }
 
 .guestDayTitle {
+  width: 100%;
     text-align: center;
     color: #FF3D3D;
     margin-bottom: 20px;
@@ -98,8 +99,6 @@ body {
 
 .homeImg {
     margin: 2px;
-    /*max-width: 200px;
-  height: auto;*/
 }
 
 .guestTabView {
@@ -170,17 +169,45 @@ body {
 
 #dayView {
     width: 100%;
-    display: inline-flex;
 }
 
-#daySelect {
-    width: 15%;
-    margin: 0 2px;
+.dayDisplay {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
 }
 
-#dayDisplay {
+.dayInfo {
+  width: 40%;
+}
+
+.dayInfo p {
+    padding-left: 20px;
+}
+
+.dayInfo h3 {
+    text-align: center;
     width: 100%;
-    margin-left: 5%;
+}
+
+.dayMap {
+  width: 25%;
+}
+
+.dayPic {
+  width: 35%
+}
+
+.dayInfo {
+  display: block;
+  width: 50%;
+  padding: 0 10px;
+}
+
+.dayGraphic {
+    height: 25%;
+    width: 25%;
+    margin: 2px;
 }
 
 .dayArrowLeft {
@@ -233,16 +260,12 @@ body {
 }
 
 .guestDayImg {
-    height: 300px;
-    max-width: auto;
+    height: auto;
+    max-width: 100%;
 }
 
-.guestTripInfo p {
-    padding-left: 20px;
-}
-
-.guestTripInfo h3 {
-    text-align: center;
+.tripImg {
+  height: 300px;
 }
 
 .picView img {
@@ -437,19 +460,3 @@ div#map-container {
     width: 300px;
     height: 300px;
 }*/
-/*
-.dayMap ng-map {
-    display: block;
-    width: 300px;
-    height: 300px;
-}*/
-
-.dayGraphic {
-    height: 25%;
-    width: 25%;
-    margin: 2px;
-}
-
-#dayDisplay .dayMap ng-map {
-    width: 100%;
-}

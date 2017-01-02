@@ -1,10 +1,7 @@
-app.controller('AddTripController', ['MyTripFactory', '$location', '$http', 'AuthFactory', 'NgMap', 'GeoCoder', function(MyTripFactory, $location, $http, AuthFactory, NgMap, GeoCoder) {
+app.controller('AddTripController', ['MyTripFactory', '$scope', '$location', 'NgMap', 'GeoCoder', function(MyTripFactory, $scope, $location, NgMap, GeoCoder) {
     console.log('AddTripController started');
     var self = this;
-
     var myTripFactory = MyTripFactory;
-    var authFactory = AuthFactory;
-    var currentUser = authFactory.currentUser;
 
     self.newTrip = {};
     self.positions = [];
@@ -42,6 +39,7 @@ app.controller('AddTripController', ['MyTripFactory', '$location', '$http', 'Aut
             .then(function(result) {
                 self.newTrip.destination_location = self.newLocation;
                 buildLocationArray();
+                $scope.$apply();
             });
     }; // end pinDestinationLocation
 
@@ -51,6 +49,7 @@ app.controller('AddTripController', ['MyTripFactory', '$location', '$http', 'Aut
             .then(function(result) {
                 self.newTrip.begin_map_location = self.newLocation;
                 buildLocationArray();
+                $scope.$apply();
             });
     }; // end pinBeginLocation
 
@@ -60,6 +59,7 @@ app.controller('AddTripController', ['MyTripFactory', '$location', '$http', 'Aut
             .then(function(result) {
                 self.newTrip.end_map_location = self.newLocation;
                 buildLocationArray();
+                $scope.$apply();
             });
     }; // end pinEndLocation
 

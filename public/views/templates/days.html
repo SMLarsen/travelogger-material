@@ -7,22 +7,20 @@
         <div class="btn arrowBtn" ng-disabled="dc.rightButtonDisabled" ng-click="dc.goRight()"><i class="pull-right fa fa-arrow-circle-o-right" aria-hidden="true"></i></div>
     </div>
 
-    <div id="dayDisplay">
-        <h3 class="guestDayTitle">{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
+    <h3 class="guestDayTitle">{{dc.focusDay.date | date:'fullDate'}} -- {{dc.focusDay.tag_line}}</h3>
 
-        <div class="dayGraphic dayMap">
+    <div class="dayDisplay">
+        <div class="dayMap">
             <ng-map default-style="true" center="{{dc.focusDay.end_map_location.pos}}" zoom="10">
                 <marker position="{{dc.focusDay.end_map_location.pos}}" animation="DROP" draggable="true"></marker>
             </ng-map>
         </div>
 
-        <div class="dayGraphic">
-            <img class="guestDayImg" src="{{dc.focusDay.photo_url}}" alt="{{dc.focusDay.photo_caption}}">
-        </div>
+        <div class="dayInfo">
 
-        <div class="guestTabView">
-            <div class="guestTripInfo">
-                <h4>{{dc.focusDay.end_location}}, {{dc.focusDay.weather}}</h4>
+            <div class="dayInfo">
+                <h4>{{dc.focusDay.end_location}}</h4>
+                <p>{{dc.focusDay.weather}}</p>
                 <p>{{dc.focusDay.narrative}}</p>
 
                 <div>
@@ -53,6 +51,9 @@
                 </div>
             </div>
         </div>
-    </div>
 
+        <div class="dayPic">
+            <img class="guestDayImg" src="{{dc.focusDay.photo_url}}" alt="{{dc.focusDay.photo_caption}}">
+        </div>
+    </div>
 </div>

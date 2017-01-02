@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-xs-12 col-md-6">
-        <ng-map default-style="true" center="[{{atc.lat}}, {{atc.lng}}]" zoom-to-include-markers="auto">
+        <ng-map default-style="true" center="[{{atc.lat}}, {{atc.lng}}]" zoom-to-include-markers="true">
             <info-window position="current-location">
             </info-window>
             <marker ng-repeat="p in atc.locationArray" position="{{p.pos}}"></marker>
