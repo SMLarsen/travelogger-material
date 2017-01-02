@@ -10,6 +10,12 @@ app.controller("DayController", ['TripFactory', '$http', '$filter', '$routeParam
     self.leftButtonDisabled = true;
     self.rightButtonDisabled = false;
     self.locationArray = [];
+    // self.isMap = false;
+    // self.isPic = false;
+    // self.isPOI = false;
+    // self.isRoute = false;
+    // self.isMeal = false;
+    // self.isRecommendation = false;
 
     self.tripID = $routeParams.tripID;
     console.log('Trip Factory:', self.tripID);
@@ -40,7 +46,41 @@ app.controller("DayController", ['TripFactory', '$http', '$filter', '$routeParam
         self.focusDay = self.days[index];
         self.currentDayIndex = index;
         self.setDisabled(index);
+        setVisible();
     };
+
+    // function setVisible() {
+    //   if (self.focusDay.end_map_location.pos) {
+    //     self.isMap = true;
+    //   } else {
+    //     self.isMap = false;
+    //   }
+    //   if (self.focusDay.photo_url) {
+    //     self.isPic = true;
+    //   } else {
+    //     self.isPic = false;
+    //   }
+    //   if (self.focusDay.interesting_locations.length > 0) {
+    //     self.isPOI = true;
+    //   } else {
+    //     self.isPOI = false;
+    //   }
+    //   if (self.focusDay.meals.length > 0) {
+    //     self.isMeal = true;
+    //   } else {
+    //     self.isMeal = false;
+    //   }
+    //   if (self.focusDay.routes.length > 0) {
+    //     self.isRoute = true;
+    //   } else {
+    //     self.isRoute = false;
+    //   }
+    //   if (self.focusDay.recommendations.length > 0) {
+    //     self.isRecommendation = true;
+    //   } else {
+    //     self.isRecommendation = false;
+    //   }
+    // }
 
     // Function to page left
     self.goLeft = function() {

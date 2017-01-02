@@ -1,4 +1,4 @@
-<div id="dayView col-xs-12 col-md-12">
+<div id="dayView">
     <div id="daySelect" class="col-xs-12 col-md-2">
         <div id="guestSearchDay">
             <label for="searchInput" class="sr-only"><span>Search Days</span></label>
@@ -18,7 +18,6 @@
 
     <div id="dayDisplay" class="col-xs-10 col-md-8">
         <p class="h2">{{dc.focusTrip.begin_date | date:'MM/dd' }} to {{dc.focusTrip.end_date | date:'MM/dd' }} - {{dc.focusTrip.trip_name}}</p>
-
         <div class="dayGraphic dayMap col-xs-12 col--md-5">
             <ng-map default-style="true" center="{{dc.focusDay.end_map_location.pos}}" zoom="10">
               <marker position="{{dc.focusDay.end_map_location.pos}}"
