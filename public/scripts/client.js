@@ -16,8 +16,13 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .when('/trips', {
             templateUrl: '/views/templates/trips.html',
-            controller: 'TripController',
+            controller: 'TripsController',
             controllerAs: 'tc'
+        })
+        .when('/trip/:tripID', {
+            templateUrl: '/views/templates/trip.html',
+            controller: 'TripController',
+            controllerAs: 'gtc'
         })
         .when('/mydays/:tripID', {
             templateUrl: '/views/templates/mydays.html',

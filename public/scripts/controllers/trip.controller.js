@@ -1,27 +1,23 @@
-app.controller("TripController", ['TripFactory', '$http', '$filter', '$q', function(TripFactory, $http, $filter, $q) {
+app.controller("TripController", ['TripFactory', '$filter', '$routeParams', function(TripFactory, $filter, $routeParams) {
     console.log('TripController started');
     var self = this;
     var tripFactory = TripFactory;
 
-    self.trips = [];
+    self.tripID = $routeParams.tripID;
+    self.trip = [];
     self.days = [];
 
-    tripFactory.getTrips()
+    tripFactory.getTrip(self.tripID)
         .then(function(response) {
-                self.trips = response;
-            });
+            self.trip = response;
+        });
 
-    // Function to get all trips
-    self.getTrips = function() {
-        tripFactory.getTrips()
-            .then(function(response) {
-                    self.trips = response;
-                    console.log('All trips:', response);
-                },
-                function(err) {
-                    console.log('Unable to retrieve trips', err);
-                });
-        console.log(self.trips);
-    }; // End: tripFactory.getTrips
+    tripFactory.getDays(self.tripID)
+        .then(function(response) {
+            self.days = response;
+            // self.days.forEach(buildLocationArray);
+            // console.log('location array:', self.locationArray);
+        });
+
 
 }]); // END: TripController

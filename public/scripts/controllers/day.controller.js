@@ -1,4 +1,4 @@
-app.controller("DayController", ['TripFactory', '$http', '$filter', '$routeParams', 'NgMap', function(TripFactory, $http, $filter, $routeParams, NgMap) {
+app.controller("DayController", ['TripFactory', '$filter', '$routeParams', 'NgMap', function(TripFactory, $filter, $routeParams, NgMap) {
     console.log('DayController started');
     var self = this;
     var tripFactory = TripFactory;

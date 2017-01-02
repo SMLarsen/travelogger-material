@@ -32,8 +32,8 @@
 
 .navbar-brand {
     font-size: 2em;
-/*font-family: 'Baloo Chettan', cursive;*/
-font-family: 'Limelight', cursive;
+    /*font-family: 'Baloo Chettan', cursive;*/
+    font-family: 'Limelight', cursive;
     /*font-style: italic;
     font-weight: bold;*/
     padding-top: 25px;
@@ -106,6 +106,22 @@ body {
     margin-top: 20px;
 }
 
+.tripName {
+  text-align: center;
+  color: #FF3D3D;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.tripFact {
+    font-size: 1.2em;
+}
+
+.tripMap {
+    width: 300px;
+    height: 250px;
+}
+
 .searchInput {
     border-radius: 25px;
     margin-left: -40px;
@@ -118,7 +134,7 @@ body {
     padding: 2px 0 5px 15px;
     margin: 4px;
     margin-top: 4px;
-    box-shadow: 4px 4px 2px darkgrey;
+    box-shadow: 5px 5px 3px #F49821;
 }
 
 .guestTrip:hover {
@@ -179,15 +195,21 @@ body {
     right: 5px;
 }
 
-.guestDay {
-    margin: 1px 0 0 -70px;
-    /*border: 1px solid lightgrey;*/
+.tripDay {
+  color: white;
+    text-align: center;
+    margin: 2px;
     background-color: #F49821;
-    padding: 1px 5px;
-    /*box-shadow: 2px 2px 1px darkgrey;*/
 }
 
-.guestDay:hover {
+.tripDay p {
+  color: #FF3D3D;
+  font-weight: bolder;
+    text-align: center;
+    padding: 10px 5px 5px 5px;
+}
+
+.tripDay:hover {
     background-color: darkgrey;
 }
 

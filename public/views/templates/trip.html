@@ -1,0 +1,31 @@
+<div id="dayView">
+
+    <div class="tripMap col-xs-12 col--md-4">
+        <ng-map default-style="true" center="{{gtc.trip.destination_location.pos}}" zoom="6">
+            <marker position="{{gtc.trip.destination_location.pos}}" animation="DROP" draggable="true"></marker>
+        </ng-map>
+    </div>
+
+    <div class="col-xs-12 col-md-4">
+        <p class="tripName">{{gtc.trip.trip_name}}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Dates:</span>{{gtc.trip.begin_date | date:'MM/dd' }} to {{gtc.trip.end_date | date:'MM/dd' }}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Travellers:</span>{{gtc.trip.travellers}}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Destination:</span>{{gtc.trip.destination}}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Starting:</span>{{gtc.trip.begin_location}}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Ending:</span>{{gtc.trip.end_location}}</p>
+    </div>
+
+    <div class="dayGraphic col-xs-12 col--md-4">
+        <img class="guestDayImg" src="{{gtc.trip.photo_url}}" alt="{{gtc.trip.photo_caption}}">
+    </div>
+</div><br>
+
+<div id="tripDays" class="col-xs-12 col-md-12">
+    <div class="tripDay col-xs-12 col-md-3" ng-repeat="day in gtc.days">
+        <a ng-click="#day/$index">
+            <p>{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
+        </a>
+
+    </div>
+
+</div>
