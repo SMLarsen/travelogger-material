@@ -28,7 +28,7 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', '$location', 'Ng
 
     // // Function to update a day
     self.updateDay = function() {
-        self.day.user_id = currentUser.id;
+        // self.day.user_id = currentUser.id;
         self.day.trip_id = self.tripID;
         // console.log('EditDayController day:', self.day);
         self.findAddress(self.day.end_location)

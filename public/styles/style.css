@@ -179,19 +179,19 @@ body {
 }
 
 #dayDisplay {
-    width: 70%;
+    width: 100%;
     margin-left: 5%;
 }
 
 .dayArrowLeft {
     position: fixed;
-    height: 70px;
-    left: 220px;
+    top: 300px;
+    left: 5px;
 }
 
 .dayArrowRight {
     position: fixed;
-    height: 70px;
+    top: 300px;
     right: 5px;
 }
 
@@ -211,6 +211,15 @@ body {
 
 .tripDay:hover {
     background-color: darkgrey;
+}
+
+#viewTripBtn {
+  margin-top: 35px;
+  text-align: center;
+  color: white;
+  padding: 15px 0;
+  background-color: #FF3D3D;
+  box-shadow: 5px 5px 3px #F49821;
 }
 
 .guestDay:active {
@@ -414,8 +423,8 @@ body {
 /*Google Maps Styling*/
 
 div#map-container {
-    width: 800px;
-    height: 800px;
+    width: 50%;
+    height: auto;
     position: relative;
     color: rgb(86, 86, 86);
     font-family: Roboto, Arial, sans-serif;
@@ -423,60 +432,21 @@ div#map-container {
     font-size: 11px;
 }
 
-div#map-container div.custom-control {
-    z-index: 1;
-    direction: ltr;
-    overflow: hidden;
-    text-align: center;
-    padding: 1px 6px;
-    border-bottom-right-radius: 2px;
-    border-top-right-radius: 2px;
-    -webkit-background-clip: padding-box;
-    border-width: 1px 1px 1px 0px;
-    border-top-style: solid;
-    border-right-style: solid;
-    border-bottom-style: solid;
-    border-top-color: rgba(0, 0, 0, 0.14902);
-    border-right-color: rgba(0, 0, 0, 0.14902);
-    border-bottom-color: rgba(0, 0, 0, 0.14902);
-    -webkit-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
-    box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
-    min-width: 41px;
-    background-color: rgb(255, 255, 255);
-    background-clip: padding-box;
-}
-
-div#map-container.full-screen {
-    position: absolute;
+/*#map-container ng-map {
     display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0
-}
-
-div#map-container div[full-screen-toggle] {
-    cursor: pointer;
-    position: absolute;
-    top: 5px;
-    right: 100px;
-}
-
-#map-container ng-map {
-    display: block;
-    width: 800px;
-    height: 800px;
-}
-
+    width: 300px;
+    height: 300px;
+}*/
+/*
 .dayMap ng-map {
     display: block;
-    width: 800px;
-    height: 800px;
-}
+    width: 300px;
+    height: 300px;
+}*/
 
 .dayGraphic {
-    height: 45%;
-    width: 45%;
+    height: 25%;
+    width: 25%;
     margin: 2px;
 }
 

@@ -13,19 +13,11 @@
         <p class="tripFact"><span class="col-xs-3 col-md-5">Destination:</span>{{gtc.trip.destination}}</p>
         <p class="tripFact"><span class="col-xs-3 col-md-5">Starting:</span>{{gtc.trip.begin_location}}</p>
         <p class="tripFact"><span class="col-xs-3 col-md-5">Ending:</span>{{gtc.trip.end_location}}</p>
+        <a href="#days/{{gtc.tripID}}">
+            <h4 id="viewTripBtn">View Trip</h4></a>
     </div>
 
     <div class="dayGraphic col-xs-12 col--md-4">
         <img class="guestDayImg" src="{{gtc.trip.photo_url}}" alt="{{gtc.trip.photo_caption}}">
     </div>
-</div><br>
-
-<div id="tripDays" class="col-xs-12 col-md-12">
-    <div class="tripDay col-xs-12 col-md-3" ng-repeat="day in gtc.days">
-        <a ng-click="#day/$index">
-            <p>{{day.date | date:'MM/dd'}} - {{day.end_location}}</p>
-        </a>
-
-    </div>
-
 </div>
