@@ -5,26 +5,24 @@ app.controller('MyDayController', ['MyTripFactory', '$http', 'AuthFactory', '$ro
     var authFactory = AuthFactory;
 
     self.tripID = $routeParams.tripID;
-    console.log('MyDayController tripID:', self.tripID);
+    // console.log('MyDayController tripID:', self.tripID);
 
     self.days = [];
 
-    var currentUser = authFactory.currentUser;
-
     getDays(self.tripID);
 
-    // Function to GET days
+    // Function to GET days for a trip
     function getDays(tripID) {
         myTripFactory.getDays(tripID)
             .then(function(response) {
                     self.days = response;
-                    console.log('Days returned', self.days);
+                    // console.log('Days returned', self.days);
+                    return;
                 },
                 function(err) {
                     console.log('Error getting days', err);
                 });
     } // End getDays
-
 
     // Function to Delete a day
     self.deleteDay = function(dayID, tripID) {

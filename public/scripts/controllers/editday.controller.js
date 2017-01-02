@@ -1,11 +1,7 @@
-app.controller('EditDayController', ['MyTripFactory', '$location', '$http', 'AuthFactory', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, $location, $http, AuthFactory, NgMap, GeoCoder, $routeParams) {
+app.controller('EditDayController', ['MyTripFactory', '$scope', '$location', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, $scope, $location, NgMap, GeoCoder, $routeParams) {
     console.log('EditDayController started');
     var self = this;
-
     var myTripFactory = MyTripFactory;
-    var authFactory = AuthFactory;
-    var currentUser = authFactory.getCurrentUser();
-    console.log('EditDayController:', currentUser);
     var dayID = $routeParams.dayID;
 
     self.day = {};
@@ -23,7 +19,8 @@ app.controller('EditDayController', ['MyTripFactory', '$location', '$http', 'Aut
                 self.day = response;
                 self.tripID = self.day.trip_id;
                 self.day.date = new Date(self.day.date);
-                console.log('Day returned:', self.day);
+                // console.log('Day returned:', self.day);
+                $scope.$apply();
             },
             function(err) {
                 console.log('Error getting day', err);
@@ -33,11 +30,11 @@ app.controller('EditDayController', ['MyTripFactory', '$location', '$http', 'Aut
     self.updateDay = function() {
         self.day.user_id = currentUser.id;
         self.day.trip_id = self.tripID;
-        console.log('EditDayController day:', self.day);
+        // console.log('EditDayController day:', self.day);
         self.findAddress(self.day.end_location)
             .then(function(result) {
                 self.day.end_map_location = self.newLocation;
-                console.log('updateDay post geocode:', self.day);
+                // console.log('updateDay post geocode:', self.day);
                 myTripFactory.updateDay(self.day)
                     .then(function(response) {
                             self.day = {};

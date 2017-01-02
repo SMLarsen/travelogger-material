@@ -1,4 +1,4 @@
-app.controller("PicController", ['AuthFactory', 'MyTripFactory', '$filter', function(AuthFactory, MyTripFactory, $filter) {
+app.controller("PicController", ['AuthFactory', 'MyTripFactory', '$scope', '$filter', function(AuthFactory, MyTripFactory, $scope, $filter) {
     console.log('PicController started');
     var self = this;
     var myTripFactory = MyTripFactory;
@@ -14,15 +14,14 @@ app.controller("PicController", ['AuthFactory', 'MyTripFactory', '$filter', func
           .then(function(response) {
                   var trips = response;
                   trips.forEach(buildPicArray);
-                  console.log("photoArray:", self.photoArray);
                   userID = trips[0].user_id;
-                  console.log('pic controller userID:', userID);
                   // Get all days for the user
                   myTripFactory.getUserDays(userID)
                       .then(function(response) {
                               var days = response;
                               days.forEach(buildPicArray);
                               console.log("photoArray:", self.photoArray);
+                              $scope.$apply();
                           },
                           function(err) {
                               console.log('Error getting days for pics', err);

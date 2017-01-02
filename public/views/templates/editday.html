@@ -1,7 +1,6 @@
 <div>
     <div id="bodyView">
         <h2>Change a Day</h2>
-        <p>{{edc.day}}</p>
     </div>
 
     <div>
@@ -26,10 +25,10 @@
                 <input type="text" class="col-xs-12 col-md-3" name="weather" ng-model="edc.day.weather" placeholder="Today's Weather">
             </div>
             <div class="form-group">
-                <input type="textarea" class="col-xs-12 col-md-12" name="narrative" ng-model="edc.day.narrative" placeholder="Describe the day">
+                <textarea rows="4" cols="150" class="col-xs-12 col-md-11" name="narrative" ng-model="edc.day.narrative" placeholder="Describe the day"></textarea>
             </div>
             <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-6" name="photo_caption" ng-model="edc.day.photo_caption" placeholder="Photo Caption">
+                <input type="text" class="col-xs-12 col-md-5" name="photo_caption" ng-model="edc.day.photo_caption" placeholder="Photo Caption">
             </div>
             <div class="form-group">
                 <input type="text" class="col-xs-12 col-md-6" name="photo_url" ng-model="edc.day.photo_url" placeholder="Photo URL">
@@ -170,7 +169,7 @@
                 <input type="text" class="col-xs-12 col-md-5" name="lodging_address" ng-model="edc.day.lodging_address" placeholder="Address">
             </div><br>
             <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-12" name="lodging_reference" ng-model="edc.day.lodging_reference" placeholder="Reference">
+                <input type="text" class="col-xs-12 col-md-11" name="lodging_reference" ng-model="edc.day.lodging_reference" placeholder="Reference">
             </div>
         </div><br>
 
@@ -197,9 +196,5 @@
                 </table>
             </div>
         </div>
-
-            <div class="spacer">
-
-            </div>
     </form>
 </div>
