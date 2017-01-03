@@ -11,12 +11,10 @@
 
     <div class="dayDisplay">
         <div class="dayMap">
-            <ng-map default-style="true" center="{{dc.focusDay.end_map_location.pos}}" zoom="10">
+            <ng-map default-style="true" center="{{dc.focusDay.end_map_location.pos}}" zoom="8">
                 <marker position="{{dc.focusDay.end_map_location.pos}}" animation="DROP" draggable="true"></marker>
             </ng-map>
         </div>
-
-        <div class="dayInfo">
 
             <div class="dayInfo">
                 <h4>{{dc.focusDay.end_location}}</h4>
@@ -50,7 +48,6 @@
                     </ul>
                 </div>
             </div>
-        </div>
 
         <div class="dayPic">
             <img class="guestDayImg" src="{{dc.focusDay.photo_url}}" alt="{{dc.focusDay.photo_caption}}">
