@@ -1,4 +1,4 @@
-app.controller('EditTripController', ['MyTripFactory', '$location', '$http', 'AuthFactory', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, $location, $http, AuthFactory, NgMap, GeoCoder, $routeParams) {
+app.controller('EditTripController', ['MyTripFactory', '$location', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, $location, NgMap, GeoCoder, $routeParams) {
     console.log('EditTripController started');
     var self = this;
 

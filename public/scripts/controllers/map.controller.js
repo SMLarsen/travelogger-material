@@ -1,4 +1,4 @@
-app.controller("MapController", ['MyTripFactory', '$http', '$filter', '$routeParams', 'NgMap', 'GeoCoder', function(MyTripFactory, $http, $filter, $routeParams, NgMap, GeoCoder) {
+app.controller("MapController", ['MyTripFactory', '$filter', '$routeParams', 'NgMap', 'GeoCoder', function(MyTripFactory, $filter, $routeParams, NgMap, GeoCoder) {
     console.log('MapController started');
     var self = this;
     var myTripFactory = MyTripFactory;
