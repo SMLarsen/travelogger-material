@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var app = express();
 var path = require('path');
@@ -8,11 +9,8 @@ var day = require('./routes/day');
 var guest = require('./routes/guest');
 var privateData = require('./routes/private-data');
 var mongoConnection = require('./modules/mongo-connection');
-
-
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
-
 
 // Middleware on ALL requests
 app.use(express.static('public'));
