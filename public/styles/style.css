@@ -178,7 +178,7 @@ body {
 }
 
 .dayInfo {
-  width: 40%;
+  width: 90%;
 }
 
 .dayInfo p {
@@ -191,11 +191,11 @@ body {
 }
 
 .dayMap {
-  width: 25%;
+  width: 20%;
 }
 
 .dayPic {
-  width: 35%
+  width: 40%
 }
 
 .dayInfo {

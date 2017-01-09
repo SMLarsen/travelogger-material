@@ -1,10 +1,7 @@
-app.controller('AddDayController', ['MyTripFactory', 'AuthFactory', 'NgMap', 'GeoCoder', '$location', '$routeParams', function(MyTripFactory, AuthFactory, NgMap, GeoCoder, $location, $routeParams) {
+app.controller('AddDayController', ['MyTripFactory', 'NgMap', 'GeoCoder', '$location', '$routeParams', function(MyTripFactory, NgMap, GeoCoder, $location, $routeParams) {
     console.log('AddDayController started');
     var self = this;
     var myTripFactory = MyTripFactory;
-    var authFactory = AuthFactory;
-    var currentUser = authFactory.currentUser;
-    console.log('addDay currentUser.id', currentUser.id);
 
     self.tripID = $routeParams.tripID;
 
@@ -43,17 +40,18 @@ app.controller('AddDayController', ['MyTripFactory', 'AuthFactory', 'NgMap', 'Ge
 
     // // Function to add a day
     self.addDay = function() {
-        self.newDay.user_id = currentUser.id;
         self.newDay.trip_id = self.tripID;
+        console.log('addDay:', self.newDay);
         self.findAddress(self.newDay.end_location)
             .then(function(result) {
-              self.newDay.end_map_location = self.newLocation;
-                // console.log('addDay post geocode:', self.newDay);
+                self.newDay.end_map_location = self.newLocation;
+                console.log('addDay post geocode:', self.newDay);
                 myTripFactory.addDay(self.newDay)
                     .then(function(response) {
                             self.newDay = {};
                             self.days = response;
                             console.log('Day added');
+                            self.cancel();
                         },
                         function(err) {
                             console.log('Error adding day', err);
@@ -61,16 +59,24 @@ app.controller('AddDayController', ['MyTripFactory', 'AuthFactory', 'NgMap', 'Ge
             });
     }; // End addDay
 
-    function locationGeocode(address) {
-        console.log('address to geocode:', address);
-        GeoCoder.geocode({
-                address: address
-            })
-            .then(function(result) {
-                console.log('Address geocode result:', result[0]);
-                self.newDay.end_map_location = result[0];
-            });
-    }
+    self.findAddress = function(address) {
+        return GeoCoder.geocode({
+            address: address
+        }).then(function(result) {
+            var location = result[0].geometry.location;
+            self.lat = location.lat();
+            self.lng = location.lng();
+            self.newLocation = {
+                pos: [self.lat, self.lng]
+            };
+        });
+    };
+
+    // Add POI row to new Day
+    self.addPOIRow = function() {
+        self.newDay.routes.push(angular.copy(self.newPOI));
+        self.newPOI = {};
+    }; // End addPOIRow
 
     // Add route row to new Day
     self.addRouteRow = function() {
@@ -96,22 +102,9 @@ app.controller('AddDayController', ['MyTripFactory', 'AuthFactory', 'NgMap', 'Ge
         self.newRecommendation = {};
     }; // End addRecommendation
 
-    self.findAddress = function(address) {
-        return GeoCoder.geocode({
-            address: address
-        }).then(function(result) {
-            var location = result[0].geometry.location;
-            self.lat = location.lat();
-            self.lng = location.lng();
-            self.newLocation = {
-                pos: [self.lat, self.lng]
-            };
-        });
-    };
-
     self.cancel = function() {
         self.newDay = {};
-        $location.path('mydays/:' + self.tripID);
+        $location.path('mydays/' + self.tripID);
     };
 
 }]); // END: MyTripController

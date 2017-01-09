@@ -11,6 +11,7 @@
     "angularfire": "^2.1.0",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "firebase": "^3.6.3",
     "firebase-admin": "^4.0.3",
@@ -22,8 +23,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/app.js"
+    "test": "nodemon server/app.js",
+    "start": "node server/app.js"
   },
   "repository": {
     "type": "git",
