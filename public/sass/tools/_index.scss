@@ -1,40 +1,4 @@
 // globally used mixins and functions. It’s important not to output any CSS in the first 2 layers.
-@mixin month_button {
-  width: 120px;
-  height: 120px;
-  border-radius: 100%;
-  margin: 10px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.7em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  outline: none;
-  &:target {
-    outline: none;
-  }
-  &:active {
-    outline: none;
-  }
-  @media (max-width: $mobile-width) {
-    width: 100px;
-    height: 100px;
-    padding: 0px;
-    margin: 5px;
-  }
-}
-
-@mixin category_toggle {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 1px solid gainsboro;
-  margin-bottom: 10px;
-  position: absolute;
-  margin-left: -65px;
-  background-position: center;
-  background-repeat: no-repeat;
-  outline: none;
-}
 
 @mixin header_text {
   font-size: 5em;
@@ -50,26 +14,39 @@
   }
 }
 
-@mixin button {
-  background: $detail-color;
-  color: white;
-  border: 1px solid $accent-color;
-  border-radius: 15px;
-  padding: 20px;
-  outline: none;
-  &:hover {
-    background-color: lighten($detail-color, 10%);
+@mixin header_button {
+  font-size: 3em;
+  &:hover,
+  &:focus {
+    background-color: $highlight-color;
   }
 }
 
-@mixin secondary_button {
-  background: lighten($detail-color, 20%);
-  color: white;
-  border: 1px solid $accent-color;
-  border-radius: 15px;
-  padding: 20px;
-  outline: none;
-  &:hover {
-    background-color: lighten($detail-color, 25%);
+@mixin arrow_button($side) {
+  font-size: 1em;
+  color: $accent-color;
+  position: fixed;
+  top: 300px;
+  #{$side}: 5px;
+  &:disabled {
+      color: lighten($accent-color, 20%);
   }
+  &:hover {
+      color: darken($accent-color, 10%);
+  }
+}
+
+@mixin side_button($color, $bottom) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  font-size: 3.5em;
+  color: $color;
+  bottom: $bottom;
+  right: 5px;
+  height: 70px;
+  width: 70px;
+  line-height: 70px;
+  border-radius: 35px;
 }
