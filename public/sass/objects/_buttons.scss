@@ -14,11 +14,11 @@
     }
 }
 
-.dayArrowLeft {
+.arrowLeft {
     @include arrow_button(left);
 }
 
-.dayArrowRight {
+.arrowRight {
     @include arrow_button(right);
 }
 

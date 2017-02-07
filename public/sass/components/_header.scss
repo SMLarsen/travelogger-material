@@ -1,0 +1,19 @@
+.navBarBtn {
+    width: 50px;
+    text-align: center;
+}
+
+#navView {
+    position: fixed;
+    top: 0px;
+    background-color: $accent-color;
+    color: white;
+    padding: 5px;
+    width: 100%;
+}
+
+#navView a {
+    color: white;
+    margin: 5px;
+    border-radius: 10px;
+}

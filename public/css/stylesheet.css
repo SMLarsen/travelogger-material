@@ -7,25 +7,6 @@
 #bootstrap-overrides .navButton:focus {
   background-color: #FF3D3D; }
 
-.navBarBtn {
-  width: 50px;
-  text-align: center; }
-
-#navView a {
-  /*border: 2px solid white;*/
-  color: white;
-  margin: 5px;
-  border-radius: 10px; }
-
-#homeTag {
-  text-align: center;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 2.5em;
-  font-family: 'Sriracha', cursive;
-  color: #FF3D3D;
-  margin: 0 0 15px 0; }
-
 main {
   margin: 80px; }
 
@@ -41,205 +22,12 @@ h1 {
 .h2 {
   text-align: center; }
 
-.bottomMargin {
-  margin-bottom: 30px; }
-
 .h4 {
   text-align: center; }
-
-.guestDayTitle {
-  width: 100%;
-  text-align: center;
-  color: #FF3D3D;
-  margin-bottom: 20px; }
 
 body {
   background-color: #FFB04A;
   color: #1E689C; }
-
-#homePics {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: space-around; }
-
-.homeImg {
-  margin: 2px; }
-
-.guestTabView {
-  margin-top: 20px; }
-
-.tripName {
-  text-align: center;
-  color: #FF3D3D;
-  font-size: 2em;
-  font-weight: bold; }
-
-.tripFact {
-  font-size: 1.2em; }
-
-.searchInput {
-  border-radius: 25px;
-  margin-left: -40px; }
-
-.guestTrip {
-  background-color: #FF3D3D;
-  color: white;
-  border-radius: 35px 0 0 35px;
-  padding: 2px 0 5px 15px;
-  margin: 4px;
-  margin-top: 4px;
-  box-shadow: 5px 5px 3px #F49821; }
-
-.guestTrip:hover {
-  color: #1E689C;
-  bottom: -2px;
-  left: 2px;
-  box-shadow: 0 0 0 #887f7d; }
-
-/*.guestTrip h4 {
-    color: $accent-color;
-}*/
-.guestTrip span {
-  padding-left: 20px; }
-
-.guestTrip p {
-  text-align: center;
-  color: #1E689C; }
-
-.guestTrip .fa-globe {
-  font-size: 2em; }
-
-/*#guestSearchDay {
-  margin: 1px -300px 0 -90px;
-  width: 100%
-}*/
-#dayView {
-  width: 100%; }
-
-.dayDisplay {
-  width: 100%;
-  display: inline-flex;
-  justify-content: space-between; }
-
-.dayInfo {
-  width: 90%; }
-
-.dayInfo p {
-  padding-left: 20px; }
-
-.dayInfo h3 {
-  text-align: center;
-  width: 100%; }
-
-.dayMap {
-  width: 20%; }
-
-.dayPic {
-  width: 40%; }
-
-.dayInfo {
-  display: block;
-  width: 50%;
-  padding: 0 10px; }
-
-.dayGraphic {
-  height: 25%;
-  width: 25%;
-  margin: 2px; }
-
-.tripDay {
-  color: white;
-  text-align: center;
-  margin: 2px;
-  background-color: #F49821; }
-
-.tripDay p {
-  color: #FF3D3D;
-  font-weight: bolder;
-  text-align: center;
-  padding: 10px 5px 5px 5px; }
-
-.tripDay:hover {
-  background-color: darkgrey; }
-
-#viewTripBtn {
-  margin-top: 35px;
-  text-align: center;
-  color: white;
-  padding: 15px 0;
-  background-color: #FF3D3D;
-  box-shadow: 5px 5px 3px #F49821; }
-
-.guestDay:active {
-  background-color: lightgrey; }
-
-.guestDay p {
-  /*text-align: center;*/
-  padding: 10px 5px 0 10px;
-  color: #1E689C; }
-
-.guestDayImg {
-  height: auto;
-  max-width: 100%; }
-
-.tripImg {
-  height: 300px; }
-
-.picView img {
-  width: 90%;
-  height: auto; }
-
-.daySection input {
-  margin: 3px 3px; }
-
-#guestSearchDay {
-  margin: 5px 5px 15px 5px;
-  padding: 5px 5px 0 5px; }
-
-.top-buffer {
-  margin-top: 20px; }
-
-.tripInfo {
-  font-size: 1.2em; }
-
-.tripInfo .title {
-  text-align: right;
-  font-weight: 200; }
-
-.dayTable th {
-  text-align: center;
-  color: grey; }
-
-.dayLabel {
-  margin-top: 10px;
-  border-top: 1px solid #1E689C;
-  padding: 5px 0; }
-
-.daySubLabel {
-  margin-top: 10px;
-  border-top: 1px solid #d5d9de;
-  padding: 5px 0; }
-
-#navView {
-  position: fixed;
-  top: 0px;
-  background-color: #1E689C;
-  color: white;
-  padding: 5px;
-  width: 100%; }
-
-#footerView {
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  height: 30px;
-  width: 100%;
-  background-color: #1E689C; }
-
-#footerView p {
-  padding-top: 3px;
-  text-align: center;
-  color: white; }
 
 .navButton {
   font-size: 3em; }
@@ -256,26 +44,26 @@ body {
     padding-top: 25px;
     padding-bottom: 45px; }
 
-.dayArrowLeft {
-  font-size: 1em;
+.arrowLeft {
+  font-size: 3em;
   color: #1E689C;
   position: fixed;
   top: 300px;
   left: 5px; }
-  .dayArrowLeft:disabled {
+  .arrowLeft:disabled {
     color: #459ddb; }
-  .dayArrowLeft:hover {
+  .arrowLeft:hover {
     color: #164b71; }
 
-.dayArrowRight {
-  font-size: 1em;
+.arrowRight {
+  font-size: 3em;
   color: #1E689C;
   position: fixed;
   top: 300px;
   right: 5px; }
-  .dayArrowRight:disabled {
+  .arrowRight:disabled {
     color: #459ddb; }
-  .dayArrowRight:hover {
+  .arrowRight:hover {
     color: #164b71; }
 
 .sideBtnSave {
@@ -338,14 +126,6 @@ body {
 .updateBtn {
   font-size: 1.5em; }
 
-.btnGroup {
-  text-align: center; }
-
-.addDayBtnGroup {
-  position: fixed;
-  left: 0;
-  bottom: 30px; }
-
 .editBtn {
   color: green; }
 
@@ -383,3 +163,179 @@ div#map-container {
   font-family: Roboto, Arial, sans-serif;
   -webkit-user-select: none;
   font-size: 11px; }
+
+#footerView {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 30px;
+  width: 100%;
+  background-color: #1E689C; }
+
+#footerView p {
+  padding-top: 3px;
+  text-align: center;
+  color: white; }
+
+.navBarBtn {
+  width: 50px;
+  text-align: center; }
+
+#navView {
+  position: fixed;
+  top: 0px;
+  background-color: #1E689C;
+  color: white;
+  padding: 5px;
+  width: 100%; }
+
+#navView a {
+  color: white;
+  margin: 5px;
+  border-radius: 10px; }
+
+#homeTag {
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 2.5em;
+  font-family: 'Sriracha', cursive;
+  color: #FF3D3D;
+  margin: 0 0 15px 0; }
+
+#homePics {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-around; }
+
+.homeImg {
+  margin: 2px; }
+
+#dayView {
+  width: 100%; }
+
+.guestDayTitle {
+  width: 100%;
+  text-align: center;
+  color: #FF3D3D;
+  margin-bottom: 20px; }
+
+.dayDisplay {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between; }
+
+.dayInfo {
+  width: 90%; }
+
+.dayInfo p {
+  padding-left: 20px; }
+
+.dayInfo h3 {
+  text-align: center;
+  width: 100%; }
+
+.dayMap {
+  width: 20%; }
+
+.dayPic {
+  width: 40%; }
+
+.dayInfo {
+  display: block;
+  width: 50%;
+  padding: 0 10px; }
+
+.dayGraphic {
+  height: 25%;
+  width: 25%;
+  margin: 2px; }
+
+.guestDay:active {
+  background-color: lightgrey; }
+
+.guestDay p {
+  /*text-align: center;*/
+  padding: 10px 5px 0 10px;
+  color: #1E689C; }
+
+.guestDayImg {
+  height: auto;
+  max-width: 100%; }
+
+.tripName {
+  text-align: center;
+  color: #FF3D3D;
+  font-size: 2em;
+  font-weight: bold; }
+
+.tripImg {
+  height: 300px; }
+
+.tripFact {
+  font-size: 1.2em; }
+
+.searchInput {
+  border-radius: 25px;
+  margin-left: -40px; }
+
+.guestTrip {
+  background-color: #FF3D3D;
+  color: white;
+  border-radius: 35px 0 0 35px;
+  padding: 2px 0 5px 15px;
+  margin: 4px;
+  margin-top: 4px;
+  box-shadow: 5px 5px 3px #F49821; }
+
+.guestTrip:hover {
+  color: #1E689C;
+  bottom: -2px;
+  left: 2px;
+  box-shadow: 0 0 0 #887f7d; }
+
+.guestTrip span {
+  padding-left: 20px; }
+
+.guestTrip p {
+  text-align: center;
+  color: #1E689C; }
+
+.guestTrip .fa-globe {
+  font-size: 2em; }
+
+#viewTripBtn {
+  margin-top: 35px;
+  text-align: center;
+  color: white;
+  padding: 15px 0;
+  background-color: #FF3D3D;
+  box-shadow: 5px 5px 3px #F49821; }
+
+.picView img {
+  width: 90%;
+  height: auto; }
+
+.daySection input {
+  margin: 3px 3px; }
+
+.dayTable th {
+  text-align: center;
+  color: grey; }
+
+.dayLabel {
+  margin-top: 10px;
+  border-top: 1px solid #1E689C;
+  padding: 5px 0; }
+
+.daySubLabel {
+  margin-top: 10px;
+  border-top: 1px solid #d5d9de;
+  padding: 5px 0; }
+
+.tripInfo {
+  font-size: 1.2em; }
+
+.tripInfo .title {
+  text-align: right;
+  font-weight: 200; }
