@@ -1,0 +1,25 @@
+// reset and/or normalize styles, box-sizing definition, etc. This is the first layer which generates actual CSS.
+
+body,
+html,
+#map-container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.carousel,
+.nav,
+.pagination,
+.panel-title a {
+    cursor: pointer;
+}
+
+#bootstrap-overrides .navButton:hover {
+    background-color: $highlight-color;
+}
+
+#bootstrap-overrides .navButton:focus {
+    background-color: $highlight-color;
+}

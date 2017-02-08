@@ -1,0 +1,82 @@
+.navButton {
+    @include header_button;
+}
+
+.navbar-brand {
+    @include header_button;
+    font-family: 'Limelight', cursive;
+    padding-top: 25px;
+
+    &:focus,
+    &:hover {
+        padding-top: 25px;
+        padding-bottom: 45px;
+    }
+}
+
+.arrowLeft {
+    @include arrow_button(left);
+}
+
+.arrowRight {
+    @include arrow_button(right);
+}
+
+.sideBtnSave {
+    @include side_button(green, 100px);
+}
+
+.sideBtnCancel {
+    @include side_button(red, 50px);
+}
+
+.fa-plus-circle {
+    @include side_button($accent-color, 50px);
+}
+
+.fa-calendar {
+    position: relative;
+    top: 1px;
+    font-size: 5em;
+    color: $accent-color;
+    position: absolute;
+    padding-top: 25px;
+    right: 60px;
+}
+
+.fa-plus,
+.addBtn,
+.cancelBtn,
+.deleteBtn,
+.editBtn,
+.pinBtn,
+.updateBtn {
+    font-size: 1.5em;
+}
+
+.editBtn {
+    color: green;
+}
+
+.addBtn {
+    color: $accent-color;
+}
+
+.deleteBtn {
+    padding-left: 5px;
+    color: red;
+}
+
+.pinBtn {
+    margin-left: 15px;
+    width: 20px;
+}
+
+.cancelBtn,
+.pinBtn {
+    color: red;
+}
+
+.updateBtn {
+    color: green;
+}

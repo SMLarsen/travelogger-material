@@ -22,7 +22,10 @@
     "ngmap": "^1.17.8",
     "node-sass": "^4.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  },
   "scripts": {
     "test": "nodemon server/app.js",
     "start": "node server/app.js"
