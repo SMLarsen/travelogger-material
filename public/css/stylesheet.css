@@ -151,10 +151,6 @@ body {
 .updateBtn {
   color: green; }
 
-/*Google Maps Styling*/
-.angular-google-map-container {
-  height: 100%; }
-
 .tripMap {
   width: 300px;
   height: 250px; }
@@ -320,6 +316,10 @@ div#map-container {
 .picView img {
   width: 90%;
   height: auto; }
+
+.picCaption {
+  font-weight: bold;
+  margin: 5px 0 10px 5px; }
 
 .daySection input {
   margin: 3px 3px; }
