@@ -7,18 +7,13 @@ h1 {
     font-size: 6em;
     font-style: italic;
     color: $highlight-color;
-    /*font-family: 'Baloo Chettan', cursive;*/
     font-family: 'Limelight', cursive;
     font-weight: bolder;
 }
 
-.h2 {
-    text-align: center;
-}
-
-.h4 {
-    text-align: center;
-}
+// .h4 {
+//     text-align: center;
+// }
 
 body {
     background-color: $main-color;

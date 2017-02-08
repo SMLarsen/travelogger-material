@@ -1,14 +1,11 @@
-<div>
-    <div id="bodyView">
-        <h2>My Trips Map</h2>
-    </div>
+<h2>My Trips Map</h2>
 
-    <div id="map-container" class="container">
-        <ng-map default-style="true" center="[{{mc.lat}}, {{mc.lng}}]" zoom="11" zoom-to-include-markers="auto">
-            <info-window position="current-location">
-            </info-window>
-            <marker ng-repeat="p in mc.locationArray" position="{{p.pos}}" data="{{mc.locationArray[$index].name}}" on-click="showData()" ; title="pos: {{p.pos}}"></marker>
-        </ng-map>
-    </div>
-
+<div id="map-container">
+    <!-- <ng-map default-style="true" center="[{{mc.lat}}, {{mc.lng}}]" zoom="5"> -->
+    <ng-map id="map-canvas" default-style="false" style="height: 400px; display:block; " center="[{{mc.lat}}, {{mc.lng}}]" zoom-to-include-markers="auto">
+        <!-- <ng-map default-style="true" center="[{{mc.lat}}, {{mc.lng}}]" zoom="2" zoom-to-include-markers="auto"> -->
+        <info-window position="current-location">
+        </info-window>
+        <marker ng-repeat="p in mc.locationArray" position="{{p.pos}}" data="{{mc.locationArray[$index].name}}" on-click="showData()" ; title="pos: {{p.pos}}"></marker>
+    </ng-map>
 </div>

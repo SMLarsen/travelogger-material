@@ -1,4 +1,15 @@
-.nav, .pagination, .carousel, .panel-title a {
+body,
+html,
+#map-container {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0; }
+
+.carousel,
+.nav,
+.pagination,
+.panel-title a {
   cursor: pointer; }
 
 #bootstrap-overrides .navButton:hover {
@@ -15,15 +26,8 @@ h1 {
   font-size: 6em;
   font-style: italic;
   color: #FF3D3D;
-  /*font-family: 'Baloo Chettan', cursive;*/
   font-family: 'Limelight', cursive;
   font-weight: bolder; }
-
-.h2 {
-  text-align: center; }
-
-.h4 {
-  text-align: center; }
 
 body {
   background-color: #FFB04A;
@@ -149,20 +153,21 @@ body {
 
 /*Google Maps Styling*/
 .angular-google-map-container {
-  height: 100px; }
+  height: 100%; }
 
 .tripMap {
   width: 300px;
   height: 250px; }
 
 div#map-container {
-  width: 50%;
-  height: auto;
-  position: relative;
-  color: #565656;
-  font-family: Roboto, Arial, sans-serif;
-  -webkit-user-select: none;
-  font-size: 11px; }
+  position: relative; }
+
+#map_canvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
 
 #footerView {
   position: fixed;

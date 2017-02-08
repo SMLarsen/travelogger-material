@@ -1,7 +1,6 @@
 /*Google Maps Styling*/
-
 .angular-google-map-container {
-    height: 100px;
+    height: 100%;
 }
 
 .tripMap {
@@ -10,11 +9,20 @@
 }
 
 div#map-container {
-    width: 50%;
-    height: auto;
     position: relative;
-    color: rgb(86, 86, 86);
-    font-family: Roboto, Arial, sans-serif;
-    -webkit-user-select: none;
-    font-size: 11px;
+    // width: 50%;
+    // height: auto;
+    // position: relative;
+    // color: rgb(86, 86, 86);
+    // font-family: Roboto, Arial, sans-serif;
+    // -webkit-user-select: none;
+    // font-size: 11px;
+}
+
+#map_canvas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
