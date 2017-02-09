@@ -1,0 +1,58 @@
+.tripName {
+  text-align: center;
+  color: $highlight-color;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.tripImg {
+  height: 300px;
+}
+
+.tripFact {
+    font-size: 1.2em;
+}
+
+.searchInput {
+    border-radius: 25px;
+    margin-left: -40px;
+}
+
+.guestTrip {
+    background-color: $highlight-color;
+    color: white;
+    border-radius: 35px 0 0 35px;
+    padding: 2px 0 5px 15px;
+    margin: 4px;
+    margin-top: 4px;
+    box-shadow: 5px 5px 3px #F49821;
+}
+
+.guestTrip:hover {
+    color: $accent-color;
+    bottom: -2px;
+    left: 2px;
+    box-shadow: 0 0 0 #887f7d;
+}
+
+.guestTrip span {
+    padding-left: 20px;
+}
+
+.guestTrip p {
+    text-align: center;
+    color: $accent-color;
+}
+
+.guestTrip .fa-globe {
+    font-size: 2em;
+}
+
+#viewTripBtn {
+  margin-top: 35px;
+  text-align: center;
+  color: white;
+  padding: 15px 0;
+  background-color: $highlight-color;
+  box-shadow: 5px 5px 3px #F49821;
+}

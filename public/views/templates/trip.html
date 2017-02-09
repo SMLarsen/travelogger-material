@@ -1,23 +1,23 @@
 <div id="dayView">
 
     <div class="tripMap col-xs-12 col--md-4">
-        <ng-map default-style="true" center="{{gtc.trip.destination_location.pos}}" zoom="6">
-            <marker position="{{gtc.trip.destination_location.pos}}" animation="DROP" draggable="true"></marker>
+        <ng-map default-style="true" center="{{gtc.data.trip.destination_location.pos}}" zoom="6">
+            <marker position="{{gtc.data.trip.destination_location.pos}}" animation="DROP" draggable="true"></marker>
         </ng-map>
     </div>
 
     <div class="col-xs-12 col-md-4">
-        <p class="tripName">{{gtc.trip.trip_name}}</p>
-        <p class="tripFact"><span class="col-xs-3 col-md-5">Dates:</span>{{gtc.trip.begin_date | date:'MM/dd' }} to {{gtc.trip.end_date | date:'MM/dd' }}</p>
-        <p class="tripFact"><span class="col-xs-3 col-md-5">Travellers:</span>{{gtc.trip.travellers}}</p>
-        <p class="tripFact"><span class="col-xs-3 col-md-5">Destination:</span>{{gtc.trip.destination}}</p>
-        <p class="tripFact"><span class="col-xs-3 col-md-5">Starting:</span>{{gtc.trip.begin_location}}</p>
-        <p class="tripFact"><span class="col-xs-3 col-md-5">Ending:</span>{{gtc.trip.end_location}}</p>
+        <p class="tripName">{{gtc.data.trip.trip_name}}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Dates:</span>{{gtc.data.trip.begin_date | date:'MM/dd' }} to {{gtc.data.trip.end_date | date:'MM/dd' }}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Travellers:</span>{{gtc.data.trip.travellers}}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Destination:</span>{{gtc.data.trip.destination}}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Starting:</span>{{gtc.data.trip.begin_location}}</p>
+        <p class="tripFact"><span class="col-xs-3 col-md-5">Ending:</span>{{gtc.data.trip.end_location}}</p>
         <a href="#days/{{gtc.tripID}}">
             <h4 id="viewTripBtn">View Trip</h4></a>
     </div>
 
     <div class="dayGraphic col-xs-12 col--md-4">
-        <img class="tripImg" src="{{gtc.trip.photo_url}}" alt="{{gtc.trip.photo_caption}}">
+        <img class="tripImg" src="{{gtc.data.trip.photo_url}}" alt="{{gtc.data.trip.photo_caption}}">
     </div>
 </div>

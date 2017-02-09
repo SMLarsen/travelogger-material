@@ -1,0 +1,14 @@
+#footerView {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+    background-color: $accent-color;
+}
+
+#footerView p {
+    padding-top: 3px;
+    text-align: center;
+    color: white;
+}

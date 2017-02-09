@@ -1,5 +1,5 @@
 <div>
-    <div id="bodyView">
+    <div>
         <h2>Change My Trip</h2>
     </div>
 
@@ -21,42 +21,42 @@
         <form name="tripAdd" class="form-horizontal" novalidate>
             <div class="form-group">
                 <label class="control-label col-xs-4">Trip Name</label>
-                <input type="text" class="col-xs-6" name="trip_name" ng-model="etc.trip.trip_name">
+                <input type="text" class="col-xs-6" name="trip_name" ng-model="etc.data.trip.trip_name">
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-4">Destination</label>
-                <input type="text" class="col-xs-6" name="trip_name" ng-model="etc.trip.destination">
+                <input type="text" class="col-xs-6" name="trip_name" ng-model="etc.data.trip.destination">
                 <a class="pinBtn col-xs-1" ng-click="etc.pinDestinationLocation()"><i class="pull-right fa fa-map-marker" aria-hidden="true"></i></a>
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-4">Starting Date</label>
-                <input type="date" class="col-xs-6" name="begin_date" ng-model="etc.trip.begin_date">
+                <input type="date" class="col-xs-6" name="begin_date" ng-model="etc.data.trip.begin_date">
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-4">Starting Location</label>
-                <input type="text" class="col-xs-6" name="begin_location" ng-model="etc.trip.begin_location">
+                <input type="text" class="col-xs-6" name="begin_location" ng-model="etc.data.trip.begin_location">
                 <a class="pinBtn col-xs-1" ng-click="etc.pinBeginLocation()"><i class="pull-right fa fa-map-marker" aria-hidden="true"></i></a>
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-4">Ending Date</label>
-                <input type="date" class="col-xs-6" name="end_date" ng-model="etc.trip.end_date">
+                <input type="date" class="col-xs-6" name="end_date" ng-model="etc.data.trip.end_date">
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-4">Ending Location</label>
-                <input type="text" class="col-xs-6" name="end_location" ng-model="etc.trip.end_location">
+                <input type="text" class="col-xs-6" name="end_location" ng-model="etc.data.trip.end_location">
                 <a class="pinBtn col-xs-1" ng-click="etc.pinEndLocation()"><i class="pull-right fa fa-map-marker" aria-hidden="true"></i></a>
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-4">Travellers</label>
-                <input type="text" class="col-xs-6" name="travellers" ng-model="etc.trip.travellers">
+                <input type="text" class="col-xs-6" name="travellers" ng-model="etc.data.trip.travellers">
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-4">Photo Caption</label>
-                <input type="text" class="col-xs-6" name="photoCaption" ng-model="etc.trip.photo_caption">
+                <input type="text" class="col-xs-6" name="photoCaption" ng-model="etc.data.trip.photo_caption">
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-4">Photo URL</label>
-                <input type="text" class="col-xs-6" name="photoURL" ng-model="etc.trip.photo_url">
+                <input type="text" class="col-xs-6" name="photoURL" ng-model="etc.data.trip.photo_url">
             </div>
         </form>
     </div>

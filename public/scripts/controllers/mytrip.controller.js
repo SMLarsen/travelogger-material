@@ -1,19 +1,19 @@
+/*jshint esversion: 6 */
 app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', function(MyTripFactory, AuthFactory) {
     console.log('MyTripController started');
-    var self = this;
-    var myTripFactory = MyTripFactory;
-    var authFactory = AuthFactory;
 
-    self.trips = [];
+    const authFactory = AuthFactory;
+    const currentUser = authFactory.currentUser;
+    const myTripFactory = MyTripFactory;
 
-    var currentUser = authFactory.currentUser;
+    let self = this;
+    self.data = MyTripFactory.data;
 
     // Get all trips for the user
     myTripFactory.getTrips()
         .then(function(response) {
-                self.trips = response;
-                // console.log('Trips returned', self.trips);
-                self.trips.forEach(formatDates);
+                console.log('Trips returned', self.data.trips);
+                self.data.trips.forEach(formatDates);
             },
             function(err) {
                 console.log('Error getting trips', err);
@@ -27,14 +27,13 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', function(MyT
 
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
-      console.log('tripID:', tripID);
+        console.log('tripID:', tripID);
         myTripFactory.deleteTrip(tripID)
             .then(function(response) {
                     myTripFactory.deleteTripDays(tripID)
                         .then(function(response) {
                                 myTripFactory.getTrips()
                                     .then(function(response) {
-                                            self.trips = response;
                                             console.log('Trip deleted');
                                         },
                                         function(err) {

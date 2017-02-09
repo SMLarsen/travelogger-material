@@ -1,10 +1,14 @@
-app.controller('EditDayController', ['MyTripFactory', '$scope', '$location', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, $scope, $location, NgMap, GeoCoder, $routeParams) {
+/*jshint esversion: 6 */
+app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, $scope, NgMap, GeoCoder, $routeParams) {
     console.log('EditDayController started');
-    var self = this;
-    var myTripFactory = MyTripFactory;
-    var dayID = $routeParams.dayID;
 
-    self.day = {};
+    const myTripFactory = MyTripFactory;
+
+    let self = this;
+    self.data = myTripFactory.data;
+    let dayID = $routeParams.dayID;
+
+    self.data.day = {};
     self.newRoute = {};
     self.newPOI = {};
     self.newMeal = {};
@@ -16,10 +20,9 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', '$location', 'Ng
 
     myTripFactory.getDay(dayID)
         .then(function(response) {
-                self.day = response;
-                self.tripID = self.day.trip_id;
-                self.day.date = new Date(self.day.date);
-                // console.log('Day returned:', self.day);
+                self.tripID = self.data.day.trip_id;
+                self.data.day.date = new Date(self.data.day.date);
+                // console.log('Day returned:', self.data.day);
                 $scope.$apply();
             },
             function(err) {
@@ -28,16 +31,15 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', '$location', 'Ng
 
     // // Function to update a day
     self.updateDay = function() {
-        // self.day.user_id = currentUser.id;
-        self.day.trip_id = self.tripID;
-        // console.log('EditDayController day:', self.day);
-        self.findAddress(self.day.end_location)
+        // self.data.day.user_id = currentUser.id;
+        self.data.day.trip_id = self.tripID;
+        // console.log('EditDayController day:', self.data.day);
+        self.findAddress(self.data.day.end_location)
             .then(function(result) {
-                self.day.end_map_location = self.newLocation;
-                // console.log('updateDay post geocode:', self.day);
-                myTripFactory.updateDay(self.day)
+                self.data.day.end_map_location = self.newLocation;
+                // console.log('updateDay post geocode:', self.data.day);
+                myTripFactory.updateDay(self.data.day)
                     .then(function(response) {
-                            self.day = {};
                             console.log('Day updated');
                             self.cancel();
                         },
@@ -49,25 +51,25 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', '$location', 'Ng
 
     // Add point row to Day
     self.addPOIRow = function() {
-        self.day.interesting_locations.push(angular.copy(self.newPOI));
+        self.data.day.interesting_locations.push(angular.copy(self.newPOI));
         self.newPOI = {};
     }; // End addpointRow
 
     // Add recommendation row to Day
     self.addRecommendationRow = function() {
-        self.day.recommendations.push(angular.copy(self.newRecommendation));
+        self.data.day.recommendations.push(angular.copy(self.newRecommendation));
         self.newRecommendation = {};
     }; // End addMeal
 
     // Add meal row to Day
     self.addMealRow = function() {
-        self.day.meals.push(angular.copy(self.newMeal));
+        self.data.day.meals.push(angular.copy(self.newMeal));
         self.newMeal = {};
     }; // End addMeal
 
     // Add Route row to Day
     self.addRouteRow = function() {
-        self.day.recommendations.push(angular.copy(self.newRoute));
+        self.data.day.routes.push(angular.copy(self.newRoute));
         self.newRoute = {};
     }; // End addRecommendation
 
@@ -86,8 +88,8 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', '$location', 'Ng
 
     self.cancel = function() {
         console.log('Cancel tripID:', self.tripID);
-        self.day = {};
-        $location.path('mydays/' + self.tripID);
+        self.data.day = {};
+        window.location = '/#/mydays/' + self.tripID;
     };
 
 }]); // END: MyTripController

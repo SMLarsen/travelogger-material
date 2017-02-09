@@ -1,7 +1,11 @@
+/*jshint esversion: 6 */
 app.controller("MapController", ['MyTripFactory', '$filter', '$routeParams', 'NgMap', 'GeoCoder', function(MyTripFactory, $filter, $routeParams, NgMap, GeoCoder) {
     console.log('MapController started');
-    var self = this;
-    var myTripFactory = MyTripFactory;
+
+    const myTripFactory = MyTripFactory;
+
+    let self = this;
+    self.data = myTripFactory.data;
     self.newAddress = '';
     self.location = {};
     self.lat = '';
@@ -11,17 +15,16 @@ app.controller("MapController", ['MyTripFactory', '$filter', '$routeParams', 'Ng
     // Get all trips for the user
     myTripFactory.getTrips()
         .then(function(response) {
-                var trips = response;
-                trips.forEach(buildLocationArray);
+                self.data.trips.forEach(buildLocationArray);
             },
             function(err) {
                 console.log('Error getting trips', err);
             });
 
     function buildLocationArray(item, index) {
-      if (item.destination_location) {
-        self.locationArray.push(item.destination_location);
-      }
+        if (item.destination_location) {
+            self.locationArray.push(item.destination_location);
+        }
     }
 
     self.findAddress = function() {

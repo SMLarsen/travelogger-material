@@ -1,7 +1,9 @@
-app.controller('AddTripController', ['MyTripFactory', '$scope', '$location', 'NgMap', 'GeoCoder', function(MyTripFactory, $scope, $location, NgMap, GeoCoder) {
+/*jshint esversion: 6 */
+app.controller('AddTripController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCoder', function(MyTripFactory, $scope, NgMap, GeoCoder) {
     console.log('AddTripController started');
-    var self = this;
-    var myTripFactory = MyTripFactory;
+
+    let self = this;
+    self.data = MyTripFactory.data;
 
     self.newTrip = {};
     self.positions = [];
@@ -14,21 +16,21 @@ app.controller('AddTripController', ['MyTripFactory', '$scope', '$location', 'Ng
     self.endLocation = '';
 
     function buildLocationArray() {
-      self.locationArray = [];
-      self.locationArray.push(self.trip.destination_location);
-      self.locationArray.push(self.trip.begin_map_location);
-      self.locationArray.push(self.trip.end_map_location);
+        self.locationArray = [];
+        self.locationArray.push(self.trip.destination_location);
+        self.locationArray.push(self.trip.begin_map_location);
+        self.locationArray.push(self.trip.end_map_location);
     }
 
     self.findAddress = function(address) {
         return GeoCoder.geocode({
             address: address
         }).then(function(result) {
-          var location = result[0].geometry.location;
-          self.lat = location.lat();
-          self.lng = location.lng();
-          self.newLocation = {
-              pos: [self.lat, self.lng]
+            let location = result[0].geometry.location;
+            self.lat = location.lat();
+            self.lng = location.lng();
+            self.newLocation = {
+                pos: [self.lat, self.lng]
             };
         });
     };
@@ -76,11 +78,10 @@ app.controller('AddTripController', ['MyTripFactory', '$scope', '$location', 'Ng
                     self.newTrip = {};
                     myTripFactory.getTrips()
                         .then(function(response) {
-                                self.trips = response;
                                 self.addTripStatus = false;
                                 console.log('Trip added');
                                 self.newTrip = {};
-                                $location.path('mytrips');
+                                window.location = '/#/mytrips';
                             },
                             function(err) {
                                 console.log('Error getting trips', err);
@@ -95,7 +96,7 @@ app.controller('AddTripController', ['MyTripFactory', '$scope', '$location', 'Ng
 
     self.cancel = function() {
         self.newTrip = {};
-        $location.path('mytrips');
+        window.location = '/#/mytrips';
     };
 
 }]); // END: MyTripController
