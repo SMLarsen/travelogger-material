@@ -1,31 +1,24 @@
+/*jshint esversion: 6 */
 app.controller("DayController", ['TripFactory', '$filter', '$routeParams', 'NgMap', function(TripFactory, $filter, $routeParams, NgMap) {
     console.log('DayController started');
-    var self = this;
-    var tripFactory = TripFactory;
 
-    self.days = [];
+    const tripFactory = TripFactory;
+
+    let self = this;
+    self.data = tripFactory.data;
+    self.tripID = $routeParams.tripID;
     self.focusDay = {};
-    self.focusTrip = {};
     self.currentDayIndex = 0;
     self.leftButtonDisabled = true;
     self.rightButtonDisabled = false;
     self.locationArray = [];
 
-    self.tripID = $routeParams.tripID;
-    console.log('Trip Factory:', self.tripID);
-
     tripFactory.getDays(self.tripID)
         .then(function(response) {
-            self.days = response;
-            self.focusDay = self.days[0];
-            console.log('Days:', response);
-            self.days.forEach(buildLocationArray);
-            console.log('location array:', self.locationArray);
+            self.focusDay = self.data.days[0];
+            self.data.days.forEach(buildLocationArray);
             tripFactory.getTrip(self.tripID)
-                .then(function(response) {
-                        self.focusTrip = response;
-                    },
-                    function(err) {
+                .then(function(err) {
                         console.log('Error getting trip');
                     });
         });
@@ -37,7 +30,7 @@ app.controller("DayController", ['TripFactory', '$filter', '$routeParams', 'NgMa
     }
 
     self.setDay = function(index) {
-        self.focusDay = self.days[index];
+        self.focusDay = self.data.days[index];
         self.currentDayIndex = index;
         self.setDisabled(index);
         setVisible();
@@ -45,20 +38,18 @@ app.controller("DayController", ['TripFactory', '$filter', '$routeParams', 'NgMa
 
     // Function to page left
     self.goLeft = function() {
-        console.log('Go left from ' + self.currentDayIndex);
         if (self.currentDayIndex > 0) {
             self.currentDayIndex = self.currentDayIndex - 1;
-            self.focusDay = self.days[self.currentDayIndex];
+            self.focusDay = self.data.days[self.currentDayIndex];
             self.setDisabled(self.currentDayIndex);
         }
     }; // End function to page left
 
     // Function to page right
     self.goRight = function() {
-        console.log('Go right from ' + self.currentDayIndex);
-        if (self.currentDayIndex < self.days.length - 1) {
+        if (self.currentDayIndex < self.data.days.length - 1) {
             self.currentDayIndex = self.currentDayIndex + 1;
-            self.focusDay = self.days[self.currentDayIndex];
+            self.focusDay = self.data.days[self.currentDayIndex];
             self.setDisabled(self.currentDayIndex);
         }
     }; // End function to page right
@@ -68,8 +59,7 @@ app.controller("DayController", ['TripFactory', '$filter', '$routeParams', 'NgMa
         if (index === 0) {
             self.leftButtonDisabled = true;
             self.rightButtonDisabled = false;
-        } else
-        if (index === self.days.length - 1) {
+        } else if (index === self.data.days.length - 1) {
             self.leftButtonDisabled = false;
             self.rightButtonDisabled = true;
         } else {

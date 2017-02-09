@@ -1,17 +1,20 @@
+/*jshint esversion: 6 */
 app.factory("TripFactory", function($http) {
     console.log('TripFactory started');
 
-    var trips = [];
-    var trip = {};
-    var days = [];
+    let data = {
+      trips: [],
+      trip: {},
+      days: []
+    };
 
     // Function to GET trips
     function getTrips() {
         return $http.get('/guest/trips')
             .then(function(response) {
-                    trips = response.data;
-                    console.log('All trips:', trips);
-                    return trips;
+                    data.trips = response.data;
+                    console.log('All trips:', data.trips);
+                    return;
                 },
                 function(err) {
                     console.log('Unable to retrieve all trips', err);
@@ -24,9 +27,9 @@ app.factory("TripFactory", function($http) {
         console.log('Getting trip for:', tripID);
         return $http.get('/guest/trip/' + tripID)
             .then(function(response) {
-                    trip = response.data[0];
-                    console.log('Trip returned:', trip);
-                    return trip;
+                    data.trip = response.data[0];
+                    console.log('Trip returned:', data.trip);
+                    return;
                 },
                 function(err) {
                     console.log('Unable to retrieve trip', err);
@@ -39,9 +42,9 @@ app.factory("TripFactory", function($http) {
         console.log('Getting days for:', tripID);
         return $http.get('/guest/day/' + tripID)
             .then(function(response) {
-                    days = response.data;
-                    console.log('All days:', days);
-                    return days;
+                    data.days = response.data;
+                    console.log('All days:', data.days);
+                    return;
                 },
                 function(err) {
                     console.log('Unable to retrieve days', err);
@@ -50,6 +53,7 @@ app.factory("TripFactory", function($http) {
     }; // End getDays
 
     var publicApi = {
+        data: data,
         getTrips: function() {
             return getTrips();
         },
