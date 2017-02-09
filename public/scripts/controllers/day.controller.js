@@ -17,10 +17,7 @@ app.controller("DayController", ['TripFactory', '$filter', '$routeParams', 'NgMa
         .then(function(response) {
             self.focusDay = self.data.days[0];
             self.data.days.forEach(buildLocationArray);
-            tripFactory.getTrip(self.tripID)
-                .then(function(err) {
-                        console.log('Error getting trip');
-                    });
+            tripFactory.getTrip(self.tripID);
         });
 
     function buildLocationArray(item, index) {

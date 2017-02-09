@@ -13,7 +13,6 @@ app.factory("TripFactory", function($http) {
         return $http.get('/guest/trips')
             .then(function(response) {
                     data.trips = response.data;
-                    console.log('All trips:', data.trips);
                     return;
                 },
                 function(err) {
@@ -24,11 +23,9 @@ app.factory("TripFactory", function($http) {
 
     // Function to GET a single trip
     function getTrip(tripID) {
-        console.log('Getting trip for:', tripID);
         return $http.get('/guest/trip/' + tripID)
             .then(function(response) {
                     data.trip = response.data[0];
-                    console.log('Trip returned:', data.trip);
                     return;
                 },
                 function(err) {
@@ -39,11 +36,9 @@ app.factory("TripFactory", function($http) {
 
     // Function to GET days
     getDays = function(tripID) {
-        console.log('Getting days for:', tripID);
         return $http.get('/guest/day/' + tripID)
             .then(function(response) {
                     data.days = response.data;
-                    console.log('All days:', data.days);
                     return;
                 },
                 function(err) {
