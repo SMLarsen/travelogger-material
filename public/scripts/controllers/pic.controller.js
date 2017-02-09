@@ -1,9 +1,13 @@
+/*jshint esversion: 6 */
 app.controller("PicController", ['AuthFactory', 'MyTripFactory', '$scope', '$filter', function(AuthFactory, MyTripFactory, $scope, $filter) {
     console.log('PicController started');
-    var self = this;
-    var myTripFactory = MyTripFactory;
-    var authFactory = AuthFactory;
-    var userID = "";
+
+    const myTripFactory = MyTripFactory;
+    const authFactory = AuthFactory;
+
+    let self = this;
+    self.data = myTripFactory.data;
+    let userID = "";
     self.photoArray = [];
 
     getPhotos();
@@ -12,14 +16,12 @@ app.controller("PicController", ['AuthFactory', 'MyTripFactory', '$scope', '$fil
     function getPhotos() {
       return myTripFactory.getTrips()
           .then(function(response) {
-                  var trips = response;
-                  trips.forEach(buildPicArray);
-                  userID = trips[0].user_id;
+                  self.data.trips.forEach(buildPicArray);
+                  userID = self.data.trips[0].user_id;
                   // Get all days for the user
                   myTripFactory.getUserDays(userID)
                       .then(function(response) {
-                              var days = response;
-                              days.forEach(buildPicArray);
+                              self.data.userDays.forEach(buildPicArray);
                               console.log("photoArray:", self.photoArray);
                               $scope.$apply();
                           },

@@ -7,7 +7,7 @@
     </div>
 
     <div uib-accordion close-others="true">
-        <div uib-accordion-group class="panel-default" ng-repeat="trip in mtc.trips">
+        <div uib-accordion-group class="panel-default" ng-repeat="trip in mtc.data.trips">
             <div uib-accordion-heading>
                 {{trip.begin_date | date:'yyyy - MMMM'}} - {{trip.trip_name}}
                 <span class="deleteBtn pull-right fa fa-trash" ng-click="mtc.deleteTrip(trip._id)"></span>
