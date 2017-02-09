@@ -46,8 +46,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     })
                     .then(function(response) {
                             data.trips = response.data;
-                            // console.log('My Trips:', trips);
-                            return data;
+                            return;
                         },
                         function(err) {
                             console.log('Unable to retrieve trips', err);
@@ -201,7 +200,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                 .then(function(response) {
                         data.tripDays = response.data;
                         console.log('My Days:', data.tripDays);
-                        return data;
+                        return;
                     },
                     function(err) {
                         console.log('Unable to retrieve days', err);

@@ -27,7 +27,7 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', function(MyT
 
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
-      console.log('tripID:', tripID);
+        console.log('tripID:', tripID);
         myTripFactory.deleteTrip(tripID)
             .then(function(response) {
                     myTripFactory.deleteTripDays(tripID)

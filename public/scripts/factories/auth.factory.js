@@ -5,8 +5,8 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
     const auth = $firebaseAuth();
 
     let data = {
-      currentUser: {},
-      isUserLoggedIn: false
+        currentUser: {},
+        isUserLoggedIn: false
     };
 
     // Authenticates user at login
@@ -30,7 +30,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                                     data.currentUser.id = response.data._id;
                                     data.isUserLoggedIn = true;
                                     console.log('current user authorized', data.currentUser.id, data.isUserLoggedIn);
-                                    return data.currentUser;
+                                    return;
                                 },
                                 function(err) {
                                     data.isUserLoggedIn = false;
@@ -39,6 +39,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                                 })
                             .catch(function(error) {
                                 console.log("Authentication failed: ", error);
+                                return;
                             });
                     });
             });
@@ -50,6 +51,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
             data.isUserLoggedIn = false;
             data.currentUser = {};
             console.log('Logging the user out!');
+            return;
         });
     }; // END: logOut
 
@@ -69,37 +71,6 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
             return;
         }
     }; // End getIdToken
-
-    // Get current user if not already there
-    // getdata.currentUser = function() {
-    //     if (data.currentUser) {
-    //         return data.currentUser;
-    //     } else {
-    //         return data.currentUser.getToken()
-    //             .then(function(idToken) {
-    //                 return $http({
-    //                         method: 'GET',
-    //                         url: '/privateData',
-    //                         headers: {
-    //                             id_token: idToken
-    //                         }
-    //                     })
-    //                     .then(function(response) {
-    //                             data.currentUser.id = response.data._id;
-    //                             console.log('current user authorized', data.currentUser.id, data.isUserLoggedIn);
-    //                             return data.currentUser;
-    //                         },
-    //                         function(err) {
-    //                             data.isUserLoggedIn = false;
-    //                             console.log('current user not registered', err);
-    //                             return;
-    //                         })
-    //                     .catch(function(error) {
-    //                         console.log("Authentication failed: ", error);
-    //                     });
-    //             });
-    //     }
-    // };
 
     var publicApi = {
         data: data,

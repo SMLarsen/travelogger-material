@@ -6,7 +6,7 @@ app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFac
 
     let self = this;
     self.authData = authFactory.data;
-    
+
 
     // Function to Login
     self.logIn = function() {
@@ -21,8 +21,8 @@ app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFac
     // Function to Logout
     self.logOut = function() {
         authFactory.logOut().then(function(response) {
-          window.location = '/#/home';
-          console.log(self.authData.isUserLoggedIn);
+            window.location = '/#/home';
+            console.log(self.authData.isUserLoggedIn);
         });
     }; // End Logout
 

@@ -22,9 +22,9 @@ app.controller("MapController", ['MyTripFactory', '$filter', '$routeParams', 'Ng
             });
 
     function buildLocationArray(item, index) {
-      if (item.destination_location) {
-        self.locationArray.push(item.destination_location);
-      }
+        if (item.destination_location) {
+            self.locationArray.push(item.destination_location);
+        }
     }
 
     self.findAddress = function() {

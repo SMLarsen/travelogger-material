@@ -8,8 +8,8 @@ app.controller("TripsController", ['TripFactory', '$http', '$filter', function(T
 
     tripFactory.getTrips()
         .then(function(response) {
-                self.trips = response;
-            });
+            self.trips = response;
+        });
 
     // Function to get all trips
     self.getTrips = function() {

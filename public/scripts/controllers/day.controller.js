@@ -65,17 +65,17 @@ app.controller("DayController", ['TripFactory', '$filter', '$routeParams', 'NgMa
 
     // function to set left right arrow disabled
     self.setDisabled = function(index) {
-      if (index === 0) {
-        self.leftButtonDisabled = true;
-        self.rightButtonDisabled = false;
-      } else
-      if (index === self.days.length - 1) {
-        self.leftButtonDisabled = false;
-        self.rightButtonDisabled = true;
-      } else {
-        self.leftButtonDisabled = false;
-        self.rightButtonDisabled = false;
-      }
+        if (index === 0) {
+            self.leftButtonDisabled = true;
+            self.rightButtonDisabled = false;
+        } else
+        if (index === self.days.length - 1) {
+            self.leftButtonDisabled = false;
+            self.rightButtonDisabled = true;
+        } else {
+            self.leftButtonDisabled = false;
+            self.rightButtonDisabled = false;
+        }
     }; // end setDisabled
 
 }]); // END: DayController
