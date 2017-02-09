@@ -200,7 +200,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                 })
                 .then(function(response) {
                         data.tripDays = response.data;
-                        console.log('My Days:', days);
+                        console.log('My Days:', data.tripDays);
                         return data;
                     },
                     function(err) {

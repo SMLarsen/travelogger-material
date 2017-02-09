@@ -1,11 +1,12 @@
-app.controller('MyDayController', ['MyTripFactory', 'AuthFactory', '$routeParams', 'NgMap', 'GeoCoder', function(MyTripFactory, AuthFactory, $routeParams, NgMap, GeoCoder) {
+/*jshint esversion: 6 */
+app.controller('MyDayController', ['MyTripFactory', '$routeParams', 'NgMap', 'GeoCoder', function(MyTripFactory, $routeParams, NgMap, GeoCoder) {
     console.log('MyDayController started');
-    var self = this;
-    var myTripFactory = MyTripFactory;
-    var authFactory = AuthFactory;
 
+    const myTripFactory = MyTripFactory;
+
+    let self = this;
+    self.data = myTripFactory.data;
     self.tripID = $routeParams.tripID;
-    // console.log('MyDayController tripID:', self.tripID);
 
     self.days = [];
 
@@ -15,9 +16,7 @@ app.controller('MyDayController', ['MyTripFactory', 'AuthFactory', '$routeParams
     function getDays(tripID) {
         myTripFactory.getDays(tripID)
             .then(function(response) {
-                    self.days = response;
-                    // console.log('Days returned', self.days);
-                    return;
+                    console.log('Retrieved days');
                 },
                 function(err) {
                     console.log('Error getting days', err);
@@ -31,7 +30,6 @@ app.controller('MyDayController', ['MyTripFactory', 'AuthFactory', '$routeParams
             .then(function(response) {
                     myTripFactory.getDays(tripID)
                         .then(function(response) {
-                                self.days = response;
                                 console.log('Day deleted');
                             },
                             function(err) {
