@@ -73,8 +73,8 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         })
                         .then(function(response) {
                                 data.trip = response.data[0];
-                                console.log('My Trip:', trip);
-                                return data;
+                                console.log('My Trip:', data.trip);
+                                return;
                             },
                             function(err) {
                                 console.log('Unable to retrieve trip', err);

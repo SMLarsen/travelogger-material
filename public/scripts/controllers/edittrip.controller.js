@@ -1,10 +1,11 @@
+/*jshint esversion: 6 */
 app.controller('EditTripController', ['MyTripFactory', '$location', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, $location, NgMap, GeoCoder, $routeParams) {
     console.log('EditTripController started');
-    var self = this;
 
-    var myTripFactory = MyTripFactory;
-    var authFactory = AuthFactory;
-    var currentUser = authFactory.currentUser;
+    const myTripFactory = MyTripFactory;
+
+    var self = this;
+    self.data = myTripFactory.data;
     var tripID = $routeParams.tripID;
 
     self.location = {};
@@ -16,11 +17,10 @@ app.controller('EditTripController', ['MyTripFactory', '$location', 'NgMap', 'Ge
     // Get trip
     myTripFactory.getTrip(tripID)
         .then(function(response) {
-                self.trip = response;
-                self.trip.begin_date = new Date(self.trip.begin_date);
-                self.trip.end_date = new Date(self.trip.end_date);
+                self.data.trip.begin_date = new Date(self.trip.begin_date);
+                self.data.trip.end_date = new Date(self.trip.end_date);
                 buildLocationArray();
-                console.log('Trip returned', self.trip);
+                console.log('Trip returned', self.data.trip);
             },
             function(err) {
                 console.log('Error getting trip', err);
@@ -28,9 +28,9 @@ app.controller('EditTripController', ['MyTripFactory', '$location', 'NgMap', 'Ge
 
     function buildLocationArray() {
         self.locationArray = [];
-        self.locationArray.push(self.trip.destination_location);
-        self.locationArray.push(self.trip.begin_map_location);
-        self.locationArray.push(self.trip.end_map_location);
+        self.locationArray.push(self.data.trip.destination_location);
+        self.locationArray.push(self.data.trip.begin_map_location);
+        self.locationArray.push(self.data.trip.end_map_location);
         console.log('locations:', self.locationArray);
     }
 
@@ -51,38 +51,38 @@ app.controller('EditTripController', ['MyTripFactory', '$location', 'NgMap', 'Ge
 
     // function to geocode destination
     self.pinDestinationLocation = function() {
-        findAddress(self.trip.destination)
+        findAddress(self.data.trip.destination)
             .then(function(result) {
-                self.trip.destination_location = self.newLocation;
+                self.data.trip.destination_location = self.newLocation;
                 buildLocationArray();
             });
     }; // end pinDestinationLocation
 
     // function to geocode destination
     self.pinBeginLocation = function() {
-        findAddress(self.trip.begin_location)
+        findAddress(self.data.trip.begin_location)
             .then(function(result) {
-                self.trip.begin_map_location = self.newLocation;
+                self.data.trip.begin_map_location = self.newLocation;
                 buildLocationArray();
             });
     }; // end pinBeginLocation
 
     // function to geocode destination
     self.pinEndLocation = function() {
-        findAddress(self.trip.end_location)
+        findAddress(self.data.trip.end_location)
             .then(function(result) {
-                self.trip.end_map_location = self.newLocation;
+                self.data.trip.end_map_location = self.newLocation;
                 buildLocationArray();
             });
     }; // end pinEndLocation
 
     // Function to update a trip
     self.updateTrip = function() {
-        console.log('update trip:', self.trip);
-        myTripFactory.updateTrip(self.trip)
+        console.log('update trip:', self.data.trip);
+        myTripFactory.updateTrip(self.data.trip)
             .then(function(response) {
                     console.log('Trip updated');
-                    $location.path('mytrips');
+                    window.location = '/#/mytrips';
                 },
                 function(err) {
                     console.log('Unable to update trip', err);
@@ -91,7 +91,7 @@ app.controller('EditTripController', ['MyTripFactory', '$location', 'NgMap', 'Ge
     }; // End updateTrip
 
     self.cancel = function() {
-        $location.path('mytrips');
+        window.location = '/#/mytrips';
     };
 
 }]); // END: MyTripController
