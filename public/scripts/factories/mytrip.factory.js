@@ -4,7 +4,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     const authFactory = AuthFactory;
 
-    let currentUser = authFactory.getCurrentUser;
+    let authData = authFactory.data;
     let data = {
         trips: [],
         trip: {},
@@ -35,13 +35,13 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to GET trips
     function getTrips() {
-        if (authFactory.isUserLoggedIn) {
+        if (authData.isUserLoggedIn) {
             return authFactory.getIdToken().then(function(currentUser) {
                 return $http({
                         method: 'GET',
-                        url: '/trip/all/' + currentUser.id,
+                        url: '/trip/all/' + authData.currentUser.id,
                         headers: {
-                            id_token: currentUser.authIdToken
+                            id_token: authData.currentUser.authIdToken
                         }
                     })
                     .then(function(response) {
@@ -61,7 +61,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to GET a trip
     function getTrip(tripID) {
-        if (authFactory.isUserLoggedIn) {
+        if (authData.isUserLoggedIn) {
             return authFactory.getIdToken()
                 .then(function(currentUser) {
                     return $http({
@@ -195,7 +195,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     method: 'GET',
                     url: '/day/all/' + tripID,
                     headers: {
-                        id_token: currentUser.authIdToken
+                        id_token: authData.currentUser.authIdToken
                     }
                 })
                 .then(function(response) {
@@ -219,7 +219,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     method: 'GET',
                     url: '/day/user/' + userID,
                     headers: {
-                        id_token: currentUser.authIdToken
+                        id_token: authData.currentUser.authIdToken
                     }
                 })
                 .then(function(response) {
@@ -242,7 +242,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         method: 'GET',
                         url: '/day/one/' + dayID,
                         headers: {
-                            id_token: currentUser.authIdToken
+                            id_token: authData.currentUser.authIdToken
                         }
                     })
                     .then(function(response) {
@@ -293,7 +293,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         method: 'DELETE',
                         url: '/day/one/' + dayID,
                         headers: {
-                            id_token: currentUser.authIdToken
+                            id_token: authData.currentUser.authIdToken
                         }
                     })
                     .then(function(response) {
@@ -316,7 +316,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         method: 'DELETE',
                         url: '/day/trip/' + tripID,
                         headers: {
-                            id_token: currentUser.authIdToken
+                            id_token: authData.currentUser.authIdToken
                         }
                     })
                     .then(function(response) {

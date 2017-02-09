@@ -1,4 +1,4 @@
-app.controller('AddDayController', ['MyTripFactory', 'NgMap', 'GeoCoder', '$location', '$routeParams', function(MyTripFactory, NgMap, GeoCoder, $location, $routeParams) {
+app.controller('AddDayController', ['MyTripFactory', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, NgMap, GeoCoder, $routeParams) {
     console.log('AddDayController started');
     var self = this;
     var myTripFactory = MyTripFactory;
@@ -104,7 +104,7 @@ app.controller('AddDayController', ['MyTripFactory', 'NgMap', 'GeoCoder', '$loca
 
     self.cancel = function() {
         self.newDay = {};
-        $location.path('mydays/' + self.tripID);
+        window.location = '/#/mydays/' + self.tripID;
     };
 
 }]); // END: MyTripController

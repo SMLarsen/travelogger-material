@@ -1,36 +1,28 @@
-app.controller("NavController", ["$http", "AuthFactory", "$location", function($http, AuthFactory, $location) {
+/*jshint esversion: 6 */
+app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFactory) {
     console.log('NavController started');
-    var self = this;
-    var authFactory = AuthFactory;
 
-    self.isUserLoggedIn = authFactory.isUserLoggedIn;
-    self.status = {
-        isLoggedIn: false
-    };
+    const authFactory = AuthFactory;
 
-    self.goGuest = function(hash) {
-        location.path(hash);
-    };
+    let self = this;
+    self.authData = authFactory.data;
+    
 
     // Function to Login
     self.logIn = function() {
         authFactory.logIn()
             .then(function(currentUser) {
-                // console.log('lc current user', currentUser);
-                authFactory.idToken = currentUser.idToken;
-                self.isUserLoggedIn = true;
-                authFactory.isUserLoggedIn = self.isUserLoggedIn;
-                $location.path('mytrips');
+                self.authData.isUserLoggedIn = true;
+                // authData.isUserLoggedIn = self.isUserLoggedIn;
+                window.location = '/#/mytrips';
             });
     }; // End Login
 
     // Function to Logout
     self.logOut = function() {
         authFactory.logOut().then(function(response) {
-          self.isUserLoggedIn = false;
-          authFactory.isUserLoggedIn = self.isUserLoggedIn;
-          $location.path('home');
-          console.log(self.isUserLoggedIn);
+          window.location = '/#/home';
+          console.log(self.authData.isUserLoggedIn);
         });
     }; // End Logout
 
