@@ -9,7 +9,7 @@
     border-radius: 10px;
 }
 
-#hamburger-view .hamburger {
+.hamburger {
     font-size: 2em;
     display: block;
     float: right;
@@ -20,6 +20,10 @@
     margin: 10px;
     border-radius: 10px;
     width: 40px;
+}
+
+.hamburger:hover {
+  cursor: pointer;
 }
 
 .nav-menu {
@@ -73,8 +77,6 @@
     top: 0;
     left: 0;
     background: $main-color;
-    opacity: 0;
-    visibility: hidden;
     transition: all 0.5s ease;
     z-index: 2;
 }

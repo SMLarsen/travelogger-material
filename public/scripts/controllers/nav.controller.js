@@ -6,7 +6,17 @@ app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFac
 
     let self = this;
     self.authData = authFactory.data;
+    self.displayOverlay = false;
 
+    // Function to show overlay menu
+    self.showOverlay = function() {
+        self.displayOverlay = true;
+    }; // End showOverlay
+
+    // Function to close overlay menu
+    self.closeOverlay = function() {
+        self.displayOverlay = false;
+    }; // End closeOverlay
 
     // Function to Login
     self.logIn = function() {
