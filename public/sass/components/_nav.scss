@@ -1,6 +1,28 @@
-#hamburger-view,
-#nav-view {
-    @include header-bar;
+#wide-menu {
+  @include header-bar;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+#narrow-menu {
+  @include header-bar;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.left-menu {
+  padding: 10px 0 0 10px;
+}
+
+.left-menu a {
+  font-size: 2em;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.left-menu a span {
+  font-family: sans-serif;
 }
 
 #nav-view a {
@@ -175,24 +197,28 @@
     }
 }
 @media screen and (min-width: 861px) {
-    #nav-view {
+    #wide-menu {
         visibility: visible;
     }
 
-    #hamburger-view {
+    #narrow-menu {
         visibility: hidden;
     }
 }
 @media screen and (max-width: 860px) {
-    #nav-view {
+    #wide-menu {
         visibility: hidden;
     }
 
-    #hamburger-view {
+    #narrow-menu {
         visibility: visible;
     }
 
     nav ul li a {
         font-size: 3em;
+    }
+
+    .left-menu a {
+      font-size: 1.5em;
     }
 }

@@ -7,6 +7,9 @@ app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFac
     let self = this;
     self.authData = authFactory.data;
     self.displayOverlay = false;
+    self.currentView = 'My Trips';
+    self.backView = '#/home';
+    self.leftMenuActive = false;
 
     // Function to show overlay menu
     self.showOverlay = function() {
@@ -31,6 +34,7 @@ app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFac
     // Function to Logout
     self.logOut = function() {
         authFactory.logOut().then(function(response) {
+          console.log(window.location.hash);
             window.location = '/#/home';
             console.log(self.authData.isUserLoggedIn);
         });

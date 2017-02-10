@@ -12,12 +12,6 @@ html,
 .panel-title a {
   cursor: pointer; }
 
-#bootstrap-overrides .navButton:hover {
-  background-color: #FF3D3D; }
-
-#bootstrap-overrides .navButton:focus {
-  background-color: #FF3D3D; }
-
 main {
   margin: 80px; }
 
@@ -163,12 +157,33 @@ div#map-container {
   text-align: center;
   color: white; }
 
-#hamburger-view,
-#nav-view {
+#wide-menu {
   position: fixed;
   top: 0;
   background-color: #1E689C;
-  width: 100%; }
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between; }
+
+#narrow-menu {
+  position: fixed;
+  top: 0;
+  background-color: #1E689C;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between; }
+
+.left-menu {
+  padding: 10px 0 0 10px; }
+
+.left-menu a {
+  font-size: 2em;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px; }
+
+.left-menu a span {
+  font-family: sans-serif; }
 
 #nav-view a {
   color: white;
@@ -308,18 +323,20 @@ div#map-container {
     transform: rotate(-45deg); }
 
 @media screen and (min-width: 861px) {
-  #nav-view {
+  #wide-menu {
     visibility: visible; }
-  #hamburger-view {
+  #narrow-menu {
     visibility: hidden; } }
 
 @media screen and (max-width: 860px) {
-  #nav-view {
+  #wide-menu {
     visibility: hidden; }
-  #hamburger-view {
+  #narrow-menu {
     visibility: visible; }
   nav ul li a {
-    font-size: 3em; } }
+    font-size: 3em; }
+  .left-menu a {
+    font-size: 1.5em; } }
 
 #homeTag {
   text-align: center;

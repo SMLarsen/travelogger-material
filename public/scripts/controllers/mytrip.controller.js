@@ -12,7 +12,6 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', function(MyT
     // Get all trips for the user
     myTripFactory.getTrips()
         .then(function(response) {
-                console.log('Trips returned', self.data.trips);
                 self.data.trips.forEach(formatDates);
             },
             function(err) {
