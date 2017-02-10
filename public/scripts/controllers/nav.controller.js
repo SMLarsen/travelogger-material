@@ -1,15 +1,17 @@
 /*jshint esversion: 6 */
-app.controller("NavController", ["$http", "AuthFactory", function($http, AuthFactory) {
+app.controller("NavController", ["$http", "AuthFactory", "NavFactory", function($http, AuthFactory, NavFactory) {
     console.log('NavController started');
 
     const authFactory = AuthFactory;
+    const navFactory = NavFactory;
 
     let self = this;
     self.authData = authFactory.data;
+    self.navData = navFactory.data;
     self.displayOverlay = false;
-    self.currentView = 'My Trips';
-    self.backView = '#/home';
-    self.leftMenuActive = false;
+    self.currentView = self.navData.currentView;
+    self.backView = self.navData.backView;
+    self.leftMenuActive = self.navData.leftMenuActive;
 
     // Function to show overlay menu
     self.showOverlay = function() {
