@@ -1,5 +1,12 @@
 // globally used mixins and functions. It’s important not to output any CSS in the first 2 layers.
 
+@mixin header-bar {
+  position: fixed;
+  top: 0;
+  background-color: #1E689C;
+  width: 100%;
+}
+
 @mixin header_text {
   font-size: 5em;
   padding: 100px;

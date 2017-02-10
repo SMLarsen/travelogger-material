@@ -1,19 +1,3 @@
-.navButton {
-    @include header_button;
-}
-
-.navbar-brand {
-    @include header_button;
-    font-family: 'Limelight', cursive;
-    padding-top: 25px;
-
-    &:focus,
-    &:hover {
-        padding-top: 25px;
-        padding-bottom: 45px;
-    }
-}
-
 .arrowLeft {
     @include arrow_button(left);
 }
