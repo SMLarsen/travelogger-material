@@ -30,8 +30,8 @@ body {
 .float-button {
   position: fixed;
   right: 10px;
-  height: 3.4em;
-  width: 3.4em;
+  height: 4em;
+  width: 4em;
   border-radius: 50%;
   background-color: white;
   box-shadow: 5px 5px 3px #8a847d;
@@ -62,7 +62,7 @@ body {
     color: #164b71; }
 
 .sideBtnSave {
-  font-size: 4em;
+  font-size: 3.5em;
   color: green;
   position: relative;
   float: left;
@@ -73,7 +73,7 @@ body {
     color: #00b300; }
 
 .sideBtnCancel {
-  font-size: 4em;
+  font-size: 3.5em;
   color: red;
   position: relative;
   float: left;
@@ -83,15 +83,16 @@ body {
   .sideBtnCancel:hover {
     color: #ff3333; }
 
-.fa-plus-circle {
-  font-size: 4em;
+.float-button .fa-plus {
+  font-size: 3.5em;
   color: #1E689C;
   position: relative;
   float: left;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); }
-  .fa-plus-circle:hover {
+  transform: translate(-50%, -50%);
+  font-size: 3.5em; }
+  .float-button .fa-plus:hover {
     color: #2685c7; }
 
 .fa-calendar {

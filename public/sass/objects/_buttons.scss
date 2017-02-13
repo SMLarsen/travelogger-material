@@ -18,8 +18,9 @@
     @include side_button(red);
 }
 
-.fa-plus-circle {
+.float-button .fa-plus {
     @include side_button($accent-color);
+    font-size: 3.5em;
 }
 
 .fa-calendar {

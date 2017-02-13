@@ -1,6 +1,8 @@
 /*jshint esversion: 6 */
-app.controller('AddTripController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCoder', function(MyTripFactory, $scope, NgMap, GeoCoder) {
+app.controller('AddTripController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCoder', 'NavFactory', function(MyTripFactory, $scope, NgMap, GeoCoder, NavFactory) {
     console.log('AddTripController started');
+
+    const navFactory = NavFactory;
 
     let self = this;
     self.data = MyTripFactory.data;
@@ -14,6 +16,9 @@ app.controller('AddTripController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
     self.locationArray = [];
     self.startLocation = '';
     self.endLocation = '';
+
+    // Set left nav parameters
+    navFactory.setNav('Add Trip', '#/mytrips', true);
 
     function buildLocationArray() {
         self.locationArray = [];

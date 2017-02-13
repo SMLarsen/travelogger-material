@@ -44,8 +44,8 @@
 @mixin float-button {
     position: fixed;
     right: 10px;
-    height: 3.4em;
-    width: 3.4em;
+    height: 4em;
+    width: 4em;
     border-radius: 50%;
     background-color: white;
     box-shadow: 5px 5px 3px $shadow;
@@ -55,7 +55,7 @@
     }
 }
 @mixin side_button($color) {
-    font-size: 4em;
+    font-size: 3.5em;
     color: $color;
     position: relative;
     float: left;
