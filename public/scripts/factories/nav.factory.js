@@ -3,22 +3,23 @@ app.factory("NavFactory", function() {
     console.log('NavFactory started');
 
     let data = {
-      currentView: 'My Trips',
-      backView: '#/home',
-      leftMenuActive: true
+        currentView: 'My Blank',
+        backView: '#/home',
+        leftMenuActive: true
     };
 
-    setNav = function(text, backView, leftMenuActive) {
-      currentView = text;
-      backView = backView;
-      leftMenuActive = leftMenuActive;
-      return;
+    var setNav = function(text, backView, leftMenuActive) {
+        data.currentView = text;
+        data.backView = backView;
+        data.leftMenuActive = leftMenuActive;
+        console.log('navFactory', data);
+        return;
     };
 
     var publicApi = {
         data: data,
-        setNav: function() {
-            return setNav();
+        setNav: function(text, backView, leftMenuActive) {
+            return setNav(text, backView, leftMenuActive);
         }
     };
 

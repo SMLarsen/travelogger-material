@@ -1,9 +1,11 @@
-app.controller("HomeController", [function($scope) {
+/*jshint esversion: 6 */
+app.controller("HomeController", ['NavFactory', function(NavFactory) {
+
+    const navFactory = NavFactory;
+
     var self = this;
 
-    self.myInterval = 3000;
-    self.noWrapSlides = false;
-    self.active = 0;
+    navFactory.setNav('Home', '#/home', false);
 
     self.slides = [{
         image: "../../assets/images/DSC00294.jpg"

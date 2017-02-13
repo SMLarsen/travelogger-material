@@ -2,7 +2,7 @@
 
     <div id="wide-menu">
         <div class="left-menu">
-            <a ng-click="nc.showOverlay()" ng-show="nc.leftMenuActive"><i class="fa fa-long-arrow-left" aria-hidden="true"><span>  {{nc.currentView}}</span></i></a>
+            <a ng-click="nc.leftClick()" ng-show="nc.navData.leftMenuActive"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>  {{nc.navData.currentView}}</a>
         </div>
         <nav id="nav-view">
             <ul class="nav-menu">
@@ -19,7 +19,7 @@
     </div>
     <div id="narrow-menu">
         <div class="left-menu">
-            <a ng-click="nc.showOverlay()" ng-show="nc.leftMenuActive" ><i class="fa fa-long-arrow-left" aria-hidden="true"><span>  {{nc.currentView}}</span></i></a>
+            <a ng-click="nc.leftClick()" ng-show="nc.navData.leftMenuActive" ><i class="fa fa-long-arrow-left" aria-hidden="true"></i>  {{nc.navData.currentView}}</a>
         </div>
         <nav id="hamburger-view">
             <div>

@@ -9,9 +9,11 @@ app.controller("NavController", ["$http", "AuthFactory", "NavFactory", function(
     self.authData = authFactory.data;
     self.navData = navFactory.data;
     self.displayOverlay = false;
-    self.currentView = self.navData.currentView;
-    self.backView = self.navData.backView;
-    self.leftMenuActive = self.navData.leftMenuActive;
+
+    // test
+    self.leftClick = function() {
+        window.location = self.navData.backView;
+    };
 
     // Function to show overlay menu
     self.showOverlay = function() {
@@ -36,7 +38,7 @@ app.controller("NavController", ["$http", "AuthFactory", "NavFactory", function(
     // Function to Logout
     self.logOut = function() {
         authFactory.logOut().then(function(response) {
-          console.log(window.location.hash);
+            console.log(window.location.hash);
             window.location = '/#/home';
             console.log(self.authData.isUserLoggedIn);
         });
