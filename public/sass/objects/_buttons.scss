@@ -1,3 +1,7 @@
+.float-button {
+  @include float-button;
+}
+
 .arrowLeft {
     @include arrow_button(left);
 }
@@ -7,15 +11,15 @@
 }
 
 .sideBtnSave {
-    @include side_button(green, 100px);
+    @include side_button(green);
 }
 
 .sideBtnCancel {
-    @include side_button(red, 50px);
+    @include side_button(red);
 }
 
 .fa-plus-circle {
-    @include side_button($accent-color, 50px);
+    @include side_button($accent-color);
 }
 
 .fa-calendar {

@@ -27,6 +27,18 @@ body {
   background-color: #FFB04A;
   color: #1E689C; }
 
+.float-button {
+  position: fixed;
+  right: 10px;
+  height: 3.4em;
+  width: 3.4em;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 5px 5px 3px #8a847d;
+  bottom: 50px; }
+  .float-button:hover {
+    box-shadow: 5px 5px 3px #706a64; }
+
 .arrowLeft {
   font-size: 3em;
   color: #1E689C;
@@ -50,46 +62,37 @@ body {
     color: #164b71; }
 
 .sideBtnSave {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  font-size: 3.5em;
+  font-size: 4em;
   color: green;
-  bottom: 100px;
-  right: 5px;
-  height: 70px;
-  width: 70px;
-  line-height: 70px;
-  border-radius: 35px; }
+  position: relative;
+  float: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .sideBtnSave:hover {
+    color: #00b300; }
 
 .sideBtnCancel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  font-size: 3.5em;
+  font-size: 4em;
   color: red;
-  bottom: 50px;
-  right: 5px;
-  height: 70px;
-  width: 70px;
-  line-height: 70px;
-  border-radius: 35px; }
+  position: relative;
+  float: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .sideBtnCancel:hover {
+    color: #ff3333; }
 
 .fa-plus-circle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  font-size: 3.5em;
+  font-size: 4em;
   color: #1E689C;
-  bottom: 50px;
-  right: 5px;
-  height: 70px;
-  width: 70px;
-  line-height: 70px;
-  border-radius: 35px; }
+  position: relative;
+  float: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .fa-plus-circle:hover {
+    color: #2685c7; }
 
 .fa-calendar {
   position: relative;

@@ -12,7 +12,6 @@ app.factory("NavFactory", function() {
         data.currentView = text;
         data.backView = backView;
         data.leftMenuActive = leftMenuActive;
-        console.log('navFactory', data);
         return;
     };
 
