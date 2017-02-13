@@ -33,11 +33,12 @@ body {
   height: 4em;
   width: 4em;
   border-radius: 50%;
-  background-color: white;
+  background-color: #1E689C;
   box-shadow: 5px 5px 3px #8a847d;
   bottom: 50px; }
   .float-button:hover {
-    box-shadow: 5px 5px 3px #706a64; }
+    background-color: #2685c7;
+    box-shadow: 5px 5px 3px #827c75; }
 
 .arrowLeft {
   font-size: 3em;
@@ -61,39 +62,24 @@ body {
   .arrowRight:hover {
     color: #164b71; }
 
-.sideBtnSave {
-  font-size: 3.5em;
-  color: green;
-  position: relative;
-  float: left;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); }
-  .sideBtnSave:hover {
-    color: #00b300; }
-
 .sideBtnCancel {
   font-size: 3.5em;
-  color: red;
+  color: white;
   position: relative;
   float: left;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
-  .sideBtnCancel:hover {
-    color: #ff3333; }
 
-.float-button .fa-plus {
+.float-button .fa-plus, .fa-check {
   font-size: 3.5em;
-  color: #1E689C;
+  color: white;
   position: relative;
   float: left;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3.5em; }
-  .float-button .fa-plus:hover {
-    color: #2685c7; }
 
 .fa-calendar {
   position: relative;
@@ -136,7 +122,7 @@ body {
 
 .tripMap {
   width: 300px;
-  height: 250px; }
+  height: 300px; }
 
 div#map-container {
   position: relative; }

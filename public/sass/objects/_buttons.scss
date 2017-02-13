@@ -10,16 +10,12 @@
     @include arrow_button(right);
 }
 
-.sideBtnSave {
-    @include side_button(green);
-}
-
 .sideBtnCancel {
-    @include side_button(red);
+    @include side_button(white);
 }
 
-.float-button .fa-plus {
-    @include side_button($accent-color);
+.float-button .fa-plus, .fa-check {
+    @include side_button(white);
     font-size: 3.5em;
 }
 

@@ -67,7 +67,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                             method: 'GET',
                             url: '/trip/one/' + tripID,
                             headers: {
-                                id_token: currentUser.authIdToken
+                                id_token: authData.currentUser.authIdToken
                             }
                         })
                         .then(function(response) {
@@ -90,13 +90,13 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         console.log('addTrip:', newTrip);
         return authFactory.getIdToken()
             .then(function(currentUser) {
-                newTrip.user_id = currentUser.id;
+                newTrip.user_id = authData.currentUser.id;
                 console.log('newTrip.user_id:', newTrip.user_id);
                 return $http({
                         method: 'POST',
                         url: '/trip',
                         headers: {
-                            id_token: currentUser.authIdToken
+                            id_token: authData.currentUser.authIdToken
                         },
                         data: newTrip
                     })
@@ -121,7 +121,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         method: 'PUT',
                         url: '/trip/' + trip._id,
                         headers: {
-                            id_token: currentUser.authIdToken
+                            id_token: authData.currentUser.authIdToken
                         },
                         data: trip
                     })
@@ -145,7 +145,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         method: 'DELETE',
                         url: '/trip/' + tripID,
                         headers: {
-                            id_token: currentUser.authIdToken
+                            id_token: authData.currentUser.authIdToken
                         }
                     })
                     .then(function(response) {
@@ -164,12 +164,12 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         console.log('addDay:', newDay);
         return authFactory.getIdToken()
             .then(function(currentUser) {
-                newDay.user_id = currentUser.id;
+                newDay.user_id = authData.currentUser.id;
                 return $http({
                         method: 'POST',
                         url: '/day',
                         headers: {
-                            id_token: currentUser.authIdToken
+                            id_token: authData.currentUser.authIdToken
                         },
                         data: newDay
                     })
@@ -262,7 +262,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         console.log('updateDay:', day);
         return authFactory.getIdToken()
             .then(function(currentUser) {
-                data.day.user_id = currentUser.id;
+                data.day.user_id = authData.currentUser.id;
                 return deleteDay(day._id)
                     .then(function(response) {
                             delete data.day._id;
