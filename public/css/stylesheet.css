@@ -611,3 +611,23 @@ div#map-container {
 .tripInfo .title {
   text-align: right;
   font-weight: 200; }
+
+#daygen-form label {
+  margin-top: 4px; }
+
+#daygen-radios {
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center; }
+
+#daygen-radios input[type=radio] + label {
+  padding: 4px 4px; }
+
+#daygen-radios input[type=radio]:checked + label {
+  color: #FF3D3D; }
+
+.weather-radio {
+  color: #1E689C;
+  font-size: 2.5em;
+  margin-left: 10px;
+  margin-right: 50px; }
