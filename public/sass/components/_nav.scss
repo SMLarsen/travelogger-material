@@ -10,10 +10,6 @@
   justify-content: space-between;
 }
 
-.left-menu {
-  padding: 10px 0 0 10px;
-}
-
 .left-menu:hover {
   cursor: pointer;
 }
@@ -208,6 +204,10 @@
     #narrow-menu {
         visibility: hidden;
     }
+
+    .left-menu {
+      padding: 20px 0 0 10px;
+    }
 }
 @media screen and (max-width: 860px) {
     #wide-menu {
@@ -220,6 +220,10 @@
 
     nav ul li a {
         font-size: 3em;
+    }
+
+    .left-menu {
+      padding: 10px 0 0 10px;
     }
 
     .left-menu a {

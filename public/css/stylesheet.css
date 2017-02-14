@@ -163,9 +163,6 @@ div#map-container {
   display: inline-flex;
   justify-content: space-between; }
 
-.left-menu {
-  padding: 10px 0 0 10px; }
-
 .left-menu:hover {
   cursor: pointer; }
 
@@ -319,7 +316,9 @@ div#map-container {
   #wide-menu {
     visibility: visible; }
   #narrow-menu {
-    visibility: hidden; } }
+    visibility: hidden; }
+  .left-menu {
+    padding: 20px 0 0 10px; } }
 
 @media screen and (max-width: 860px) {
   #wide-menu {
@@ -328,6 +327,8 @@ div#map-container {
     visibility: visible; }
   nav ul li a {
     font-size: 3em; }
+  .left-menu {
+    padding: 10px 0 0 10px; }
   .left-menu a {
     font-size: 1.5em; } }
 

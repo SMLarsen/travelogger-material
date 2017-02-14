@@ -72,7 +72,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         })
                         .then(function(response) {
                                 data.trip = response.data[0];
-                                console.log('My Trip:', data.trip);
+                                // console.log('My Trip:', data.trip);
                                 return;
                             },
                             function(err) {
@@ -91,7 +91,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         return authFactory.getIdToken()
             .then(function(currentUser) {
                 newTrip.user_id = authData.currentUser.id;
-                console.log('newTrip.user_id:', newTrip.user_id);
+                // console.log('newTrip.user_id:', newTrip.user_id);
                 return $http({
                         method: 'POST',
                         url: '/trip',
@@ -101,7 +101,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         data: newTrip
                     })
                     .then(function(response) {
-                            console.log('Trip added');
+                            // console.log('Trip added');
                             newTrip = {};
                             return;
                         },
@@ -114,7 +114,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to update a trip
     function updateTrip(trip) {
-        console.log('updateTrip:', trip);
+        // console.log('updateTrip:', trip);
         return authFactory.getIdToken()
             .then(function(currentUser) {
                 return $http({
@@ -126,7 +126,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         data: trip
                     })
                     .then(function(response) {
-                            console.log('Trip updated');
+                            // console.log('Trip updated');
                             return;
                         },
                         function(err) {
@@ -138,7 +138,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to delete a trip
     function deleteTrip(tripID) {
-        console.log('deleteTrip:', tripID);
+        // console.log('deleteTrip:', tripID);
         return authFactory.getIdToken()
             .then(function(currentUser) {
                 return $http({
@@ -149,7 +149,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         }
                     })
                     .then(function(response) {
-                            console.log('Trip deleted');
+                            // console.log('Trip deleted');
                             return;
                         },
                         function(err) {
@@ -161,7 +161,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to add a day
     function addDay(newDay) {
-        console.log('addDay:', newDay);
+        // console.log('addDay:', newDay);
         return authFactory.getIdToken()
             .then(function(currentUser) {
                 newDay.user_id = authData.currentUser.id;
@@ -174,7 +174,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         data: newDay
                     })
                     .then(function(response) {
-                            console.log('Day added');
+                            // console.log('Day added');
                             newTrip = {};
                             return;
                         },
@@ -199,7 +199,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                 })
                 .then(function(response) {
                         data.tripDays = response.data;
-                        console.log('My Days:', data.tripDays);
+                        // console.log('My Days:', data.tripDays);
                         return;
                     },
                     function(err) {
@@ -212,7 +212,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to GET all days for user
     function getUserDays(userID) {
-        console.log('getUserDays user:', userID);
+        // console.log('getUserDays user:', userID);
         return authFactory.getIdToken().then(function(currentUser) {
             return $http({
                     method: 'GET',
@@ -223,7 +223,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                 })
                 .then(function(response) {
                         data.userDays = response.data;
-                        console.log('User Days:', data.userDays);
+                        // console.log('User Days:', data.userDays);
                         return;
                     },
                     function(err) {
@@ -268,7 +268,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                             delete data.day._id;
                             return addDay(day)
                                 .then(function(response) {
-                                        console.log('Day updated (deleted/added)');
+                                        // console.log('Day updated (deleted/added)');
                                         return;
                                     },
                                     function(err) {

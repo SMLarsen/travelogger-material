@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-app.controller('AddTripController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCoder', 'NavFactory', function(MyTripFactory, $scope, NgMap, GeoCoder, NavFactory) {
+app.controller('AddTripController', ['MyTripFactory', 'NgMap', 'GeoCoder', 'NavFactory', function(MyTripFactory, NgMap, GeoCoder, NavFactory) {
     console.log('AddTripController started');
 
     const myTripFactory = MyTripFactory;
