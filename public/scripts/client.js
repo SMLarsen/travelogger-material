@@ -64,6 +64,11 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'PicController',
             controllerAs: 'pc'
         })
+        .when('/daygen', {
+            templateUrl: '/views/templates/daygen.html',
+            controller: 'DayGenController',
+            controllerAs: 'dg'
+        })
         .otherwise({
             redirectTo: 'home'
         });

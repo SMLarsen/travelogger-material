@@ -50,9 +50,10 @@
     background-color: $accent-color;
     box-shadow: 5px 5px 3px $shadow;
     bottom: 50px;
+
     &:hover {
-      background-color: lighten($accent-color, 10%);
-      box-shadow: 5px 5px 3px darken($shadow, 3%);
+        background-color: lighten($accent-color, 10%);
+        box-shadow: 5px 5px 3px darken($shadow, 3%);
     }
 }
 @mixin side_button($color) {
@@ -63,4 +64,24 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+}
+@mixin day-cat($color) {
+    display: inline-block;
+    position: relative;
+    margin: 1%;
+    background-color: $color;
+    padding: 1%;
+    box-shadow: 5px 5px 3px $shadow;
+
+    & h2 {
+        color: white;
+        text-align: center;
+    }
+
+    &:hover {
+        top: -1px;
+        left: -1px;
+        background-color: darken($color, 5%);
+        box-shadow: 3px 3px 2px darken($shadow, 5%);
+    }
+}

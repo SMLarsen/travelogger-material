@@ -1,8 +1,11 @@
-app.controller('AddDayController', ['MyTripFactory', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, NgMap, GeoCoder, $routeParams) {
+/*jshint esversion: 6 */
+app.controller('AddDayController', ['NavFactory', '$routeParams', function(NavFactory, $routeParams) {
     console.log('AddDayController started');
-    var self = this;
-    var myTripFactory = MyTripFactory;
 
+    const myTripFactory = MyTripFactory;
+    const navFactory = NavFactory;
+
+    let self = this;
     self.tripID = $routeParams.tripID;
 
     self.newDay = {
@@ -18,6 +21,9 @@ app.controller('AddDayController', ['MyTripFactory', 'NgMap', 'GeoCoder', '$rout
     self.destinationMapLocation = {};
     self.beginMapLocation = {};
     self.endMapLocation = {};
+
+    // Set left nav parameters
+    navFactory.setNav('Add Day', '#/mydays/' + self.tripID, true);
 
     self.transportModes = ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'];
     self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
