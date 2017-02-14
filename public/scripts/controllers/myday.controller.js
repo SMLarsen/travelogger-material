@@ -1,14 +1,18 @@
 /*jshint esversion: 6 */
-app.controller('MyDayController', ['MyTripFactory', '$routeParams', 'NgMap', 'GeoCoder', function(MyTripFactory, $routeParams, NgMap, GeoCoder) {
+app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams', 'NgMap', 'GeoCoder', function(MyTripFactory, NavFactory, $routeParams, NgMap, GeoCoder) {
     console.log('MyDayController started');
 
     const myTripFactory = MyTripFactory;
+    const navFactory = NavFactory;
 
     let self = this;
     self.data = myTripFactory.data;
     self.tripID = $routeParams.tripID;
 
     self.days = [];
+
+    // Set left nav parameters
+    navFactory.setNav('Days', '#/mytrips', true);
 
     getDays(self.tripID);
 
