@@ -69,6 +69,31 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'DayGenController',
             controllerAs: 'dg'
         })
+        .when('/daybed', {
+            templateUrl: '/views/templates/daybed.html',
+            controller: 'DayBedController',
+            controllerAs: 'db'
+        })
+        .when('/dayfood', {
+            templateUrl: '/views/templates/dayfood.html',
+            controller: 'DayFoodController',
+            controllerAs: 'df'
+        })
+        .when('/daypic', {
+            templateUrl: '/views/templates/daypic.html',
+            controller: 'DayPicController',
+            controllerAs: 'dp'
+        })
+        .when('/dayroute', {
+            templateUrl: '/views/templates/dayroute.html',
+            controller: 'DayRouteController',
+            controllerAs: 'dr'
+        })
+        .when('/daypoi', {
+            templateUrl: '/views/templates/daypoi.html',
+            controller: 'DayPOIController',
+            controllerAs: 'di'
+        })
         .otherwise({
             redirectTo: 'home'
         });

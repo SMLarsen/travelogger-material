@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
-app.controller('DayGenController', ['MyTripFactory', 'NavFactory', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, NavFactory, NgMap, GeoCoder, $routeParams) {
-    console.log('DayGenController started');
+app.controller('DayRouteController', ['MyTripFactory', 'NavFactory', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, NavFactory, NgMap, GeoCoder, $routeParams) {
+    console.log('DayRouteController started');
 
     const myTripFactory = MyTripFactory;
     const navFactory = NavFactory;
@@ -23,11 +23,9 @@ app.controller('DayGenController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     self.endMapLocation = {};
 
     // Set left nav parameters
-    navFactory.setNav('Day General Info', '#/addday/' + self.tripID, true);
+    navFactory.setNav('Add Route', '#/addday/' + self.tripID, true);
 
     self.transportModes = ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'];
-    self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
-    self.mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'];
 
     self.tripIndex = 0;
     self.dayIndex = 0;
