@@ -175,7 +175,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     })
                     .then(function(response) {
                             // console.log('Day added');
-                            newTrip = {};
+                            data.day = response.data;
                             return;
                         },
                         function(err) {

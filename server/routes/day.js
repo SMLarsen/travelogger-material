@@ -54,12 +54,12 @@ router.get('/one/:id', function(req, res) {
 router.post("/", function(req, res) {
   var dayToAdd = new day(req.body);
   console.log('Adding new day:', dayToAdd);
-  dayToAdd.save(function(err) {
+  dayToAdd.save(function(err, objectInserted) {
       if (err) {
           console.log('There was an error inserting new day, ', err);
           res.sendStatus(500);
       } else {
-          res.send(201);
+          res.send(objectInserted);
       }
   });
 }); // END: POST day route
