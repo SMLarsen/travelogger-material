@@ -6,11 +6,10 @@ app.controller('DayBedController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     const navFactory = NavFactory;
 
     let self = this;
-    self.tripID = $routeParams.tripID;
     self.data = myTripFactory.data;
 
     // Set left nav parameters
-    navFactory.setNav('Add Lodging', '#/addday/' + self.tripID, true);
+    navFactory.setNav('Add Lodging', '#/addday/' + navFactory.data.tripID, true);
 
     self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
     // Find location
@@ -26,14 +25,21 @@ app.controller('DayBedController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
         self.data.day.lodging_map_location = {
             pos: [self.lat, self.lng]
         };
-        self.map.setCenter(self.place.geometry.location);
-        // NgMap.getMap().then(function(map) {
-        //     self.map = map;
-        // });
     };
 
     NgMap.getMap().then(function(map) {
         self.map = map;
     });
+
+    self.changeDay = function() {
+      myTripFactory.updateDay(self.data.day)
+      .then(function(response) {
+              self.newDay = {};
+              window.location = '#/addday';
+          },
+          function(err) {
+              console.log('Error adding lodging', err);
+          });
+    };
 
 }]); // END: MyTripController
