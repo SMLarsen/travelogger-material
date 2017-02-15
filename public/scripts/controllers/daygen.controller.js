@@ -25,18 +25,31 @@ app.controller('DayGenController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     // Set left nav parameters
     navFactory.setNav('Day General Info', '#/addday/' + self.tripID, true);
 
-    self.transportModes = ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'];
-    self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
-    self.mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'];
-
     self.tripIndex = 0;
     self.dayIndex = 0;
 
     self.data = [];
     self.positions = [];
-    self.showData = function() {
-        alert(this.data.foo);
+
+    // Find location
+    self.destinationChanged = function() {
+        self.place = this.getPlace();
+        // console.log('location', self.place);
+        self.map.setCenter(self.place.geometry.location);
+        let location = self.place.geometry.location;
+        self.lat = location.lat();
+        self.lng = location.lng();
+        self.newTrip.destination_location = {
+            pos: [self.lat, self.lng]
+        };
+        NgMap.getMap().then(function(map) {
+            self.map = map;
+        });
     };
+
+    NgMap.getMap().then(function(map) {
+        self.map = map;
+    });
 
     // Function to set dates as date objects
     function formatDates(item, index) {

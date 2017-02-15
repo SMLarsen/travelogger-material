@@ -134,6 +134,9 @@ div#map-container {
   bottom: 0;
   left: 0; }
 
+.search-input {
+  border-radius: 25px; }
+
 #footerView {
   position: fixed;
   left: 0px;
