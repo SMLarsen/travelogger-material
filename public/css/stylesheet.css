@@ -483,6 +483,7 @@ div#map-container {
   position: relative;
   margin: 1%;
   background-color: #A1CC3A;
+  border-style: none;
   padding: 1%;
   box-shadow: 5px 5px 3px #8a847d; }
   .day-cat-1 h2 {
@@ -493,12 +494,16 @@ div#map-container {
     left: -1px;
     background-color: #93bc31;
     box-shadow: 3px 3px 2px #7d7771; }
+  .day-cat-1:disabled {
+    opacity: 0.3;
+    color: #8a847d; }
 
 .day-cat-2 {
   display: inline-block;
   position: relative;
   margin: 1%;
   background-color: #E62E62;
+  border-style: none;
   padding: 1%;
   box-shadow: 5px 5px 3px #8a847d; }
   .day-cat-2 h2 {
@@ -509,12 +514,16 @@ div#map-container {
     left: -1px;
     background-color: #e01b52;
     box-shadow: 3px 3px 2px #7d7771; }
+  .day-cat-2:disabled {
+    opacity: 0.3;
+    color: #8a847d; }
 
 .day-cat-3 {
   display: inline-block;
   position: relative;
   margin: 1%;
   background-color: #335CAA;
+  border-style: none;
   padding: 1%;
   box-shadow: 5px 5px 3px #8a847d; }
   .day-cat-3 h2 {
@@ -525,12 +534,16 @@ div#map-container {
     left: -1px;
     background-color: #2d5196;
     box-shadow: 3px 3px 2px #7d7771; }
+  .day-cat-3:disabled {
+    opacity: 0.3;
+    color: #8a847d; }
 
 .day-cat-4 {
   display: inline-block;
   position: relative;
   margin: 1%;
   background-color: #F9A91B;
+  border-style: none;
   padding: 1%;
   box-shadow: 5px 5px 3px #8a847d; }
   .day-cat-4 h2 {
@@ -541,12 +554,16 @@ div#map-container {
     left: -1px;
     background-color: #f49e06;
     box-shadow: 3px 3px 2px #7d7771; }
+  .day-cat-4:disabled {
+    opacity: 0.3;
+    color: #8a847d; }
 
 .day-cat-5 {
   display: inline-block;
   position: relative;
   margin: 1%;
   background-color: #3BC7F4;
+  border-style: none;
   padding: 1%;
   box-shadow: 5px 5px 3px #8a847d; }
   .day-cat-5 h2 {
@@ -557,12 +574,16 @@ div#map-container {
     left: -1px;
     background-color: #23c0f3;
     box-shadow: 3px 3px 2px #7d7771; }
+  .day-cat-5:disabled {
+    opacity: 0.3;
+    color: #8a847d; }
 
 .day-cat-6 {
   display: inline-block;
   position: relative;
   margin: 1%;
   background-color: #713E98;
+  border-style: none;
   padding: 1%;
   box-shadow: 5px 5px 3px #8a847d; }
   .day-cat-6 h2 {
@@ -573,39 +594,22 @@ div#map-container {
     left: -1px;
     background-color: #643786;
     box-shadow: 3px 3px 2px #7d7771; }
+  .day-cat-6:disabled {
+    opacity: 0.3;
+    color: #8a847d; }
 
 @media screen and (min-width: 861px) {
-  .day-cat-1,
-  .day-cat-2,
-  .day-cat-3,
-  .day-cat-4,
-  .day-cat-5,
-  .day-cat-6 {
+  .day-cat {
     width: 45%;
-    height: 7em; }
-    .day-cat-1 h2,
-    .day-cat-2 h2,
-    .day-cat-3 h2,
-    .day-cat-4 h2,
-    .day-cat-5 h2,
-    .day-cat-6 h2 {
+    height: 8em; }
+    .day-cat h2 {
       font-size: 2em; } }
 
 @media screen and (max-width: 860px) {
-  .day-cat-1,
-  .day-cat-2,
-  .day-cat-3,
-  .day-cat-4,
-  .day-cat-5,
-  .day-cat-6 {
+  .day-cat {
     width: 100%;
-    height: 5em; }
-    .day-cat-1 h2,
-    .day-cat-2 h2,
-    .day-cat-3 h2,
-    .day-cat-4 h2,
-    .day-cat-5 h2,
-    .day-cat-6 h2 {
+    height: 4em; }
+    .day-cat h2 {
       font-size: 1.5em; } }
 
 .tripInfo {

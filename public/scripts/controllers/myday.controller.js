@@ -45,4 +45,11 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
                 });
     }; // End deleteDay
 
+    // Function to go to add day
+    self.goToAddDay = function() {
+        navFactory.data.tripID = $routeParams.tripID;
+        navFactory.data.dayID = '';
+        window.location = '/#/addday';
+    };
+
 }]); // END: MyDayController

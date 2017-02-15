@@ -23,7 +23,9 @@ app.controller('DayGenController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     self.endMapLocation = {};
 
     // Set left nav parameters
-    navFactory.setNav('Day General Info', '#/addday/' + self.tripID, true);
+    navFactory.setNav('Day General Info', '#/addday', true);
+
+    navFactory.data.dayID = '2343l5kj3245';
 
     self.tripIndex = 0;
     self.dayIndex = 0;

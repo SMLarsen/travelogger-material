@@ -5,7 +5,9 @@ app.factory("NavFactory", function() {
     let data = {
         currentView: 'My Blank',
         backView: '#/home',
-        leftMenuActive: true
+        leftMenuActive: true,
+        tripID: '',
+        dayID: ''
     };
 
     var setNav = function(text, backView, leftMenuActive) {

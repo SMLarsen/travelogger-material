@@ -70,6 +70,7 @@
     position: relative;
     margin: 1%;
     background-color: $color;
+    border-style: none;
     padding: 1%;
     box-shadow: 5px 5px 3px $shadow;
 
@@ -83,5 +84,10 @@
         left: -1px;
         background-color: darken($color, 5%);
         box-shadow: 3px 3px 2px darken($shadow, 5%);
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        color: $shadow;
     }
 }
