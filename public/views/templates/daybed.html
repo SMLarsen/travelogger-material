@@ -4,9 +4,15 @@
         <a ng-click="db.changeDay()"><i class="rightBtn fa fa-check" aria-hidden="true"></i></a>
     </div>
 
+{{db.data.day.lodging_map_location.pos[0]}}
+{{db.data.day.lodging_map_location.pos[1]}}
+
     <div class="col-xs-12 col-md-6">
-        <ng-map zoom="12">
-            <marker ng-show="{{db.lodging_map_location}}" position="{{db.lat}},{{db.lng}}" title="{{db.destination}}"></marker>
+      <!-- <ng-map center="db.data.day.lodging_map_location.pos[0],db.data.day.lodging_map_location.pos[1]" zoom="4"> -->
+        <!-- <marker position="db.data.day.lodging_map_location.pos[0],db.data.day.lodging_map_location.pos[1]" title="db.data.day.lodging_name"></marker> -->
+      <!-- </ng-map>         -->
+      <ng-map zoom="12">
+            <marker ng-show="{{db.data.day.lodging_map_location}}" position="{{db.lat}},{{db.lng}}" title="{{db.destination}}"></marker>
         </ng-map>
     </div>
 

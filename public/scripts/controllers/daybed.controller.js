@@ -9,7 +9,7 @@ app.controller('DayBedController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     self.data = myTripFactory.data;
 
     // Set left nav parameters
-    navFactory.setNav('Add Lodging', '#/addday/' + navFactory.data.tripID, true);
+    navFactory.setNav('Add Lodging', '#/addday', true);
 
     self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
     // Find location
