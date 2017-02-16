@@ -612,6 +612,20 @@ div#map-container {
     .day-cat h2 {
       font-size: 1.5em; } }
 
+.my-days {
+  margin: 4px 0;
+  background-color: white; }
+  .my-days:hover {
+    cursor: pointer;
+    text-decoration: underline; }
+
+.my-days p {
+  text-align: left;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: black;
+  padding: 8px 0 8px 30px; }
+
 .tripInfo {
   font-size: 1.2em; }
 

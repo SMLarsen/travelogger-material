@@ -9,76 +9,79 @@
             <uib-accordion-heading>
                 {{day.date | date:'MM/dd'}} - {{day.end_location}}
                 <span class="deleteBtn pull-right fa fa-trash" ng-click="mdc.deleteDay(day._id, day.trip_id)"></span>
+                <span class="editBtn pull-right fa fa-pencil" ng-click="mdc.goToDay()"></span>
             </uib-accordion-heading>
 
             <label class="dayLabel col-xs-12">General Information
-                <a href="#editday/{{day._id}}" class="editBtn pull-right fa fa-pencil"></a>
             </label>
-            <div class="col-xs-2">
+            <div class="col-xs-12 col-md-3">
                 <span>{{ day.date | date:'MM/dd' }}</span>
             </div>
 
-            <div class="col-xs-2">
-                <span>{{ day.end_location || 'empty' }}</span>
+            <div class="col-xs-12 col-md-9">
+                <span>{{ day.tag_line }}</span>
             </div>
 
-            <div class="col-xs-3">
-                <span>{{ day.tag_line || 'empty' }}</span>
+            <div class="col-xs-6 col-md-6">
+                <span>{{ day.end_location }}</span>
             </div>
 
-            <div class="col-xs-4">
-                <span>{{ day.weather || 'empty' }}</span>
+            <div class="col-xs-6 col-md-6">
+                <span>{{ day.weather }}</span>
             </div>
 
-            <label class="daySubLabel col-xs-12">Lodging</label>
-            <div class="col-xs-12">
-
-                <div class="col-xs-2">
-                    <span>{{ day.lodging_type || 'empty' }}</span>
-                </div>
-
-                <div class="col-xs-2">
-                    <span>{{ day.lodging_name || 'empty' }}</span>
-                </div>
-
-                <div class="col-xs-4">
-                    <span>{{ day.lodging_address || 'empty' }}</span>
-                </div>
-
-                <div class="col-xs-3">
-                    <!-- <span class="title">Tag-line: </span> -->
-                    <span>{{ day.lodging_reference || 'empty' }}</span>
-                </div>
-            </div>
-
-            <label class="daySubLabel col-xs-12">Narrative</label>
             <div class="col-xs-12">
                 <span>{{day.narrative}}</span>
-
             </div><br>
 
-            <label class="dayLabel col-xs-12">Points of Interest</label>
-            <!-- table -->
-            <div class="col-xs-11">
-                <table class="table table-bordered table-hover table-condensed">
-                    <tr style="font-weight: bold">
-                        <td style="width:30%">Name</td>
-                        <td style="width:70%">Description</td>
-                    </tr>
-                    <tr ng-repeat="place in day.interesting_locations">
-                        <td>
-                            <span>
-                            {{ place.name || 'empty' }}
-                          </span>
-                        </td>
-                        <td>
-                            <span>
-                            {{ place.description || 'empty' }}
-                          </span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <!-- <div ng-show="mdc.lodging_name"> -->
+                <label class="daySubLabel col-xs-12">Lodging</label>
+                <div class="col-xs-12">
+
+                    <div class="col-xs-2">
+                        <span>{{ day.lodging_type || 'empty' }}</span>
+                    </div>
+
+                    <div class="col-xs-2">
+                        <span>{{ day.lodging_name || 'empty' }}</span>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <span>{{ day.lodging_address || 'empty' }}</span>
+                    </div>
+
+                    <div class="col-xs-3">
+                        <!-- <span class="title">Tag-line: </span> -->
+                        <span>{{ day.lodging_reference || 'empty' }}</span>
+                    </div>
+                </div>
+            <!-- </div> -->
+
+            <!-- <div ng-show="mdc.Interesting_location"> -->
+                <label class="dayLabel col-xs-12">Points of Interest</label>
+                <!-- table -->
+                <div class="col-xs-11">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <tr style="font-weight: bold">
+                            <td style="width:30%">Name</td>
+                            <td style="width:70%">Description</td>
+                        </tr>
+                        <tr ng-repeat="place in day.interesting_locations">
+                            <td>
+                                <span>
+                              {{ place.name || 'empty' }}
+                            </span>
+                            </td>
+                            <td>
+                                <span>
+                              {{ place.description || 'empty' }}
+                            </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            <!-- </div> -->
 
             <!-- Starting Travel Route -->
 
@@ -172,3 +175,4 @@
             </div>
         </div>
     </div>
+</div>

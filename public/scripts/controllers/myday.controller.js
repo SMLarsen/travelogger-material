@@ -52,4 +52,11 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
         window.location = '/#/addday';
     };
 
+    // Function to go to add day
+    self.goToDay = function() {
+        navFactory.data.tripID = $routeParams.tripID;
+        navFactory.data.dayID = self.data.day._id;
+        window.location = '/#/addday';
+    };
+
 }]); // END: MyDayController
