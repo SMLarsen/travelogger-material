@@ -265,10 +265,10 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                 data.day.user_id = authData.currentUser.id;
                 return deleteDay(day._id)
                     .then(function(response) {
+                      console.log('response:' , response);
                             delete data.day._id;
                             return addDay(day)
                                 .then(function(response) {
-                                        // console.log('Day updated (deleted/added)');
                                         return;
                                     },
                                     function(err) {

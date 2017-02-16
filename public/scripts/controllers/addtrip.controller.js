@@ -28,9 +28,6 @@ app.controller('AddTripController', ['MyTripFactory', 'NgMap', 'GeoCoder', 'NavF
         self.newTrip.destination_location = {
             pos: [self.lat, self.lng]
         };
-        NgMap.getMap().then(function(map) {
-            self.map = map;
-        });
     };
 
     NgMap.getMap().then(function(map) {

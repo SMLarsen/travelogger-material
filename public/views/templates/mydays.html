@@ -1,7 +1,7 @@
 <div>
 
     <div class="float-button">
-        <a ng-click="mdc.goToAddDay()"><i class="rightBtn fa fa-plus" aria-hidden="true"></i></a>
+        <a ng-click="mdc.goToDay('Add')"><i class="rightBtn fa fa-plus" aria-hidden="true"></i></a>
     </div>
 
     <div uib-accordion close-others="true">
@@ -9,10 +9,11 @@
             <uib-accordion-heading>
                 {{day.date | date:'MM/dd'}} - {{day.end_location}}
                 <span class="deleteBtn pull-right fa fa-trash" ng-click="mdc.deleteDay(day._id, day.trip_id)"></span>
-                <span class="editBtn pull-right fa fa-pencil" ng-click="mdc.goToDay()"></span>
+                <!-- <span class="editBtn pull-right fa fa-pencil" ng-click="mdc.goToDay('Edit', day)"></span> -->
             </uib-accordion-heading>
 
             <label class="dayLabel col-xs-12">General Information
+              <a  ng-click="mdc.goToDay('Edit', day)" class="editBtn pull-right fa fa-pencil"></a>
             </label>
             <div class="col-xs-12 col-md-3">
                 <span>{{ day.date | date:'MM/dd' }}</span>

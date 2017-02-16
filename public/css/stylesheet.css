@@ -24,7 +24,7 @@ h1 {
   font-weight: bolder; }
 
 body {
-  background-color: #FFB04A;
+  background-color: gainsboro;
   color: #1E689C; }
 
 .float-button {
@@ -241,7 +241,7 @@ div#map-container {
   height: 100%;
   top: 0;
   left: 0;
-  background: #FFB04A;
+  background: gainsboro;
   transition: all 0.5s ease;
   z-index: 2; }
 

@@ -12,10 +12,9 @@ app.controller('AddDayController', ['NavFactory', 'MyTripFactory', function(NavF
     console.log('add day dayID', navFactory.data.dayID);
 
     // Enable day topic buttons once day is created
+    self.isDisabled = false;
     if (navFactory.data.dayID === '') {
-      self.isDisabled = true;
-    } else {
-      self.isDisabled = false;
+        self.isDisabled = true;
     }
 
     // Set left nav parameters
@@ -23,7 +22,7 @@ app.controller('AddDayController', ['NavFactory', 'MyTripFactory', function(NavF
 
     //Function to manage navigation
     self.goToDay = function(target) {
-      window.location = '/#/' + target;
+        window.location = '/#/' + target;
     };
 
 }]); // END: MyTripController

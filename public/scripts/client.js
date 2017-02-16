@@ -79,6 +79,11 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'DayFoodController',
             controllerAs: 'df'
         })
+        .when('/addfood', {
+            templateUrl: '/views/templates/addfood.html',
+            controller: 'AddFoodController',
+            controllerAs: 'af'
+        })
         .when('/daypic', {
             templateUrl: '/views/templates/daypic.html',
             controller: 'DayPicController',

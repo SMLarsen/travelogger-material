@@ -12,6 +12,7 @@ app.controller('DayBedController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     navFactory.setNav('Add Lodging', '#/addday', true);
 
     self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
+
     // Find location
     self.destinationChanged = function() {
         self.place = this.getPlace();
@@ -22,6 +23,7 @@ app.controller('DayBedController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
         let location = self.place.geometry.location;
         self.lat = location.lat();
         self.lng = location.lng();
+        self.map.setCenter(self.place.geometry.location);
         self.data.day.lodging_map_location = {
             pos: [self.lat, self.lng]
         };

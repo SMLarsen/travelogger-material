@@ -46,16 +46,16 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
     }; // End deleteDay
 
     // Function to go to add day
-    self.goToAddDay = function() {
+    self.goToDay = function(type, day) {
+        console.log('go to day type:', type, day);
         navFactory.data.tripID = $routeParams.tripID;
-        navFactory.data.dayID = '';
-        window.location = '/#/addday';
-    };
-
-    // Function to go to add day
-    self.goToDay = function() {
-        navFactory.data.tripID = $routeParams.tripID;
-        navFactory.data.dayID = self.data.day._id;
+        if (type === 'Add') {
+            self.data.day = {};
+            navFactory.data.dayID = '';
+        } else {
+            self.data.day = day;
+            navFactory.data.dayID = self.data.day._id;
+        }
         window.location = '/#/addday';
     };
 
