@@ -1,178 +1,109 @@
-<div>
+<div class="float-button">
+    <a ng-click="mdc.goToDay('Add')"><i class="rightBtn fa fa-plus" aria-hidden="true"></i></a>
+</div>
 
-    <div class="float-button">
-        <a ng-click="mdc.goToDay('Add')"><i class="rightBtn fa fa-plus" aria-hidden="true"></i></a>
-    </div>
+<div uib-accordion close-others="true">
+    <div uib-accordion-group ng-repeat="day in mdc.data.tripDays" class="panel-default">
+        <uib-accordion-heading>
+            {{day.date | date:'MM/dd'}} - {{day.end_location}}
+            <span class="deleteBtn pull-right fa fa-trash" ng-click="mdc.deleteDay(day._id, day.trip_id)"></span>
+            <!-- <span class="editBtn pull-right fa fa-pencil" ng-click="mdc.goToDay('Edit', day)"></span> -->
+        </uib-accordion-heading>
 
-    <div uib-accordion close-others="true">
-        <div uib-accordion-group ng-repeat="day in mdc.data.tripDays" class="panel-default">
-            <uib-accordion-heading>
-                {{day.date | date:'MM/dd'}} - {{day.end_location}}
-                <span class="deleteBtn pull-right fa fa-trash" ng-click="mdc.deleteDay(day._id, day.trip_id)"></span>
-                <!-- <span class="editBtn pull-right fa fa-pencil" ng-click="mdc.goToDay('Edit', day)"></span> -->
-            </uib-accordion-heading>
-
-            <label class="dayLabel col-xs-12">General Information
+        <label class="dayLabel col-xs-12">General Information
               <a  ng-click="mdc.goToDay('Edit', day)" class="editBtn pull-right fa fa-pencil"></a>
             </label>
-            <div class="col-xs-12 col-md-3">
-                <span>{{ day.date | date:'MM/dd' }}</span>
+        <div class="col-xs-12 col-md-2">
+            <span>{{ day.date | date:'MM/dd' }}</span>
+        </div>
+        <div class="col-xs-6 col-md-2">
+            <span>{{ day.weather }}</span>
+        </div>
+        <div class="col-xs-6 col-md-y">
+            <span>{{ day.end_location }}</span>
+        </div>
+        <div class="col-xs-12 col-md-12">
+            <span>{{ day.tag_line }}</span>
+        </div>
+        <div class="col-xs-12">
+            <span>{{day.narrative}}</span>
+        </div><br>
+
+        <div ng-show="day.lodging_name">
+            <label class="daySubLabel col-xs-12">Lodging</label>
+            <div class="col-xs-12 col-md-2">
+                <span>{{ day.lodging_type }}</span>
             </div>
-
-            <div class="col-xs-12 col-md-9">
-                <span>{{ day.tag_line }}</span>
+            <div class="col-xs-12 col-md-10">
+                <span>{{ day.lodging_name }}</span>
             </div>
-
-            <div class="col-xs-6 col-md-6">
-                <span>{{ day.end_location }}</span>
+            <div class="col-xs-12 col-md-12">
+                <span>{{ day.lodging_address }}</span>
             </div>
-
-            <div class="col-xs-6 col-md-6">
-                <span>{{ day.weather }}</span>
+            <div class="col-xs-12 col-md-12">
+                <span>{{ day.lodging_reference }}</span>
             </div>
+        </div>
 
-            <div class="col-xs-12">
-                <span>{{day.narrative}}</span>
-            </div><br>
-
-            <!-- <div ng-show="mdc.lodging_name"> -->
-                <label class="daySubLabel col-xs-12">Lodging</label>
-                <div class="col-xs-12">
-
-                    <div class="col-xs-2">
-                        <span>{{ day.lodging_type || 'empty' }}</span>
-                    </div>
-
-                    <div class="col-xs-2">
-                        <span>{{ day.lodging_name || 'empty' }}</span>
-                    </div>
-
-                    <div class="col-xs-4">
-                        <span>{{ day.lodging_address || 'empty' }}</span>
-                    </div>
-
-                    <div class="col-xs-3">
-                        <!-- <span class="title">Tag-line: </span> -->
-                        <span>{{ day.lodging_reference || 'empty' }}</span>
-                    </div>
+        <div ng-show="day.interesting_locations.length > 0">
+            <label class="dayLabel col-xs-12">Points of Interest</label>
+            <div ng-repeat="place in day.interesting_locations">
+                <div class="col-xs-12 col-md-12">
+                    <span>{{ place.name }}</span>
                 </div>
-            <!-- </div> -->
-
-            <!-- <div ng-show="mdc.Interesting_location"> -->
-                <label class="dayLabel col-xs-12">Points of Interest</label>
-                <!-- table -->
-                <div class="col-xs-11">
-                    <table class="table table-bordered table-hover table-condensed">
-                        <tr style="font-weight: bold">
-                            <td style="width:30%">Name</td>
-                            <td style="width:70%">Description</td>
-                        </tr>
-                        <tr ng-repeat="place in day.interesting_locations">
-                            <td>
-                                <span>
-                              {{ place.name || 'empty' }}
-                            </span>
-                            </td>
-                            <td>
-                                <span>
-                              {{ place.description || 'empty' }}
-                            </span>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="col-xs-12 col-md-12">
+                    <span>{{ place.description }}</span>
                 </div>
+            </div>
+        </div>
 
-            <!-- </div> -->
-
-            <!-- Starting Travel Route -->
-
+        <!-- Starting Travel Route -->
+        <div ng-show="day.routes.length > 0">
             <label class="dayLabel col-xs-12">Route</label>
-            <!-- table -->
-            <div class="col-xs-11">
-                <table class="table table-bordered table-hover table-condensed">
-                    <thead class=>
-                        <tr>
-                            <th style="width:15%">Name</th>
-                            <th style="width:10%">Mode</th>
-                            <th style="width:10%">Distance</th>
-                            <th style="width:10%">Duration</th>
-                            <th style="width:45%">Specifics</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="routes" ng-repeat="route in day.routes">
-                            <td>
-                                <span>{{route.name || 'empty' }}</span>
-                            </td>
-                            <td>
-                                <span>{{route.transport_mode || 'empty' }}</span>
-                            </td>
-                            <td>
-                                <span>{{route.distance || 'empty' }}</span>
-                            </td>
-                            <td>
-                                <span>{{route.duration || 'empty' }}</span>
-                            </td>
-                            <td>
-                                <span>{{route.specifics || 'empty' }}</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="routes" ng-repeat="route in day.routes">
+                <div class="col-xs-12 col-md-12">
+                    <span>{{route.name }}</span>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                    <span>{{route.transport_mode }}</span>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                    <span>{{route.distance }}</span>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                    <span>{{route.duration }}</span>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                    <span>{{route.specifics }}</span>
+                </div>
             </div>
+        </div>
 
-            <!-- Starting Meals -->
-
+        <!-- Starting Meals -->
+        <div ng-show="day.meals.length > 0">
             <label class="dayLabel col-xs-12">Eating and Drinking</label>
-            <div class="col-xs-12">
-                <table class="table table-bordered table-hover table-condensed">
-                    <thead class=>
-                        <tr>
-                            <th style="width:10%">type</th>
-                            <th style="width:15%">Name</th>
-                            <th style="width:25%">Location</th>
-                            <th style="width:30%">Description</th>
-                            <th style="width:20%">Reference</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="meals" ng-repeat="meal in day.meals">
-                            <td>
-                                <span>{{meal.type || 'empty' }}</span>
-                            </td>
-                            <td>
-                                <span>{{meal.name || 'empty' }}</span>
-                            </td>
-                            <td>
-                                <span>{{meal.location || 'empty' }}</span>
-                            </td>
-                            <td>
-                                <span>{{meal.description || 'empty' }}</span>
-                            </td>
-                            <td>
-                                <span>{{meal.reference || 'empty' }}</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="meals" ng-repeat="meal in day.meals">
+                <div class="col-xs-12 col-md-12">
+                    <span>{{meal.type }}</span> - <span>{{meal.name }}</span>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <span>{{meal.location }}</span>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                    <span>{{meal.description }}</span>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                    <span>{{meal.reference }}</span>
+                </div>
             </div>
+        </div>
 
+        <div ng-show="day.recommendations.length > 0">
             <label class="dayLabel col-xs-12">Recommendations</label>
-            <div class="col-xs-12">
-                <table class="table table-bordered table-hover table-condensed">
-                    <thead class=>
-                        <tr>
-                            <th style="width:100%"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="recommendations" ng-repeat="recommendation in day.recommendations">
-                            <td>
-                                <span>{{recommendation.text}}</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="table table-bordered table-hover table-condensed">
+                <div class="col-xs-12 col-md-12">
+                    <span>{{recommendation.text}}</span>
+                </div>
             </div>
         </div>
     </div>
