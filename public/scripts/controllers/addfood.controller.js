@@ -19,7 +19,7 @@ app.controller('AddFoodController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Ge
     self.addMeal = function() {
         self.data.day.meals.push(angular.copy(self.newMeal));
         self.newMeal = {};
-        myTripFactory.updateDay(self.data.day)
+        myTripFactory.updateDay()
             .then(function(response) {
                     self.newDay = {};
                     window.location = '#/dayfood';

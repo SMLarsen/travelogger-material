@@ -34,7 +34,7 @@ app.controller('DayBedController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     });
 
     self.changeDay = function() {
-      myTripFactory.updateDay(self.data.day)
+      myTripFactory.updateDay()
       .then(function(response) {
               self.newDay = {};
               window.location = '#/addday';
