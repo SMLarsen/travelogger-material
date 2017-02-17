@@ -8,9 +8,6 @@ app.controller('AddTripController', ['MyTripFactory', 'NgMap', 'GeoCoder', 'NavF
     let self = this;
     self.data = myTripFactory.data;
 
-    self.newTrip = {};
-
-    self.newAddress = '';
     self.lat = '';
     self.lng = '';
 
@@ -25,7 +22,7 @@ app.controller('AddTripController', ['MyTripFactory', 'NgMap', 'GeoCoder', 'NavF
         let location = self.place.geometry.location;
         self.lat = location.lat();
         self.lng = location.lng();
-        self.newTrip.destination_location = {
+        self.data.trip.destination_location = {
             pos: [self.lat, self.lng]
         };
     };
@@ -42,14 +39,14 @@ app.controller('AddTripController', ['MyTripFactory', 'NgMap', 'GeoCoder', 'NavF
 
     // Function to add a trip
     self.addTrip = function() {
-        myTripFactory.addTrip(self.newTrip)
+        myTripFactory.addTrip(self.data.trip)
             .then(function(response) {
-                    self.newTrip = {};
+                    self.data.trip = {};
                     myTripFactory.getTrips()
                         .then(function(response) {
                                 self.addTripStatus = false;
                                 console.log('Trip added');
-                                self.newTrip = {};
+                                self.data.trip = {};
                                 window.location = '/#/mytrips';
                             },
                             function(err) {

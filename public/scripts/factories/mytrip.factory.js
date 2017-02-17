@@ -86,23 +86,23 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     } // End getTrip
 
     // Function to add a trips
-    function addTrip(newTrip) {
-        console.log('addTrip:', newTrip);
+    function addTrip() {
+        console.log('addTrip:', data.trip);
         return authFactory.getIdToken()
             .then(function(currentUser) {
-                newTrip.user_id = authData.currentUser.id;
-                // console.log('newTrip.user_id:', newTrip.user_id);
+                data.trip.user_id = authData.currentUser.id;
+                // console.log('data.trip.user_id:', data.trip.user_id);
                 return $http({
                         method: 'POST',
                         url: '/trip',
                         headers: {
                             id_token: authData.currentUser.authIdToken
                         },
-                        data: newTrip
+                        data: data.trip
                     })
                     .then(function(response) {
                             // console.log('Trip added');
-                            newTrip = {};
+                            data.trip = {};
                             return;
                         },
                         function(err) {
@@ -113,20 +113,19 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     } // End addTrip
 
     // Function to update a trip
-    function updateTrip(trip) {
+    function updateTrip() {
         // console.log('updateTrip:', trip);
         return authFactory.getIdToken()
             .then(function(currentUser) {
                 return $http({
                         method: 'PUT',
-                        url: '/trip/' + trip._id,
+                        url: '/trip/' + data.trip._id,
                         headers: {
                             id_token: authData.currentUser.authIdToken
                         },
-                        data: trip
+                        data: data.trip
                     })
                     .then(function(response) {
-                            // console.log('Trip updated');
                             return;
                         },
                         function(err) {
@@ -149,7 +148,8 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         }
                     })
                     .then(function(response) {
-                            // console.log('Trip deleted');
+                            data.trip = {};
+                            console.log('Trip deleted');
                             return;
                         },
                         function(err) {
@@ -265,7 +265,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                 data.day.user_id = authData.currentUser.id;
                 return deleteDay(day._id)
                     .then(function(response) {
-                      console.log('response:' , response);
+                            console.log('response:', response);
                             delete data.day._id;
                             return addDay(day)
                                 .then(function(response) {
@@ -337,11 +337,11 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         getTrip: function(tripID) {
             return getTrip(tripID);
         },
-        addTrip: function(newTrip) {
-            return addTrip(newTrip);
+        addTrip: function() {
+            return addTrip();
         },
-        updateTrip: function(trip) {
-            return updateTrip(trip);
+        updateTrip: function() {
+            return updateTrip();
         },
         deleteTrip: function(trip) {
             return deleteTrip(trip);

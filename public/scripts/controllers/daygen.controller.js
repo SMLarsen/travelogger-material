@@ -31,7 +31,7 @@ app.controller('DayGenController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
 
     // // Function to add a day
     self.addDay = function() {
-        if (navFactory.dayID === '') {
+        if (navFactory.dayID === undefined) {
             self.data.day.trip_id = navFactory.data.tripID;
             // console.log('addDay:', self.data.day);
             myTripFactory.addDay(self.data.day)
@@ -44,7 +44,6 @@ app.controller('DayGenController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
                     });
         } else {
             self.data.day.trip_id = navFactory.data.tripID;
-            console.log('updateDay:', self.data.day);
             myTripFactory.updateDay(self.data.day)
                 .then(function(response) {
                         navFactory.data.dayID = myTripFactory.data.day._id;

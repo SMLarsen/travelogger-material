@@ -14,30 +14,30 @@
         <form name="tripAdd" class="form-horizontal" novalidate>
             <div class="form-group">
                 <label class="control-label">Trip Name</label><br>
-                <input type="text" class="col-xs-12 col-md-12" name="trip_name" ng-model="atc.newTrip.trip_name" required>
+                <input type="text" class="col-xs-12 col-md-12" name="trip_name" ng-model="atc.data.trip.trip_name" required>
                 <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-5 col-md-5" style="text-align:left">Starting Date</label>
                 <label class="control-label col-xs-5 col-xs-offset-1 col-md-offset-1 col-md-5" style="text-align:left">Ending Date</label>
-                <input type="date" class="col-xs-5 col-md-5" name="begin_date" ng-model="atc.newTrip.begin_date">
-                <input type="date" class="col-xs-5 col-xs-offset-1 col-md-offset-1 col-md-5" name="end_date" ng-model="atc.newTrip.end_date">
+                <input type="date" class="col-xs-5 col-md-5" name="begin_date" ng-model="atc.data.trip.begin_date">
+                <input type="date" class="col-xs-5 col-xs-offset-1 col-md-offset-1 col-md-5" name="end_date" ng-model="atc.data.trip.end_date">
             </div>
             <div class="form-group">
                 <label class="control-label">Destination</label><br>
-                <input places-auto-complete class="col-xs-12 col-md-12" ng-model="atc.newTrip.destination" on-place-changed="atc.destinationChanged()" />
+                <input places-auto-complete class="col-xs-12 col-md-12" ng-model="atc.data.trip.destination" on-place-changed="atc.destinationChanged()" />
             </div>
             <div class="form-group">
                 <label class="control-label">Travellers</label><br>
-                <input type="text" class="col-xs-12 col-md-12" name="travellers" ng-model="atc.newTrip.travellers">
+                <input type="text" class="col-xs-12 col-md-12" name="travellers" ng-model="atc.data.trip.travellers">
             </div>
             <div class="form-group">
                 <label class="control-label">Photo Caption</label><br>
-                <input type="text" class="col-xs-12 col-md-12" name="photoCaption" ng-model="atc.newTrip.photo_caption">
+                <input type="text" class="col-xs-12 col-md-12" name="photoCaption" ng-model="atc.data.trip.photo_caption">
             </div>
             <div class="form-group">
                 <label class="control-label">Photo URL</label><br>
-                <input type="text" class="col-xs-12 col-md-12" name="photoURL" ng-model="atc.newTrip.photo_url">
+                <input type="text" class="col-xs-12 col-md-12" name="photoURL" ng-model="atc.data.trip.photo_url">
             </div>
         </form>
     </div>
