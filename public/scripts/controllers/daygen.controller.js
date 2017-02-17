@@ -7,12 +7,7 @@ app.controller('DayGenController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
 
     let self = this;
 
-    self.newDay = {
-        interesting_locations: [],
-        routes: [],
-        meals: [],
-        recommendations: []
-    };
+    self.data = myTripFactory.data;
 
     // Set left nav parameters
     navFactory.setNav('Day General Info', '#/addday', true);
@@ -25,7 +20,7 @@ app.controller('DayGenController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
         let location = self.place.geometry.location;
         self.lat = location.lat();
         self.lng = location.lng();
-        self.newDay.destination_location = {
+        self.data.day.destination_location = {
             pos: [self.lat, self.lng]
         };
     };
@@ -36,17 +31,29 @@ app.controller('DayGenController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
 
     // // Function to add a day
     self.addDay = function() {
-        self.newDay.trip_id = navFactory.data.tripID;
-        // console.log('addDay:', self.newDay);
-        myTripFactory.addDay(self.newDay)
-            .then(function(response) {
-                    self.newDay = {};
-                    navFactory.data.dayID = myTripFactory.data.day._id;
-                    window.location = '#/addday';
-                },
-                function(err) {
-                    console.log('Error adding day', err);
-                });
+        if (navFactory.dayID === '') {
+            self.data.day.trip_id = navFactory.data.tripID;
+            // console.log('addDay:', self.data.day);
+            myTripFactory.addDay(self.data.day)
+                .then(function(response) {
+                        navFactory.data.dayID = myTripFactory.data.day._id;
+                        window.location = '#/addday';
+                    },
+                    function(err) {
+                        console.log('Error adding day', err);
+                    });
+        } else {
+            self.data.day.trip_id = navFactory.data.tripID;
+            console.log('updateDay:', self.data.day);
+            myTripFactory.updateDay(self.data.day)
+                .then(function(response) {
+                        navFactory.data.dayID = myTripFactory.data.day._id;
+                        window.location = '#/addday';
+                    },
+                    function(err) {
+                        console.log('Error updating day', err);
+                    });
+        }
     }; // End addDay
 
 }]); // END: MyTripController

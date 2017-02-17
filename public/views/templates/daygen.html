@@ -14,34 +14,34 @@
         <form name="changeDayForm" id="daygen-form">
             <div class="form-group">
                 <label class="control-label">Date</label>
-                <input type="date" class="col-xs-12 col-md-12" name="date" ng-model="dg.newDay.date">
+                <input type="date" class="col-xs-12 col-md-12" name="date" ng-model="dg.data.day.date">
             </div>
             <div class="form-group">
                 <label class="control-label">Location</label>
-                <input places-auto-complete class="col-xs-12 col-md-12" ng-model="dg.newDay.end_location" on-place-changed="dg.destinationChanged()" />
+                <input places-auto-complete class="col-xs-12 col-md-12" ng-model="dg.data.day.end_location" on-place-changed="dg.destinationChanged()" />
             </div>
             <div class="form-group">
                 <label class="control-label">Tagline</label>
-                <input type="text" class="col-xs-12 col-md-12" name="tagline" ng-model="dg.newDay.tagline" placeholder="One-liner theme of the day">
+                <input type="text" class="col-xs-12 col-md-12" name="tagline" ng-model="dg.data.day.tagline" placeholder="One-liner theme of the day">
             </div>
             <div class="form-group">
                 <label class="control-label">Weather</label><br>
                 <div id="daygen-radios">
-                    <input type="radio" name="weather" id="weather-sunny" ng-model="dg.newDay.weather" value="Sunny" checked>
+                    <input type="radio" name="weather" id="weather-sunny" ng-model="dg.data.day.weather" value="Sunny" checked>
                     <label for="weather-sunny"><i class="weather-radio fa fa-sun-o" aria-hidden="true"></i></label>
-                    <input type="radio" name="weather" id="weather-cloudy" ng-model="dg.newDay.weather" value="Overcast">
+                    <input type="radio" name="weather" id="weather-cloudy" ng-model="dg.data.day.weather" value="Overcast">
                     <label for="weather-cloudy"><i class="weather-radio fa fa-cloud" aria-hidden="true"></i></label>
-                    <input type="radio" name="weather" id="weather-rainy" ng-model="dg.newDay.weather" value="Raining">
+                    <input type="radio" name="weather" id="weather-rainy" ng-model="dg.data.day.weather" value="Raining">
                     <label for="weather-rainy"><i class="weather-radio fa fa-tint" aria-hidden="true"></i></label>
-                    <input type="radio" name="weather" id="weather-stormy" ng-model="dg.newDay.weather" value="Storming">
+                    <input type="radio" name="weather" id="weather-stormy" ng-model="dg.data.day.weather" value="Storming">
                     <label for="weather-stormy"><i class="weather-radio fa fa-bolt" aria-hidden="true"></i></label>
-                    <input type="radio" name="weather" id="weather-snowy" ng-model="dg.newDay.weather" value="Snow">
+                    <input type="radio" name="weather" id="weather-snowy" ng-model="dg.data.day.weather" value="Snow">
                     <label for="weather-snowy"><i class="weather-radio fa fa-snowflake-o" aria-hidden="true"></i></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label">Narrative of the Day</label>
-                <textarea rows="4" cols="100%" class="col-xs-12 col-md-11" name="narrative" ng-model="dg.newDay.narrative" placeholder="Describe the day"></textarea>
+                <textarea rows="4" cols="100%" class="col-xs-12 col-md-11" name="narrative" ng-model="dg.data.day.narrative" placeholder="Describe the day"></textarea>
             </div>
         </form>
     </div>
