@@ -1,17 +1,5 @@
-.navButton {
-    @include header_button;
-}
-
-.navbar-brand {
-    @include header_button;
-    font-family: 'Limelight', cursive;
-    padding-top: 25px;
-
-    &:focus,
-    &:hover {
-        padding-top: 25px;
-        padding-bottom: 45px;
-    }
+.float-button {
+  @include float-button;
 }
 
 .arrowLeft {
@@ -22,16 +10,13 @@
     @include arrow_button(right);
 }
 
-.sideBtnSave {
-    @include side_button(green, 100px);
-}
-
 .sideBtnCancel {
-    @include side_button(red, 50px);
+    @include side_button(white);
 }
 
-.fa-plus-circle {
-    @include side_button($accent-color, 50px);
+.float-button .fa-plus, .fa-check {
+    @include side_button(white);
+    font-size: 3.5em;
 }
 
 .fa-calendar {

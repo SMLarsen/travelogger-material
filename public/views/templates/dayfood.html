@@ -1,0 +1,11 @@
+<div>
+
+    <div class="float-button">
+        <a ng-click="df.addFood()"><i class="rightBtn fa fa-plus" aria-hidden="true"></i></a>
+    </div>
+
+    <div ng-repeat="meal in df.data.day.meals">
+      <p>{{meal.type}} - {{meal.name}}</p>
+    </div>
+
+</div>

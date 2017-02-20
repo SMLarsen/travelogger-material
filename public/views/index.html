@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="traveloggerApp">
 
-<head>
+<head name="viewport" content="width=device-width, initial-scale=1">
     <title>Travelogger</title>
     <!-- AngularJS -->
     <!-- <script type="text/javascript" src="vendor/modernizr"></script> -->
@@ -16,7 +16,7 @@
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
     <!-- Google Maps API -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8oiFGfsJDPgURZZdIOKtCjZJKNJUlwKo"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8oiFGfsJDPgURZZdIOKtCjZJKNJUlwKo&libraries=places"></script>
     <script type="text/javascript" src="vendor/angular-animate.min.js"></script>
     <script type="text/javascript" src="vendor/xeditable.min.js"></script>
     <script type="text/javascript" src="vendor/ng-map.min.js"></script>
@@ -26,6 +26,7 @@
 
     <script type="text/javascript" src="scripts/client.js"></script>
     <script type="text/javascript" src="scripts/factories/auth.factory.js"></script>
+    <script type="text/javascript" src="scripts/factories/nav.factory.js"></script>
     <script type="text/javascript" src="scripts/factories/trip.factory.js"></script>
     <script type="text/javascript" src="scripts/factories/mytrip.factory.js"></script>
     <script type="text/javascript" src="scripts/controllers/nav.controller.js"></script>
@@ -41,6 +42,13 @@
     <script type="text/javascript" src="scripts/controllers/home.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/map.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/pic.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/daygen.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/daybed.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/dayfood.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/addfood.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/daypoi.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/dayroute.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/daypic.controller.js"></script>
 
     <link rel="stylesheet" href="vendor/bootstrap.min.css" />
     <link rel="stylesheet" href="vendor/ui-bootstrap-csp.css" />

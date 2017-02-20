@@ -1,18 +1,21 @@
 /*jshint esversion: 6 */
-app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', function(MyTripFactory, AuthFactory) {
+app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory', function(MyTripFactory, AuthFactory, NavFactory) {
     console.log('MyTripController started');
 
     const authFactory = AuthFactory;
     const currentUser = authFactory.currentUser;
     const myTripFactory = MyTripFactory;
+    const navFactory = NavFactory;
 
     let self = this;
     self.data = MyTripFactory.data;
 
+    // Set left nav parameters
+    navFactory.setNav('My Trips', '#/home', true);
+
     // Get all trips for the user
     myTripFactory.getTrips()
         .then(function(response) {
-                console.log('Trips returned', self.data.trips);
                 self.data.trips.forEach(formatDates);
             },
             function(err) {

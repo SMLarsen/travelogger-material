@@ -1,0 +1,42 @@
+.day-cat-1 {
+    @include day-cat($box-color-1);
+}
+
+.day-cat-2 {
+    @include day-cat($box-color-2);
+}
+
+.day-cat-3 {
+    @include day-cat($box-color-3);
+}
+
+.day-cat-4 {
+    @include day-cat($box-color-4);
+}
+
+.day-cat-5 {
+    @include day-cat($box-color-5);
+}
+
+.day-cat-6 {
+    @include day-cat($box-color-6);
+}
+
+@media screen and (min-width: 861px) {
+    .day-cat {
+      width: 45%;
+      height: 8em;
+      & h2 {
+          font-size: 2em;
+      }
+    }
+}
+@media screen and (max-width: 860px) {
+    .day-cat {
+      width: 100%;
+      height: 4em;
+      & h2 {
+          font-size: 1.5em;
+      }
+    }
+}

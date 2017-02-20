@@ -1,0 +1,41 @@
+<div>
+
+    <div class="float-button">
+        <a ng-click="af.addMeal()"><i class="rightBtn fa fa-check" aria-hidden="true"></i></a>
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+      <ng-map zoom="12">
+        <marker ng-show="{{af.lat}}" position="{{af.lat}},{{af.lng}}" title="{{af.newMeal.name}}"></marker>
+      </ng-map>
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+        <form name="changeDayForm" id="dayfood-form">
+          <div class="form-group">
+              <label class="control-label">Search</label>
+              <input places-auto-complete class="search-input col-xs-12 col-md-12" ng-model="db.search" on-place-changed="af.destinationChanged()"/>
+          </div><br>
+            <div class="form-group">
+                <label class="control-label">Type</label>
+                <select type="text" class="col-xs-12 col-md-12" name="type" ng-model="af.newMeal.type" ng-options="item for item in af.mealTypes"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                <input type="text" class="col-xs-12 col-md-12" ng-model="af.newMeal.name" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Location</label>
+                <input type="text" class="col-xs-12 col-md-12" name="location" ng-model="af.newMeal.location" placeholder="Where was the food eaten?">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Description</label>
+                <input type="text" class="col-xs-12 col-md-12" name="description" ng-model="af.newMeal.description" placeholder="Tell us about the food">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Reference</label>
+                <input type="text" class="col-xs-12 col-md-12" name="reference" ng-model="af.newMeal.reference" placeholder="Do you have a URL?">
+            </div>
+        </form>
+    </div>
+</div>

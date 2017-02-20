@@ -1,52 +1,93 @@
 // globally used mixins and functions. It’s important not to output any CSS in the first 2 layers.
-
+@mixin header-bar {
+    position: fixed;
+    top: 0;
+    background-color: #1E689C;
+    width: 100%;
+}
 @mixin header_text {
-  font-size: 5em;
-  padding: 100px;
-  letter-spacing: 15px;
-  color: lighten($main-color, 50%);
-  margin-bottom: 100px;
-  text-shadow: 3px 3px $accent-color;
-  text-align: center;
-  @media (max-width: $mobile-width) {
-    font-size: 40px;
-    letter-spacing: 8px;
-  }
+    font-size: 5em;
+    padding: 100px;
+    letter-spacing: 15px;
+    color: lighten($main-color, 50%);
+    margin-bottom: 100px;
+    text-shadow: 3px 3px $accent-color;
+    text-align: center;
+    @media (max-width: $mobile-width) {
+        font-size: 40px;
+        letter-spacing: 8px;
+    }
 }
-
 @mixin header_button {
-  font-size: 3em;
-  &:hover,
-  &:focus {
-    background-color: $highlight-color;
-  }
-}
+    font-size: 3em;
 
+    &:focus,
+    &:hover {
+        background-color: $highlight-color;
+    }
+}
 @mixin arrow_button($side) {
-  font-size: 3em;
-  color: $accent-color;
-  position: fixed;
-  top: 300px;
-  #{$side}: 5px;
-  &:disabled {
-      color: lighten($accent-color, 20%);
-  }
-  &:hover {
-      color: darken($accent-color, 10%);
-  }
-}
+    font-size: 3em;
+    color: $accent-color;
+    position: fixed;
+    top: 300px;
+    #{$side}: 5px;
 
-@mixin side_button($color, $bottom) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  font-size: 3.5em;
-  color: $color;
-  bottom: $bottom;
-  right: 5px;
-  height: 70px;
-  width: 70px;
-  line-height: 70px;
-  border-radius: 35px;
+    &:disabled {
+        color: lighten($accent-color, 20%);
+    }
+
+    &:hover {
+        color: darken($accent-color, 10%);
+    }
+}
+@mixin float-button {
+    position: fixed;
+    right: 10px;
+    height: 4em;
+    width: 4em;
+    border-radius: 50%;
+    background-color: $accent-color;
+    box-shadow: 5px 5px 3px $shadow;
+    bottom: 50px;
+
+    &:hover {
+        background-color: lighten($accent-color, 10%);
+        box-shadow: 5px 5px 3px darken($shadow, 3%);
+    }
+}
+@mixin side_button($color) {
+    font-size: 3.5em;
+    color: $color;
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@mixin day-cat($color) {
+    display: inline-block;
+    position: relative;
+    margin: 1%;
+    background-color: $color;
+    border-style: none;
+    padding: 1%;
+    box-shadow: 5px 5px 3px $shadow;
+
+    & h2 {
+        color: white;
+        text-align: center;
+    }
+
+    &:hover {
+        top: -1px;
+        left: -1px;
+        background-color: darken($color, 5%);
+        box-shadow: 3px 3px 2px darken($shadow, 5%);
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        color: $shadow;
+    }
 }

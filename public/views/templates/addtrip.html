@@ -1,63 +1,43 @@
 <div>
-    <div>
-        <h2>Add a Trip</h2>
-    </div>
 
-    <div>
-        <a class="btn sideBtn sideBtnSave" ng-click="atc.addTrip()"><i class="pull-right fa fa-check" aria-hidden="true"></i></a>
-        <a class="btn sideBtn sideBtnCancel" ng-click="atc.cancel()"><i class="pull-right fa fa-ban" aria-hidden="true"></i></a>
+    <div class="float-button">
+        <a ng-click="atc.addTrip()"><i class="rightBtn fa fa-check" aria-hidden="true"></i></a>
     </div>
 
     <div class="col-xs-12 col-md-6">
-        <ng-map default-style="true" center="[{{atc.lat}}, {{atc.lng}}]" zoom-to-include-markers="true">
-            <info-window position="current-location">
-            </info-window>
-            <marker ng-repeat="p in atc.locationArray" position="{{p.pos}}"></marker>
-
+        <ng-map zoom="12">
         </ng-map>
+
     </div>
 
     <div class="col-xs-12 col-md-6">
         <form name="tripAdd" class="form-horizontal" novalidate>
             <div class="form-group">
-                <label class="control-label col-xs-4">Trip Name</label>
-                <input type="text" class="col-xs-6" name="trip_name" ng-model="atc.newTrip.trip_name" required>
+                <label class="control-label">Trip Name</label><br>
+                <input type="text" class="col-xs-12 col-md-12" name="trip_name" ng-model="atc.data.trip.trip_name" required>
                 <p class="help-block" ng-show="userFieldForm.trip_name.$invalid">Trip Name Required</p>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">Destination</label>
-                <input type="text" class="col-xs-6" name="trip_name" ng-model="atc.newTrip.destination">
-                <a class="pinBtn col-xs-1" ng-click="atc.pinDestinationLocation()"><i class="pull-right fa fa-map-marker" aria-hidden="true"></i></a>
+                <label class="control-label col-xs-5 col-md-5" style="text-align:left">Starting Date</label>
+                <label class="control-label col-xs-5 col-xs-offset-1 col-md-offset-1 col-md-5" style="text-align:left">Ending Date</label>
+                <input type="date" class="col-xs-5 col-md-5" name="begin_date" ng-model="atc.data.trip.begin_date">
+                <input type="date" class="col-xs-5 col-xs-offset-1 col-md-offset-1 col-md-5" name="end_date" ng-model="atc.data.trip.end_date">
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">Starting Date</label>
-                <input type="date" class="col-xs-6" name="begin_date" ng-model="atc.newTrip.begin_date">
+                <label class="control-label">Destination</label><br>
+                <input places-auto-complete class="col-xs-12 col-md-12" ng-model="atc.data.trip.destination" on-place-changed="atc.destinationChanged()" />
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">Starting Location</label>
-                <input type="text" class="col-xs-6" name="begin_location" ng-model="atc.newTrip.begin_location">
-                <a class="pinBtn col-xs-1" ng-click="atc.pinBeginLocation()"><i class="pull-right fa fa-map-marker" aria-hidden="true"></i></a>
+                <label class="control-label">Travellers</label><br>
+                <input type="text" class="col-xs-12 col-md-12" name="travellers" ng-model="atc.data.trip.travellers">
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">Ending Date</label>
-                <input type="date" class="col-xs-6" name="end_date" ng-model="atc.newTrip.end_date">
+                <label class="control-label">Photo Caption</label><br>
+                <input type="text" class="col-xs-12 col-md-12" name="photoCaption" ng-model="atc.data.trip.photo_caption">
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">Ending Location</label>
-                <input type="text" class="col-xs-6" name="end_location" ng-model="atc.newTrip.end_location">
-                <a class="pinBtn col-xs-1" ng-click="atc.pinEndLocation()"><i class="pull-right fa fa-map-marker" aria-hidden="true"></i></a>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-4">Travellers</label>
-                <input type="text" class="col-xs-6" name="travellers" ng-model="atc.newTrip.travellers">
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-4">Photo Caption</label>
-                <input type="text" class="col-xs-6" name="photoCaption" ng-model="atc.newTrip.photo_caption">
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-4">Photo URL</label>
-                <input type="text" class="col-xs-6" name="photoURL" ng-model="atc.newTrip.photo_url">
+                <label class="control-label">Photo URL</label><br>
+                <input type="text" class="col-xs-12 col-md-12" name="photoURL" ng-model="atc.data.trip.photo_url">
             </div>
         </form>
     </div>
