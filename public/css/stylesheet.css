@@ -24,7 +24,7 @@ h1 {
   font-weight: bolder; }
 
 body {
-  background-color: gainsboro;
+  background-color: #FFB04A;
   color: #1E689C; }
 
 .float-button {
@@ -166,17 +166,21 @@ div#map-container {
   display: inline-flex;
   justify-content: space-between; }
 
+.left-menu {
+  padding: 5px 0 0 10px; }
+
 .left-menu:hover {
   cursor: pointer; }
 
 .left-menu a {
-  font-size: 2em;
+  font-size: 1.5em;
   color: white;
   text-decoration: none;
   border-radius: 10px; }
 
 .left-menu a span {
-  font-family: sans-serif; }
+  padding-left: 30px;
+  font-family: 'Roboto', sans-serif; }
 
 #nav-view a {
   color: white;
@@ -184,7 +188,7 @@ div#map-container {
   border-radius: 10px; }
 
 .hamburger {
-  font-size: 2em;
+  font-size: 1.5em;
   display: block;
   float: right;
   color: white;
@@ -209,7 +213,7 @@ div#map-container {
   float: right; }
 
 .nav-menu li a {
-  font-size: 3em;
+  font-size: 1.5em;
   display: block;
   color: white;
   text-align: center;
@@ -241,7 +245,7 @@ div#map-container {
   height: 100%;
   top: 0;
   left: 0;
-  background: gainsboro;
+  background: #FFB04A;
   transition: all 0.5s ease;
   z-index: 2; }
 
@@ -319,9 +323,7 @@ div#map-container {
   #wide-menu {
     visibility: visible; }
   #narrow-menu {
-    visibility: hidden; }
-  .left-menu {
-    padding: 20px 0 0 10px; } }
+    visibility: hidden; } }
 
 @media screen and (max-width: 860px) {
   #wide-menu {
@@ -329,11 +331,14 @@ div#map-container {
   #narrow-menu {
     visibility: visible; }
   nav ul li a {
-    font-size: 3em; }
-  .left-menu {
-    padding: 10px 0 0 10px; }
+    font-size: 1.75em; }
   .left-menu a {
     font-size: 1.5em; } }
+
+.left-nav-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  padding-left: 30px; }
 
 #homeTag {
   text-align: center;
