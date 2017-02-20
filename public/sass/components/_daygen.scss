@@ -1,0 +1,25 @@
+#daygen-form label {
+  margin-top: 4px;
+}
+
+#daygen-radios {
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#daygen-radios input[type=radio] + label {
+    // margin:-2px;
+    padding: 4px 4px;
+}
+
+#daygen-radios input[type=radio]:checked + label {
+   color: $highlight-color;
+}
+
+.weather-radio {
+  color: $accent-color;
+  font-size: 2.5em;
+  margin-left: 10px;
+  margin-right: 50px;
+}

@@ -1,110 +1,28 @@
-app.controller('AddDayController', ['MyTripFactory', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, NgMap, GeoCoder, $routeParams) {
+/*jshint esversion: 6 */
+app.controller('AddDayController', ['NavFactory', 'MyTripFactory', function(NavFactory, MyTripFactory) {
     console.log('AddDayController started');
-    var self = this;
-    var myTripFactory = MyTripFactory;
 
-    self.tripID = $routeParams.tripID;
+    const myTripFactory = MyTripFactory;
+    const navFactory = NavFactory;
 
-    self.newDay = {
-        interesting_locations: [],
-        routes: [],
-        meals: [],
-        recommendations: []
-    };
-    self.newPointOfInterest = {};
-    self.newRoute = {};
-    self.newMeal = {};
-    self.newRecommendation = {};
-    self.destinationMapLocation = {};
-    self.beginMapLocation = {};
-    self.endMapLocation = {};
+    let self = this;
+    self.data = myTripFactory.data;
 
-    self.transportModes = ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'];
-    self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
-    self.mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'];
+    console.log('add day tripID', navFactory.data.tripID);
+    console.log('add day dayID', navFactory.data.dayID);
 
-    self.tripIndex = 0;
-    self.dayIndex = 0;
+    // Enable day topic buttons once day is created
+    self.isDisabled = false;
+    if (navFactory.data.dayID === '') {
+        self.isDisabled = true;
+    }
 
-    self.data = [];
-    self.positions = [];
-    self.showData = function() {
-        alert(this.data.foo);
-    };
+    // Set left nav parameters
+    navFactory.setNav('Add Day', '#/mydays/' + navFactory.data.tripID, true);
 
-    // Function to set dates as date objects
-    function formatDates(item, index) {
-        item.begin_date = new Date(item.begin_date);
-        item.end_date = new Date(item.end_date);
-    } // End formatDates
-
-    // // Function to add a day
-    self.addDay = function() {
-        self.newDay.trip_id = self.tripID;
-        console.log('addDay:', self.newDay);
-        self.findAddress(self.newDay.end_location)
-            .then(function(result) {
-                self.newDay.end_map_location = self.newLocation;
-                console.log('addDay post geocode:', self.newDay);
-                myTripFactory.addDay(self.newDay)
-                    .then(function(response) {
-                            self.newDay = {};
-                            self.days = response;
-                            console.log('Day added');
-                            self.cancel();
-                        },
-                        function(err) {
-                            console.log('Error adding day', err);
-                        });
-            });
-    }; // End addDay
-
-    self.findAddress = function(address) {
-        return GeoCoder.geocode({
-            address: address
-        }).then(function(result) {
-            var location = result[0].geometry.location;
-            self.lat = location.lat();
-            self.lng = location.lng();
-            self.newLocation = {
-                pos: [self.lat, self.lng]
-            };
-        });
-    };
-
-    // Add POI row to new Day
-    self.addPOIRow = function() {
-        self.newDay.routes.push(angular.copy(self.newPOI));
-        self.newPOI = {};
-    }; // End addPOIRow
-
-    // Add route row to new Day
-    self.addRouteRow = function() {
-        self.newDay.routes.push(angular.copy(self.newRoute));
-        self.newRoute = {};
-    }; // End addRouteRow
-
-    // Add recommendation row to new Day
-    self.addRecommendationRow = function() {
-        self.newDay.recommendations.push(angular.copy(self.newRecommendation));
-        self.newRecommendation = {};
-    }; // End addMeal
-
-    // Add meal row to new Day
-    self.addMealRow = function() {
-        self.newDay.meals.push(angular.copy(self.newMeal));
-        self.newMeal = {};
-    }; // End addMeal
-
-    // Add Recommendation row to new Day
-    self.addRecommendationRow = function() {
-        self.newDay.recommendations.push(angular.copy(self.newRecommendation));
-        self.newRecommendation = {};
-    }; // End addRecommendation
-
-    self.cancel = function() {
-        self.newDay = {};
-        window.location = '/#/mydays/' + self.tripID;
+    //Function to manage navigation
+    self.goToDay = function(target) {
+        window.location = '/#/' + target;
     };
 
 }]); // END: MyTripController
