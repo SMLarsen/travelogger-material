@@ -1,18 +1,101 @@
-<button type="button" name="daygen" ng-click="adc.goToDay('daygen')" class="day-cat day-cat-1">
-          <p class="day-button"><i class="fa fa-info-circle" aria-hidden="true"></i> General</p>
-</button>
-<button type="button" name="dayroute" ng-click="adc.goToDay('dayroute')" class="day-cat day-cat-2" ng-disabled="adc.isDisabled">
-  <p class="day-button"><i class="fa fa-map" aria-hidden="true"></i> Route</p>
-</button>
-<button type="button" name="dayfood" ng-click="adc.goToDay('dayfood')" class="day-cat day-cat-3" ng-disabled="adc.isDisabled">
-  <p class="day-button"><i class="fa fa-cutlery" aria-hidden="true"></i> Food</p>
-</button>
-<button type="button" name="daybed" ng-click="adc.goToDay('daybed')" class="day-cat day-cat-4" ng-disabled="adc.isDisabled">
-  <p class="day-button"><i class="fa fa-bed" aria-hidden="true"></i> Lodging</p>
-</button>
-<button type="button" name="daypoi" ng-click="adc.goToDay('daypoi')" class="day-cat day-cat-5" ng-disabled="adc.isDisabled">
-  <p class="day-button"><i class="fa fa-pin" aria-hidden="true"></i> Points of Interest</p>
-</button>
-<button type="button" name="daypic" ng-click="adc.goToDay('daypic')" class="day-cat day-cat-6" ng-disabled="adc.isDisabled">
-  <p class="day-button"><i class="fa fa-camera" aria-hidden="true"></i> Photos</p>
-</button>
+<div ng-cloak>
+
+  <div class="float-button">
+    <md-button ng-click="adc.addDay()" class="md-fab" aria-label="Add Day">
+        <md-icon md-svg-src="./assets/icons/ic_check_white_24px.svg"></md-icon>
+    </md-button>
+  </div>
+
+    <md-content>
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="General">
+                <md-content class="md-padding">
+                    <h1 class="md-display-1">General Information</h1>
+                    <div layout="row" layout-align="space-between">
+                        <div flex-gt-md="40">
+                            <ng-map zoom="12">
+                                <marker ng-show="{{adc.data.day.destination_location.pos[0]}}" position="{{adc.data.day.destination_location.pos[0]}},{{adc.data.day.destination_location.pos[1]}}" title="{{adc.destination}}"></marker>
+                            </ng-map>
+                        </div>
+
+                        <div flex-gt-md="55">
+                            <form class="md-inline-form" name="changeDayForm">
+                                <div layout="column">
+                                    <div layout="row">
+                                        <md-input-container flex="30">
+                                            <label>Date</label>
+                                            <md-datepicker ng-model="adc.data.day.date"></md-datepicker>
+                                        </md-input-container>
+                                        <md-input-container flex="50">
+                                            <label>Weather</label>
+                                            <md-select ng-model="adc.data.day.weather">
+                                                <md-option><em>None</em></md-option>
+                                                <md-option ng-repeat="weather in ['Sunny', 'Cloudy', 'Rainy', 'Stormy', 'Snowy']" ng-value="weather">
+                                                    {{weather}}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <md-input-container>
+                                        <label>Location</label>
+                                        <input places-auto-complete ng-model="adc.data.day.end_location" on-place-changed="adc.destinationChanged()" placeholder="" />
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Tagline</label>
+                                        <input type="text" name="tagline" ng-model="adc.data.day.tagline">
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Narrative of the Day</label>
+                                        <input type="text" name="narrative" ng-model="adc.data.day.narrative">
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+
+                </md-content>
+            </md-tab>
+            <md-tab label="Lodging" ng-disabled="adc.isDisabled">
+                <md-content class="md-padding">
+                    <h1 class="md-display-1">Lodging</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur
+                        felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue
+                        ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus
+                        in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+                    <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas
+                        enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl
+                        consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+                    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed
+                        id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                </md-content>
+            </md-tab>
+            <md-tab label="Meals" ng-disabled="adc.isDisabled">
+                <md-content class="md-padding">
+                    <h1 class="md-display-1">Meals</h1>
+                    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed
+                        id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                </md-content>
+            </md-tab>
+            <md-tab label="Route" ng-disabled="adc.isDisabled">
+                <md-content class="md-padding">
+                    <h1 class="md-display-1">Route</h1>
+                    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed
+                        id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                </md-content>
+            </md-tab>
+            <md-tab label="Points of Interest" ng-disabled="adc.isDisabled">
+                <md-content class="md-padding">
+                    <h1 class="md-display-1">Points of Interest</h1>
+                    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed
+                        id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                </md-content>
+            </md-tab>
+            <md-tab label="Recommendations" ng-disabled="adc.isDisabled">
+                <md-content class="md-padding">
+                    <h1 class="md-display-1">Recommendations</h1>
+                    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed
+                        id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+    </div>

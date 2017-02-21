@@ -4,10 +4,9 @@
   </md-button>
 </div>
 
-
 <md-content class="md-padding" layout-xs="column" layout="row">
     <div layout="row" layout-wrap>
-        <md-card style="width: 23%;" ng-repeat="day in mdc.data.tripDays" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+        <md-card style="width: 18%;" ng-repeat="day in mdc.data.tripDays" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
             <md-card-header>
                 <md-title>{{ day.date | date:'MM/dd' }}</md-title>
             </md-card-header>
