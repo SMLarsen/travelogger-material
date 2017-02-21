@@ -1,13 +1,45 @@
 <div class="float-button">
-    <a ng-click="mdc.goToDay('Add')"><i class="rightBtn fa fa-plus" aria-hidden="true"></i></a>
+  <md-button ng-click="mdc.goToDay('Add', day)" class="md-fab" aria-label="Add Day">
+      <md-icon md-svg-src="./assets/icons/ic_add_white_24px.svg"></md-icon>
+  </md-button>
 </div>
 
-<div uib-accordion close-others="true">
+
+<md-content class="md-padding" layout-xs="column" layout="row">
+    <div layout="row" layout-wrap>
+        <md-card style="width: 23%;" ng-repeat="day in mdc.data.tripDays" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+            <md-card-header>
+                <md-title>{{ day.date | date:'MM/dd' }}</md-title>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{day.end_location}}</span>
+                    <span class="md-subhead">{{ day.tag_line }}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-title-media>
+                <div class="md-media-lg card-media">
+                    <img ng-show="{{day.photo_url}}" src="{{day.photo_url}}" alt="{{trip.photo_caption}}">
+                </div>
+            </md-card-title-media>
+            <md-card-content>
+                {{trip.destination}}<br> {{trip.begin_date | date }} - {{trip.end_date | date }}
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="mdc.viewTrip(trip._id)" ng-disabled>View</md-button>
+                <md-button ng-click="mdc.goToDay('Edit', day)">Edit</md-button>
+                <md-button ng-click="mdc.deleteDay(day._id, day.trip_id)">Delete</md-button>
+            </md-card-actions>
+        </md-card>
+</md-content>
+
+
+
+<!-- <div uib-accordion close-others="true">
     <div uib-accordion-group ng-repeat="day in mdc.data.tripDays" class="panel-default">
         <uib-accordion-heading>
             {{day.date | date:'MM/dd'}} - {{day.end_location}}
             <span class="deleteBtn pull-right fa fa-trash" ng-click="mdc.deleteDay(day._id, day.trip_id)"></span>
-            <!-- <span class="editBtn pull-right fa fa-pencil" ng-click="mdc.goToDay('Edit', day)"></span> -->
         </uib-accordion-heading>
 
         <label class="dayLabel col-xs-12">General Information
@@ -58,7 +90,7 @@
         </div>
 
         <!-- Starting Travel Route -->
-        <div ng-show="day.routes.length > 0">
+        <!-- <div ng-show="day.routes.length > 0">
             <label class="dayLabel col-xs-12">Route</label>
             <div class="routes" ng-repeat="route in day.routes">
                 <div class="col-xs-12 col-md-12">
@@ -77,10 +109,10 @@
                     <span>{{route.specifics }}</span>
                 </div>
             </div>
-        </div>
-
+        </div> -->
+<!--  -->
         <!-- Starting Meals -->
-        <div ng-show="day.meals.length > 0">
+        <!-- <div ng-show="day.meals.length > 0">
             <label class="dayLabel col-xs-12">Eating and Drinking</label>
             <div class="meals" ng-repeat="meal in day.meals">
                 <div class="col-xs-12 col-md-12">
@@ -107,4 +139,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

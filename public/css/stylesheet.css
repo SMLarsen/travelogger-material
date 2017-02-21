@@ -30,7 +30,8 @@ body {
 .float-button {
   position: fixed;
   right: 10px;
-  bottom: 50px; }
+  bottom: 50px;
+  z-index: 5; }
 
 .arrowLeft {
   font-size: 3em;

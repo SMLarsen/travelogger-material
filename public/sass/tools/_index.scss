@@ -47,17 +47,8 @@
 @mixin float-button {
     position: fixed;
     right: 10px;
-    // height: 4em;
-    // width: 4em;
-    // border-radius: 50%;
-    // background-color: $accent-color;
-    // box-shadow: 5px 5px 3px $shadow;
     bottom: 50px;
-
-    // &:hover {
-    //     background-color: lighten($accent-color, 10%);
-    //     box-shadow: 5px 5px 3px darken($shadow, 3%);
-    // }
+    z-index: 5;
 }
 @mixin side_button($color) {
     font-size: 3.5em;
