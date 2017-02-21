@@ -1,13 +1,9 @@
 #wide-menu {
   @include header-bar;
-  display: inline-flex;
-  justify-content: space-between;
 }
 
 #narrow-menu {
   @include header-bar;
-  display: inline-flex;
-  justify-content: space-between;
 }
 
 .left-menu {

@@ -13,7 +13,7 @@ html,
   cursor: pointer; }
 
 main {
-  margin: 80px; }
+  margin-top: 24px; }
 
 #homeTitle {
   text-align: center;
@@ -30,15 +30,7 @@ body {
 .float-button {
   position: fixed;
   right: 10px;
-  height: 4em;
-  width: 4em;
-  border-radius: 50%;
-  background-color: #1E689C;
-  box-shadow: 5px 5px 3px #8a847d;
   bottom: 50px; }
-  .float-button:hover {
-    background-color: #2685c7;
-    box-shadow: 5px 5px 3px #827c75; }
 
 .arrowLeft {
   font-size: 3em;
@@ -156,7 +148,8 @@ div#map-container {
   background-color: #1E689C;
   width: 100%;
   display: inline-flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  z-index: 99; }
 
 #narrow-menu {
   position: fixed;
@@ -164,7 +157,8 @@ div#map-container {
   background-color: #1E689C;
   width: 100%;
   display: inline-flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  z-index: 99; }
 
 .left-menu {
   padding: 5px 0 0 10px; }

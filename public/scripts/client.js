@@ -1,4 +1,4 @@
-var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ngAnimate', 'ui.bootstrap', 'xeditable', 'ngMap']);
+var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ngAnimate', 'ui.bootstrap', 'ngMap', 'ngMaterial']);
 
 console.log('traveloggerApp running');
 

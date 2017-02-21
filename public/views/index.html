@@ -17,8 +17,9 @@
     <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
     <!-- Google Maps API -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8oiFGfsJDPgURZZdIOKtCjZJKNJUlwKo&libraries=places"></script>
+    <script type="text/javascript" src="vendor/angular-material.min.js"></script>
     <script type="text/javascript" src="vendor/angular-animate.min.js"></script>
-    <script type="text/javascript" src="vendor/xeditable.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-aria.min.js"></script>
     <script type="text/javascript" src="vendor/ng-map.min.js"></script>
 
     <!-- Firebase Config -->
@@ -53,13 +54,14 @@
     <link rel="stylesheet" href="vendor/bootstrap.min.css" />
     <link rel="stylesheet" href="vendor/ui-bootstrap-csp.css" />
     <link rel="stylesheet" href="vendor/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="vendor/angular-material.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Sriracha|Limelight" rel="stylesheet">
     <link rel="stylesheet" href="css/stylesheet.css" />
 </head>
 
-<body class="container-fullwidth" id="bootstrap-overrides">
+<body class="container-fullwidth" id="bootstrap-overrides" ng-cloak>
 
     <div ng-include="'views/templates/nav.html'"></div>
     <br>

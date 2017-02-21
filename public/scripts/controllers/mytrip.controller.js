@@ -28,9 +28,18 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
         item.end_date = new Date(item.end_date);
     } // End formatDates
 
+        // Function to go to view trip view
+        self.viewTrip = function(tripID) {
+            window.location = "#/mydays/" + tripID;
+        }; // End formatDates
+
+    // Function to go to edit trip view
+    self.editTrip = function(tripID) {
+        window.location = "#/edittrip/" + tripID;
+    }; // End formatDates
+
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
-        console.log('tripID:', tripID);
         myTripFactory.deleteTrip(tripID)
             .then(function(response) {
                     myTripFactory.deleteTripDays(tripID)
