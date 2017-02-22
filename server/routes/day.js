@@ -16,7 +16,7 @@ router.get('/all/:id', function(req, res) {
             console.log('Get days ERR: ', err);
             res.sendStatus(500);
         } else {
-            console.log(days);
+            // console.log(days);
             res.send(days);
         }
     });
@@ -54,7 +54,7 @@ router.get('/one/:id', function(req, res) {
                 console.log('Get days ERR: ', err);
                 res.sendStatus(500);
             } else {
-                console.log(day);
+                // console.log(day);
                 res.send(day);
             }
         });

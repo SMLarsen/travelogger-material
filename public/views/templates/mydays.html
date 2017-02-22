@@ -6,7 +6,7 @@
 
 <md-content class="md-padding" layout-xs="column" layout="row">
     <div layout="row" layout-wrap>
-        <md-card style="width: 18%;" ng-repeat="day in mdc.data.tripDays" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+        <md-card style="width: 300px;" ng-repeat="day in mdc.data.tripDays" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
             <md-card-header>
                 <md-title>{{ day.date | date:'MM/dd' }}</md-title>
             </md-card-header>
@@ -24,7 +24,7 @@
             <md-card-content>
                 {{trip.destination}}<br> {{trip.begin_date | date }} - {{trip.end_date | date }}
             </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
+            <md-card-actions layout="row" layout-align="space-between center">
                 <md-button ng-click="mdc.viewTrip(trip._id)" ng-disabled>View</md-button>
                 <md-button ng-click="mdc.goToDay('Edit', day)">Edit</md-button>
                 <md-button ng-click="mdc.deleteDay(day._id, day.trip_id)">Delete</md-button>
@@ -41,40 +41,6 @@
             <span class="deleteBtn pull-right fa fa-trash" ng-click="mdc.deleteDay(day._id, day.trip_id)"></span>
         </uib-accordion-heading>
 
-        <label class="dayLabel col-xs-12">General Information
-              <a  ng-click="mdc.goToDay('Edit', day)" class="editBtn pull-right fa fa-pencil"></a>
-            </label>
-        <div class="col-xs-12 col-md-2">
-            <span>{{ day.date | date:'MM/dd' }}</span>
-        </div>
-        <div class="col-xs-6 col-md-2">
-            <span>{{ day.weather }}</span>
-        </div>
-        <div class="col-xs-6 col-md-y">
-            <span>{{ day.end_location }}</span>
-        </div>
-        <div class="col-xs-12 col-md-12">
-            <span>{{ day.tag_line }}</span>
-        </div>
-        <div class="col-xs-12">
-            <span>{{day.narrative}}</span>
-        </div><br>
-
-        <div ng-show="day.lodging_name">
-            <label class="daySubLabel col-xs-12">Lodging</label>
-            <div class="col-xs-12 col-md-2">
-                <span>{{ day.lodging_type }}</span>
-            </div>
-            <div class="col-xs-12 col-md-10">
-                <span>{{ day.lodging_name }}</span>
-            </div>
-            <div class="col-xs-12 col-md-12">
-                <span>{{ day.lodging_address }}</span>
-            </div>
-            <div class="col-xs-12 col-md-12">
-                <span>{{ day.lodging_reference }}</span>
-            </div>
-        </div>
 
         <div ng-show="day.interesting_locations.length > 0">
             <label class="dayLabel col-xs-12">Points of Interest</label>
@@ -88,27 +54,6 @@
             </div>
         </div>
 
-        <!-- Starting Travel Route -->
-        <!-- <div ng-show="day.routes.length > 0">
-            <label class="dayLabel col-xs-12">Route</label>
-            <div class="routes" ng-repeat="route in day.routes">
-                <div class="col-xs-12 col-md-12">
-                    <span>{{route.name }}</span>
-                </div>
-                <div class="col-xs-12 col-md-12">
-                    <span>{{route.transport_mode }}</span>
-                </div>
-                <div class="col-xs-12 col-md-12">
-                    <span>{{route.distance }}</span>
-                </div>
-                <div class="col-xs-12 col-md-12">
-                    <span>{{route.duration }}</span>
-                </div>
-                <div class="col-xs-12 col-md-12">
-                    <span>{{route.specifics }}</span>
-                </div>
-            </div>
-        </div> -->
 <!--  -->
         <!-- Starting Meals -->
         <!-- <div ng-show="day.meals.length > 0">

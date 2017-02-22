@@ -8,6 +8,8 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     let self = this;
     self.data = myTripFactory.data;
 
+    self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
+
     console.log('add day tripID', navFactory.data.tripID);
     console.log('add day dayID', navFactory.data.dayID);
 
@@ -20,15 +22,36 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     // Set left nav parameters
     navFactory.setNav('Add Day', '#/mydays/' + navFactory.data.tripID, true);
 
-    // Find location
-    self.destinationChanged = function() {
+    // Geocode general destination
+    self.genDestinationChanged = function() {
         self.place = this.getPlace();
-        // console.log('location', self.place);
         self.map.setCenter(self.place.geometry.location);
-        let location = self.place.geometry.location;
+        self.location = self.place.geometry.location;
         self.data.day.destination_location = {
-            pos: [location.lat(), location.lng()]
+            pos: [self.location.lat(), self.location.lng()]
         };
+        console.log('gen day:', self.data.day);
+    };
+
+    // Geocode lodging destination
+    self.bedDestinationChanged = function() {
+        self.place = this.getPlace();
+        self.map.setCenter(self.place.geometry.location);
+        self.location = self.place.geometry.location;
+        self.data.day.lodging_map_location = {
+            pos: [self.location.lat(), self.location.lng()]
+        };
+        self.data.day.lodging_name = self.place.name;
+        self.data.day.lodging_address = self.place.formatted_address;
+        self.data.day.lodging_name = self.place.name;
+        console.log('bed day:', self.data.day);
+    };
+
+    // Find location
+    destinationChanged = function() {
+        self.place = this.getPlace();
+        self.map.setCenter(self.place.geometry.location);
+        self.location = self.place.geometry.location;
     };
 
     NgMap.getMap().then(function(map) {
@@ -37,7 +60,7 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
 
     // // Function to add a day
     self.addDay = function() {
-      console.log('addDay', navFactory.dayID);
+        console.log('addDay', self.data.day);
         if (navFactory.dayID === undefined) {
             self.data.day.trip_id = navFactory.data.tripID;
             // console.log('addDay:', self.data.day);

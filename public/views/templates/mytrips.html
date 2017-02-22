@@ -6,7 +6,7 @@
 
 <md-content class="md-padding" layout-xs="column" layout="row">
     <div layout="row" layout-wrap>
-        <md-card style="width: 23%;" ng-repeat="trip in mtc.data.trips" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+        <md-card style="width:300px;" ng-repeat="trip in mtc.data.trips" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
             <md-card-header>
                 <md-title>{{trip.travellers}}</md-title>
             </md-card-header>
@@ -18,13 +18,13 @@
               </md-card-title>
                 <md-card-title-media>
                     <div class="md-media-sm card-media">
-                        <img ng-show="{{trip.photo_url}}" src="{{trip.photo_url}}" alt="{{trip.photo_caption}}">
+                        <img src="{{trip.photo_url}}" alt="{{trip.photo_caption}}">
                     </div>
                 </md-card-title-media>
             <md-card-content>
                 {{trip.destination}}<br> {{trip.begin_date | date }} - {{trip.end_date | date }}
             </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
+            <md-card-actions layout="row" layout-align="space-between center">
                 <md-button ng-click="mtc.viewTrip(trip._id)">View</md-button>
                 <md-button ng-click="mtc.editTrip(trip._id)">Edit</md-button>
                 <md-button ng-click="mtc.deleteTrip(trip._id)">Delete</md-button>
