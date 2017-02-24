@@ -15,12 +15,8 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
 
     // Get all trips for the user
     myTripFactory.getTrips()
-        .then(function(response) {
-                self.data.trips.forEach(formatDates);
-            },
-            function(err) {
-                console.log('Error getting trips', err);
-            });
+        .then((response) => self.data.trips.forEach(formatDates))
+        .catch((err) => console.log('Error getting trips', err));
 
     // Function to set dates as date objects
     function formatDates(item, index) {
@@ -28,10 +24,16 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
         item.end_date = new Date(item.end_date);
     } // End formatDates
 
-        // Function to go to view trip view
-        self.viewTrip = function(tripID) {
-            window.location = "#/mydays/" + tripID;
-        }; // End formatDates
+    // Function to go to view trip view
+    self.addTrip = function() {
+        self.data.trip = {};
+        window.location = "#/addtrip";
+    }; // End formatDates
+
+    // Function to go to view trip view
+    self.viewTrip = function(tripID) {
+        window.location = "#/mydays/" + tripID;
+    }; // End formatDates
 
     // Function to go to edit trip view
     self.editTrip = function(tripID) {
@@ -41,24 +43,10 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
         myTripFactory.deleteTrip(tripID)
-            .then(function(response) {
-                    myTripFactory.deleteTripDays(tripID)
-                        .then(function(response) {
-                                myTripFactory.getTrips()
-                                    .then(function(response) {
-                                            console.log('Trip deleted');
-                                        },
-                                        function(err) {
-                                            console.log('Error getting trips after delete', err);
-                                        });
-                            },
-                            function(err) {
-                                console.log('Error deleting trip', err);
-                            });
-                },
-                function(err) {
-                    console.log('Unable to delete trip', err);
-                });
+            .then((response) => myTripFactory.deleteTripDays(tripID))
+            .then((response) => myTripFactory.getTrips())
+            .then((response) => console.log('Trip deleted'))
+            .catch((err) => console.log('Unable to delete trip', err));
     }; // End deleteTrip
 
 }]); // END: MyTripController

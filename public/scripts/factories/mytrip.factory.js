@@ -21,23 +21,18 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     // Function to GET trips
     function getTrips() {
         if (authData.isUserLoggedIn) {
-            return authFactory.getIdToken().then(function(currentUser) {
-                return $http({
-                        method: 'GET',
-                        url: '/trip/all/' + authData.currentUser.id,
-                        headers: {
-                            id_token: authData.currentUser.authIdToken
-                        }
-                    })
-                    .then(function(response) {
-                            data.trips = response.data;
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to retrieve trips', err);
-                            return;
-                        });
-            });
+            return authFactory.getIdToken()
+                .then((currentUser) => {
+                    return $http({
+                            method: 'GET',
+                            url: '/trip/all/' + authData.currentUser.id,
+                            headers: {
+                                id_token: authData.currentUser.authIdToken
+                            }
+                        })
+                        .then((response) => data.trips = response.data)
+                        .catch((err) => console.log('Unable to retrieve trips', err));
+                });
         } else {
             return;
         }
@@ -47,7 +42,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     function getTrip(tripID) {
         if (authData.isUserLoggedIn) {
             return authFactory.getIdToken()
-                .then(function(currentUser) {
+                .then((currentUser) => {
                     return $http({
                             method: 'GET',
                             url: '/trip/one/' + tripID,
@@ -55,15 +50,8 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                                 id_token: authData.currentUser.authIdToken
                             }
                         })
-                        .then(function(response) {
-                                data.trip = response.data[0];
-                                // console.log('My Trip:', data.trip);
-                                return;
-                            },
-                            function(err) {
-                                console.log('Unable to retrieve trip', err);
-                                return;
-                            });
+                        .then((response) => data.trip = response.data[0])
+                        .catch((err) => console.log('Unable to retrieve trip', err));
                 });
         } else {
             return;
@@ -74,7 +62,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     function addTrip() {
         console.log('addTrip:', data.trip);
         return authFactory.getIdToken()
-            .then(function(currentUser) {
+            .then((currentUser) => {
                 data.trip.user_id = authData.currentUser.id;
                 // console.log('data.trip.user_id:', data.trip.user_id);
                 return $http({
@@ -85,15 +73,8 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         },
                         data: data.trip
                     })
-                    .then(function(response) {
-                            // console.log('Trip added');
-                            data.trip = {};
-                            return;
-                        },
-                        function(err) {
-                            console.log('Unable to add trip', err);
-                            return;
-                        });
+                    .then((response) => data.trip = {})
+                    .catch((err) => console.log('Unable to add trip', err));
             });
     } // End addTrip
 

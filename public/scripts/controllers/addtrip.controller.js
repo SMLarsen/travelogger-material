@@ -39,6 +39,7 @@ app.controller('AddTripController', ['MyTripFactory', 'NgMap', 'GeoCoder', 'NavF
 
     // Function to add a trip
     self.addTrip = function() {
+      console.log('addtrip');
         myTripFactory.addTrip(self.data.trip)
             .then(function(response) {
                     self.data.trip = {};

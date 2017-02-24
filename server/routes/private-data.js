@@ -15,7 +15,7 @@ router.get("/", function(req, res) {
             console.log('Error COMPLETING checking registered user query task', err);
             res.sendStatus(500);
         } else {
-            console.log('Successful call to get user, user:', user);
+            // console.log('Successful call to get user, user:', user);
             if (user === null) {
                 // If the user is not in the database, register them to the database
                 var newUser = { email: userEmail, clearanceLevel: 5 };
