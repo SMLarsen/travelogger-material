@@ -62,7 +62,9 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
-            fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+            fullscreen: self.customFullscreen,
+            openFrom: angular.element(document.querySelector('#left')),
+            closeTo: angular.element(document.querySelector('#right'))
         });
     };
 
