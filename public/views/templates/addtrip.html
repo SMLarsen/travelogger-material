@@ -8,7 +8,7 @@
 
     <md-content>
         <div layout="row" layout-align="space-between">
-            <div flex-gt-md="40">
+            <div flex-gt-md="40" style="margin-top:100px;">
                 <ng-map zoom="12">
                     <marker ng-show="{{atc.data.trip.destination_location.pos[0]}}" position="{{adc.data.trip.destination_location.pos[0]}},{{atc.data.trip.destination_location.pos[1]}}" title="{{atc.destination}}"></marker>
                 </ng-map>
