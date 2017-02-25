@@ -20,13 +20,11 @@ app.controller('EditTripController', ['MyTripFactory', 'NgMap', 'GeoCoder', '$ro
 
     // Get trip
     myTripFactory.getTrip(tripID)
-        .then(function(response) {
-                self.data.trip.begin_date = new Date(self.data.trip.begin_date);
-                self.data.trip.end_date = new Date(self.data.trip.end_date);
-            },
-            function(err) {
-                console.log('Error getting trip', err);
-            });
+        .then((response) => {
+            self.data.trip.begin_date = new Date(self.data.trip.begin_date);
+            self.data.trip.end_date = new Date(self.data.trip.end_date);
+        })
+        .catch((err) => console.log('Error getting trip', err));
 
     // Find location
     self.destinationChanged = function() {
@@ -39,26 +37,17 @@ app.controller('EditTripController', ['MyTripFactory', 'NgMap', 'GeoCoder', '$ro
             pos: [self.lat, self.lng]
         };
         NgMap.getMap()
-            .then(function(map) {
-                self.map = map;
-            });
+            .then((map) => self.map = map);
     };
 
     NgMap.getMap()
-        .then(function(map) {
-            self.map = map;
-        });
+        .then((map) => self.map = map);
 
     // Function to update a trip
     self.updateTrip = function() {
         myTripFactory.updateTrip(self.data.trip)
-            .then(function(response) {
-                    window.location = '/#/mytrips';
-                },
-                function(err) {
-                    console.log('Unable to update trip', err);
-                }
-            );
+            .then((response) => window.location = '/#/mytrips')
+            .catch((err) => console.log('Unable to update trip', err));
     }; // End updateTrip
 
 }]); // END: MyTripController

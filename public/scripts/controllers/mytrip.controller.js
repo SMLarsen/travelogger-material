@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory', function(MyTripFactory, AuthFactory, NavFactory) {
+app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory', '$mdDialog', '$scope', function(MyTripFactory, AuthFactory, NavFactory, $mdDialog, $scope) {
     console.log('MyTripController started');
 
     const authFactory = AuthFactory;
@@ -48,5 +48,43 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
             .then((response) => console.log('Trip deleted'))
             .catch((err) => console.log('Unable to delete trip', err));
     }; // End deleteTrip
+
+    self.status = '  ';
+    self.customFullscreen = false;
+
+    self.showAdvanced = function(ev, trip) {
+        self.data.trip = trip;
+        $mdDialog.show({
+            controller: DialogController,
+            scope: $scope,
+            preserveScope: true,
+            templateUrl: 'edittrip.template.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: self.customFullscreen,
+            openFrom: angular.element(document.querySelector('#left')),
+            closeTo: angular.element(document.querySelector('#right'))
+        });
+    };
+
+    function DialogController($scope, $mdDialog) {
+        $scope.data = MyTripFactory.data;
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        // Function to update a trip
+        $scope.updateTrip = function() {
+            myTripFactory.updateTrip()
+                .then(() => $mdDialog.cancel())
+                .catch((err) => console.log('Unable to update trip', err));
+        }; // End updateTrip
+
+    }
 
 }]); // END: MyTripController

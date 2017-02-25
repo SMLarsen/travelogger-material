@@ -19,33 +19,25 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
     self.mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'];
 
     myTripFactory.getDay(dayID)
-        .then(function(response) {
-                self.tripID = self.data.day.trip_id;
-                self.data.day.date = new Date(self.data.day.date);
-                // console.log('Day returned:', self.data.day);
-                $scope.$apply();
-            },
-            function(err) {
-                console.log('Error getting day', err);
-            });
+        .then((response) => {
+            self.tripID = self.data.day.trip_id;
+            self.data.day.date = new Date(self.data.day.date);
+            $scope.$apply();
+        })
+        .catch((err) => console.log('Error getting day', err));
 
     // // Function to update a day
     self.updateDay = function() {
-        // self.data.day.user_id = currentUser.id;
         self.data.day.trip_id = self.tripID;
-        // console.log('EditDayController day:', self.data.day);
         self.findAddress(self.data.day.end_location)
-            .then(function(result) {
+            .then((result) => {
                 self.data.day.end_map_location = self.newLocation;
-                // console.log('updateDay post geocode:', self.data.day);
                 myTripFactory.updateDay(self.data.day)
                     .then(function(response) {
-                            console.log('Day updated');
-                            self.cancel();
-                        },
-                        function(err) {
-                            console.log('Error updating day', err);
-                        });
+                        console.log('Day updated');
+                        self.cancel();
+                    })
+                    .catch((err) => console.log('Error updating day', err));
             });
     }; // End updateDay
 
@@ -76,7 +68,7 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
     self.findAddress = function(address) {
         return GeoCoder.geocode({
             address: address
-        }).then(function(result) {
+        }).then((result) => {
             var location = result[0].geometry.location;
             self.lat = location.lat();
             self.lng = location.lng();
@@ -87,7 +79,6 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
     };
 
     self.cancel = function() {
-        console.log('Cancel tripID:', self.tripID);
         self.data.day = {};
         window.location = '/#/mydays/' + self.tripID;
     };
