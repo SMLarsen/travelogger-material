@@ -3,49 +3,31 @@ app.factory("TripFactory", function($http) {
     console.log('TripFactory started');
 
     let data = {
-      trips: [],
-      trip: {},
-      days: []
+        trips: [],
+        trip: {},
+        days: []
     };
 
     // Function to GET trips
     function getTrips() {
         return $http.get('/guest/trips')
-            .then(function(response) {
-                    data.trips = response.data;
-                    return;
-                },
-                function(err) {
-                    console.log('Unable to retrieve all trips', err);
-                    return;
-                });
+            .then((response) => data.trips = response.data)
+            .catch((err) => console.log('Unable to retrieve all trips', err));
     } // End getTrips
 
     // Function to GET a single trip
     function getTrip(tripID) {
         return $http.get('/guest/trip/' + tripID)
-            .then(function(response) {
-                    data.trip = response.data[0];
-                    return;
-                },
-                function(err) {
-                    console.log('Unable to retrieve trip', err);
-                    return;
-                });
+            .then((response) => data.trip = response.data[0])
+            .catch((err) => console.log('Unable to retrieve trip', err));
     } // End getTrip
 
     // Function to GET days
-    getDays = function(tripID) {
+    function getDays(tripID) {
         return $http.get('/guest/day/' + tripID)
-            .then(function(response) {
-                    data.days = response.data;
-                    return;
-                },
-                function(err) {
-                    console.log('Unable to retrieve days', err);
-                    return;
-                });
-    }; // End getDays
+            .then((response) => data.days = response.data)
+            .catch((err) => console.log('Unable to retrieve days', err));
+    } // End getDays
 
     var publicApi = {
         data: data,
