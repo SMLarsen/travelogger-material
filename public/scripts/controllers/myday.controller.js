@@ -19,35 +19,19 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
     // Function to GET days for a trip
     function getDays(tripID) {
         myTripFactory.getDays(tripID)
-            .then(function(response) {
-                    console.log('Retrieved days');
-                },
-                function(err) {
-                    console.log('Error getting days', err);
-                });
+            .catch((err) => console.log('Error getting days', err));
     } // End getDays
 
     // Function to Delete a day
     self.deleteDay = function(dayID, tripID) {
         console.log('delete day:', dayID);
         myTripFactory.deleteDay(dayID)
-            .then(function(response) {
-                    myTripFactory.getDays(tripID)
-                        .then(function(response) {
-                                console.log('Day deleted');
-                            },
-                            function(err) {
-                                console.log('Error getting days after delete', err);
-                            });
-                },
-                function(err) {
-                    console.log('Unable to delete day', err);
-                });
+            .then((response) => myTripFactory.getDays(tripID))
+            .catch((err) => console.log('Unable to delete day', err));
     }; // End deleteDay
 
     // Function to go to add day
     self.goToDay = function(type, day) {
-        console.log('go to day type:', type, day);
         navFactory.data.tripID = $routeParams.tripID;
         if (type === 'Add') {
             self.data.day = {};

@@ -65,23 +65,19 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
             self.data.day.trip_id = navFactory.data.tripID;
             // console.log('addDay:', self.data.day);
             myTripFactory.addDay()
-                .then(function(response) {
-                        navFactory.data.dayID = myTripFactory.data.day._id;
-                        window.location = '#/addday';
-                    },
-                    function(err) {
-                        console.log('Error adding day', err);
-                    });
+                .then((response) => {
+                    navFactory.data.dayID = myTripFactory.data.day._id;
+                    window.location = '#/addday';
+                })
+                .catch((err) => console.log('Error adding day', err));
         } else {
             self.data.day.trip_id = navFactory.data.tripID;
             myTripFactory.updateDay()
-                .then(function(response) {
-                        navFactory.data.dayID = myTripFactory.data.day._id;
-                        window.location = '#/addday';
-                    },
-                    function(err) {
-                        console.log('Error updating day', err);
-                    });
+                .then((response) => {
+                    navFactory.data.dayID = myTripFactory.data.day._id;
+                    window.location = '#/addday';
+                })
+                .catch((err) => console.log('Error updating day', err));
         }
     }; // End addDay
 
