@@ -5,7 +5,7 @@ console.log('traveloggerApp running');
 app.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('indigo')
-        .accentPalette('orange');
+        .accentPalette('pink');
 });
 
 app.config(['$routeProvider', function($routeProvider) {

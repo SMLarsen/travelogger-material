@@ -20,7 +20,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to GET trips
     function getTrips() {
-      console.log('authData.isUserLoggedIn', authData.isUserLoggedIn);
+        console.log('authData.isUserLoggedIn', authData.isUserLoggedIn);
         if (authData.isUserLoggedIn) {
             return authFactory.getIdToken()
                 .then((currentUser) => {
@@ -127,7 +127,10 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         },
                         data: data.day
                     })
-                    .then((response) => data.day = response.data)
+                    .then((response) => {
+                        data.day = response.data;
+                        data.day.date = new Date(data.day.date);
+                    })
                     .catch((err) => console.log('Unable to add new Day', err));
             });
     } // End addDay
@@ -143,11 +146,18 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                             id_token: authData.currentUser.authIdToken
                         }
                     })
-                    .then((response) => data.tripDays = response.data)
+                    .then((response) => {
+                        data.tripDays = response.data;
+                        data.tripDays.forEach(formatTripDaysDate);
+                    })
                     .catch((err) => console.log('Unable to retrieve days', err));
             });
     } // End getDays
 
+    // Function to format dates in date formatTripDaysDate
+    formatTripDaysDate = function(day, i) {
+        data.tripDays[i].date = new Date(data.tripDays[i].date);
+    };
 
     // Function to GET all days for user
     function getUserDays(userID) {
@@ -161,9 +171,18 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         }
                     })
                     .then((response) => data.userDays = response.data)
+                    .then((response) => {
+                        data.userDays = response.data;
+                        data.userDays.forEach(formatUserDaysDate());
+                    })
                     .catch((err) => console.log('Unable to retrieve user days', err));
             });
     } // End getUserDays
+
+    // Function to format dates in date formatUserDaysDate
+    formatUserDaysDate = function(day, i) {
+        data.userDays[i].date = new Date(data.userDays[i].date);
+    };
 
     // Function to GET a day
     function getDay(dayID) {
@@ -176,7 +195,10 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                             id_token: authData.currentUser.authIdToken
                         }
                     })
-                    .then((response) => data.day = response.data[0])
+                    .then((response) => {
+                        data.day = response.data[0];
+                        data.day.date = new Date(data.day.date);
+                    })
                     .catch((err) => console.log('Unable to retrieve day', err));
             });
     } // End getDay

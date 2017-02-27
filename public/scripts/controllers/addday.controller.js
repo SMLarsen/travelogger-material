@@ -14,9 +14,9 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     console.log('add day dayID', navFactory.data.dayID);
 
     // Enable day topic buttons once day is created
-    self.isDisabled = false;
+    self.isNewDay = false;
     if (navFactory.data.dayID === '') {
-        self.isDisabled = true;
+        self.isNewDay = true;
     }
 
     // Set left nav parameters
@@ -25,26 +25,11 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     // Geocode general destination
     self.genDestinationChanged = function() {
         self.place = this.getPlace();
-        self.map.setCenter(self.place.geometry.location);
         self.location = self.place.geometry.location;
         self.data.day.destination_location = {
             pos: [self.location.lat(), self.location.lng()]
         };
         console.log('gen day:', self.data.day);
-    };
-
-    // Geocode lodging destination
-    self.bedDestinationChanged = function() {
-        self.place = this.getPlace();
-        self.map.setCenter(self.place.geometry.location);
-        self.location = self.place.geometry.location;
-        self.data.day.lodging_map_location = {
-            pos: [self.location.lat(), self.location.lng()]
-        };
-        self.data.day.lodging_name = self.place.name;
-        self.data.day.lodging_address = self.place.formatted_address;
-        self.data.day.lodging_name = self.place.name;
-        console.log('bed day:', self.data.day);
     };
 
     // Find location
@@ -54,20 +39,16 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
         self.location = self.place.geometry.location;
     };
 
-    NgMap.getMap().then(function(map) {
-        self.map = map;
-    });
-
     // // Function to add a day
     self.addDay = function() {
         console.log('addDay', self.data.day);
-        if (navFactory.dayID === undefined) {
+        if (self.isNewDay) {
             self.data.day.trip_id = navFactory.data.tripID;
             // console.log('addDay:', self.data.day);
             myTripFactory.addDay()
                 .then((response) => {
                     navFactory.data.dayID = myTripFactory.data.day._id;
-                    window.location = '#/addday';
+                    self.isNewDay = false;
                 })
                 .catch((err) => console.log('Error adding day', err));
         } else {
