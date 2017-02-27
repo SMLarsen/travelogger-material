@@ -15,3 +15,24 @@ body {
     background-color: $main-color;
     color: $accent-color;
 }
+
+md-card-header {
+    padding: 10px 16px 0;
+}
+
+md-card-title {
+    padding: 6px 16px 0;
+}
+
+md-card-title-text .md-headline {
+    font-size: 18px;
+}
+
+md-card-title-text .md-md-subhead {
+    font-size: 14px;
+    padding-top: 6px;
+}
+
+md-card-content {
+    padding: 8px 16px;
+}

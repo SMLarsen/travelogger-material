@@ -2,55 +2,44 @@
 
     <div class="float-button">
         <md-button class="md-fab" ng-click="atc.addTrip()" aria-label="Add Trip">
-            <md-icon md-svg-src="./assets/icons/ic_add_white_24px.svg"></md-icon>
+            <md-icon md-svg-src="./assets/icons/ic_check_white_24px.svg"></md-icon>
         </md-button>
     </div>
 
     <md-content>
-        <div layout="row" layout-align="space-between">
-            <div flex-gt-md="40" style="margin-top:100px;">
-                <ng-map zoom="12">
-                    <marker ng-show="{{atc.data.trip.destination_location.pos[0]}}" position="{{adc.data.trip.destination_location.pos[0]}},{{atc.data.trip.destination_location.pos[1]}}" title="{{atc.destination}}"></marker>
-                </ng-map>
+        <form class="md-inline-form" name="changeTripForm">
+            <div layout="column">
+                <md-input-container>
+                    <label>Trip Name</label>
+                    <input type="text" name="trip_name" ng-model="atc.data.trip.trip_name" required>
+                </md-input-container>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Starting Date</label>
+                        <input type="date" name="begin_date" ng-model="atc.data.trip.begin_date">
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Ending Date</label>
+                        <input type="date" name="end_date" ng-model="atc.data.trip.end_date">
+                    </md-input-container>
+                </div>
+                <md-input-container>
+                    <label></label>
+                    <input places-auto-complete ng-model="atc.data.trip.destination" on-place-changed="atc.destinationChanged()" />
+                </md-input-container>
+                <md-input-container>
+                    <label>Travellers</label>
+                    <input type="text" name="travellers" ng-model="atc.data.trip.travellers">
+                </md-input-container>
+                <md-input-container>
+                    <label>Photo Caption</label>
+                    <input type="text" name="photoCaption" ng-model="atc.data.trip.photo_caption">
+                </md-input-container>
+                <md-input-container>
+                    <label>Photo URL</label>
+                    <input type="text" name="photoURL" ng-model="atc.data.trip.photo_url">
+                </md-input-container>
             </div>
-
-            <div flex-gt-md="55">
-                <form class="md-inline-form" name="changeTripForm">
-                    <div layout="column">
-                        <md-input-container>
-                            <label>Trip Name</label>
-                            <input type="text" name="trip_name" ng-model="atc.data.trip.trip_name" required>
-                        </md-input-container>
-                        <div layout="row">
-                            <md-input-container flex="50">
-                                <label>Starting Date</label>
-                                <input type="date" name="begin_date" ng-model="atc.data.trip.begin_date">
-                            </md-input-container>
-                            <md-input-container flex="50">
-                                <label>Ending Date</label>
-                                <input type="date" name="end_date" ng-model="atc.data.trip.end_date">
-                            </md-input-container>
-                        </div>
-                        <md-input-container>
-                            <label>Destination</label>
-                            <input places-auto-complete ng-model="atc.data.trip.destination" on-place-changed="atc.destinationChanged()" />
-                        </md-input-container>
-                        <md-input-container>
-                            <label>Travellers</label>
-                            <input type="text" name="travellers" ng-model="atc.data.trip.travellers">
-                        </md-input-container>
-                        <md-input-container>
-                            <label>Photo Caption</label>
-                            <input type="text" name="photoCaption" ng-model="atc.data.trip.photo_caption">
-                        </md-input-container>
-                        <md-input-container>
-                            <label>Photo URL</label>
-                            <input type="text" name="photoURL" ng-model="atc.data.trip.photo_url">
-                        </md-input-container>
-                    </div>
-                </form>
-            </div>
-
-        </div>
+        </form>
     </md-content>
 </div>

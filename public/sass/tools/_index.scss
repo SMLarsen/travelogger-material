@@ -1,16 +1,16 @@
 // globally used mixins and functions. It’s important not to output any CSS in the first 2 layers.
 @mixin card-template {
-  
+
 }
 
 @mixin header-bar {
     position: fixed;
     top: 0;
-    background-color: #1E689C;
+    background-color: $accent-color;
     width: 100%;
     display: inline-flex;
     justify-content: space-between;
-    z-index: 99;
+    z-index: 9;
 }
 @mixin header_text {
     font-size: 5em;

@@ -35,11 +35,11 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
         window.location = "#/mydays/" + tripID;
     }; // End formatDates
 
-    // Function to go to edit trip view
-    self.editTrip = function(tripID) {
-        window.location = "#/edittrip/" + tripID;
-    }; // End formatDates
-
+    // // Function to go to edit trip view
+    // self.editTrip = function(tripID) {
+    //     window.location = "#/edittrip/" + tripID;
+    // }; // End formatDates
+    //
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
         myTripFactory.deleteTrip(tripID)
@@ -52,10 +52,10 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
     self.status = '  ';
     self.customFullscreen = false;
 
-    self.showAdvanced = function(ev, trip) {
+    self.editTrip = function(ev, trip) {
         self.data.trip = trip;
         $mdDialog.show({
-            controller: DialogController,
+            controller: EditDayDialogController,
             scope: $scope,
             preserveScope: true,
             templateUrl: 'edittrip.template.html',
@@ -68,7 +68,7 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
         });
     };
 
-    function DialogController($scope, $mdDialog) {
+    function EditDayDialogController($scope, $mdDialog) {
         $scope.data = MyTripFactory.data;
         $scope.hide = function() {
             $mdDialog.hide();

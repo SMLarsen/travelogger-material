@@ -8,13 +8,13 @@
     <div layout="row" layout-wrap>
         <md-card style="width:200px;" ng-repeat="trip in mtc.data.trips" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
             <div ng-click="mtc.viewTrip(trip._id)">
-                <md-card-header style="padding: 10px 16px 0 16px">
+                <md-card-header>
                     <md-title>{{trip.travellers}}</md-title>
                 </md-card-header>
-                <md-card-title style="padding: 6px 16px 0 16px;">
+                <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline" style="font-size: 18px;">{{trip.trip_name}}</span>
-                        <span class="md-subhead" style="font-size: 14px; padding-top:6px;">{{trip.begin_date | date:'MMMM - yyyy'}}</span>
+                        <span class="md-headline">{{trip.trip_name}}</span>
+                        <span class="md-subhead">{{trip.begin_date | date:'MMMM - yyyy'}}</span>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-title-media>
@@ -22,33 +22,33 @@
                         <img src="{{trip.photo_url}}" alt="{{trip.photo_caption}}">
                     </div>
                 </md-card-title-media>
-                <md-card-content style="padding: 8px 16px;">
+                <md-card-content>
                     {{trip.destination}}<br> {{trip.begin_date | date }} - {{trip.end_date | date }}
                 </md-card-content>
             </div>
             <md-card-actions layout="row" layout-align="space-between center">
                 <!-- <md-button ng-click="mtc.viewTrip(trip._id)">View</md-button> -->
-                <md-button ng-click="mtc.showAdvanced($event, trip)">Edit</md-button>
+                <md-button ng-click="mtc.editTrip($event, trip)">Edit</md-button>
                 <md-button ng-click="mtc.deleteTrip(trip._id)">Delete</md-button>
             </md-card-actions>
         </md-card>
 </md-content>
 
 <script type="text/ng-template" id="edittrip.template.html">
-    <md-dialog aria-label="Edit Trip" flex="50">
+    <md-dialog style="z-index:15;" aria-label="Edit Trip" flex="80">
         <form ng-cloak>
             <md-toolbar>
                 <div class="md-toolbar-tools">
                     <h2>Edit Trip</h2>
                     <span flex></span>
                     <md-button class="md-icon-button" ng-click="cancel()">
-                        <md-icon md-svg-src="assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                        <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
                     </md-button>
                 </div>
             </md-toolbar>
 
             <md-dialog-content>
-                <div class="md-dialog-content" flex="100">
+                <div class="md-dialog-content" flex="150">
                     <form class="md-inline-form" name="changeTripForm">
                         <div layout="column">
                             <md-input-container>
@@ -83,6 +83,7 @@
                             </md-input-container>
                         </div>
                     </form>
+
             </md-dialog-content>
 
             <md-dialog-actions layout="row">
@@ -95,5 +96,6 @@
                 </md-button>
             </md-dialog-actions>
         </form>
+
     </md-dialog>
 </script>
