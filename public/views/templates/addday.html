@@ -1,196 +1,85 @@
 <div ng-cloak>
 
     <div class="float-button">
-        <md-button ng-click="adc.addDay()" class="md-fab" aria-label="Add Day">
-            <md-icon md-svg-src="./assets/icons/ic_check_white_24px.svg"></md-icon>
-        </md-button>
+        <md-fab-speed-dial ng-mouseenter md-direction="up" class="md-scale md-fab-bottom-right">
+            <md-fab-trigger>
+                <md-button ng-click="adc.addDay()" class="md-fab" aria-label="Add...">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Add Detail</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/ic_add_white_24px.svg"></md-icon>
+                </md-button>
+            </md-fab-trigger>
+
+            <md-fab-actions>
+                <md-button class="md-fab md-mini" aria-label="Add Lodging">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Lodging</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/hotel.svg"></md-icon>
+                </md-button>
+
+                <md-button class="md-fab md-mini" aria-label="Add Point of Interest">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Point of Interest</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/map-marker.svg"></md-icon>
+                </md-button>
+
+                <md-button class="md-fab md-mini" aria-label="Add Transportation">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Transport</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/car.svg"></md-icon>
+                </md-button>
+
+                <md-button class="md-fab md-mini" aria-label="Add Food or Drink">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Food and Drink</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/food-fork-drink.svg"></md-icon>
+                </md-button>
+
+                <md-button class="md-fab md-mini" aria-label="Add Photos">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Photos</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/ic_photo_camera_white_24px.svg"></md-icon>
+                </md-button>
+
+            </md-fab-actions>
+        </md-fab-speed-dial>
     </div>
 
     <md-content>
-        <md-tabs md-dynamic-height md-border-bottom>
-            <md-tab label="General">
-                <md-content class="md-padding">
-                    <h1 class="md-display-1">General Information</h1>
-                    <div layout="row" layout-align="space-between">
-                        <div flex-gt-md="40">
-                            <ng-map zoom="12">
-                                <marker ng-show="{{adc.data.day.destination_location.pos[0]}}" position="{{adc.data.day.destination_location.pos[0]}},{{adc.data.day.destination_location.pos[1]}}" title="{{adc.destination}}"></marker>
-                            </ng-map>
-                        </div>
+        <h1 class="md-display-1">General Information</h1>
 
-                        <div flex-gt-md="55">
-                            <form class="md-inline-form" name="changeDayForm">
-                                <div layout="column">
-                                    <div layout="row">
-                                        <md-input-container flex="20">
-                                            <label>Date</label>
-                                            <input type="date" name="date" ng-model="adc.data.day.date">
-                                        </md-input-container>
-                                        <md-input-container flex="30">
-                                            <label>Weather</label>
-                                            <md-select ng-model="adc.data.day.weather">
-                                                <md-option><em>None</em></md-option>
-                                                <md-option ng-repeat="weather in ['Sunny', 'Cloudy', 'Rainy', 'Stormy', 'Snowy']" ng-value="weather">
-                                                    {{weather}}
-                                                </md-option>
-                                            </md-select>
-                                        </md-input-container>
-                                        <md-input-container flex="50">
-                                            <label>Tagline</label>
-                                            <input type="text" name="tagline" ng-model="adc.data.day.tagline">
-                                        </md-input-container>
-                                    </div>
-                                    <md-input-container>
-                                        <label>Location</label>
-                                        <input places-auto-complete ng-model="adc.data.day.end_location" on-place-changed="adc.genDestinationChanged()" placeholder="" />
-                                    </md-input-container>
-                                    <md-input-container>
-                                        <label>Narrative of the Day</label>
-                                        <input type="text" name="narrative" ng-model="adc.data.day.narrative" ng-wrap>
-                                    </md-input-container>
-                                    <md-input-container>
-                                        <label>Photo URL</label>
-                                        <input type="text" name="photo_url" ng-model="adc.data.day.photo_url">
-                                    </md-input-container>
-                                    <md-input-container>
-                                        <label>Photo Caption</label>
-                                        <input type="text" name="photo_caption" ng-model="adc.data.day.photo_caption">
-                                    </md-input-container>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </md-content>
-
-            </md-tab>
-            <md-tab label="Lodging">
-                <md-content class="md-padding">
-                    <h1 class="md-display-1">Lodging</h1>
-                    <div layout="row" layout-align="space-between">
-                        <div flex-gt-md="40">
-                            <ng-map zoom="12">
-                                <marker ng-show="{{adc.data.day.lodging_map_location.pos[0]}}" position="{{adc.data.day.lodging_map_location.pos[0]}},{{adc.data.day.lodging_map_location.pos[1]}}" title="{{adc.destination}}"></marker>
-                            </ng-map>
-                        </div>
-
-                        <div flex-gt-md="55">
-                            <form class="md-inline-form" name="changeBedForm">
-                                <div layout="column">
-                                    <md-input-container>
-                                        <!-- <label>Search</label> -->
-                                        <input places-auto-complete class="search-input" ng-model="adc.search" on-place-changed="adc.bedDestinationChanged()" />
-                                    </md-input-container>
-                                    <div layout="row">
-                                        <md-input-container flex="20">
-                                            <label>Type</label>
-                                            <md-select type="text" name="type" ng-model="adc.data.day.lodging_type">
-                                                <md-option><em>None</em></md-option>
-                                                <md-option ng-repeat="item in adc.lodgingTypes" ng-value="item">
-                                                    {{item}}
-                                                </md-option>
-                                            </md-select>
-                                        </md-input-container>
-                                        <md-input-container flex="80">
-                                            <label>Name</label>
-                                            <input type="text" name="name" ng-model="adc.data.day.lodging_name">
-                                        </md-input-container>
-                                    </div>
-                                    <md-input-container>
-                                        <label>Address</label>
-                                        <input type="text" name="address" ng-model="adc.data.day.lodging_address">
-                                    </md-input-container>
-                                    <md-input-container>
-                                        <label>Reference</label>
-                                        <input type="text" name="reference" ng-model="db.data.day.lodging_reference">
-                                    </md-input-container>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </md-content>
-            </md-tab>
-            <md-tab label="Meals">
-                <md-content class="md-padding">
-                    <h1 class="md-display-1">Meals</h1>
-                    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed
-                        id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-                </md-content>
-            </md-tab>
-            <md-tab label="Route">
-                <md-content class="md-padding">
-                    <h1 class="md-display-1">Route</h1>
-                    <div layout="row" layout-align="space-between">
-                        <div flex-gt-md="40">
-                            <ng-map zoom="12">
-                                <marker ng-show="{{adc.data.day.lodging_map_location.pos[0]}}" position="{{adc.data.day.lodging_map_location.pos[0]}},{{adc.data.day.lodging_map_location.pos[1]}}" title="{{adc.destination}}"></marker>
-                            </ng-map>
-                        </div>
-
-                        <div flex-gt-md="55">
-                            <form class="md-inline-form" name="changeRouteForm">
-                                <div layout="column">
-                                    <md-input-container>
-                                        <input places-auto-complete class="search-input" ng-model="adc.search" on-place-changed="adc.bedDestinationChanged()" />
-                                    </md-input-container>
-                                    <div layout="row">
-                                        <md-input-container flex="20">
-                                            <label>Type</label>
-                                            <md-select type="text" name="type" ng-model="adc.data.day.lodging_type">
-                                                <md-option><em>None</em></md-option>
-                                                <md-option ng-repeat="item in adc.lodgingTypes" ng-value="item">
-                                                    {{item}}
-                                                </md-option>
-                                            </md-select>
-                                        </md-input-container>
-                                        <md-input-container flex="80">
-                                            <label>Name</label>
-                                            <input type="text" name="name" ng-model="adc.data.day.lodging_name">
-                                        </md-input-container>
-                                    </div>
-                                    <md-input-container>
-                                        <label>Address</label>
-                                        <input type="text" name="address" ng-model="adc.data.day.lodging_address">
-                                    </md-input-container>
-                                    <md-input-container>
-                                        <label>Reference</label>
-                                        <input type="text" name="reference" ng-model="db.data.day.lodging_reference">
-                                    </md-input-container>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                                <!-- <span>{{route.name }}</span>
-                            </div>
-                            <div class="col-xs-12 col-md-12">
-                                <span>{{route.transport_mode }}</span>
-                            </div>
-                            <div class="col-xs-12 col-md-12">
-                                <span>{{route.distance }}</span>
-                            </div>
-                            <div class="col-xs-12 col-md-12">
-                                <span>{{route.duration }}</span>
-                            </div>
-                            <div class="col-xs-12 col-md-12">
-                                <span>{{route.specifics }}</span>
-                            </div> -->
-                        </div>
-                    </div> -->
-                </md-content>
-            </md-tab>
-            <md-tab label="Points of Interest">
-                <md-content class="md-padding">
-                    <h1 class="md-display-1">Points of Interest</h1>
-                    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed
-                        id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-                </md-content>
-            </md-tab>
-            <md-tab label="Recommendations">
-                <md-content class="md-padding">
-                    <h1 class="md-display-1">Recommendations</h1>
-                    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed
-                        id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-                </md-content>
-            </md-tab>
-        </md-tabs>
+        <form class="md-inline-form" name="changeDayForm">
+            <div layout="column">
+                <div layout="row">
+                    <md-input-container flex="20">
+                        <label>Date</label>
+                        <input type="date" name="date" ng-model="adc.data.day.date">
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label>Weather</label>
+                        <md-select ng-model="adc.data.day.weather">
+                            <md-option><em>None</em></md-option>
+                            <md-option ng-repeat="weather in ['Sunny', 'Cloudy', 'Rainy', 'Stormy', 'Snowy']" ng-value="weather">
+                                {{weather}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Tagline</label>
+                        <input type="text" name="tagline" ng-model="adc.data.day.tagline">
+                    </md-input-container>
+                </div>
+                <md-input-container>
+                    <label>Location</label>
+                    <input places-auto-complete ng-model="adc.data.day.end_location" on-place-changed="adc.genDestinationChanged()" placeholder="" />
+                </md-input-container>
+                <md-input-container>
+                    <label>Narrative of the Day</label>
+                    <input type="text" name="narrative" ng-model="adc.data.day.narrative" ng-wrap>
+                </md-input-container>
+                <md-input-container>
+                    <label>Photo URL</label>
+                    <input type="text" name="photo_url" ng-model="adc.data.day.photo_url">
+                </md-input-container>
+                <md-input-container>
+                    <label>Photo Caption</label>
+                    <input type="text" name="photo_caption" ng-model="adc.data.day.photo_caption">
+                </md-input-container>
+            </div>
+        </form>
     </md-content>
 </div>

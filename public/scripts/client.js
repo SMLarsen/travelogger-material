@@ -2,6 +2,12 @@ var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ngAnimate', 
 
 console.log('traveloggerApp running');
 
+app.config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+        .primaryPalette('indigo')
+        .accentPalette('orange');
+});
+
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/home', {
@@ -102,4 +108,5 @@ app.config(['$routeProvider', function($routeProvider) {
         .otherwise({
             redirectTo: 'home'
         });
+
 }]); // End config
