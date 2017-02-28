@@ -17,11 +17,15 @@ body {
 }
 
 md-card-header {
-    padding: 10px 16px 0;
+    padding: 10px 16px 0 16px;
 }
 
 md-card-title {
-    padding: 6px 16px 0;
+    padding: 0 16px ;
+}
+
+md-card-title-text {
+  padding: 0 16px;
 }
 
 md-card-title-text .md-headline {
@@ -30,13 +34,18 @@ md-card-title-text .md-headline {
 
 md-card-title-text .md-md-subhead {
     font-size: 14px;
-    padding-top: 6px;
+    padding-top: 2px;
 }
 
 md-card-content {
-    padding: 8px 16px;
+    padding: 2px 16px;
 }
 
 md-input-container {
-  margin: 8px 0 4px 0;
+  margin: 4px 16px;
+}
+
+md-card-actions {
+  position: relative;
+  bottom: 0;
 }

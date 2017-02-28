@@ -24,22 +24,11 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
         item.end_date = new Date(item.end_date);
     } // End formatDates
 
-    // // Function to go to view trip view
-    // self.addTrip = function() {
-    //     self.data.trip = {};
-    //     window.location = "#/addtrip";
-    // }; // End formatDates
-
     // Function to go to view trip view
     self.viewTrip = function(tripID) {
         window.location = "#/mydays/" + tripID;
     }; // End formatDates
 
-    // // Function to go to edit trip view
-    // self.editTrip = function(tripID) {
-    //     window.location = "#/edittrip/" + tripID;
-    // }; // End formatDates
-    //
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
         myTripFactory.deleteTrip(tripID)
@@ -123,7 +112,8 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
         // Function to update a trip
         $scope.addTrip = function() {
             myTripFactory.addTrip()
-                .then(() => $mdDialog.cancel())
+                .then((response) => myTripFactory.getTrips())
+                .then((response) => $mdDialog.cancel())
                 .catch((err) => console.log('Unable to add trip', err));
         }; // End updateTrip
 

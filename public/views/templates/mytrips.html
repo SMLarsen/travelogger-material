@@ -6,7 +6,7 @@
 
 <md-content class="md-padding" layout-xs="column" layout="row">
     <div layout="row" layout-wrap>
-        <md-card style="width:200px;" ng-repeat="trip in mtc.data.trips" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+        <md-card style="width:350px;" ng-repeat="trip in mtc.data.trips" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
             <div ng-click="mtc.viewTrip(trip._id)">
                 <md-card-header>
                     <md-title>{{trip.travellers}}</md-title>
@@ -26,12 +26,12 @@
                     {{trip.destination}}<br> {{trip.begin_date | date }} - {{trip.end_date | date }}
                 </md-card-content>
             </div>
-            <md-card-actions layout="row" layout-align="space-between center">
-                <!-- <md-button ng-click="mtc.viewTrip(trip._id)">View</md-button> -->
+            <md-card-actions layout="row" layout-align="space-between end">
                 <md-button ng-click="mtc.editTrip($event, trip)">Edit</md-button>
                 <md-button ng-click="mtc.deleteTrip(trip._id)">Delete</md-button>
             </md-card-actions>
         </md-card>
+    </div>
 </md-content>
 
 <script type="text/ng-template" id="edittrip.template.html">
@@ -58,11 +58,11 @@
                             <div layout="row">
                                 <md-input-container flex="50">
                                     <label>Starting Date</label>
-                                    <input type="date" name="begin_date" ng-model="mtc.data.trip.begin_date">
+                                    <md-datepicker ng-model="mtc.data.trip.begin_date"></md-datepicker>
                                 </md-input-container>
                                 <md-input-container flex="50">
                                     <label>Ending Date</label>
-                                    <input type="date" name="end_date" ng-model="mtc.data.trip.end_date">
+                                    <md-datepicker ng-model="mtc.data.trip.end_date"></md-datepicker>
                                 </md-input-container>
                             </div>
                             <md-input-container>
@@ -125,11 +125,11 @@
                             <div layout="row">
                                 <md-input-container flex="50">
                                     <label>Starting Date</label>
-                                    <input type="date" name="begin_date" ng-model="mtc.data.trip.begin_date">
+                                    <md-datepicker ng-model="mtc.data.trip.begin_date"></md-datepicker>
                                 </md-input-container>
                                 <md-input-container flex="50">
                                     <label>Ending Date</label>
-                                    <input type="date" name="end_date" ng-model="mtc.data.trip.end_date">
+                                    <md-datepicker ng-model="mtc.data.trip.end_date"></md-datepicker>
                                 </md-input-container>
                             </div>
                             <md-input-container>
