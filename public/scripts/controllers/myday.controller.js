@@ -16,6 +16,10 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
 
     getDays(self.tripID);
 
+    self.show = function() {
+      console.log('showing slef.data', self.data);
+    };
+
     // Function to GET days for a trip
     function getDays(tripID) {
         myTripFactory.getDays(tripID)
@@ -24,7 +28,6 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
 
     // Function to Delete a day
     self.deleteDay = function(dayID, tripID) {
-        console.log('delete day:', dayID);
         myTripFactory.deleteDay(dayID)
             .then((response) => myTripFactory.getDays(tripID))
             .catch((err) => console.log('Unable to delete day', err));
@@ -45,7 +48,9 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
 
 
     self.addDay = function(ev) {
+        console.log('addDay');
         self.data.day = {};
+        self.data.day.trip_id = self.tripID;
         $mdDialog.show({
             controller: AddDayDialogController,
             scope: $scope,
@@ -70,24 +75,24 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
             $mdDialog.cancel();
         };
 
-        // Function to update a trip
+        // Function to add day
         $scope.addDay = function() {
-          console.log('adding day', myTripFactory.data.day);
             myTripFactory.addDay()
-                .then((response) => navFactory.data.dayID = myTripFactory.data.day._id)
-                .catch((err) => console.log('Error adding day', err));
+                .then((response) => {
+                    navFactory.data.dayID = myTripFactory.data.day._id;
+                    myTripFactory.getDays(myTripFactory.data.day.trip_id)
+                        .then((response) => $mdDialog.cancel())
+                        .catch((err) => console.log('Error adding day', err));
+                });
         }; // End addDay
 
         // Find location
         $scope.destinationChanged = function() {
             let place = this.getPlace();
-            console.log('place', place);
             myTripFactory.data.day.end_map_location = {
                 pos: [place.geometry.location.lat(), place.geometry.location.lng()]
             };
-            console.log('destinationChanged', myTripFactory.data.day);
         };
     }
-
 
 }]); // END: MyDayController

@@ -4,6 +4,11 @@
     </md-button>
 </div>
 
+<md-button ng-click="mdc.show()" class="md-fab" aria-label="Add Day" style="background-color: blue; z-index: 99;">
+    <md-icon md-svg-src="./assets/icons/ic_add_white_24px.svg"></md-icon>
+</md-button>
+
+
 <md-content class="md-padding" layout-xs="column" layout="row">
     <div layout="row" layout-wrap>
         <md-card style="width: 300px;" ng-repeat="day in mdc.data.tripDays" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
