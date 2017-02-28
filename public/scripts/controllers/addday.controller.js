@@ -20,7 +20,11 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
     }
 
     // Set left nav parameters
-    navFactory.setNav('Add Day', '#/mydays/' + navFactory.data.tripID, true);
+    if (self.isNewDay) {
+      navFactory.setNav('Add Day', '#/mydays/' + navFactory.data.tripID, true);
+    } else {
+      navFactory.setNav('Edit Day', '#/mydays/' + navFactory.data.tripID, true);
+    }
 
     // Geocode general destination
     self.genDestinationChanged = function() {
@@ -29,7 +33,6 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
         self.data.day.destination_location = {
             pos: [self.location.lat(), self.location.lng()]
         };
-        console.log('gen day:', self.data.day);
     };
 
     // Find location
@@ -61,5 +64,51 @@ app.controller('AddDayController', ['MyTripFactory', 'NavFactory', 'NgMap', 'Geo
                 .catch((err) => console.log('Error updating day', err));
         }
     }; // End addDay
+
+    self.addDay = function(ev) {
+        self.data.trip = {};
+        $mdDialog.show({
+            controller: AddDayDialogController,
+            scope: $scope,
+            preserveScope: true,
+            templateUrl: 'addtrip.template.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: self.customFullscreen,
+            openFrom: angular.element(document.querySelector('#left')),
+            closeTo: angular.element(document.querySelector('#right'))
+        });
+    };
+
+    function AddDayDialogController($scope, $mdDialog) {
+        $scope.data = MyTripFactory.data;
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        // Function to update a trip
+        $scope.addDay = function() {
+          myTripFactory.addDay()
+              .then((response) => {
+                  navFactory.data.dayID = myTripFactory.data.day._id;
+                  self.isNewDay = false;
+              })
+              .catch((err) => console.log('Error adding day', err));
+        }; // End addDay
+
+        // Find location
+        $scope.destinationChanged = function() {
+            let place = this.getPlace();
+            myTripFactory.data.day.destination_location = {
+                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
+            };
+        };
+    }
+
 
 }]); // END: MyTripController

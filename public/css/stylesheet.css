@@ -43,6 +43,9 @@ md-card-title-text .md-md-subhead {
 md-card-content {
   padding: 8px 16px; }
 
+md-input-container {
+  margin: 8px 0 4px 0; }
+
 .float-button {
   position: fixed;
   right: 10px;

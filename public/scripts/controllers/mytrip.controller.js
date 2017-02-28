@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory', '$mdDialog', '$scope', function(MyTripFactory, AuthFactory, NavFactory, $mdDialog, $scope) {
+app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory', '$mdDialog', '$scope', 'NgMap', 'GeoCoder', function(MyTripFactory, AuthFactory, NavFactory, $mdDialog, $scope, NgMap, GeoCoder) {
     console.log('MyTripController started');
 
     const authFactory = AuthFactory;
@@ -24,11 +24,11 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
         item.end_date = new Date(item.end_date);
     } // End formatDates
 
-    // Function to go to view trip view
-    self.addTrip = function() {
-        self.data.trip = {};
-        window.location = "#/addtrip";
-    }; // End formatDates
+    // // Function to go to view trip view
+    // self.addTrip = function() {
+    //     self.data.trip = {};
+    //     window.location = "#/addtrip";
+    // }; // End formatDates
 
     // Function to go to view trip view
     self.viewTrip = function(tripID) {
@@ -85,6 +85,55 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
                 .catch((err) => console.log('Unable to update trip', err));
         }; // End updateTrip
 
+        // Find location
+        $scope.destinationChanged = function() {
+            let place = this.getPlace();
+            myTripFactory.data.trip.destination_location = {
+                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
+            };
+        };
+    }
+
+    self.addTrip = function(ev) {
+        self.data.trip = {};
+        $mdDialog.show({
+            controller: AddDayDialogController,
+            scope: $scope,
+            preserveScope: true,
+            templateUrl: 'addtrip.template.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: self.customFullscreen,
+            openFrom: angular.element(document.querySelector('#left')),
+            closeTo: angular.element(document.querySelector('#right'))
+        });
+    };
+
+    function AddDayDialogController($scope, $mdDialog) {
+        $scope.data = MyTripFactory.data;
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        // Function to update a trip
+        $scope.addTrip = function() {
+            myTripFactory.addTrip()
+                .then(() => $mdDialog.cancel())
+                .catch((err) => console.log('Unable to add trip', err));
+        }; // End updateTrip
+
+        // Find location
+        $scope.destinationChanged = function() {
+            let place = this.getPlace();
+            myTripFactory.data.trip.destination_location = {
+                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
+            };
+        };
     }
 
 }]); // END: MyTripController

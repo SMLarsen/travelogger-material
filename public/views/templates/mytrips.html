@@ -66,8 +66,8 @@
                                 </md-input-container>
                             </div>
                             <md-input-container>
-                                <label>Destination</label>
-                                <input places-auto-complete ng-model="mtc.data.trip.destination" on-place-changed="atc.destinationChanged()" />
+                                <label ng-show="mtc.data.trip.destination">Destination</label>
+                                <input places-auto-complete ng-model="mtc.data.trip.destination" on-place-changed="destinationChanged()" />
                             </md-input-container>
                             <md-input-container>
                                 <label>Travellers</label>
@@ -89,6 +89,73 @@
             <md-dialog-actions layout="row">
                 <span flex></span>
                 <md-button ng-click="updateTrip()">
+                    Save
+                </md-button>
+                <md-button ng-click="cancel()">
+                    Discard
+                </md-button>
+            </md-dialog-actions>
+        </form>
+
+    </md-dialog>
+</script>
+
+
+<script type="text/ng-template" id="addtrip.template.html">
+    <md-dialog style="z-index:15;" aria-label="Add Trip" flex="80">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Add Trip</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div class="md-dialog-content" flex="150">
+                    <form class="md-inline-form" name="addTripForm">
+                        <div layout="column">
+                            <md-input-container>
+                                <label>Trip Name</label>
+                                <input type="text" name="trip_name" ng-model="mtc.data.trip.trip_name" required>
+                            </md-input-container>
+                            <div layout="row">
+                                <md-input-container flex="50">
+                                    <label>Starting Date</label>
+                                    <input type="date" name="begin_date" ng-model="mtc.data.trip.begin_date">
+                                </md-input-container>
+                                <md-input-container flex="50">
+                                    <label>Ending Date</label>
+                                    <input type="date" name="end_date" ng-model="mtc.data.trip.end_date">
+                                </md-input-container>
+                            </div>
+                            <md-input-container>
+                                <label ng-show="mtc.data.trip.destination">Destination</label>
+                                <input places-auto-complete ng-model="mtc.data.trip.destination" on-place-changed="destinationChanged()" />
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Travellers</label>
+                                <input type="text" name="travellers" ng-model="mtc.data.trip.travellers">
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Photo Caption</label>
+                                <input type="text" name="photoCaption" ng-model="mtc.data.trip.photo_caption">
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Photo URL</label>
+                                <input type="text" name="photoURL" ng-model="mtc.data.trip.photo_url">
+                            </md-input-container>
+                        </div>
+                    </form>
+
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button ng-click="addTrip()">
                     Save
                 </md-button>
                 <md-button ng-click="cancel()">
