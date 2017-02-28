@@ -46,7 +46,6 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
         window.location = '/#/addday';
     };
 
-
     self.addDay = function(ev) {
         console.log('addDay');
         self.data.day = {};
@@ -81,7 +80,7 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$routeParams'
                 .then((response) => {
                     navFactory.data.dayID = myTripFactory.data.day._id;
                     myTripFactory.getDays(myTripFactory.data.day.trip_id)
-                        .then((response) => $mdDialog.cancel())
+                        .then((response) => window.location = "#/editday/" + myTripFactory.data.day._id)
                         .catch((err) => console.log('Error adding day', err));
                 });
         }; // End addDay

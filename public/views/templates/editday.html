@@ -1,200 +1,157 @@
-<div>
-    <div>
-        <h2>Change a Day</h2>
+<div ng-cloak>
+
+    <div class="float-button">
+        <md-fab-speed-dial md-open="true" ng-mouseenter md-direction="up" class="md-scale md-fab-bottom-right">
+            <md-fab-trigger>
+                <md-button ng-click="edc.updateDay()" class="md-fab" aria-label="Save...">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Save Day</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/ic_add_white_24px.svg"></md-icon>
+                </md-button>
+            </md-fab-trigger>
+
+            <md-fab-actions>
+                <md-button ng-click="edc.addDetail(ev, 'lodging')" class="md-fab md-mini" aria-label="Add Lodging">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Lodging</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/hotel.svg"></md-icon>
+                </md-button>
+
+                <md-button class="md-fab md-mini" aria-label="Add Point of Interest">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Point of Interest</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/map-marker.svg"></md-icon>
+                </md-button>
+
+                <md-button class="md-fab md-mini" aria-label="Add Transportation">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Transport</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/car.svg"></md-icon>
+                </md-button>
+
+                <md-button class="md-fab md-mini" aria-label="Add Food or Drink">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Food and Drink</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/food-fork-drink.svg"></md-icon>
+                </md-button>
+
+                <md-button class="md-fab md-mini" aria-label="Add Photos">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Photos</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/ic_photo_camera_white_24px.svg"></md-icon>
+                </md-button>
+
+                <md-button ng-href="#/mydays/{{edc.data.day.trip_id}}" class="md-fab md-mini" aria-label="Return">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Back</md-tooltip>
+                    <md-icon md-svg-src="./assets/icons/ic_arrow_back_white_24px.svg"></md-icon>
+                </md-button>
+
+            </md-fab-actions>
+        </md-fab-speed-dial>
     </div>
 
-    <div>
-        <a class="btn sideBtn sideBtnSave" ng-click="edc.updateDay()"><i class="pull-right fa fa-check" aria-hidden="true"></i></a>
-        <a class="btn sideBtn sideBtnCancel" ng-click="edc.cancel()"><i class="pull-right fa fa-ban" aria-hidden="true"></i></a>
+    <div layout="row" layout-xs="column">
+        <div flex="40">
+            <md-content>
+                <p class="md-title">General Information</p>
+
+                <form class="md-inline-form" name="changeDayForm">
+                    <div layout="column" flex>
+                        <md-input-container flex>
+                            <label>Date</label>
+                            <md-datepicker ng-model="edc.data.day.date"></md-datepicker>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Weather</label>
+                            <md-select ng-model="edc.data.day.weather">
+                                <md-option><em>None</em></md-option>
+                                <md-option ng-repeat="weather in ['Sunny', 'Cloudy', 'Rainy', 'Stormy', 'Snowy']" ng-value="weather">
+                                    {{weather}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Tagline</label>
+                            <input type="text" name="tagline" ng-model="edc.data.day.tagline">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Location</label>
+                            <input places-auto-complete ng-model="edc.data.day.end_location" on-place-changed="edc.genDestinationChanged()" placeholder="" />
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Narrative of the Day</label>
+                            <textarea rows="5" name="narrative" ng-model="edc.data.day.narrative" ng-wrap></textarea>
+                        </md-input-container>
+                    </div>
+                </form>
+            </md-content>
+        </div>
+        <div flex="60">
+            <md-content>
+                <ul ng-repeat="detail in edc.data.day.details">
+                    <li> {{detail.detail_type}} {{detail.name}} {{detail.type}} {{detail.location}} {{detail.description}} {{detail.url}}
+                    </li>
+                </ul>
+                I'm below on mobile, and to the right on larger devices.
+            </md-content>
+        </div>
     </div>
 
-    <form name="changeDayForm">
 
-        <div class="daySection form-group">
-            <label class="dayLabel col-xs-12">General</label>
-            <div class="form-group">
-                <input type="date" class="col-xs-12 col-md-3" name="date" ng-model="edc.data.day.date">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-8" name="dayEndLocation" ng-model="edc.data.day.end_location" placeholder="Where are you?">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-8" name="tag_line" ng-model="edc.data.day.tag_line" placeholder="Tag line for the day">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-3" name="weather" ng-model="edc.data.day.weather" placeholder="Today's Weather">
-            </div>
-            <div class="form-group">
-                <textarea rows="4" cols="150" class="col-xs-12 col-md-11" name="narrative" ng-model="edc.data.day.narrative" placeholder="Describe the day"></textarea>
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-5" name="photo_caption" ng-model="edc.data.day.photo_caption" placeholder="Photo Caption">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-6" name="photo_url" ng-model="edc.data.day.photo_url" placeholder="Photo URL">
-            </div>
-        </div>
+    <script type="text/ng-template" id="daydetail.template.html">
+        <md-dialog style="z-index:15;" aria-label="Add Day Detail" flex="80">
+            <form ng-cloak>
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2>Add {{edc.newDetail.detail_type}}</h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
 
-        <div class="daySection form-group">
-            <label class="dayLabel col-xs-12">Points of Interest</label>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-5" name="pointOfInterestName" ng-model="edc.newPointOfInterest.name" placeholder="Description">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-5" name="pointOfInterestDesc" ng-model="edc.newPointOfInterest.description" placeholder="Address">
-            </div>
-            <div class="col-xs-1 col-md-1 col-md-0ffset-11">
-                <a ng-click="edc.addPOIRow()"><i class="fa fa-plus pull-right" aria-hidden="true"></i></a>
-            </div><br>
-            <div class="col-xs-12 col-md-12">
-                <table class="dayTable table table-hover table-responsive">
-                    <thead class=>
-                        <tr>
-                            <th style="width:20%">Name</th>
-                            <th style="width:80%">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody class="routes" ng-repeat="place in edc.data.day.interesting_locations">
-                        <tr>
-                            <td>{{place.name}}</td>
-                            <td>{{place.description}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                <md-dialog-content>
+                    <div class="md-dialog-content" flex="150">
+                        <form class="md-inline-form" name="addDayDetailForm">
+                            <div layout="column">
+                                    <md-input-container>
+                                        <label>Type</label>
+                                        <md-select ng-model="edc.newDetail.type">
+                                            <md-option><em>None</em></md-option>
+                                            <md-option ng-repeat="item in edc.mealTypes" ng-value="type">
+                                                {{item}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                <md-input-container>
+                                    <label>Name</label>
+                                    <input type="text" name="name" ng-model="edc.newDetail.name">
+                                </md-input-container>
+                                <md-input-container>
+                                    <label ng-show="edc.newDetail.location">Location</label>
+                                    <input places-auto-complete ng-model="edc.newDetail.location" on-place-changed="destinationChanged()" />
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Description</label>
+                                    <textarea rows="3" name="description" ng-model="edc.newDetail.description" ng-wrap></textarea>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>URL</label>
+                                    <input type="text" name="url" ng-model="edc.newDetail.url">
+                                </md-input-container>
+                            </div>
+                        </form>
+                    </div>
 
-        <div class="daySection form-group">
-            <label class="dayLabel col-xs-12">Routes</label>
-            <div class="form-group">
-                <select class="col-xs-12 col-md-2" ng-model="edc.route.transport_mode" ng-options="item for item in edc.transportModes"></select>
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-4" name="routeName" ng-model="edc.newRoute.name" placeholder="Address">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-1" name="routeDistance" ng-model="edc.newRoute.distance" placeholder="Dist">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-1" name="routeDuration" ng-model="edc.newRoute.duration" placeholder="Dur">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-3" name="routeSpecifics" ng-model="edc.newRoute.specifics" placeholder="Specs">
-            </div><br>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-10" name="routeComment" ng-model="edc.newRoute.comment" placeholder="Comments">
-            </div>
-            <div class="col-xs-1 col-md-1">
-                <a ng-click="edc.addRouteRow()"><i class="fa fa-plus pull-right" aria-hidden="true"></i></a>
-            </div>
-            <div class="col-xs-12 col-md-12">
-                <table class="dayTable table table-hover table-responsive">
-                    <thead class=>
-                        <tr>
-                            <th style="width:10%">Name</th>
-                            <th style="width:10%">Mode</th>
-                            <th style="width:5%">Distance</th>
-                            <th style="width:5%">Duration</th>
-                            <th style="width:20%">Specfics</th>
-                            <th style="width:50%">Comment</th>
-                        </tr>
-                    </thead>
-                    <tbody class="routes" ng-repeat="route in edc.data.day.routes">
-                        <tr>
-                            <td>{{route.name}}</td>
-                            <td>{{route.transport_mode}}</td>
-                            <td>{{route.distance}}</td>
-                            <td>{{route.duration}}</td>
-                            <td>{{route.specifics}}</td>
-                            <td>{{route.comment}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                </md-dialog-content>
 
-        <div class="daySection form-group">
-            <label class="dayLabel col-xs-12">Meals</label>
-            <div class="form-group">
-                <select class="col-xs-12 col-md-2" ng-model="edc.meal.type" ng-options="item for item in edc.mealTypes"></select>
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-4" name="mealName" ng-model="edc.newMeal.name" placeholder="Name">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-5" name="mealLocation" ng-model="edc.newMeal.location" placeholder="Address">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-5" name="mealDescription" ng-model="edc.newMeal.description" placeholder="Describe it">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-5" name="routeReference" ng-model="edc.newMeal.reference" placeholder="reference (url)">
-            </div><br>
-            <div class="col-xs-1 col-md-1">
-                <a ng-click="edc.addMealRow()"><i class="fa fa-plus pull-right" aria-hidden="true"></i></a>
-            </div>
-            <div class="col-xs-12 col-md-12">
-                <table class="dayTable table table-hover table-responsive">
-                    <thead class=>
-                        <tr>
-                            <th style="width:10%">type</th>
-                            <th style="width:10%">Name</th>
-                            <th style="width:20%">Location</th>
-                            <th style="width:40%">Description</th>
-                            <th style="width:20%">reference</th>
-                        </tr>
-                    </thead>
-                    <tbody class="meals" ng-repeat="meal in edc.meals">
-                        <tr>
-                            <td>{{meal.type}}</td>
-                            <td>{{meal.name}}</td>
-                            <td>{{meal.location}}</td>
-                            <td>{{meal.description}}</td>
-                            <td>{{meal.reference}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                <md-dialog-actions layout="row">
+                    <span flex></span>
+                    <md-button ng-click="addDayDetail()">
+                        Save
+                    </md-button>
+                    <md-button ng-click="cancel()">
+                        Discard
+                    </md-button>
+                </md-dialog-actions>
+            </form>
 
-        <div class="daySection form-group">
-            <label class="dayLabel col-xs-12 col-md-12">Lodging</label><br>
-            <div class="form-group">
-                <select class="col-xs-12 col-md-2" ng-model="edc.lodgingTypes_type" ng-options="item for item in edc.lodgingTypes"></select>
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-4" name="lodging_name" ng-model="edc.data.day.lodging_name" placeholder="Name">
-            </div>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-5" name="lodging_address" ng-model="edc.data.day.lodging_address" placeholder="Address">
-            </div><br>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-11" name="lodging_reference" ng-model="edc.data.day.lodging_reference" placeholder="Reference">
-            </div>
-        </div><br>
+        </md-dialog>
+    </script>
 
-        <div class="daySection form-group">
-            <label class="dayLabel col-xs-12">Recommendations</label><br>
-            <div class="form-group">
-                <input type="text" class="col-xs-12 col-md-10" ng-model="edc.newRecommendation.text" placeholder="Recommendations?">
-            </div>
-            <div class="col-xs-1 col-md-1">
-                <a ng-click="edc.addRecommendationRow()"><i class="fa fa-plus pull-right" aria-hidden="true"></i></a>
-            </div>
-            <div class="col-xs-12 cl-md-11">
-                <table class="dayTable table table-hover table-responsive">
-                    <thead class=>
-                        <tr>
-                            <th style="width:100%">Recommendation</th>
-                        </tr>
-                    </thead>
-                    <tbody class="recommendations" ng-repeat="recommendation in edc.data.day.recommendations">
-                        <tr>
-                            <td>{{recommendation.text}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </form>
 </div>

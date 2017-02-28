@@ -5,18 +5,12 @@ var ObjectId = Schema.ObjectId;
 
 // Subdocument Schemas
 var Detail = new Schema({
+    detail_type: String,
     name: String,
     type: String,
     location: Object,
+    location_map: Object,
     description: String,
-    url: String
-});
-
-var Photo = new Schema({
-    user_id: ObjectId,
-    trip_id: ObjectId,
-    day_id: ObjectId,
-    caption: String,
     url: String
 });
 
@@ -28,7 +22,7 @@ var daySchema = new Schema({
     end_location: String,
     end_map_location: Object,
     tag_line: String,
-    detail: [Detail],
+    details: [Detail],
     narrative: String,
     weather: String,
     cover_photo: ObjectId,

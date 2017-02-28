@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCoder', '$routeParams', function(MyTripFactory, $scope, NgMap, GeoCoder, $routeParams) {
+app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCoder', '$routeParams', '$mdDialog', function(MyTripFactory, $scope, NgMap, GeoCoder, $routeParams, $mdDialog) {
     console.log('EditDayController started');
 
     const myTripFactory = MyTripFactory;
@@ -9,14 +9,16 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
     let dayID = $routeParams.dayID;
 
     self.data.day = {};
-    self.newRoute = {};
-    self.newPOI = {};
-    self.newMeal = {};
-    self.newRecommendation = {};
+    self.newDetail = {};
+    self.selectArray = [];
 
-    self.transportModes = ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'];
-    self.lodgingTypes = ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'];
-    self.mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'];
+    const DETAILTYPES = {
+      detailTypes: ['Lodging', 'Meal', 'Transport', 'Point of Interest'],
+      transportModes: ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'],
+      lodgingTypes: ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'],
+      mealTypes: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'],
+      poiTypes: ['Museum', 'Tour', 'Park', 'Historical Site', 'Building', 'Place']
+    };
 
     myTripFactory.getDay(dayID)
         .then((response) => {
@@ -29,58 +31,68 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
     // // Function to update a day
     self.updateDay = function() {
         self.data.day.trip_id = self.tripID;
-        self.findAddress(self.data.day.end_location)
-            .then((result) => {
-                self.data.day.end_map_location = self.newLocation;
-                myTripFactory.updateDay(self.data.day)
-                    .then(function(response) {
-                        console.log('Day updated');
-                        self.cancel();
-                    })
-                    .catch((err) => console.log('Error updating day', err));
-            });
+        myTripFactory.updateDay(self.data.day)
+            .then((response) => window.location = "#/mydays/" + self.tripID)
+            .catch((err) => console.log('Error updating day', err));
     }; // End updateDay
 
-    // Add point row to Day
-    self.addPOIRow = function() {
-        self.data.day.interesting_locations.push(angular.copy(self.newPOI));
-        self.newPOI = {};
-    }; // End addpointRow
-
-    // Add recommendation row to Day
-    self.addRecommendationRow = function() {
-        self.data.day.recommendations.push(angular.copy(self.newRecommendation));
-        self.newRecommendation = {};
-    }; // End addMeal
-
-    // Add meal row to Day
-    self.addMealRow = function() {
-        self.data.day.meals.push(angular.copy(self.newMeal));
-        self.newMeal = {};
-    }; // End addMeal
-
-    // Add Route row to Day
-    self.addRouteRow = function() {
-        self.data.day.routes.push(angular.copy(self.newRoute));
-        self.newRoute = {};
-    }; // End addRecommendation
-
-    self.findAddress = function(address) {
-        return GeoCoder.geocode({
-            address: address
-        }).then((result) => {
-            var location = result[0].geometry.location;
-            self.lat = location.lat();
-            self.lng = location.lng();
-            self.newLocation = {
-                pos: [self.lat, self.lng]
-            };
-        });
+    // Find location
+    self.destinationChanged = function() {
+        let place = this.getPlace();
+        myTripFactory.data.day.end_map_location = {
+            pos: [place.geometry.location.lat(), place.geometry.location.lng()]
+        };
     };
 
     self.cancel = function() {
         self.data.day = {};
         window.location = '/#/mydays/' + self.tripID;
     };
+
+    self.addDetail = function(ev, detailType) {
+        self.newDetail = {};
+        self.newDetail.detail_type = detailType;
+        let detailArrayType = detailType + 'Types';
+        self.selectArray = DETAILTYPES[detailArrayType];
+        $mdDialog.show({
+            controller: AddDayDetailDialogController,
+            scope: $scope,
+            preserveScope: true,
+            templateUrl: 'daydetail.template.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: self.customFullscreen,
+            openFrom: angular.element(document.querySelector('#left')),
+            closeTo: angular.element(document.querySelector('#right'))
+        });
+    };
+
+    function AddDayDetailDialogController($scope, $mdDialog) {
+        $scope.data = MyTripFactory.data;
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        // Function to add day detail
+        $scope.addDayDetail = function() {
+            self.data.day.details.push(self.newDetail);
+            $mdDialog.cancel();
+        }; // End addDayDetail
+
+        // Find location
+        $scope.destinationChanged = function() {
+            let place = this.getPlace();
+            console.log(place);
+            self.newDetail.location = place.formatted_address;
+            self.newDetail.location_map = {
+                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
+            };
+        };
+    }
 
 }]); // END: MyTripController

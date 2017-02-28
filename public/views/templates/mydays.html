@@ -26,7 +26,7 @@
             </md-card-content>
             <md-card-actions layout="row" layout-align="space-between center">
                 <md-button ng-click="mdc.viewTrip(trip._id)" ng-disabled>View</md-button>
-                <md-button ng-click="mdc.goToDay('Edit', day)">Edit</md-button>
+                <md-button ng-href="#/editday/{{day._id}}">Edit</md-button>
                 <md-button ng-click="mdc.deleteDay(day._id, day.trip_id)">Delete</md-button>
             </md-card-actions>
         </md-card>
