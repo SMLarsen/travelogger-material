@@ -17,20 +17,24 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
         detailTypes: {
             array: ['Lodging', 'Meal', 'Transport', 'Point of Interest']
         },
-        transportModes: {
+        transportTypes: {
             array: ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'],
+            title: 'Transport',
             icon: 'cars.svg'
         },
         lodgingTypes: {
             array: ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'],
+            title: 'Lodging',
             icon: 'hotel.svg'
         },
         mealTypes: {
             array: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'],
+            title: 'Food and Drink',
             icon: 'food-fork-drink.svg'
         },
         poiTypes: {
             array: ['Museum', 'Tour', 'Park', 'Historical Site', 'Building', 'Place'],
+            title: 'Point of Interest',
             icon: 'map-marker.svg'
         }
     };
@@ -66,7 +70,7 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
 
     self.addDetail = function(ev, detailType) {
         self.newDetail = {};
-        self.newDetail.detail_type = detailType;
+        self.title = DETAILTYPES[detailType + 'Types'].title;
         self.newDetail.icon = ICONPATH;
         self.newDetail.icon += DETAILTYPES[detailType + 'Types'].icon;
         self.selectArray = DETAILTYPES[detailType + 'Types'].array;
