@@ -35,11 +35,11 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'MyDayController',
             controllerAs: 'mdc'
         })
-        .when('/addday', {
-            templateUrl: '/views/templates/addday.html',
-            controller: 'AddDayController',
-            controllerAs: 'adc'
-        })
+        // .when('/addday', {
+        //     templateUrl: '/views/templates/addday.html',
+        //     controller: 'AddDayController',
+        //     controllerAs: 'adc'
+        // })
         .when('/editday/:dayID', {
             templateUrl: '/views/templates/editday.html',
             controller: 'EditDayController',
@@ -59,41 +59,6 @@ app.config(['$routeProvider', function($routeProvider) {
             templateUrl: '/views/templates/pics.html',
             controller: 'PicController',
             controllerAs: 'pc'
-        })
-        .when('/daygen', {
-            templateUrl: '/views/templates/daygen.html',
-            controller: 'DayGenController',
-            controllerAs: 'dg'
-        })
-        .when('/daybed', {
-            templateUrl: '/views/templates/daybed.html',
-            controller: 'DayBedController',
-            controllerAs: 'db'
-        })
-        .when('/dayfood', {
-            templateUrl: '/views/templates/dayfood.html',
-            controller: 'DayFoodController',
-            controllerAs: 'df'
-        })
-        .when('/addfood', {
-            templateUrl: '/views/templates/addfood.html',
-            controller: 'AddFoodController',
-            controllerAs: 'af'
-        })
-        .when('/daypic', {
-            templateUrl: '/views/templates/daypic.html',
-            controller: 'DayPicController',
-            controllerAs: 'dp'
-        })
-        .when('/dayroute', {
-            templateUrl: '/views/templates/dayroute.html',
-            controller: 'DayRouteController',
-            controllerAs: 'dr'
-        })
-        .when('/daypoi', {
-            templateUrl: '/views/templates/daypoi.html',
-            controller: 'DayPOIController',
-            controllerAs: 'di'
         })
         .otherwise({
             redirectTo: 'home'
