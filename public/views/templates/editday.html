@@ -1,10 +1,10 @@
 <div ng-cloak>
 
     <div class="float-button">
-        <md-fab-speed-dial md-open="true" ng-mouseenter md-direction="up" class="md-scale md-fab-bottom-right">
+        <md-fab-speed-dial md-open="false" ng-mouseenter md-direction="up" class="md-scale md-fab-bottom-right">
             <md-fab-trigger>
-                <md-button ng-click="edc.updateDay()" class="md-fab" aria-label="Save...">
-                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Save Day</md-tooltip>
+                <md-button class="md-fab" aria-label="Save...">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Add Trip Detail</md-tooltip>
                     <md-icon md-svg-src="./assets/icons/ic_add_white_24px.svg"></md-icon>
                 </md-button>
             </md-fab-trigger>
@@ -82,14 +82,37 @@
         </div>
         <div flex="60">
             <md-content>
-                <ul ng-repeat="detail in edc.data.day.details">
-                    <li> {{detail.detail_type}} {{detail.name}} {{detail.type}} {{detail.location}} {{detail.description}} {{detail.url}}
-                    </li>
-                </ul>
+                <div ng-repeat="detail in edc.data.day.details">
+                    <md-card class="detailCard">
+                        <md-card-title>
+                            <md-card-title-media>
+                                <div class="md-media-sm card-media" layout style="background-color:indigo;">
+                                    <md-icon md-svg-src="{{detail.icon}}" style="color:white;"></md-icon>
+                                </div>
+                            </md-card-title-media>
+                            <md-card-title-text>
+                                <div layout="row">
+                                    <div layout="column" flex="80">
+                                        <span class="md-body-2">{{detail.name}}</span>
+                                        <span class="md-body-1">{{detail.type}} {{detail.location}}</span>
+                                    </div>
+                                    <div layout="row" flex="20" layout-align="space-between center">
+                                        <md-button ng-click="edc.editDetail($index)" class="md-icon-button md-primary pull-right" aria-label="Edit">
+                                            <md-icon md-svg-icon="./assets/icons/pencil-box-outline.svg"></md-icon>
+                                        </md-button>
+                                        <md-button ng-click="edc.deleteDetail($index)" class="md-icon-button md-warn pull-right" aria-label="Delete">
+                                            <md-icon md-svg-icon="./assets/icons/delete.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+
+                                </div>
+                            </md-card-title-text>
+                        </md-card-title>
+                    </md-card>
+                </div>
             </md-content>
         </div>
     </div>
-
 
     <script type="text/ng-template" id="daydetail.template.html">
         <md-dialog style="z-index:15;" aria-label="Add Day Detail" flex="80">
@@ -110,7 +133,7 @@
                             <div layout="column">
                                 <md-input-container>
                                     <md-icon flex="10" md-svg-src="./assets/icons/ic_search_black_24px.svg" aria-label="Search"></md-icon>
-                                    <input flex="90" places-auto-complete ng-model="edc.search" on-place-changed="destinationChanged()" />
+                                    <input flex="90" places-auto-complete ng-model="edc.search" on-place-changed="destinationChanged()" aria-label="Search" />
                                 </md-input-container>
                                 <md-input-container>
                                     <label>Type</label>

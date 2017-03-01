@@ -7,6 +7,7 @@ var decoder = require('./modules/decoder');
 var trip = require('./routes/trip');
 var day = require('./routes/day');
 var guest = require('./routes/guest');
+var detail = require('./routes/detail');
 var privateData = require('./routes/private-data');
 var mongoConnection = require('./modules/mongo-connection');
 var morgan          = require('morgan');
@@ -34,6 +35,7 @@ app.use("/privateData", privateData);
 // Routing modules
 app.use("/trip", trip);
 app.use("/day", day);
+app.use("/detail", detail);
 
 var port = process.env.PORT || 3000;
 

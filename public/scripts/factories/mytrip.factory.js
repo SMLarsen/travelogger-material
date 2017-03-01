@@ -11,10 +11,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         tripDays: [],
         userDays: [],
         day: {
-            pois: [],
-            routes: [],
-            meals: [],
-            recommendations: []
+            details: []
         }
     };
 
@@ -209,7 +206,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         return authFactory.getIdToken()
             .then((currentUser) => {
                 data.day.user_id = authData.currentUser.id;
-                return deleteDay(data.day._id)
+                return deleteDay(data.day._id);
             })
             .then((response) => {
                 delete data.day._id;
@@ -250,6 +247,31 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
             });
     } // End deleteTripDays
 
+    // Function to add a detail
+    function addDetail(tripID, dayID, detail) {
+        console.log('addDetail:', tripID, dayID, detail);
+        return authFactory.getIdToken()
+            .then((currentUser) => {
+                data.day.user_id = authData.currentUser.id;
+                return $http({
+                        method: 'POST',
+                        url: '/detail/' + dayID,
+                        headers: {
+                            id_token: authData.currentUser.authIdToken
+                        },
+                        data: detail
+                    })
+                    .then((response) => {
+                        data.day = response.data;
+                        getDays(tripID);
+                        return;
+                    })
+                    .catch((err) => console.log('Unable to add new Detail', err));
+            });
+    } // End addDetail
+
+
+
     const publicApi = {
         data: data,
         getTrips: function() {
@@ -287,6 +309,9 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         },
         deleteTripDays: function(tripID) {
             return deleteTripDays(tripID);
+        },
+        addDetail: function(tripID, dayID, detail) {
+            return addDetail(tripID, dayID, detail);
         }
     };
 

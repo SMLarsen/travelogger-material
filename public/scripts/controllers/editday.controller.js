@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCoder', '$routeParams', '$mdDialog', function(MyTripFactory, $scope, NgMap, GeoCoder, $routeParams, $mdDialog) {
+app.controller('EditDayController', ['MyTripFactory', '$scope', 'GeoCoder', '$routeParams', '$mdDialog', function(MyTripFactory, $scope, GeoCoder, $routeParams, $mdDialog) {
     console.log('EditDayController started');
 
     const myTripFactory = MyTripFactory;
@@ -43,7 +43,6 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
         .then((response) => {
             self.tripID = self.data.day.trip_id;
             self.data.day.date = new Date(self.data.day.date);
-            $scope.$apply();
         })
         .catch((err) => console.log('Error getting day', err));
 
@@ -51,7 +50,7 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
     self.updateDay = function() {
         self.data.day.trip_id = self.tripID;
         myTripFactory.updateDay(self.data.day)
-            .then((response) => window.location = "#/mydays/" + self.tripID)
+            // .then((response) => window.location = "#/mydays/" + self.tripID)
             .catch((err) => console.log('Error updating day', err));
     }; // End updateDay
 
@@ -68,13 +67,22 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
         window.location = '/#/mydays/' + self.tripID;
     };
 
+    self.editDetail = function(index) {
+        console.log('editDetail:', index);
+    };
+
+    self.deleteDetail = function(index) {
+        console.log('deleteDetail:', index);
+        self.data.day.details.splice(index, 1);
+        console.log(self.data.day.details);
+    };
+
     self.addDetail = function(ev, detailType) {
         self.newDetail = {};
         self.title = DETAILTYPES[detailType + 'Types'].title;
         self.newDetail.icon = ICONPATH;
         self.newDetail.icon += DETAILTYPES[detailType + 'Types'].icon;
         self.selectArray = DETAILTYPES[detailType + 'Types'].array;
-        console.log('newDetail:', self.newDetail);
         $mdDialog.show({
             controller: AddDayDetailDialogController,
             scope: $scope,
@@ -101,14 +109,14 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
 
         // Function to add day detail
         $scope.addDayDetail = function() {
-            self.data.day.details.push(self.newDetail);
-            $mdDialog.cancel();
+            myTripFactory.addDetail(self.data.day.trip_id, self.data.day._id, self.newDetail)
+                .then((response) => $mdDialog.cancel())
+                .catch((err) => console.log("Error adding day detail", err));
         }; // End addDayDetail
 
         // Find location
         $scope.destinationChanged = function() {
             let place = this.getPlace();
-            console.log(place);
             self.newDetail.name = place.name;
             self.newDetail.url = place.website;
             self.newDetail.location = place.formatted_address;

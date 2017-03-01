@@ -156,6 +156,37 @@ div#map-container {
 .search-input {
   border-radius: 25px; }
 
+.detailCard .card-media {
+  margin-right: 16px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  overflow: hidden; }
+
+.detailCard .md-subhead.description {
+  color: rgba(255, 255, 255, 0.7); }
+
+.detailCard .card-media md-icon {
+  width: 20px;
+  height: 20px;
+  color: rgba(255, 255, 255, 0.87); }
+
+.detailCard span.card-title {
+  padding-left: 15px;
+  margin-top: 5px; }
+
+.detailCard code.css {
+  background-color: #fffcc2; }
+
+.detailCard p.footnote code {
+  font-size: 0.85em; }
+
+.detailCard p.footnote {
+  font-size: 0.85em;
+  margin: 10px;
+  padding: 5px;
+  background-color: rgba(205, 205, 205, 0.45); }
+
 #footerView {
   position: fixed;
   left: 0px;
