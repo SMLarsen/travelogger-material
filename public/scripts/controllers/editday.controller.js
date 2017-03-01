@@ -12,12 +12,27 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
     self.newDetail = {};
     self.selectArray = [];
 
+    const ICONPATH = './assets/icons/';
     const DETAILTYPES = {
-      detailTypes: ['Lodging', 'Meal', 'Transport', 'Point of Interest'],
-      transportModes: ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'],
-      lodgingTypes: ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'],
-      mealTypes: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'],
-      poiTypes: ['Museum', 'Tour', 'Park', 'Historical Site', 'Building', 'Place']
+        detailTypes: {
+            array: ['Lodging', 'Meal', 'Transport', 'Point of Interest']
+        },
+        transportModes: {
+            array: ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'],
+            icon: 'cars.svg'
+        },
+        lodgingTypes: {
+            array: ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'],
+            icon: 'hotel.svg'
+        },
+        mealTypes: {
+            array: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'],
+            icon: 'food-fork-drink.svg'
+        },
+        poiTypes: {
+            array: ['Museum', 'Tour', 'Park', 'Historical Site', 'Building', 'Place'],
+            icon: 'map-marker.svg'
+        }
     };
 
     myTripFactory.getDay(dayID)
@@ -52,8 +67,10 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
     self.addDetail = function(ev, detailType) {
         self.newDetail = {};
         self.newDetail.detail_type = detailType;
-        let detailArrayType = detailType + 'Types';
-        self.selectArray = DETAILTYPES[detailArrayType];
+        self.newDetail.icon = ICONPATH;
+        self.newDetail.icon += DETAILTYPES[detailType + 'Types'].icon;
+        self.selectArray = DETAILTYPES[detailType + 'Types'].array;
+        console.log('newDetail:', self.newDetail);
         $mdDialog.show({
             controller: AddDayDetailDialogController,
             scope: $scope,
@@ -88,6 +105,8 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'NgMap', 'GeoCod
         $scope.destinationChanged = function() {
             let place = this.getPlace();
             console.log(place);
+            self.newDetail.name = place.name;
+            self.newDetail.url = place.website;
             self.newDetail.location = place.formatted_address;
             self.newDetail.location_map = {
                 pos: [place.geometry.location.lat(), place.geometry.location.lng()]

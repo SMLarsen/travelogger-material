@@ -86,7 +86,6 @@
                     <li> {{detail.detail_type}} {{detail.name}} {{detail.type}} {{detail.location}} {{detail.description}} {{detail.url}}
                     </li>
                 </ul>
-                I'm below on mobile, and to the right on larger devices.
             </md-content>
         </div>
     </div>
@@ -109,22 +108,26 @@
                     <div class="md-dialog-content" flex="150">
                         <form class="md-inline-form" name="addDayDetailForm">
                             <div layout="column">
-                                    <md-input-container>
-                                        <label>Type</label>
-                                        <md-select ng-model="edc.newDetail.type">
-                                            <md-option><em>None</em></md-option>
-                                            <md-option ng-repeat="item in edc.mealTypes" ng-value="type">
-                                                {{item}}
-                                            </md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                <md-input-container>
+                                    <md-icon flex="10" md-svg-src="./assets/icons/ic_search_black_24px.svg" aria-label="Search"></md-icon>
+                                    <input flex="90" places-auto-complete ng-model="edc.search" on-place-changed="destinationChanged()" />
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Type</label>
+                                    <md-select ng-model="edc.newDetail.type">
+                                        <md-option><em>None</em></md-option>
+                                        <md-option ng-repeat="item in edc.selectArray" ng-value="item">
+                                            {{item}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
                                 <md-input-container>
                                     <label>Name</label>
                                     <input type="text" name="name" ng-model="edc.newDetail.name">
                                 </md-input-container>
                                 <md-input-container>
                                     <label ng-show="edc.newDetail.location">Location</label>
-                                    <input places-auto-complete ng-model="edc.newDetail.location" on-place-changed="destinationChanged()" />
+                                    <input type="text" ng-model="edc.newDetail.location" />
                                 </md-input-container>
                                 <md-input-container>
                                     <label>Description</label>
