@@ -32,17 +32,12 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .when('/mydays/:tripID', {
             templateUrl: '/views/templates/mydays.html',
-            controller: 'MyDayController',
+            controller: 'MyDaysController',
             controllerAs: 'mdc'
         })
-        // .when('/addday', {
-        //     templateUrl: '/views/templates/addday.html',
-        //     controller: 'AddDayController',
-        //     controllerAs: 'adc'
-        // })
-        .when('/editday/:dayID', {
-            templateUrl: '/views/templates/editday.html',
-            controller: 'EditDayController',
+        .when('/myday/:tripID/:dayID', {
+            templateUrl: '/views/templates/myday.html',
+            controller: 'MyDayController',
             controllerAs: 'edc'
         })
         .when('/days/:tripID', {

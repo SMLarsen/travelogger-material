@@ -7,6 +7,7 @@
 <md-content class="md-padding" layout-xs="column" layout="row">
     <div layout="row" layout-wrap>
         <md-card style="width: 300px;" ng-repeat="day in mdc.data.tripDays" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+          <div ng-click="mdc.viewDay(day._id, day.trip_id)">
             <md-card-header>
                 <md-title>{{ day.date | date:'MM/dd' }}</md-title>
             </md-card-header>
@@ -24,8 +25,8 @@
             <md-card-content>
                 {{trip.destination}}<br> {{trip.begin_date | date }} - {{trip.end_date | date }}
             </md-card-content>
+          </div>
             <md-card-actions layout="row" layout-align="space-between center">
-                <md-button ng-click="mdc.viewTrip(trip._id)" ng-disabled>View</md-button>
                 <md-button ng-href="#/editday/{{day._id}}">Edit</md-button>
                 <md-button ng-click="mdc.deleteDay(day._id, day.trip_id)">Delete</md-button>
             </md-card-actions>
