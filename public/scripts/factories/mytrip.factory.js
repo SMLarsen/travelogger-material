@@ -291,6 +291,28 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
             });
     } // End deleteDetail
 
+    // Function to update a detail
+    function updateDetail(tripID, dayID, detailID) {
+        console.log('updateDetail:', dayID, detailID);
+        return authFactory.getIdToken()
+            .then((currentUser) => {
+                data.day.user_id = authData.currentUser.id;
+                return $http({
+                        method: 'PUT',
+                        url: '/detail/' + dayID + "/" + detailID,
+                        headers: {
+                            id_token: authData.currentUser.authIdToken
+                        },
+                        data: detail
+                    })
+                    .then((response) => {
+                        data.day = response.data;
+                        getDays(tripID);
+                    })
+                    .catch((err) => console.log('Unable to update Detail', err));
+            });
+    } // End updateDetail
+
     const publicApi = {
         data: data,
         getTrips: function() {
@@ -334,6 +356,9 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         },
         deleteDetail: function(tripID, dayID, detailID) {
             return deleteDetail(tripID, dayID, detailID);
+        },
+        updateDetail: function(tripID, dayID, detailID) {
+            return updateDetail(tripID, dayID, detailID);
         }
     };
 

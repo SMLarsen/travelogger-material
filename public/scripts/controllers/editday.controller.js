@@ -78,6 +78,13 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'GeoCoder', '$ro
             .catch((err) => console.log("Error deleting day detail", err));
     };
 
+    self.updateDetail = function(index) {
+        let dayID = self.data.day._id;
+        let detailID = self.data.day.details[index]._id;
+        myTripFactory.updateDetail(self.data.day.trip_id, dayID, detailID)
+            .catch((err) => console.log("Error updating day detail", err));
+    };
+
     self.addDetail = function(ev, detailType) {
         self.newDetail = {};
         self.title = DETAILTYPES[detailType + 'Types'].title;
@@ -110,7 +117,7 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'GeoCoder', '$ro
 
         // Function to add day detail
         $scope.addDayDetail = function() {
-          console.log('addDayDetail', self.data.day.trip_id, self.data.day._id, self.newDetail);
+            console.log('addDayDetail', self.data.day.trip_id, self.data.day._id, self.newDetail);
             myTripFactory.addDetail(self.data.day.trip_id, self.data.day._id, self.newDetail)
                 .then((response) => $mdDialog.cancel())
                 .catch((err) => console.log("Error adding day detail", err));

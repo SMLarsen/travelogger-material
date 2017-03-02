@@ -56,6 +56,32 @@ router.delete("/:dayID/:detailID", function(req, res) {
             }
         }
     );
-}); // END: DELETE day route
+}); // END: DELETE detail route
+
+// Route: Update a detail
+router.put("/:dayID/:detailID", function(req, res) {
+    var dayID = req.params.dayID;
+    var detailToUpdateID = req.params.detailID;
+    var detailToUpdate = req.body;
+    console.log('Updating detail:', detailToUpdate);
+    day.update({
+            '_id': dayID,
+            'details._id': detailToUpdateID
+        }, {
+            '$set': {
+                'details.$': detailToUpdate
+            }
+        },
+        function(err, model) {
+            if (err) {
+                console.log('There was an error updating day detail:', err);
+                res.sendStatus(500);
+            } else {
+                console.log("model:", model);
+                res.send(model);
+            }
+        }
+    );
+}); // END: Update detail route
 
 module.exports = router;
