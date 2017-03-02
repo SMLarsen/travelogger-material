@@ -18,17 +18,17 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'GeoCoder', '$ro
             array: ['Lodging', 'Meal', 'Transport', 'Point of Interest']
         },
         transportTypes: {
-            array: ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot'],
+            array: ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot', 'Other'],
             title: 'Transport',
             icon: 'cars.svg'
         },
         lodgingTypes: {
-            array: ['Private Home', 'Airbnb', 'Booking.com', 'Expedia', 'Hotels.com', 'Camping', 'Other'],
+            array: ['Private Home', 'Airbnb', 'Hotel', 'Motel', 'Camping', 'Other'],
             title: 'Lodging',
             icon: 'hotel.svg'
         },
         mealTypes: {
-            array: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment'],
+            array: ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Refreshment', 'Other'],
             title: 'Food and Drink',
             icon: 'food-fork-drink.svg'
         },
@@ -88,6 +88,7 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'GeoCoder', '$ro
     self.addDetail = function(ev, detailType) {
         self.newDetail = {};
         self.title = DETAILTYPES[detailType + 'Types'].title;
+        self.newDetail.detail_type = detailType;
         self.newDetail.icon = ICONPATH;
         self.newDetail.icon += DETAILTYPES[detailType + 'Types'].icon;
         self.selectArray = DETAILTYPES[detailType + 'Types'].array;
@@ -132,6 +133,60 @@ app.controller('EditDayController', ['MyTripFactory', '$scope', 'GeoCoder', '$ro
             self.newDetail.location_map = {
                 pos: [place.geometry.location.lat(), place.geometry.location.lng()]
             };
+        };
+    }
+
+    self.viewDetail = function(ev, index) {
+        self.focusDetail = self.data.day.details[index];
+        self.title = DETAILTYPES[self.focusDetail.detail_type + 'Types'].title;
+        self.selectArray = DETAILTYPES[self.focusDetail.detail_type + 'Types'].array;
+        $mdDialog.show({
+            controller: ViewDayDetailDialogController,
+            scope: $scope,
+            preserveScope: true,
+            templateUrl: 'viewdaydetail.template.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: self.customFullscreen,
+            openFrom: angular.element(document.querySelector('#left')),
+            closeTo: angular.element(document.querySelector('#right'))
+        });
+    };
+
+    function ViewDayDetailDialogController($scope, $mdDialog) {
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        // Function to add day detail
+        $scope.updateDayDetail = function() {
+            console.log('updateDayDetail', self.data.day.trip_id, self.data.day._id, self.focusDetail);
+            myTripFactory.updateDetail(self.data.day.trip_id, self.data.day._id, self.focusDetail)
+                .then((response) => $mdDialog.cancel())
+                .catch((err) => console.log("Error updating day detail", err));
+        }; // End addDayDetail
+
+        // Find location
+        $scope.destinationChanged = function() {
+            let place = this.getPlace();
+            self.focusDetail.name = place.name;
+            self.focusDetail.url = place.website;
+            self.focusDetail.location = place.formatted_address;
+            self.focusDetail.location_map = {
+                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
+            };
+        };
+
+        $scope.deleteDetail = function(detailID) {
+            let dayID = self.data.day._id;
+            myTripFactory.deleteDetail(self.data.day.trip_id, dayID, detailID)
+                .then((response) => $mdDialog.cancel())
+                .catch((err) => console.log("Error deleting day detail", err));
         };
     }
 

@@ -17,7 +17,6 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to GET trips
     function getTrips() {
-        console.log('authData.isUserLoggedIn', authData.isUserLoggedIn);
         if (authData.isUserLoggedIn) {
             return authFactory.getIdToken()
                 .then((currentUser) => {
