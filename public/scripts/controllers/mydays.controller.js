@@ -86,4 +86,52 @@ app.controller('MyDaysController', ['MyTripFactory', 'NavFactory', '$routeParams
         };
     }
 
+        self.editDay = function(ev, day) {
+            console.log('editDay');
+            self.data.day = day;
+            self.data.day.trip_id = self.tripID;
+            $mdDialog.show({
+                controller: EditDayDialogController,
+                scope: $scope,
+                preserveScope: true,
+                templateUrl: 'editday.template.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                fullscreen: self.customFullscreen,
+                openFrom: angular.element(document.querySelector('#left')),
+                closeTo: angular.element(document.querySelector('#right'))
+            });
+        };
+
+        function EditDayDialogController($scope, $mdDialog) {
+            $scope.data = MyTripFactory.data;
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+
+            // Function to add day
+            $scope.updateDay = function() {
+                myTripFactory.updateDay()
+                    .then((response) => {
+                        navFactory.data.dayID = myTripFactory.data.day._id;
+                        myTripFactory.getDays(myTripFactory.data.day.trip_id)
+                            .then((response) => window.location = "#/editday/" + myTripFactory.data.day._id)
+                            .catch((err) => console.log('Error adding day', err));
+                    });
+            }; // End addDay
+
+            // Find location
+            $scope.destinationChanged = function() {
+                let place = this.getPlace();
+                myTripFactory.data.day.end_map_location = {
+                    pos: [place.geometry.location.lat(), place.geometry.location.lng()]
+                };
+            };
+        }
+
 }]); // END: MyDaysController

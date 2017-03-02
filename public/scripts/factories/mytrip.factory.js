@@ -27,7 +27,11 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                                 id_token: authData.currentUser.authIdToken
                             }
                         })
-                        .then((response) => data.trips = response.data)
+                        .then((response) => {
+                            response.data.forEach(formatTripDates);
+                            data.trips = response.data;
+                            return;
+                        })
                         .catch((err) => console.log('Unable to retrieve trips', err));
                 });
         } else {
@@ -47,7 +51,12 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                                 id_token: authData.currentUser.authIdToken
                             }
                         })
-                        .then((response) => data.trip = response.data[0])
+                        .then((response) => {
+                            data.trip = response.data[0];
+                            data.trip.begin_date = new Date(trip.begin_date);
+                            data.trip.end_date = new Date(trip.end_date);
+                            return;
+                        })
                         .catch((err) => console.log('Unable to retrieve trip', err));
                 });
         } else {
@@ -70,7 +79,11 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         },
                         data: data.trip
                     })
-                    .then((response) => data.trip = {})
+                    .then((response) => {
+                        getTrips();
+                        data.trip = {};
+                        return;
+                    })
                     .catch((err) => console.log('Unable to add trip', err));
             });
     } // End addTrip
@@ -88,6 +101,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         },
                         data: data.trip
                     })
+                    .then((response) => getTrips())
                     .catch((err) => console.log('Unable to update trip', err));
             });
     } // End updateTrip
@@ -104,7 +118,12 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                             id_token: authData.currentUser.authIdToken
                         }
                     })
-                    .then((response) => data.trip = {})
+                    .then((response) => deleteTripDays(tripID))
+                    .then((response) => {
+                        getTrips();
+                        data.trip = {};
+                        return;
+                    })
                     .catch((err) => console.log('Unable to delete trip', err));
             });
     } // End deleteTrip
@@ -143,17 +162,12 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                         }
                     })
                     .then((response) => {
+                        response.data.forEach(formatDaysDate);
                         data.tripDays = response.data;
-                        data.tripDays.forEach(formatTripDaysDate);
                     })
                     .catch((err) => console.log('Unable to retrieve days', err));
             });
     } // End getDays
-
-    // Function to format dates in date formatTripDaysDate
-    formatTripDaysDate = function(day, i) {
-        data.tripDays[i].date = new Date(data.tripDays[i].date);
-    };
 
     // Function to GET all days for user
     function getUserDays(userID) {
@@ -166,19 +180,13 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                             id_token: authData.currentUser.authIdToken
                         }
                     })
-                    .then((response) => data.userDays = response.data)
                     .then((response) => {
+                        response.data.forEach(formatDaysDate());
                         data.userDays = response.data;
-                        data.userDays.forEach(formatUserDaysDate());
                     })
                     .catch((err) => console.log('Unable to retrieve user days', err));
             });
     } // End getUserDays
-
-    // Function to format dates in date formatUserDaysDate
-    formatUserDaysDate = function(day, i) {
-        data.userDays[i].date = new Date(data.userDays[i].date);
-    };
 
     // Function to GET a day
     function getDay(dayID) {
@@ -200,18 +208,40 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     } // End getDay
 
     // Function to Update a day
+    // function updateDay() {
+    //     console.log('updateDay:', data.day);
+    //     return authFactory.getIdToken()
+    //         .then((currentUser) => {
+    //             data.day.user_id = authData.currentUser.id;
+    //             return deleteDay(data.day._id);
+    //         })
+    //         .then((response) => {
+    //             delete data.day._id;
+    //             return addDay();
+    //         })
+    //         .catch((err) => console.log('Unable to update day', err));
+    // } // End updateDay
+
+    // Function to update a day
     function updateDay() {
-        console.log('updateDay:', data.day);
+        // console.log('addDay:', data.day);
         return authFactory.getIdToken()
             .then((currentUser) => {
                 data.day.user_id = authData.currentUser.id;
-                return deleteDay(data.day._id);
-            })
-            .then((response) => {
-                delete data.day._id;
-                return addDay();
-            })
-            .catch((err) => console.log('Unable to update day', err));
+                return $http({
+                        method: 'PUT',
+                        url: '/day',
+                        headers: {
+                            id_token: authData.currentUser.authIdToken
+                        },
+                        data: data.day
+                    })
+                    .then((response) => {
+                        data.day = response.data;
+                        data.day.date = new Date(data.day.date);
+                    })
+                    .catch((err) => console.log('Unable to add new Day', err));
+            });
     } // End updateDay
 
     // Function to Delete a day
@@ -311,6 +341,17 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     .catch((err) => console.log('Unable to update Detail', err));
             });
     } // End updateDetail
+
+    // Function to format trip dates in date formatDaysDate
+    formatTripDates = function(trip, i) {
+        trip.begin_date = new Date(trip.begin_date);
+        trip.end_date = new Date(trip.end_date);
+    };
+
+    // Function to format dates in date formatDaysDate
+    formatDaysDate = function(day, i) {
+        day.date = new Date(day.date);
+    };
 
     const publicApi = {
         data: data,

@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
-app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory', '$mdDialog', '$scope', 'NgMap', 'GeoCoder', function(MyTripFactory, AuthFactory, NavFactory, $mdDialog, $scope, NgMap, GeoCoder) {
-    console.log('MyTripController started');
+app.controller('MyTripsController', ['MyTripFactory', 'AuthFactory', 'NavFactory', '$mdDialog', '$scope', 'NgMap', 'GeoCoder', function(MyTripFactory, AuthFactory, NavFactory, $mdDialog, $scope, NgMap, GeoCoder) {
+    console.log('MyTripsController started');
 
     const authFactory = AuthFactory;
     const currentUser = authFactory.currentUser;
@@ -32,9 +32,6 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
         myTripFactory.deleteTrip(tripID)
-            .then((response) => myTripFactory.deleteTripDays(tripID))
-            .then((response) => myTripFactory.getTrips())
-            .then((response) => console.log('Trip deleted'))
             .catch((err) => console.log('Unable to delete trip', err));
     }; // End deleteTrip
 
@@ -112,7 +109,6 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
         // Function to update a trip
         $scope.addTrip = function() {
             myTripFactory.addTrip()
-                .then((response) => myTripFactory.getTrips())
                 .then((response) => $mdDialog.cancel())
                 .catch((err) => console.log('Unable to add trip', err));
         }; // End updateTrip
