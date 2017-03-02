@@ -145,6 +145,8 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     .then((response) => {
                         data.day = response.data;
                         data.day.date = new Date(data.day.date);
+                        getDays(data.day.trip_id);
+                        return;
                     })
                     .catch((err) => console.log('Unable to add new Day', err));
             });
@@ -164,6 +166,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     .then((response) => {
                         response.data.forEach(formatDaysDate);
                         data.tripDays = response.data;
+                        return;
                     })
                     .catch((err) => console.log('Unable to retrieve days', err));
             });
@@ -183,6 +186,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     .then((response) => {
                         response.data.forEach(formatDaysDate());
                         data.userDays = response.data;
+                        return;
                     })
                     .catch((err) => console.log('Unable to retrieve user days', err));
             });
@@ -202,29 +206,14 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     .then((response) => {
                         data.day = response.data[0];
                         data.day.date = new Date(data.day.date);
+                        return;
                     })
                     .catch((err) => console.log('Unable to retrieve day', err));
             });
     } // End getDay
 
-    // Function to Update a day
-    // function updateDay() {
-    //     console.log('updateDay:', data.day);
-    //     return authFactory.getIdToken()
-    //         .then((currentUser) => {
-    //             data.day.user_id = authData.currentUser.id;
-    //             return deleteDay(data.day._id);
-    //         })
-    //         .then((response) => {
-    //             delete data.day._id;
-    //             return addDay();
-    //         })
-    //         .catch((err) => console.log('Unable to update day', err));
-    // } // End updateDay
-
     // Function to update a day
     function updateDay() {
-        // console.log('addDay:', data.day);
         return authFactory.getIdToken()
             .then((currentUser) => {
                 data.day.user_id = authData.currentUser.id;
@@ -239,13 +228,15 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     .then((response) => {
                         data.day = response.data;
                         data.day.date = new Date(data.day.date);
+                        getDays(data.day.trip_id);
+                        return;
                     })
                     .catch((err) => console.log('Unable to add new Day', err));
             });
     } // End updateDay
 
     // Function to Delete a day
-    function deleteDay(dayID) {
+    function deleteDay(dayID, tripID) {
         console.log('deleteDay:', dayID);
         return authFactory.getIdToken()
             .then((currentUser) => {
@@ -256,6 +247,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                             id_token: authData.currentUser.authIdToken
                         }
                     })
+                    .then((response) => getDays(tripID))
                     .catch((err) => console.log('Unable to delete day', err));
             });
     } // End deleteDay
@@ -385,8 +377,8 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         updateDay: function() {
             return updateDay();
         },
-        deleteDay: function(dayID) {
-            return deleteDay(dayID);
+        deleteDay: function(dayID, tripID) {
+            return deleteDay(dayID, tripID);
         },
         deleteTripDays: function(tripID) {
             return deleteTripDays(tripID);

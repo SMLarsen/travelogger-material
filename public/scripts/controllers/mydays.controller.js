@@ -28,13 +28,12 @@ app.controller('MyDaysController', ['MyTripFactory', 'NavFactory', '$routeParams
 
     // Function to View a day
     self.viewDay = function(dayID, tripID) {
-      window.location = "#/myday/" + tripID + "/" + dayID;
+        window.location = "#/myday/" + tripID + "/" + dayID;
     }; // End viewDay
 
     // Function to Delete a day
     self.deleteDay = function(dayID, tripID) {
-        myTripFactory.deleteDay(dayID)
-            .then((response) => myTripFactory.getDays(tripID))
+        myTripFactory.deleteDay(dayID, tripID)
             .catch((err) => console.log('Unable to delete day', err));
     }; // End deleteDay
 
@@ -70,11 +69,10 @@ app.controller('MyDaysController', ['MyTripFactory', 'NavFactory', '$routeParams
         $scope.addDay = function() {
             myTripFactory.addDay()
                 .then((response) => {
-                    navFactory.data.dayID = myTripFactory.data.day._id;
-                    myTripFactory.getDays(myTripFactory.data.day.trip_id)
-                        .then((response) => window.location = "#/editday/" + myTripFactory.data.day._id)
-                        .catch((err) => console.log('Error adding day', err));
-                });
+                    window.location = "#/mydays/" + myTripFactory.data.day.trip_id;
+                    $mdDialog.cancel();
+                })
+                .catch((err) => console.log('Error adding day', err));
         }; // End addDay
 
         // Find location
@@ -86,52 +84,51 @@ app.controller('MyDaysController', ['MyTripFactory', 'NavFactory', '$routeParams
         };
     }
 
-        self.editDay = function(ev, day) {
-            console.log('editDay');
-            self.data.day = day;
-            self.data.day.trip_id = self.tripID;
-            $mdDialog.show({
-                controller: EditDayDialogController,
-                scope: $scope,
-                preserveScope: true,
-                templateUrl: 'editday.template.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true,
-                fullscreen: self.customFullscreen,
-                openFrom: angular.element(document.querySelector('#left')),
-                closeTo: angular.element(document.querySelector('#right'))
-            });
+    self.editDay = function(ev, day) {
+        console.log('editDay');
+        self.data.day = day;
+        self.data.day.trip_id = self.tripID;
+        $mdDialog.show({
+            controller: EditDayDialogController,
+            scope: $scope,
+            preserveScope: true,
+            templateUrl: 'editday.template.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: self.customFullscreen,
+            openFrom: angular.element(document.querySelector('#left')),
+            closeTo: angular.element(document.querySelector('#right'))
+        });
+    };
+
+    function EditDayDialogController($scope, $mdDialog) {
+        $scope.data = MyTripFactory.data;
+        $scope.hide = function() {
+            $mdDialog.hide();
         };
 
-        function EditDayDialogController($scope, $mdDialog) {
-            $scope.data = MyTripFactory.data;
-            $scope.hide = function() {
-                $mdDialog.hide();
-            };
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
 
-            $scope.cancel = function() {
-                $mdDialog.cancel();
-            };
+        // Function to add day
+        $scope.updateDay = function() {
+            myTripFactory.updateDay()
+                .then((response) => {
+                    window.location = "#/mydays/" + myTripFactory.data.day.trip_id;
+                    $mdDialog.cancel();
+                })
+                .catch((err) => console.log('Error updating day', err));
+        }; // End addDay
 
-            // Function to add day
-            $scope.updateDay = function() {
-                myTripFactory.updateDay()
-                    .then((response) => {
-                        navFactory.data.dayID = myTripFactory.data.day._id;
-                        myTripFactory.getDays(myTripFactory.data.day.trip_id)
-                            .then((response) => window.location = "#/editday/" + myTripFactory.data.day._id)
-                            .catch((err) => console.log('Error adding day', err));
-                    });
-            }; // End addDay
-
-            // Find location
-            $scope.destinationChanged = function() {
-                let place = this.getPlace();
-                myTripFactory.data.day.end_map_location = {
-                    pos: [place.geometry.location.lat(), place.geometry.location.lng()]
-                };
+        // Find location
+        $scope.destinationChanged = function() {
+            let place = this.getPlace();
+            myTripFactory.data.day.end_map_location = {
+                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
             };
-        }
+        };
+    }
 
 }]); // END: MyDaysController
