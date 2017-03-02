@@ -7,6 +7,7 @@ var ObjectId = Schema.ObjectId;
 var Detail = new Schema({
     detail_type: String,
     name: String,
+    icon: String,
     type: String,
     location: Object,
     location_map: Object,
