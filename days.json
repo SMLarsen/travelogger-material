@@ -1,0 +1,266 @@
+{
+    "_id" : ObjectId("5860565cf38b605e062ce430"),
+    "date" : ISODate("2016-12-25T06:00:00.000Z"),
+    "end_location" : "Ozarks",
+    "tag_line" : "Christmas is setting",
+    "narrative" : "Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah",
+    "lodging_name" : "Jean's Place",
+    "lodging_address" : "1833 Eagle Ridge Drive, Mendota Heights, MN",
+    "date_added" : ISODate("2016-12-25T23:29:32.677Z"),
+    "recommendations" : [],
+    "meals" : [
+        {
+            "type" : "Lunch",
+            "name" : "Indian Buffet",
+            "location" : "Meg & Shane's a la John",
+            "_id" : ObjectId("5860565cf38b605e062ce431")
+        }
+    ],
+    "routes" : [
+        {
+            "transport_mode" : "Car",
+            "name" : "St. Paul",
+            "_id" : ObjectId("5860565cf38b605e062ce432")
+        }
+    ],
+    "interesting_locations" : [],
+    "__v" : 0
+}
+{
+    "_id" : ObjectId("58605767f38b605e062ce433"),
+    "date" : ISODate("2017-01-11T06:00:00.000Z"),
+    "end_location" : "Cancun, Mexico",
+    "tag_line" : "Flying southerly",
+    "weather" : "Sunny and warm",
+    "narrative" : "Beaches.............",
+    "lodging_name" : "Grand Mayan",
+    "date_added" : ISODate("2016-12-25T23:33:59.646Z"),
+    "recommendations" : [],
+    "meals" : [
+        {
+            "type" : "Dinner",
+            "name" : "Tacos",
+            "location" : "Resort",
+            "_id" : ObjectId("58605767f38b605e062ce434")
+        }
+    ],
+    "routes" : [
+        {
+            "transport_mode" : "Air",
+            "name" : "Cancun",
+            "specifics" : "Delta 3245",
+            "_id" : ObjectId("58605767f38b605e062ce435")
+        }
+    ],
+    "interesting_locations" : [],
+    "__v" : 0
+}
+{
+    "_id" : ObjectId("5862e16466157b810b18964d"),
+    "date" : ISODate("2016-12-27T06:00:00.000Z"),
+    "end_location" : "Sister Bay, WI",
+    "trip_id" : ObjectId("585b0b888197a52104ece991"),
+    "end_map_location" : {
+        "types" : [
+            "locality",
+            "political"
+        ],
+        "place_id" : "ChIJN2JwUVI5TU0RBGJHdqvOCcI",
+        "geometry" : {
+            "viewport" : {
+                "east" : -87.1047959,
+                "north" : 45.2002411,
+                "west" : -87.151263,
+                "south" : 45.1709538
+            },
+            "location_type" : "APPROXIMATE",
+            "location" : {
+                "lng" : -87.120945,
+                "lat" : 45.1872112
+            },
+            "bounds" : {
+                "east" : -87.1047959,
+                "north" : 45.2002411,
+                "west" : -87.151263,
+                "south" : 45.1709538
+            }
+        },
+        "formatted_address" : "Sister Bay, WI, USA",
+        "address_components" : [
+            {
+                "types" : [
+                    "locality",
+                    "political"
+                ],
+                "short_name" : "Sister Bay",
+                "long_name" : "Sister Bay"
+            },
+            {
+                "types" : [
+                    "administrative_area_level_2",
+                    "political"
+                ],
+                "short_name" : "Door County",
+                "long_name" : "Door County"
+            },
+            {
+                "types" : [
+                    "administrative_area_level_1",
+                    "political"
+                ],
+                "short_name" : "WI",
+                "long_name" : "Wisconsin"
+            },
+            {
+                "types" : [
+                    "country",
+                    "political"
+                ],
+                "short_name" : "US",
+                "long_name" : "United States"
+            }
+        ]
+    },
+    "date_added" : ISODate("2016-12-27T21:47:16.026Z"),
+    "recommendations" : [],
+    "meals" : [],
+    "routes" : [],
+    "interesting_locations" : [],
+    "__v" : 0
+}
+{
+    "_id" : ObjectId("5864168655e8ad8c786812c5"),
+    "date" : ISODate("2016-12-28T06:00:00.000Z"),
+    "end_location" : "Sister Bay, WI",
+    "trip_id" : ObjectId("585b0b888197a52104ece991"),
+    "end_map_location" : {
+        "pos" : [
+            45.1872112,
+            -87.120945
+        ]
+    },
+    "date_added" : ISODate("2016-12-28T19:46:14.539Z"),
+    "recommendations" : [],
+    "meals" : [],
+    "routes" : [],
+    "interesting_locations" : [],
+    "__v" : 0
+}
+{
+    "_id" : ObjectId("58653513322ac89824bcdf47"),
+    "date" : ISODate("2016-12-25T06:00:00.000Z"),
+    "end_location" : "Mendota Heights, MN",
+    "tag_line" : "Christmas",
+    "weather" : "Rainy",
+    "lodging_name" : "Jean's",
+    "trip_id" : ObjectId("585b0b888197a52104ece991"),
+    "__v" : 0,
+    "end_map_location" : {
+        "pos" : [
+            44.8835768,
+            -93.1382749
+        ]
+    },
+    "date_added" : ISODate("2016-12-25T23:46:19.189Z"),
+    "recommendations" : [],
+    "meals" : [],
+    "routes" : [
+        {
+            "transport_mode" : "Bus",
+            "name" : "Meg and Shane's",
+            "_id" : ObjectId("58605a4b7e650a5f6101234a")
+        }
+    ],
+    "interesting_locations" : []
+}
+{
+    "_id" : ObjectId("586535a367e7c7984a3f7d3c"),
+    "date" : ISODate("2016-12-26T06:00:00.000Z"),
+    "end_location" : "Sister Bay, WI",
+    "trip_id" : ObjectId("585b0b888197a52104ece991"),
+    "end_map_location" : {
+        "pos" : [
+            45.1872112,
+            -87.120945
+        ]
+    },
+    "__v" : 0,
+    "date_added" : ISODate("2016-12-27T22:01:01.147Z"),
+    "recommendations" : [],
+    "meals" : [],
+    "routes" : [],
+    "interesting_locations" : []
+}
+{
+    "_id" : ObjectId("5866c7519fa6a9a9d2b616a8"),
+    "date" : ISODate("2017-01-13T06:00:00.000Z"),
+    "end_location" : "Lima, Peru",
+    "tag_line" : "Worst Traffic in South America",
+    "weather" : "Sunny",
+    "photo_url" : "https://havgew-sn3302.files.1drv.com/y3mOefiPwGrJmcUis127WFgGBEcxkcWVOV5G64tD8zGyxxQbxpBwag9P-kzl51SVEvKMyewR5UcLfO2e00yeLa4pt-nfcAmeYYNzAJHaSXI5RwtHhNz48u0M7Mx4iEFdGP0oLWkfOiXjWbJwGD2zBus2zHTBzR89IA8ynfZLaai9qA?width=660&height=440&cropmode=none",
+    "photo_caption" : "Town Center of Arequipa",
+    "trip_id" : ObjectId("5862d4c3d6b9e87ea0d3b077"),
+    "end_map_location" : {
+        "pos" : [
+            -12.2720956,
+            -76.2710833
+        ]
+    },
+    "date_added" : ISODate("2016-12-30T20:45:05.160Z"),
+    "recommendations" : [],
+    "meals" : [],
+    "routes" : [],
+    "interesting_locations" : [],
+    "__v" : 0
+}
+{
+    "_id" : ObjectId("5867c4260ead8bb6ff580f16"),
+    "date" : ISODate("2017-04-01T05:00:00.000Z"),
+    "end_location" : "Amsterdam Schipol",
+    "tag_line" : "Halfway across the world",
+    "weather" : "Inside of cabin",
+    "photo_caption" : "Poppies",
+    "photo_url" : "https://hauqew-sn3302.files.1drv.com/y3m73eJvdCBOkHbRwASlh958GhlP8Zqidm_r1OLG483PPSCSjL1lPYcy0FbTauT4-KUg8WSq3dsWmLrbtxxrEKlymTDOkYMnvlEsVL9SjOUex9NDfazw331VLwGofY_ktO6yswuIxgi7UhK7U92l4161RAl0wTt5A4SLt-JqNlqt9k?width=660&height=440&cropmode=none",
+    "user_id" : ObjectId("584aedd4f7e1f3c91f8b150a"),
+    "trip_id" : ObjectId("5862d4c3d6b9e87ea0d3b077"),
+    "end_map_location" : {
+        "pos" : [
+            52.3105386,
+            4.7682744
+        ]
+    },
+    "date_added" : ISODate("2016-12-31T14:43:50.324Z"),
+    "recommendations" : [],
+    "meals" : [],
+    "routes" : [],
+    "interesting_locations" : [],
+    "__v" : 0
+}
+{
+    "_id" : ObjectId("586abcad22a4731869bf37f6"),
+    "date" : ISODate("2016-03-01T06:00:00.000Z"),
+    "end_location" : "Lima, Peru",
+    "tag_line" : "Prima Lima",
+    "weather" : "Sunny and Clear",
+    "photo_url" : "https://ibruhq-sn3302.files.1drv.com/y3mbgCzga-gYqs3aooHaUSVGhwfggluilMFxv13A1ee8YXIsShwITesCzuVftfHtgGez-Bep_8uGY6F5P0YyiyD5aExlzIx5gZk3WWGAZPV4rfn-fMPE4Vwq9bjLxWsMrmSAqYorEQA1VqegTqXhT6R4PCOXl--xy2Xx36ugXsaV48?width=660&height=440&cropmode=none",
+    "photo_caption" : "Nestor's Dad's farm",
+    "trip_id" : ObjectId("5853fd7be130de7fbbbb993b"),
+    "end_map_location" : {
+        "pos" : [
+            -12.2720956,
+            -76.2710833
+        ]
+    },
+    "__v" : 0,
+    "narrative" : "We finally took the bus from Trujillo to Lima.  It’s a long ride through some of the driest desert in the world.  Lima, in fact, is the second driest world capital, behind Cairo.\n\nWith well over 8 million people and taking up over 800 square miles, this is the biggest city we’ve been in since San Francisco.  We stayed in an area called Miraflores (kudos to TC for the recommendation).  It is an upscale neighborhood, renowned for its cuisine.  Lima is considered a gastronomic capital of the world.  We are inclined to agree.\n\nWe stayed at a very commodious B&B with a great restaurant.  Having arrived late, and sharing a tiny cab with three other people including a 70-something oral surgeon who lives less than a mile from our hotel.\n\nWe did a city tour of Lima.  The biggest issue is traffic.  Apparently they replaced the existing system with a new bus system, but didn’t deploy enough buses before getting rid of the old ones.  It’s by far the worst we’ve seen.  Quite an adventure taking a cab.  The tour itself was good, as we were the only people on it.  The old city around the Plaza de Armes is very spanish looking.  Many of the buildings have balconies, there are 1400 of them.  They have started an “Adopt-a-Balcony” program to help preserve them.  We checked out the amazing cathedral, and even more amazing Convent of Santa Domingo.  It wouldn’t have been a bad place to hang out back in the day.\n\nWe also checked out the Museum of the Inquisition.  Perhaps it would be good for Donald Trump to visit, not that it would do any good.  He would probably get some ideas from it.\n\nWe did some walking, particularly along the coast.  It is a vibrant city, with many walkers and people working out.  Had some good meals, the best being the Tiradito, a kind of sushi/ceviche blend.",
+    "user_id" : ObjectId("58483519dd47788acbc248a9"),
+    "date_added" : ISODate("2016-12-31T03:15:31.392Z"),
+    "recommendations" : [],
+    "meals" : [],
+    "routes" : [],
+    "interesting_locations" : [
+        {
+            "_id" : ObjectId("586abcad22a4731869bf37f7")
+        }
+    ]
+}

@@ -15,7 +15,7 @@ if(process.env.MONGODB_URI !== undefined) {
 var connectToMongoDatabase = function() {
     mongoose.connect(databaseURI);
 
-    // mongoose.set('debug', true);
+    mongoose.set('debug', true);
 
     mongoose.connection.on('connected', function() {
         console.log('Mongoose connected to ', databaseURI);

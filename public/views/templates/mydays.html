@@ -1,86 +1,162 @@
 <div class="float-button">
-  <md-button ng-click="mdc.goToDay('Add', day)" class="md-fab" aria-label="Add Day">
-      <md-icon md-svg-src="./assets/icons/ic_add_white_24px.svg"></md-icon>
-  </md-button>
+    <md-button ng-click="mdc.addDay()" class="md-fab" aria-label="Add Day">
+        <md-icon md-svg-src="./assets/icons/ic_add_white_24px.svg"></md-icon>
+    </md-button>
 </div>
 
 <md-content class="md-padding" layout-xs="column" layout="row">
     <div layout="row" layout-wrap>
         <md-card style="width: 300px;" ng-repeat="day in mdc.data.tripDays" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
-            <md-card-header>
-                <md-title>{{ day.date | date:'MM/dd' }}</md-title>
-            </md-card-header>
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">{{day.end_location}}</span>
-                    <span class="md-subhead">{{ day.tag_line }}</span>
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-title-media>
-                <div class="md-media-lg card-media">
-                    <img ng-show="{{day.photo_url}}" src="{{day.photo_url}}" alt="{{trip.photo_caption}}">
-                </div>
-            </md-card-title-media>
-            <md-card-content>
-                {{trip.destination}}<br> {{trip.begin_date | date }} - {{trip.end_date | date }}
-            </md-card-content>
+            <div ng-click="mdc.viewDay(day._id, day.trip_id)">
+                <md-card-header>
+                    <md-title>{{ day.date | date:'MM/dd' }}</md-title>
+                </md-card-header>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{day.end_location}}</span>
+                        <span class="md-subhead">{{ day.tag_line }}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-title-media>
+                    <div class="md-media-lg card-media">
+                        <img ng-show="{{day.photo_url}}" src="{{day.photo_url}}" alt="{{trip.photo_caption}}">
+                    </div>
+                </md-card-title-media>
+                <!-- <md-card-content>
+                    {{trip.destination}}<br> {{trip.begin_date | date }} - {{trip.end_date | date }}
+                </md-card-content> -->
+            </div>
             <md-card-actions layout="row" layout-align="space-between center">
-                <md-button ng-click="mdc.viewTrip(trip._id)" ng-disabled>View</md-button>
-                <md-button ng-click="mdc.goToDay('Edit', day)">Edit</md-button>
+                <md-button ng-click="mdc.editDay(ev, day)">Edit</md-button>
                 <md-button ng-click="mdc.deleteDay(day._id, day.trip_id)">Delete</md-button>
             </md-card-actions>
         </md-card>
 </md-content>
 
+<script type="text/ng-template" id="addday.template.html">
+    <md-dialog style="z-index:15;" aria-label="Add Day" flex="80">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Add Day</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
 
+            <md-dialog-content>
+                <div class="md-dialog-content" flex="150">
+                    <form class="md-inline-form" name="addDayForm">
+                        <div layout="column">
+                            <md-input-container>
+                                <label ng-show="mdc.data.day.end_location">Location</label>
+                                <input places-auto-complete ng-model="mdc.data.day.end_location" on-place-changed="destinationChanged()" />
+                            </md-input-container>
+                            <div layout="row">
+                                <md-input-container flex="40">
+                                    <label>Date</label>
+                                    <md-datepicker ng-model="mdc.data.day.date"></md-datepicker>
+                                </md-input-container>
+                                <md-input-container flex="60">
+                                    <label>Weather</label>
+                                    <md-select ng-model="mdc.data.day.weather">
+                                        <md-option><em>None</em></md-option>
+                                        <md-option ng-repeat="weather in ['Sunny', 'Cloudy', 'Rainy', 'Stormy', 'Snowy']" ng-value="weather">
+                                            {{weather}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <md-input-container>
+                                <label>Tagline</label>
+                                <input type="text" name="tagline" ng-model="mdc.data.day.tagline">
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Narrative of the Day</label>
+                                <textarea rows="5" name="narrative" ng-model="mdc.data.day.narrative" ng-wrap></textarea>
+                            </md-input-container>
+                        </div>
+                    </form>
+                </div>
 
-<!-- <div uib-accordion close-others="true">
-    <div uib-accordion-group ng-repeat="day in mdc.data.tripDays" class="panel-default">
-        <uib-accordion-heading>
-            {{day.date | date:'MM/dd'}} - {{day.end_location}}
-            <span class="deleteBtn pull-right fa fa-trash" ng-click="mdc.deleteDay(day._id, day.trip_id)"></span>
-        </uib-accordion-heading>
+            </md-dialog-content>
 
+            <md-dialog-actions layout="row" layout-align="space-around center">
+                <!-- <span flex></span> -->
+                <md-button ng-click="addDay()">
+                    Save
+                </md-button>
+                <md-button ng-click="cancel()">
+                    Discard
+                </md-button>
+            </md-dialog-actions>
+        </form>
 
-        <div ng-show="day.interesting_locations.length > 0">
-            <label class="dayLabel col-xs-12">Points of Interest</label>
-            <div ng-repeat="place in day.interesting_locations">
-                <div class="col-xs-12 col-md-12">
-                    <span>{{ place.name }}</span>
-                </div>
-                <div class="col-xs-12 col-md-12">
-                    <span>{{ place.description }}</span>
-                </div>
-            </div>
-        </div>
+    </md-dialog>
+</script>
 
-<!--  -->
-        <!-- Starting Meals -->
-        <!-- <div ng-show="day.meals.length > 0">
-            <label class="dayLabel col-xs-12">Eating and Drinking</label>
-            <div class="meals" ng-repeat="meal in day.meals">
-                <div class="col-xs-12 col-md-12">
-                    <span>{{meal.type }}</span> - <span>{{meal.name }}</span>
+<script type="text/ng-template" id="editday.template.html">
+    <md-dialog style="z-index:15;" aria-label="Change Day" flex="80">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Change Day</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                    </md-button>
                 </div>
-                <div class="col-xs-12 col-md-6">
-                    <span>{{meal.location }}</span>
-                </div>
-                <div class="col-xs-12 col-md-12">
-                    <span>{{meal.description }}</span>
-                </div>
-                <div class="col-xs-12 col-md-12">
-                    <span>{{meal.reference }}</span>
-                </div>
-            </div>
-        </div>
+            </md-toolbar>
 
-        <div ng-show="day.recommendations.length > 0">
-            <label class="dayLabel col-xs-12">Recommendations</label>
-            <div class="table table-bordered table-hover table-condensed">
-                <div class="col-xs-12 col-md-12">
-                    <span>{{recommendation.text}}</span>
+            <md-dialog-content>
+                <div class="md-dialog-content" flex="150">
+                    <form class="md-inline-form" name="editDayForm">
+                        <div layout="column">
+                            <md-input-container>
+                                <label ng-show="mdc.data.day.end_location">Location</label>
+                                <input places-auto-complete ng-model="mdc.data.day.end_location" on-place-changed="destinationChanged()" />
+                            </md-input-container>
+                            <div layout="row">
+                                <md-input-container flex="40">
+                                    <label>Date</label>
+                                    <md-datepicker ng-model="mdc.data.day.date"></md-datepicker>
+                                </md-input-container>
+                                <md-input-container flex="60">
+                                    <label>Weather</label>
+                                    <md-select ng-model="mdc.data.day.weather">
+                                        <md-option><em>None</em></md-option>
+                                        <md-option ng-repeat="weather in ['Sunny', 'Cloudy', 'Rainy', 'Stormy', 'Snowy']" ng-value="weather">
+                                            {{weather}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <md-input-container>
+                                <label>Tagline</label>
+                                <input type="text" name="tagline" ng-model="mdc.data.day.tag_line">
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Narrative of the Day</label>
+                                <textarea rows="5" name="narrative" ng-model="mdc.data.day.narrative" ng-wrap></textarea>
+                            </md-input-container>
+                        </div>
+                    </form>
                 </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row" layout-align="space-around center">
+                <!-- <span flex></span> -->
+                <md-button ng-click="updateDay()">
+                    Save
+                </md-button>
+                <md-button ng-click="cancel()">
+                    Discard
+                </md-button>
+            </md-dialog-actions>
+        </form>
+
+    </md-dialog>
+</script>

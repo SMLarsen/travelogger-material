@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
-app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory', '$mdDialog', '$scope', function(MyTripFactory, AuthFactory, NavFactory, $mdDialog, $scope) {
-    console.log('MyTripController started');
+app.controller('MyTripsController', ['MyTripFactory', 'AuthFactory', 'NavFactory', '$mdDialog', '$scope', 'NgMap', 'GeoCoder', function(MyTripFactory, AuthFactory, NavFactory, $mdDialog, $scope, NgMap, GeoCoder) {
+    console.log('MyTripsController started');
 
     const authFactory = AuthFactory;
     const currentUser = authFactory.currentUser;
@@ -25,37 +25,23 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
     } // End formatDates
 
     // Function to go to view trip view
-    self.addTrip = function() {
-        self.data.trip = {};
-        window.location = "#/addtrip";
-    }; // End formatDates
-
-    // Function to go to view trip view
     self.viewTrip = function(tripID) {
         window.location = "#/mydays/" + tripID;
-    }; // End formatDates
-
-    // Function to go to edit trip view
-    self.editTrip = function(tripID) {
-        window.location = "#/edittrip/" + tripID;
     }; // End formatDates
 
     // Function to delete a trip
     self.deleteTrip = function(tripID) {
         myTripFactory.deleteTrip(tripID)
-            .then((response) => myTripFactory.deleteTripDays(tripID))
-            .then((response) => myTripFactory.getTrips())
-            .then((response) => console.log('Trip deleted'))
             .catch((err) => console.log('Unable to delete trip', err));
     }; // End deleteTrip
 
     self.status = '  ';
     self.customFullscreen = false;
 
-    self.showAdvanced = function(ev, trip) {
+    self.editTrip = function(ev, trip) {
         self.data.trip = trip;
         $mdDialog.show({
-            controller: DialogController,
+            controller: EditDayDialogController,
             scope: $scope,
             preserveScope: true,
             templateUrl: 'edittrip.template.html',
@@ -68,7 +54,7 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
         });
     };
 
-    function DialogController($scope, $mdDialog) {
+    function EditDayDialogController($scope, $mdDialog) {
         $scope.data = MyTripFactory.data;
         $scope.hide = function() {
             $mdDialog.hide();
@@ -85,6 +71,55 @@ app.controller('MyTripController', ['MyTripFactory', 'AuthFactory', 'NavFactory'
                 .catch((err) => console.log('Unable to update trip', err));
         }; // End updateTrip
 
+        // Find location
+        $scope.destinationChanged = function() {
+            let place = this.getPlace();
+            myTripFactory.data.trip.destination_location = {
+                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
+            };
+        };
+    }
+
+    self.addTrip = function(ev) {
+        self.data.trip = {};
+        $mdDialog.show({
+            controller: AddDayDialogController,
+            scope: $scope,
+            preserveScope: true,
+            templateUrl: 'addtrip.template.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: self.customFullscreen,
+            openFrom: angular.element(document.querySelector('#left')),
+            closeTo: angular.element(document.querySelector('#right'))
+        });
+    };
+
+    function AddDayDialogController($scope, $mdDialog) {
+        $scope.data = MyTripFactory.data;
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        // Function to update a trip
+        $scope.addTrip = function() {
+            myTripFactory.addTrip()
+                .then((response) => $mdDialog.cancel())
+                .catch((err) => console.log('Unable to add trip', err));
+        }; // End updateTrip
+
+        // Find location
+        $scope.destinationChanged = function() {
+            let place = this.getPlace();
+            myTripFactory.data.trip.destination_location = {
+                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
+            };
+        };
     }
 
 }]); // END: MyTripController
