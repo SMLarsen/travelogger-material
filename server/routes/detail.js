@@ -31,20 +31,31 @@ router.post("/:id", function(req, res) {
     );
 }); // END: POST detail route
 
-// Route: Delete a day
-router.delete("/one/:id", function(req, res) {
-    var dayToDelete = req.params.id;
-    console.log('Deleting day:', dayToDelete);
-    day.remove({
-        _id: dayToDelete
-    }, function(err) {
-        if (err) {
-            console.log('There was an error deleting day:', err);
-            res.sendStatus(500);
-        } else {
-            res.send(201);
+// Route: Delete a detail
+router.delete("/:dayID/:detailID", function(req, res) {
+    var dayID = req.params.dayID;
+    var detailToDelete = req.params.detailID;
+    console.log('Deleting detail:', detailToDelete);
+    day.findByIdAndUpdate(
+        dayID, {
+            $pull: {
+                "details": {
+                    _id: detailToDelete
+                }
+            }
+        }, {
+            new: true
+        },
+        function(err, model) {
+            if (err) {
+                console.log('There was an error deleting day detail:', err);
+                res.sendStatus(500);
+            } else {
+                console.log("model:", model);
+                res.send(model);
+            }
         }
-    });
+    );
 }); // END: DELETE day route
 
 module.exports = router;

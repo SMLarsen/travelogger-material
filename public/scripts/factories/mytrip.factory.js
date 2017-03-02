@@ -270,7 +270,26 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
             });
     } // End addDetail
 
-
+    // Function to delete a detail
+    function deleteDetail(tripID, dayID, detailID) {
+        console.log('deleteDetail:', dayID, detailID);
+        return authFactory.getIdToken()
+            .then((currentUser) => {
+                data.day.user_id = authData.currentUser.id;
+                return $http({
+                        method: 'DELETE',
+                        url: '/detail/' + dayID + "/" + detailID,
+                        headers: {
+                            id_token: authData.currentUser.authIdToken
+                        }
+                    })
+                    .then((response) => {
+                        data.day = response.data;
+                        getDays(tripID);
+                    })
+                    .catch((err) => console.log('Unable to delete Detail', err));
+            });
+    } // End deleteDetail
 
     const publicApi = {
         data: data,
@@ -312,6 +331,9 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
         },
         addDetail: function(tripID, dayID, detail) {
             return addDetail(tripID, dayID, detail);
+        },
+        deleteDetail: function(tripID, dayID, detailID) {
+            return deleteDetail(tripID, dayID, detailID);
         }
     };
 
