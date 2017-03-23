@@ -30,6 +30,7 @@ app.controller("NavController", ["$http", "AuthFactory", "NavFactory", function(
         authFactory.logIn()
             .then((currentUser) => {
                 self.authData.isUserLoggedIn = true;
+                console.log('logged in as:', currentUser);
                 window.location = '/#/mytrips';
             });
     }; // End Login
