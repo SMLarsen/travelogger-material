@@ -5,13 +5,13 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
     const auth = $firebaseAuth();
 
     let data = {
-      currentUser: firebase.auth().currentUser
+        currentUser: firebase.auth().currentUser
     };
 
     if (data.currentUser) {
-      data.isUserLoggedIn = true;
+        data.isUserLoggedIn = true;
     } else {
-      data.isUserLoggedIn = false;
+        data.isUserLoggedIn = false;
     }
 
     // Authenticates user at login
@@ -83,13 +83,17 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                                 id_token: idToken
                             }
                         })
-                        .then((response) => data.currentUser.authIdToken = idToken)
+                        .then((response) => {
+                            data.currentUser.authIdToken = idToken;
+                            console.log('currentUser:', data.currentUser.displayName)
+                        })
                         .catch((err) => console.log('Current user not reauthorized:'));
                 });
         } else {
             console.log('Not logged in or not authorized.');
             data.currentUser = {};
         }
+        return;
     });
 
 
