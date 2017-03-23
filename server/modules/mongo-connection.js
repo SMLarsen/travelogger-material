@@ -4,7 +4,7 @@ var connectionString = require('../config/database-config');
 var databaseURI = '';
 // process.env.MONGODB_URI will only be defined if you
 // are running on Heroku
-if(process.env.MONGODB_URI !== undefined) {
+if (process.env.MONGODB_URI !== undefined) {
     // use the string value of the environment variable
     databaseURI = process.env.MONGODB_URI;
 } else {
@@ -15,7 +15,7 @@ if(process.env.MONGODB_URI !== undefined) {
 var connectToMongoDatabase = function() {
     mongoose.connect(databaseURI);
 
-    mongoose.set('debug', true);
+    // mongoose.set('debug', true);
 
     mongoose.connection.on('connected', function() {
         console.log('Mongoose connected to ', databaseURI);
