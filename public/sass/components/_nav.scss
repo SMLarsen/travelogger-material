@@ -1,13 +1,9 @@
 #wide-menu {
   @include header-bar;
-  display: inline-flex;
-  justify-content: space-between;
 }
 
 #narrow-menu {
   @include header-bar;
-  display: inline-flex;
-  justify-content: space-between;
 }
 
 .left-menu {
@@ -74,7 +70,7 @@
     text-decoration: none;
     margin: 0 5px;
     border-radius: 10px;
-    width: 60px;
+    width: 40px;
 }
 
 .nav-menu li a:last-of-type {

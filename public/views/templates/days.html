@@ -17,32 +17,32 @@
         </div>
 
             <div class="dayInfo">
-                <h4>{{dc.focusDay.end_location}}</h4>
+                <p class="guest-day-info-header">{{dc.focusDay.end_location}}</p>
                 <p>{{dc.focusDay.weather}}</p>
                 <p>{{dc.focusDay.narrative}}</p>
 
                 <div>
-                    <h4>Lodging</h4>
+                    <p class="guest-day-info-header">Lodging</p>
                     <p>{{dc.focusDay.lodging_name}}</p>
                     <p>{{dc.focusDay.lodging_address}}</p>
                     <p>{{dc.focusDay.lodging_type}} - {{dc.focusDay.lodging_reference}}</p>
 
-                    <h4>Eating and Drinking</h4>
+                    <p class="guest-day-info-header">Eating and Drinking</p>
                     <ul ng-repeat="meal in dc.focusDay.meals">
                         <li>{{meal.name}} - {{meal.description}}</li>
                     </ul>
 
-                    <h4>Points of Interest</h4>
+                    <p class="guest-day-info-header">Points of Interest</p>
                     <ul ng-repeat="place in dc.focusDay.interesting_locations">
                         <li>{{place.name}} - {{place.description}}</li>
                     </ul>
 
-                    <h4>Recommendations</h4>
+                    <p class="guest-day-info-header">Recommendations</p>
                     <ul ng-repeat="recommendation in dc.focusDay.recommendations">
                         <li>{{recommendation.text}}</li>
                     </ul>
 
-                    <h4>Route</h4>
+                    <p class="guest-day-info-header">Route</p>
                     <ul ng-repeat="route in dc.focusDay.interesting_routes">
                         <li>{{route.name}} - {{route.description}}</li>
                     </ul>

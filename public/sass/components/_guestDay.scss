@@ -22,7 +22,17 @@
     padding-left: 20px;
 }
 
-.dayInfo h3 {
+.dayInfo p.guest-day-info-header {
+  font-weight: bold;
+}
+
+.guestDay p {
+    /*text-align: center;*/
+    padding: 10px 5px 0 10px;
+    color: $accent-color;
+}
+
+.dayInfo .guestDayTitle {
     text-align: center;
     width: 100%;
 }
@@ -49,12 +59,6 @@
 
 .guestDay:active {
     background-color: lightgrey;
-}
-
-.guestDay p {
-    /*text-align: center;*/
-    padding: 10px 5px 0 10px;
-    color: $accent-color;
 }
 
 .guestDayImg {

@@ -28,20 +28,16 @@ app.controller("NavController", ["$http", "AuthFactory", "NavFactory", function(
     // Function to Login
     self.logIn = function() {
         authFactory.logIn()
-            .then(function(currentUser) {
+            .then((currentUser) => {
                 self.authData.isUserLoggedIn = true;
-                // authData.isUserLoggedIn = self.isUserLoggedIn;
                 window.location = '/#/mytrips';
             });
     }; // End Login
 
     // Function to Logout
     self.logOut = function() {
-        authFactory.logOut().then(function(response) {
-            console.log(window.location.hash);
-            window.location = '/#/home';
-            console.log(self.authData.isUserLoggedIn);
-        });
+        authFactory.logOut()
+            .then((response) => window.location = '/#/home');
     }; // End Logout
 
 }]); // END: NavController

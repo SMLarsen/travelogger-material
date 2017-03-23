@@ -1,9 +1,16 @@
 // globally used mixins and functions. It’s important not to output any CSS in the first 2 layers.
+@mixin card-template {
+
+}
+
 @mixin header-bar {
     position: fixed;
     top: 0;
-    background-color: #1E689C;
+    background-color: $accent-color;
     width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    z-index: 9;
 }
 @mixin header_text {
     font-size: 5em;
@@ -44,17 +51,8 @@
 @mixin float-button {
     position: fixed;
     right: 10px;
-    height: 4em;
-    width: 4em;
-    border-radius: 50%;
-    background-color: $accent-color;
-    box-shadow: 5px 5px 3px $shadow;
     bottom: 50px;
-
-    &:hover {
-        background-color: lighten($accent-color, 10%);
-        box-shadow: 5px 5px 3px darken($shadow, 3%);
-    }
+    z-index: 5;
 }
 @mixin side_button($color) {
     font-size: 3.5em;
@@ -74,7 +72,7 @@
     padding: 1%;
     box-shadow: 5px 5px 3px $shadow;
 
-    & h2 {
+    & p {
         color: white;
         text-align: center;
     }

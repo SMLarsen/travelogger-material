@@ -16,7 +16,7 @@ router.get('/all/:id', function(req, res) {
             console.log('Get days ERR: ', err);
             res.sendStatus(500);
         } else {
-            console.log(days);
+            // console.log(days);
             res.send(days);
         }
     });
@@ -54,14 +54,14 @@ router.get('/one/:id', function(req, res) {
                 console.log('Get days ERR: ', err);
                 res.sendStatus(500);
             } else {
-                console.log(day);
+                // console.log(day);
                 res.send(day);
             }
         });
 }); // END: GET a day route
 
 // Route: Add a day
-router.post("/", function(req, res) {
+router.post('/', function(req, res) {
     var dayToAdd = new day(req.body);
     // console.log('Adding new day:', dayToAdd);
     dayToAdd.save(function(err, objectInserted) {
@@ -74,6 +74,36 @@ router.post("/", function(req, res) {
         }
     });
 }); // END: POST day route
+
+// Route: Update a day
+router.put('/', function(req, res) {
+    // console.log('update day: ', req.body);
+    var dayToUpdate = req.body;
+    var query = {
+        _id: dayToUpdate._id
+    };
+    var update = {
+        date: dayToUpdate.date,
+        end_location: dayToUpdate.end_location,
+        end_map_location: dayToUpdate.end_map_location,
+        tag_line: dayToUpdate.tag_line,
+        narrative: dayToUpdate.narrative,
+        weather: dayToUpdate.weather
+    };
+    var options = {
+      new: true,
+      upsert: true
+    };
+    day.findByIdAndUpdate(query, update, options, function(err, data) {
+        if (err) {
+            console.log('Put ERR: ', err);
+            res.sendStatus(500);
+        } else {
+          console.log('day updated', data);
+            res.send(data);
+        }
+    });
+}); // END: Update day route
 
 // Route: Delete a day
 router.delete("/one/:id", function(req, res) {

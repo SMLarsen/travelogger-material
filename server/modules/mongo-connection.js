@@ -4,7 +4,7 @@ var connectionString = require('../config/database-config');
 var databaseURI = '';
 // process.env.MONGODB_URI will only be defined if you
 // are running on Heroku
-if(process.env.MONGODB_URI !== undefined) {
+if (process.env.MONGODB_URI !== undefined) {
     // use the string value of the environment variable
     databaseURI = process.env.MONGODB_URI;
 } else {

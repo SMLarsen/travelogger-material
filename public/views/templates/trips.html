@@ -14,7 +14,7 @@
   <div ng-repeat="trip in tc.data.trips | filter:searchInput">
       <a class="col-xs-12 col-md-3" ng-href="#trip/{{trip._id}}">
         <div class="guestTrip">
-          <h5><i class="fa fa-globe" aria-hidden="true"></i><span>{{trip.begin_date | date:'MM/yy'}} - {{trip.trip_name}}</span></h5>
+          <h5 class="trip-card"><i class="fa fa-globe" aria-hidden="true"></i><span>{{trip.begin_date | date:'MM/yy'}} - {{trip.trip_name}}</span></h5>
         </div>
       </a>
   </div>

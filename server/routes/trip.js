@@ -12,7 +12,7 @@ router.get('/all/:id', function(req, res) {
             console.log('Get ERR: ', err);
             res.sendStatus(500);
         } else {
-            console.log(trips);
+            // console.log(trips);
             res.send(trips);
         }
     });
@@ -28,7 +28,7 @@ router.get('/one/:tripID', function(req, res) {
             console.log('Get ERR: ', err);
             res.sendStatus(500);
         } else {
-            console.log(trip);
+            // console.log(trip);
             res.send(trip);
         }
     });

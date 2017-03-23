@@ -1,6 +1,12 @@
-var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ngAnimate', 'ui.bootstrap', 'xeditable', 'ngMap']);
+var app = angular.module('traveloggerApp', ['ngRoute', 'firebase', 'ngAnimate', 'ui.bootstrap', 'ngMap', 'ngMaterial']);
 
 console.log('traveloggerApp running');
+
+app.config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+        .primaryPalette('indigo')
+        .accentPalette('pink');
+});
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
@@ -11,7 +17,7 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .when('/mytrips', {
             templateUrl: '/views/templates/mytrips.html',
-            controller: 'MyTripController',
+            controller: 'MyTripsController',
             controllerAs: 'mtc'
         })
         .when('/trips', {
@@ -26,27 +32,12 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .when('/mydays/:tripID', {
             templateUrl: '/views/templates/mydays.html',
-            controller: 'MyDayController',
+            controller: 'MyDaysController',
             controllerAs: 'mdc'
         })
-        .when('/addtrip', {
-            templateUrl: '/views/templates/addtrip.html',
-            controller: 'AddTripController',
-            controllerAs: 'atc'
-        })
-        .when('/edittrip/:tripID', {
-            templateUrl: '/views/templates/edittrip.html',
-            controller: 'EditTripController',
-            controllerAs: 'etc'
-        })
-        .when('/addday', {
-            templateUrl: '/views/templates/addday.html',
-            controller: 'AddDayController',
-            controllerAs: 'adc'
-        })
-        .when('/editday/:dayID', {
-            templateUrl: '/views/templates/editday.html',
-            controller: 'EditDayController',
+        .when('/myday/:tripID/:dayID', {
+            templateUrl: '/views/templates/myday.html',
+            controller: 'MyDayController',
             controllerAs: 'edc'
         })
         .when('/days/:tripID', {
@@ -64,42 +55,8 @@ app.config(['$routeProvider', function($routeProvider) {
             controller: 'PicController',
             controllerAs: 'pc'
         })
-        .when('/daygen', {
-            templateUrl: '/views/templates/daygen.html',
-            controller: 'DayGenController',
-            controllerAs: 'dg'
-        })
-        .when('/daybed', {
-            templateUrl: '/views/templates/daybed.html',
-            controller: 'DayBedController',
-            controllerAs: 'db'
-        })
-        .when('/dayfood', {
-            templateUrl: '/views/templates/dayfood.html',
-            controller: 'DayFoodController',
-            controllerAs: 'df'
-        })
-        .when('/addfood', {
-            templateUrl: '/views/templates/addfood.html',
-            controller: 'AddFoodController',
-            controllerAs: 'af'
-        })
-        .when('/daypic', {
-            templateUrl: '/views/templates/daypic.html',
-            controller: 'DayPicController',
-            controllerAs: 'dp'
-        })
-        .when('/dayroute', {
-            templateUrl: '/views/templates/dayroute.html',
-            controller: 'DayRouteController',
-            controllerAs: 'dr'
-        })
-        .when('/daypoi', {
-            templateUrl: '/views/templates/daypoi.html',
-            controller: 'DayPOIController',
-            controllerAs: 'di'
-        })
         .otherwise({
             redirectTo: 'home'
         });
+
 }]); // End config

@@ -1,8 +1,8 @@
 main {
-    margin: 80px;
+    margin-top: 24px;
 }
 
-h1 {
+#homeTitle {
     text-align: center;
     font-size: 6em;
     font-style: italic;
@@ -11,11 +11,41 @@ h1 {
     font-weight: bolder;
 }
 
-// .h4 {
-//     text-align: center;
-// }
-
 body {
     background-color: $main-color;
     color: $accent-color;
+}
+
+md-card-header {
+    padding: 10px 16px 0 16px;
+}
+
+md-card-title {
+    padding: 0 16px ;
+}
+
+md-card-title-text {
+  padding: 0 16px;
+}
+
+md-card-title-text .md-headline {
+    font-size: 18px;
+}
+
+md-card-title-text .md-md-subhead {
+    font-size: 14px;
+    padding-top: 2px;
+}
+
+md-card-content {
+    padding: 2px 16px;
+}
+
+md-input-container {
+  margin: 8px 16px;
+}
+
+md-card-actions {
+  position: relative;
+  bottom: 0;
 }
