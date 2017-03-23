@@ -38,6 +38,7 @@ app.controller("NavController", ["$http", "AuthFactory", "NavFactory", function(
 
     // Function to Logout
     self.logOut = function() {
+        console.log('logging out');
         authFactory.logOut()
             .then((response) => window.location = '/#/home');
     }; // End Logout
