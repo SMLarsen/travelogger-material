@@ -1,22 +1,69 @@
 /*jshint esversion: 6 */
-app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactory) {
-    console.log('MyTripFactory started');
+app.factory("PhotoFactory", ["$http", "AuthFactory", "MyTripFactory", function($http, AuthFactory, MyTripFactory) {
+    console.log('PhotoFactory started');
 
     const authFactory = AuthFactory;
+    const myTripFactory = MyTripFactory;
 
     let authData = authFactory.data;
+    let tripData = myTripFactory.data;
+
     let data = {
-        trips: [],
-        trip: {},
-        tripDays: [],
-        userDays: [],
-        day: {
-            details: []
-        }
+        photo: {}
     };
 
-    // Function to GET trips
-    function getTrips() {
+    // Function to GET photos for a day
+    function getDayAlbum(dayID) {} // End getDayAlbum
+
+    // Function to GET photos for a trip
+    function getTripAlbum(tripID) {} // End getTripAlbum
+
+    // Function to GET photos for a traveller
+    function getUserAlbum(userID) {} // End getUserAlbum
+
+    // Function to add album for a traveller
+    function addTravellerAlbum(albumName) {} // End addTravellerAlbum
+
+    // Function to delete album for a traveller
+    function deleteTravellerAlbum(userID) {} // End deleteTravellerAlbum
+
+    // Function to add album for a trip
+    function addTripAlbum(tripID) {} // End addTripAlbum
+
+    // Function to delete album for a trip
+    function deleteTripAlbum(tripID) {} // End deleteTripAlbum
+
+    // Function to add a photo
+    function uploadPhoto(fd) {
+      return authFactory.getIdToken()
+          .then((currentUser) => {
+            data.
+              data.day.user_id = authData.currentUser.id;
+              return $http({
+                      method: 'PUT',
+                      url: '/day',
+                      headers: {
+                          id_token: authData.currentUser.authIdToken
+                      },
+                      data: data.day
+                  })
+                  .then((response) => {
+                      data.day = response.data;
+                      data.day.date = new Date(data.day.date);
+                      getDays(data.day.trip_id);
+                      return;
+                  })
+                  .catch((err) => console.log('Unable to add new Day', err));
+          });
+
+    } // End uploadPhoto
+
+    // Function to delete a photo
+    function deletePhoto(photoID) {} // End deletePhoto
+
+
+    // Function to GET photos
+    function getPhotos() {
         if (authData.isUserLoggedIn) {
             return authFactory.getIdToken()
                 .then((currentUser) => {
@@ -270,6 +317,7 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
 
     // Function to add a detail
     function addDetail(tripID, dayID, detail) {
+        console.log('addDetail:', tripID, dayID, detail);
         return authFactory.getIdToken()
             .then((currentUser) => {
                 data.day.user_id = authData.currentUser.id;
@@ -312,13 +360,14 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
     } // End deleteDetail
 
     // Function to update a detail
-    function updateDetail(tripID, dayID, detail) {
+    function updateDetail(tripID, dayID, detailID) {
+        console.log('updateDetail:', dayID, detailID);
         return authFactory.getIdToken()
             .then((currentUser) => {
                 data.day.user_id = authData.currentUser.id;
                 return $http({
                         method: 'PUT',
-                        url: '/detail/' + dayID + "/" + detail._id,
+                        url: '/detail/' + dayID + "/" + detailID,
                         headers: {
                             id_token: authData.currentUser.authIdToken
                         },
@@ -326,73 +375,42 @@ app.factory("MyTripFactory", ["$http", "AuthFactory", function($http, AuthFactor
                     })
                     .then((response) => {
                         data.day = response.data;
-                        console.log('response.data:', response.data);
                         getDays(tripID);
-                        return;
                     })
                     .catch((err) => console.log('Unable to update Detail', err));
             });
     } // End updateDetail
 
-    // Function to format trip dates in date formatDaysDate
-    formatTripDates = function(trip, i) {
-        trip.begin_date = new Date(trip.begin_date);
-        trip.end_date = new Date(trip.end_date);
-    };
-
-    // Function to format dates in date formatDaysDate
-    formatDaysDate = function(day, i) {
-        day.date = new Date(day.date);
-    };
-
     const publicApi = {
         data: data,
-        getTrips: function() {
-            return getTrips();
+        getDayAlbum: function(dayID) {
+            return getDayAlbum(dayID);
         },
-        getTrip: function(tripID) {
-            return getTrip(tripID);
+        getTripAlbum: function(tripID) {
+            return getTripAlbum(tripID);
         },
-        addTrip: function() {
-            return addTrip();
+        getUserAlbum: function(userID) {
+            return getUserAlbum(userID);
         },
-        updateTrip: function() {
-            return updateTrip();
+        addTravellerAlbum: function() {
+            return addTravellerAlbum();
         },
-        deleteTrip: function(trip) {
-            return deleteTrip(trip);
+        deleteTravellerAlbum: function() {
+            return deleteTravellerAlbum();
         },
-        addDay: function() {
-            return addDay();
+        addTripAlbum: function() {
+            return addTripAlbum();
         },
-        getDays: function(tripID) {
-            return getDays(tripID);
+        deleteTripAlbum: function() {
+            return deleteTripAlbum();
         },
-        getUserDays: function(userID) {
-            return getUserDays(userID);
+        uploadPhoto: function(fd) {
+            return uploadPhoto(fd);
         },
-        getDay: function(dayID) {
-            return getDay(dayID);
-        },
-        updateDay: function() {
-            return updateDay();
-        },
-        deleteDay: function(dayID, tripID) {
-            return deleteDay(dayID, tripID);
-        },
-        deleteTripDays: function(tripID) {
-            return deleteTripDays(tripID);
-        },
-        addDetail: function(tripID, dayID, detail) {
-            return addDetail(tripID, dayID, detail);
-        },
-        deleteDetail: function(tripID, dayID, detailID) {
-            return deleteDetail(tripID, dayID, detailID);
-        },
-        updateDetail: function(tripID, dayID, detailID) {
-            return updateDetail(tripID, dayID, detailID);
+        deletePhoto: function() {
+            return deletePhoto();
         }
     };
 
     return publicApi;
-}]); // END: MyTripFactory updatePOI(index, data, dayID)
+}]); // END: PhotoFactory

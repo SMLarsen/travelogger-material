@@ -30,12 +30,12 @@
                     <md-icon md-svg-src="./assets/icons/food-fork-drink.svg"></md-icon>
                 </md-button>
 
-                <md-button class="md-fab md-mini" aria-label="Add Photos">
+                <md-button ng-click="edc.addPhoto($event)" class="md-fab md-mini" aria-label="Add Photos">
                     <md-tooltip md-direction="left" md-visible="tooltipVisible">Photos</md-tooltip>
                     <md-icon md-svg-src="./assets/icons/ic_photo_camera_white_24px.svg"></md-icon>
                 </md-button>
 
-                <md-button ng-href="#/mydays/{{edc.data.day.trip_id}}" class="md-fab md-mini" aria-label="Return">
+                <md-button ng-href="#/mydays/{{edc.tripData.day.trip_id}}" class="md-fab md-mini" aria-label="Return">
                     <md-tooltip md-direction="left" md-visible="tooltipVisible">Back</md-tooltip>
                     <md-icon md-svg-src="./assets/icons/ic_arrow_back_white_24px.svg"></md-icon>
                 </md-button>
@@ -53,11 +53,11 @@
                     <div layout="column" flex>
                         <md-input-container flex>
                             <label>Date</label>
-                            <md-datepicker ng-model="edc.data.day.date"></md-datepicker>
+                            <md-datepicker ng-model="edc.tripData.day.date"></md-datepicker>
                         </md-input-container>
                         <md-input-container flex>
                             <label>Weather</label>
-                            <md-select ng-model="edc.data.day.weather">
+                            <md-select ng-model="edc.tripData.day.weather">
                                 <md-option><em>None</em></md-option>
                                 <md-option ng-repeat="weather in ['Sunny', 'Cloudy', 'Rainy', 'Stormy', 'Snowy']" ng-value="weather">
                                     {{weather}}
@@ -66,15 +66,15 @@
                         </md-input-container>
                         <md-input-container>
                             <label>Tagline</label>
-                            <input type="text" name="tagline" ng-model="edc.data.day.tagline">
+                            <input type="text" name="tagline" ng-model="edc.tripData.day.tagline">
                         </md-input-container>
                         <md-input-container>
                             <label>Location</label>
-                            <input places-auto-complete ng-model="edc.data.day.end_location" on-place-changed="edc.genDestinationChanged()" placeholder="" />
+                            <input places-auto-complete ng-model="edc.tripData.day.end_location" on-place-changed="edc.genDestinationChanged()" placeholder="" />
                         </md-input-container>
                         <md-input-container>
                             <label>Narrative of the Day</label>
-                            <textarea rows="5" name="narrative" ng-model="edc.data.day.narrative" ng-wrap></textarea>
+                            <textarea rows="5" name="narrative" ng-model="edc.tripData.day.narrative" ng-wrap></textarea>
                         </md-input-container>
                     </div>
                 </form>
@@ -82,7 +82,7 @@
         </div>
         <div flex="60">
             <md-content>
-                <div ng-repeat="detail in edc.data.day.details">
+                <div ng-repeat="detail in edc.tripData.day.details">
                     <md-card ng-click="edc.viewDetail(ev, $index)" class="detailCard">
                         <md-card-title>
                             <md-card-title-media>
@@ -91,8 +91,6 @@
                                 </div>
                             </md-card-title-media>
                             <md-card-title-text>
-                                <!-- <div layout="row"> -->
-                                <!-- <div layout="column" flex="90"> -->
                                 <span class="md-body-2">{{detail.name}}</span>
                                 <span class="md-body-1">{{detail.type}} {{detail.location}}</span>
                             </md-card-title-text>
@@ -103,139 +101,195 @@
         </div>
     </div>
 
-    <script type="text/ng-template" id="daydetail.template.html">
-        <md-dialog style="z-index:15;" aria-label="Add Day Detail" flex="80">
-            <form ng-cloak>
-                <md-toolbar>
-                    <div class="md-toolbar-tools">
-                        <h2>Add {{edc.title}}</h2>
-                        <span flex></span>
-                        <md-button class="md-icon-button" ng-click="cancel()">
-                            <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+    <div style="visibility: hidden">
+        <div class="md-dialog-container" id="addDayDetail">
+            <md-dialog style="z-index:15;" aria-label="Add Day Detail" flex="80">
+                <form ng-cloak>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            <h2>Add {{edc.title}}</h2>
+                            <span flex></span>
+                            <md-button class="md-icon-button" ng-click="edc.cancel()">
+                                <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                            </md-button>
+                        </div>
+                    </md-toolbar>
+
+                    <md-dialog-content>
+                        <div class="md-dialog-content" flex="150">
+                            <form class="md-inline-form" name="addDayDetailForm">
+                                <div layout="column">
+                                    <md-input-container>
+                                        <md-icon flex="10" md-svg-src="./assets/icons/ic_search_black_24px.svg" aria-label="Search"></md-icon>
+                                        <input flex="90" places-auto-complete ng-model="edc.search" on-place-changed="edc.destinationChanged()" aria-label="Search" />
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Type</label>
+                                        <md-select ng-model="edc.newDetail.type">
+                                            <md-option><em>None</em></md-option>
+                                            <md-option ng-repeat="item in edc.selectArray" ng-value="item">
+                                                {{item}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Name</label>
+                                        <input type="text" name="name" ng-model="edc.newDetail.name">
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label ng-show="edc.newDetail.location">Location</label>
+                                        <input type="text" ng-model="edc.newDetail.location" />
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Description</label>
+                                        <textarea rows="3" name="description" ng-model="edc.newDetail.description" ng-wrap></textarea>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>URL</label>
+                                        <input type="text" name="url" ng-model="edc.newDetail.url">
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+
+                    </md-dialog-content>
+
+                    <md-dialog-actions layout="row" layout-align="space-around center">
+                        <!-- <span flex></span> -->
+                        <md-button ng-click="edc.addDayDetail()">
+                            Save
                         </md-button>
-                    </div>
-                </md-toolbar>
-
-                <md-dialog-content>
-                    <div class="md-dialog-content" flex="150">
-                        <form class="md-inline-form" name="addDayDetailForm">
-                            <div layout="column">
-                                <md-input-container>
-                                    <md-icon flex="10" md-svg-src="./assets/icons/ic_search_black_24px.svg" aria-label="Search"></md-icon>
-                                    <input flex="90" places-auto-complete ng-model="edc.search" on-place-changed="destinationChanged()" aria-label="Search" />
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>Type</label>
-                                    <md-select ng-model="edc.newDetail.type">
-                                        <md-option><em>None</em></md-option>
-                                        <md-option ng-repeat="item in edc.selectArray" ng-value="item">
-                                            {{item}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>Name</label>
-                                    <input type="text" name="name" ng-model="edc.newDetail.name">
-                                </md-input-container>
-                                <md-input-container>
-                                    <label ng-show="edc.newDetail.location">Location</label>
-                                    <input type="text" ng-model="edc.newDetail.location" />
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>Description</label>
-                                    <textarea rows="3" name="description" ng-model="edc.newDetail.description" ng-wrap></textarea>
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>URL</label>
-                                    <input type="text" name="url" ng-model="edc.newDetail.url">
-                                </md-input-container>
-                            </div>
-                        </form>
-                    </div>
-
-                </md-dialog-content>
-
-                <md-dialog-actions layout="row" layout-align="space-around center">
-                    <!-- <span flex></span> -->
-                    <md-button ng-click="addDayDetail()">
-                        Save
-                    </md-button>
-                    <md-button ng-click="cancel()">
-                        Discard
-                    </md-button>
-                </md-dialog-actions>
-            </form>
-
-        </md-dialog>
-    </script>
-
-    <script type="text/ng-template" id="viewdaydetail.template.html">
-        <md-dialog style="z-index:15;" aria-label="View or Change Day Detail" flex="80">
-            <form ng-cloak>
-                <md-toolbar>
-                    <div class="md-toolbar-tools">
-                        <h2>View or Change {{edc.title}}</h2>
-                        <span flex></span>
-                        <md-button class="md-icon-button" ng-click="cancel()">
-                            <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                        <md-button ng-click="edc.cancel()">
+                            Discard
                         </md-button>
-                    </div>
-                </md-toolbar>
+                    </md-dialog-actions>
+                </form>
 
-                <md-dialog-content>
-                    <div class="md-dialog-content" flex="150">
-                        <form class="md-inline-form" name="addDayDetailForm">
-                            <div layout="column">
-                                <md-input-container>
-                                    <md-icon flex="10" md-svg-src="./assets/icons/ic_search_black_24px.svg" aria-label="Search"></md-icon>
-                                    <input flex="90" places-auto-complete ng-model="edc.search" on-place-changed="destinationChanged()" aria-label="Search" />
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>Type</label>
-                                    <md-select ng-model="edc.newDetail.type">
-                                        <md-option><em>None</em></md-option>
-                                        <md-option ng-repeat="item in edc.selectArray" ng-value="item">
-                                            {{item}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>Name</label>
-                                    <input type="text" name="name" ng-model="edc.focusDetail.name">
-                                </md-input-container>
-                                <md-input-container>
-                                    <label ng-show="edc.focusDetail.location">Location</label>
-                                    <input type="text" ng-model="edc.focusDetail.location" />
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>Description</label>
-                                    <textarea rows="3" name="description" ng-model="edc.focusDetail.description" ng-wrap></textarea>
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>URL</label>
-                                    <input type="text" name="url" ng-model="edc.focusDetail.url">
-                                </md-input-container>
-                            </div>
-                        </form>
-                    </div>
+            </md-dialog>
+        </div>
+    </div>
 
-                </md-dialog-content>
+    <div style="visibility: hidden">
+        <div class="md-dialog-container" id="viewDayDetail">
+            <md-dialog style="z-index:15;" aria-label="View or Change Day Detail" flex="80">
+                <form ng-cloak>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            <h2>View or Change {{edc.title}}</h2>
+                            <span flex></span>
+                            <md-button class="md-icon-button" ng-click="edc.cancel()">
+                                <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                            </md-button>
+                        </div>
+                    </md-toolbar>
 
-                <md-dialog-actions layout="row" layout-align="space-around center">
-                    <!-- <span flex></span> -->
-                    <md-button ng-click="updateDetail()">
-                        Save
-                    </md-button>
-                    <md-button ng-click="deleteDetail(edc.focusDetail._id)">
-                        Delete
-                    </md-button>
-                    <md-button ng-click="cancel()">
-                        Discard
-                    </md-button>
-                </md-dialog-actions>
-            </form>
+                    <md-dialog-content>
+                        <div class="md-dialog-content" flex="150">
+                            <form class="md-inline-form" name="editDayDetailForm">
+                                <div layout="column">
+                                    <md-input-container>
+                                        <md-icon flex="10" md-svg-src="./assets/icons/ic_search_black_24px.svg" aria-label="Search"></md-icon>
+                                        <input flex="90" places-auto-complete ng-model="edc.search" on-place-changed="edc.currentDestinationChanged()" aria-label="Search" />
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Type</label>
+                                        <md-select ng-model="edc.focusDetail.type">
+                                            <md-option><em>None</em></md-option>
+                                            <md-option ng-repeat="item in edc.selectArray" ng-value="item">
+                                                {{item}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Name</label>
+                                        <input type="text" name="name" ng-model="edc.focusDetail.name">
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label ng-show="edc.focusDetail.location">Location</label>
+                                        <input type="text" ng-model="edc.focusDetail.location" />
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>Description</label>
+                                        <textarea rows="3" name="description" ng-model="edc.focusDetail.description" ng-wrap></textarea>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>URL</label>
+                                        <input type="text" name="url" ng-model="edc.focusDetail.url">
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
 
-        </md-dialog>
-    </script>
+                    </md-dialog-content>
+
+                    <md-dialog-actions layout="row" layout-align="space-around center">
+                        <!-- <span flex></span> -->
+                        <md-button ng-click="edc.updateDetail()">
+                            Save
+                        </md-button>
+                        <md-button ng-click="edc.deleteDetail(edc.focusDetail._id)">
+                            Delete
+                        </md-button>
+                        <md-button ng-click="edc.cancel()">
+                            Discard
+                        </md-button>
+                    </md-dialog-actions>
+                </form>
+
+            </md-dialog>
+        </div>
+    </div>
+
+
+    <div style="visibility: hidden">
+        <div class="md-dialog-container" id="addPhotoDialog">
+            <md-dialog style="z-index:15;" aria-label="Add Photo" flex="80">
+                <form ng-cloak>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            <h2>Add Photo</h2>
+                            <span flex></span>
+                            <md-button class="md-icon-button" ng-click="edc.cancel()">
+                                <md-icon md-svg-src="./assets/icons/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                            </md-button>
+                        </div>
+                    </md-toolbar>
+
+                    <md-dialog-content layout-padding layout="column" layout-align="center center">
+                        <br><br><br>
+                        <span class="add-content" ng-show="edc.photoToUpload">File to upload: {{edc.photoToUpload[0].name}}</span>
+                        <input type="file" id="input-file-id" style="display: none;" file-model="edc.photoToUpload" />
+                        <md-button ng-show="!edc.photoToUpload" onclick="document.getElementById('input-file-id').click();" class="md-raised md-primary ">Pick File to Upload</md-button>
+
+                        <div layout="row" layout-align="center center">
+                            <md-progress-circular style="margin:auto;" ng-show="edc.statusOn" md-diameter="50" md-mode="indeterminate"></md-progress-circular>
+                        </div>
+
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Caption</label>
+                            <input ng-model="edc.photoData.newPhoto.detail.description" aria-label="Caption">
+                        </md-input-container>
+
+                        <md-switch ng-model="edc.photoData.newPhoto.dayCoverPhoto" aria-label="Use as day photo cover" value="false">
+                            Use as day cover photo
+                        </md-switch>
+
+                        <md-switch ng-model="edc.photoData.newPhoto.tripCoverPhoto" aria-label="Use as trip photo cover" value="false">
+                            Use as trip cover photo
+                        </md-switch>
+
+                        <div layout="row" layout-align="center center">
+                        </div>
+                    </md-dialog-content>
+
+                    <md-dialog-actions layout="row" layout-align="space-around end">
+                        <md-button ng-show="edc.photoToUpload" ng-click="edc.uploadPhoto()" class="md-raised md-primary ">Upload</md-button>
+                    </md-dialog-actions>
+                </form>
+
+            </md-dialog>
+        </div>
+    </div>
+
 
 </div>

@@ -1,17 +1,30 @@
 /*jshint esversion: 6 */
-app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'GeoCoder', '$routeParams', '$mdDialog', function(MyTripFactory, NavFactory, $scope, GeoCoder, $routeParams, $mdDialog) {
+app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'GeoCoder', '$routeParams', '$mdDialog', '$window', 'PhotoFactory', function(MyTripFactory, NavFactory, $scope, GeoCoder, $routeParams, $mdDialog, $window, PhotoFactory) {
     console.log('MyDayController started');
 
     const myTripFactory = MyTripFactory;
+    const photoFactory = PhotoFactory;
     const navFactory = NavFactory;
 
     let self = this;
-    self.data = myTripFactory.data;
+    self.tripData = myTripFactory.data;
+    self.tripData.day = {};
+    self.newDetail = {};
+
+    self.photoData = photoFactory.data;
+    self.photoData.newPhoto = {
+      dayCoverPhoto: false,
+      tripCoverPhoto: false,
+      detail: {}
+    };
+    self.photoFile = "empty";
+    self.photoToUpload;
+    self.addMessage = "Pick a photo to upload";
+    self.statusOn = false;
+
     let dayID = $routeParams.dayID;
     let tripID = $routeParams.tripID;
 
-    self.data.day = {};
-    self.newDetail = {};
     self.selectArray = [];
 
     const ICONPATH = './assets/icons/';
@@ -46,15 +59,16 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
 
     myTripFactory.getDay(dayID)
         .then((response) => {
-            self.tripID = self.data.day.trip_id;
-            self.data.day.date = new Date(self.data.day.date);
+            self.tripID = self.tripData.day.trip_id;
+            self.tripData.day.date = new Date(self.tripData.day.date);
+            console.log('got day:', self.tripData.day);
         })
         .catch((err) => console.log('Error getting day', err));
 
     // // Function to update a day
     self.updateDay = function() {
-        self.data.day.trip_id = self.tripID;
-        myTripFactory.updateDay(self.data.day)
+        self.tripData.day.trip_id = self.tripID;
+        myTripFactory.updateDay(self.tripData.day)
             // .then((response) => window.location = "#/mydays/" + self.tripID)
             .catch((err) => console.log('Error updating day', err));
     }; // End updateDay
@@ -68,25 +82,19 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
     };
 
     self.cancel = function() {
-        self.data.day = {};
+        self.tripData.day = {};
         window.location = '/#/mydays/' + self.tripID;
     };
 
-    self.editDetail = function(index) {
-        console.log('editDetail:', index);
-    };
-
-    self.deleteDetail = function(index) {
-        let dayID = self.data.day._id;
-        let detailID = self.data.day.details[index]._id;
-        myTripFactory.deleteDetail(self.data.day.trip_id, dayID, detailID)
+    self.deleteDetail = function(detailID) {
+        let dayID = self.tripData.day._id;
+        myTripFactory.deleteDetail(self.tripData.day.trip_id, dayID, detailID)
             .catch((err) => console.log("Error deleting day detail", err));
     };
 
-    self.updateDetail = function(index) {
-        let dayID = self.data.day._id;
-        let detailID = self.data.day.details[index]._id;
-        myTripFactory.updateDetail(self.data.day.trip_id, dayID, detailID)
+    self.updateDetail = function() {
+        let dayID = self.tripData.day._id;
+        myTripFactory.updateDetail(self.tripData.day.trip_id, self.tripData.day._id, self.focusDetail)
             .catch((err) => console.log("Error updating day detail", err));
     };
 
@@ -99,10 +107,9 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
         self.newDetail.icon += DETAILTYPES[detailType + 'Types'].icon;
         self.selectArray = DETAILTYPES[detailType + 'Types'].array;
         $mdDialog.show({
-            controller: AddDayDetailDialogController,
             scope: $scope,
             preserveScope: true,
-            templateUrl: 'daydetail.template.html',
+            contentElement: '#addDayDetail',
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
@@ -112,44 +119,39 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
         });
     };
 
-    function AddDayDetailDialogController($scope, $mdDialog) {
-        $scope.data = MyTripFactory.data;
-        $scope.hide = function() {
-            $mdDialog.hide();
-        };
+    self.cancel = function() {
+        $mdDialog.cancel();
+    };
+    // Function to add day detail
+    self.addDayDetail = function() {
+        myTripFactory.addDetail(self.tripData.day.trip_id, self.tripData.day._id, self.newDetail)
+            .then((response) => $mdDialog.cancel())
+            .catch((err) => console.log("Error adding day detail", err));
+    }; // End addDayDetail
 
-        $scope.cancel = function() {
-            $mdDialog.cancel();
+    // Find location
+    self.destinationChanged = function() {
+        let place = this.getPlace();
+        self.newDetail.name = place.name;
+        self.newDetail.url = place.website;
+        self.newDetail.location = place.formatted_address;
+        self.newDetail.location_map = {
+            pos: [place.geometry.location.lat(), place.geometry.location.lng()]
         };
+    };
 
-        // Function to add day detail
-        $scope.addDayDetail = function() {
-            myTripFactory.addDetail(self.data.day.trip_id, self.data.day._id, self.newDetail)
-                .then((response) => $mdDialog.cancel())
-                .catch((err) => console.log("Error adding day detail", err));
-        }; // End addDayDetail
-
-        // Find location
-        $scope.destinationChanged = function() {
-            let place = this.getPlace();
-            self.newDetail.name = place.name;
-            self.newDetail.url = place.website;
-            self.newDetail.location = place.formatted_address;
-            self.newDetail.location_map = {
-                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
-            };
-        };
-    }
+    self.hide = function() {
+        $mdDialog.hide();
+    };
 
     self.viewDetail = function(ev, index) {
-        self.focusDetail = self.data.day.details[index];
+        self.focusDetail = self.tripData.day.details[index];
         self.title = DETAILTYPES[self.focusDetail.detail_type + 'Types'].title;
         self.selectArray = DETAILTYPES[self.focusDetail.detail_type + 'Types'].array;
         $mdDialog.show({
-            controller: ViewDayDetailDialogController,
             scope: $scope,
             preserveScope: true,
-            templateUrl: 'viewdaydetail.template.html',
+            contentElement: '#viewDayDetail',
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
@@ -159,39 +161,62 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
         });
     };
 
-    function ViewDayDetailDialogController($scope, $mdDialog) {
-        $scope.hide = function() {
-            $mdDialog.hide();
+    // Find location
+    self.currentDestinationChanged = function() {
+        let place = this.getPlace();
+        self.focusDetail.name = place.name;
+        self.focusDetail.url = place.website;
+        self.focusDetail.location = place.formatted_address;
+        self.focusDetail.location_map = {
+            pos: [place.geometry.location.lat(), place.geometry.location.lng()]
         };
+    };
 
-        $scope.cancel = function() {
-            $mdDialog.cancel();
-        };
+    self.deleteDetail = function(detailID) {
+        let dayID = self.tripData.day._id;
+        myTripFactory.deleteDetail(self.tripData.day.trip_id, dayID, detailID)
+            .then((response) => $mdDialog.cancel())
+            .catch((err) => console.log("Error deleting day detail", err));
+    };
 
-        // Function to add day detail
-        $scope.updateDayDetail = function() {
-            myTripFactory.updateDetail(self.data.day.trip_id, self.data.day._id, self.focusDetail)
-                .then((response) => $mdDialog.cancel())
-                .catch((err) => console.log("Error updating day detail", err));
-        }; // End addDayDetail
+    self.addPhoto = function(ev) {
+        self.photoData.newPhoto.detail.day_id = self.tripData.day._id;
+        self.photoData.newPhoto.detail.trip_id = self.tripData.day.trip_id;
+        self.photoData.newPhoto.detail.type = 'Photo';
+        $mdDialog.show({
+            scope: $scope,
+            preserveScope: true,
+            contentElement: '#addPhotoDialog',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true
+        });
+    };
 
-        // Find location
-        $scope.destinationChanged = function() {
-            let place = this.getPlace();
-            self.focusDetail.name = place.name;
-            self.focusDetail.url = place.website;
-            self.focusDetail.location = place.formatted_address;
-            self.focusDetail.location_map = {
-                pos: [place.geometry.location.lat(), place.geometry.location.lng()]
-            };
-        };
 
-        $scope.deleteDetail = function(detailID) {
-            let dayID = self.data.day._id;
-            myTripFactory.deleteDetail(self.data.day.trip_id, dayID, detailID)
-                .then((response) => $mdDialog.cancel())
-                .catch((err) => console.log("Error deleting day detail", err));
-        };
-    }
+    self.uploadPhoto = function() {
+      console.log('newPhoto:', self.photoData.newPhoto);
+      console.log('photo:', self.photoToUpload);
+        var files = document.getElementById('input-file-id').files;
+        if (!files.length) {
+            self.addMessage = "Please choose a file to upload first.";
+        } else {
+            self.statusOn = true;
+            let fd = new FormData();
+            fd.append('file', files[0]);
+            photoFactory.uploadPhoto(fd)
+                .then((response) => {
+                    self.statusOn = false;
+                    alert('Successfully uploaded photo.');
+                    viewAlbum(self.albumID, self.albumS3ID);
+                    self.data.newPhoto = {};
+                    self.photoToUpload = undefined;
+                    $mdDialog.cancel();
+                })
+                .catch((err) => alert('There was an error uploading your photos ' + err.message));
+        }
+    };
+
+
 
 }]); // END: MyTripController

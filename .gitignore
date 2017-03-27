@@ -8,3 +8,4 @@ config.js
 .env
 .notes.md
 dump/travelogger/*.*
+.notes

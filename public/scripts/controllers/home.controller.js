@@ -40,8 +40,6 @@ app.controller("HomeController", ['NavFactory', function(NavFactory) {
 
     shuffleArray(self.slides);
 
-    console.log('starting home');
-
     // Function to shuffle an array
     function shuffleArray(array) {
         for (var i = array.length - 1; i > 0; i--) {

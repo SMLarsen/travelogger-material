@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var ObjectId = Schema.ObjectId;
 
-var Photo = new Schema({
+var photoSchema = new Schema({
     user_id: ObjectId,
     trip_id: ObjectId,
     day_id: ObjectId,
