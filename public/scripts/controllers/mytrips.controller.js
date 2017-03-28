@@ -25,8 +25,9 @@ app.controller('MyTripsController', ['MyTripFactory', 'AuthFactory', 'NavFactory
     } // End formatDates
 
     // Function to go to view trip view
-    self.viewTrip = function(tripID) {
-        window.location = "#/mydays/" + tripID;
+    self.viewTrip = function(trip) {
+        self.data.trip = trip;
+        window.location = "#/mydays/" + trip._id;
     }; // End formatDates
 
     // Function to delete a trip

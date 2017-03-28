@@ -12,11 +12,12 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
     self.newDetail = {};
 
     self.photoData = photoFactory.data;
-    self.photoData.newPhoto = {
+    const newPhotoDefault = {
       dayCoverPhoto: false,
       tripCoverPhoto: false,
       detail: {}
     };
+    self.photoData.newPhoto = newPhotoDefault;
     self.photoFile = "empty";
     self.photoToUpload;
     self.addMessage = "Pick a photo to upload";
@@ -61,7 +62,6 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
         .then((response) => {
             self.tripID = self.tripData.day.trip_id;
             self.tripData.day.date = new Date(self.tripData.day.date);
-            console.log('got day:', self.tripData.day);
         })
         .catch((err) => console.log('Error getting day', err));
 
@@ -182,6 +182,8 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
     self.addPhoto = function(ev) {
         self.photoData.newPhoto.detail.day_id = self.tripData.day._id;
         self.photoData.newPhoto.detail.trip_id = self.tripData.day.trip_id;
+        self.photoData.newPhoto.trip = self.tripData.trip;
+        self.photoData.newPhoto.day = self.tripData.day;
         self.photoData.newPhoto.detail.type = 'Photo';
         $mdDialog.show({
             scope: $scope,
@@ -208,8 +210,8 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
                 .then((response) => {
                     self.statusOn = false;
                     alert('Successfully uploaded photo.');
-                    viewAlbum(self.albumID, self.albumS3ID);
-                    self.data.newPhoto = {};
+                    // viewAlbum(self.albumID, self.albumS3ID);
+                    self.photoData.newPhoto = newPhotoDefault;
                     self.photoToUpload = undefined;
                     $mdDialog.cancel();
                 })

@@ -33,7 +33,7 @@ app.factory("AuthFactory", function($firebaseAuth, $http) {
                                 data.currentUser.authIdToken = idToken;
                                 data.currentUser.id = response.data._id;
                                 data.isUserLoggedIn = true;
-                                // console.log('current user authorized', data.currentUser.id, data.isUserLoggedIn);
+                                console.log('current user authorized', data.currentUser, data.isUserLoggedIn);
                                 return;
                             })
                             .catch((error) => console.log("Authentication failed: ", error));

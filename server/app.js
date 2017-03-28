@@ -19,7 +19,8 @@ app.use(express.static('public'));
 app.get('/', function(req, res){
   res.sendFile(path.resolve('./public/views/index.html'));
 });
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 mongoConnection.connect();
 require('./routes/routes.js')(app);

@@ -244,7 +244,7 @@
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="addPhotoDialog">
             <md-dialog style="z-index:15;" aria-label="Add Photo" flex="80">
-                <form ng-cloak>
+                <form ng-cloak enctype="multipart/form-data">
                     <md-toolbar>
                         <div class="md-toolbar-tools">
                             <h2>Add Photo</h2>
@@ -258,7 +258,7 @@
                     <md-dialog-content layout-padding layout="column" layout-align="center center">
                         <br><br><br>
                         <span class="add-content" ng-show="edc.photoToUpload">File to upload: {{edc.photoToUpload[0].name}}</span>
-                        <input type="file" id="input-file-id" style="display: none;" file-model="edc.photoToUpload" />
+                        <input type="file" name="photo" id="input-file-id" style="display: none;" file-model="edc.photoToUpload" />
                         <md-button ng-show="!edc.photoToUpload" onclick="document.getElementById('input-file-id').click();" class="md-raised md-primary ">Pick File to Upload</md-button>
 
                         <div layout="row" layout-align="center center">

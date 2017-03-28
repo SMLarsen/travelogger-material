@@ -16,8 +16,6 @@ admin.initializeApp({
     databaseURL: "https://travelogger-66f9b.firebaseio.com"
 });
 
-console.log('Enter decoder');
-
 // Pull id_token off of request and verify it against firebase service account private_key; then add decodedToken
 var tokenDecoder = function(req, res, next) {
 

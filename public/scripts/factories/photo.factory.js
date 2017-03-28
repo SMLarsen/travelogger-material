@@ -34,27 +34,29 @@ app.factory("PhotoFactory", ["$http", "AuthFactory", "MyTripFactory", function($
     function deleteTripAlbum(tripID) {} // End deleteTripAlbum
 
     // Function to add a photo
-    function uploadPhoto(fd) {
-      return authFactory.getIdToken()
-          .then((currentUser) => {
-            data.
-              data.day.user_id = authData.currentUser.id;
-              return $http({
-                      method: 'PUT',
-                      url: '/day',
-                      headers: {
-                          id_token: authData.currentUser.authIdToken
-                      },
-                      data: data.day
-                  })
-                  .then((response) => {
-                      data.day = response.data;
-                      data.day.date = new Date(data.day.date);
-                      getDays(data.day.trip_id);
-                      return;
-                  })
-                  .catch((err) => console.log('Unable to add new Day', err));
-          });
+    function uploadPhoto(file) {
+        file.append('dayCoverPhoto', data.newPhoto.dayCoverPhoto);
+        file.append('tripCoverPhoto', data.newPhoto.tripCoverPhoto);
+        file.append('trip_id', data.newPhoto.trip._id);
+        file.append('day_id', data.newPhoto.day._id);
+        file.append('description', data.newPhoto.detail.description);
+        file.append('type', data.newPhoto.detail.type);
+
+        return authFactory.getIdToken()
+            .then((currentUser) => {
+                return $http({
+                        method: 'POST',
+                        url: '/photo',
+                        data: file,
+                        transformRequest: angular.indentity, //stops angular from serializing our data
+                        headers: {
+                            'Content-Type': undefined, //lets browser handle what type of data is being sent...
+                            id_token: authData.currentUser.authIdToken
+                        }
+                    })
+                    .then((response) => photoData.album = response.data)
+                    .catch((err) => console.log('Unable to add photo', err));
+            });
 
     } // End uploadPhoto
 
