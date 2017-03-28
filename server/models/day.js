@@ -26,7 +26,8 @@ var daySchema = new Schema({
     details: [Detail],
     narrative: String,
     weather: String,
-    cover_photo: ObjectId,
+    album_url: String,
+    cover_photo_url: String,
     date_added: {
         type: Date,
         default: Date.now

@@ -1,10 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var trip = require('../models/trip');
+/*jshint esversion: 6 */
+const express = require('express');
+const router = express.Router();
+const trip = require('../models/trip');
+const shortid = require('shortid');
 
 // Route: Get trips
 router.get('/all/:id', function(req, res) {
-    var userId = req.params.id;
+    let userId = req.params.id;
     console.log('Looking for trips for', userId);
     trip.find({user_id: userId}).sort({begin_date: -1}).exec(
       function(err, trips) {
@@ -37,6 +39,7 @@ router.get('/one/:tripID', function(req, res) {
 // Route: Add a trip
 router.post("/", function(req, res) {
     var tripToAdd = new trip(req.body);
+    tripToAdd.album_url = shortid.generate();
     console.log('Adding new trip:', tripToAdd);
     tripToAdd.save(function(err) {
         if (err) {
@@ -53,7 +56,7 @@ router.put('/:id', function(req, res) {
   console.log('update trip: ', req.body);
   var tripToUpdate = req.body;
   var query = {_id: req.params.id};
-  var update = {trip_name: tripToUpdate.trip_name, destination: tripToUpdate.destination, destination_location: tripToUpdate.destination_location, travellers: tripToUpdate.travellers, begin_date: tripToUpdate.begin_date, begin_location: tripToUpdate.begin_location, begin_map_location: tripToUpdate.begin_map_location, end_date: tripToUpdate.end_date, end_location: tripToUpdate.end_location, end_map_location: tripToUpdate.end_map_location, photo_caption: tripToUpdate.photo_caption, photo_url: tripToUpdate.photo_url};
+  var update = {trip_name: tripToUpdate.trip_name, destination: tripToUpdate.destination, destination_location: tripToUpdate.destination_location, travellers: tripToUpdate.travellers, begin_date: tripToUpdate.begin_date, begin_location: tripToUpdate.begin_location, begin_map_location: tripToUpdate.begin_map_location, end_date: tripToUpdate.end_date, end_location: tripToUpdate.end_location, end_map_location: tripToUpdate.end_map_location, photo_url: tripToUpdate.cover_photo_url};
   trip.findByIdAndUpdate(req.params.id, update, function(err, data) {
       if(err) {
         console.log('Put ERR: ', err);
