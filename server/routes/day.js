@@ -1,10 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var day = require('../models/day');
+/*jshint esversion: 6 */
+const express = require('express');
+const router = express.Router();
+const day = require('../models/day');
+const shortid = require('shortid');
 
 // Route: Get days
 router.get('/all/:id', function(req, res) {
-    var tripId = req.params.id;
+    let tripId = req.params.id;
     console.log('Looking for days for', tripId);
 
     day.find({
@@ -24,7 +26,7 @@ router.get('/all/:id', function(req, res) {
 
 // Route: Get user's days
 router.get('/user/:id', function(req, res) {
-    var userId = req.params.id;
+    let userId = req.params.id;
     console.log('Looking for days for', userId);
 
     day.find({
@@ -44,7 +46,7 @@ router.get('/user/:id', function(req, res) {
 
 // Route: Get a day
 router.get('/one/:id', function(req, res) {
-    var dayId = req.params.id;
+    let dayId = req.params.id;
     console.log('Looking for day for', dayId);
     day.find({
         _id: dayId
@@ -62,8 +64,8 @@ router.get('/one/:id', function(req, res) {
 
 // Route: Add a day
 router.post('/', function(req, res) {
-    var dayToAdd = new day(req.body);
-    // console.log('Adding new day:', dayToAdd);
+    let dayToAdd = new day(req.body);
+    dayToAdd.album_url = shortid.generate();
     dayToAdd.save(function(err, objectInserted) {
         if (err) {
             console.log('There was an error inserting new day, ', err);
@@ -78,19 +80,21 @@ router.post('/', function(req, res) {
 // Route: Update a day
 router.put('/', function(req, res) {
     // console.log('update day: ', req.body);
-    var dayToUpdate = req.body;
-    var query = {
+    let dayToUpdate = req.body;
+    let query = {
         _id: dayToUpdate._id
     };
-    var update = {
+    let update = {
         date: dayToUpdate.date,
         end_location: dayToUpdate.end_location,
         end_map_location: dayToUpdate.end_map_location,
         tag_line: dayToUpdate.tag_line,
         narrative: dayToUpdate.narrative,
+        album_url: dayToUpdate.album_url,
+        cover_photo_url: dayToUpdate.album_url,
         weather: dayToUpdate.weather
     };
-    var options = {
+    const options = {
       new: true,
       upsert: true
     };
@@ -107,7 +111,7 @@ router.put('/', function(req, res) {
 
 // Route: Delete a day
 router.delete("/one/:id", function(req, res) {
-    var dayToDelete = req.params.id;
+    let dayToDelete = req.params.id;
     console.log('Deleting day:', dayToDelete);
     day.remove({
         _id: dayToDelete
@@ -123,7 +127,7 @@ router.delete("/one/:id", function(req, res) {
 
 // Route: Delete all days for a trip
 router.delete("/trip/:id", function(req, res) {
-    var tripDaysToDelete = req.params.id;
+    let tripDaysToDelete = req.params.id;
     console.log('Deleting days for trip:', tripDaysToDelete);
     day.remove({
         trip_id: tripDaysToDelete
