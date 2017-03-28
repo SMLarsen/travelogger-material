@@ -39,14 +39,16 @@ app.factory("PhotoFactory", ["$http", "AuthFactory", "MyTripFactory", function($
         file.append('tripCoverPhoto', data.newPhoto.tripCoverPhoto);
         file.append('trip_id', data.newPhoto.trip._id);
         file.append('day_id', data.newPhoto.day._id);
-        file.append('description', data.newPhoto.detail.description);
-        file.append('type', data.newPhoto.detail.type);
+        file.append('icon', data.newPhoto.icon);
+        file.append('description', data.newPhoto.description);
+        file.append('detail_type', data.newPhoto.detail_type);
+        console.log('file:', file);
 
         return authFactory.getIdToken()
             .then((currentUser) => {
                 return $http({
                         method: 'POST',
-                        url: '/photo',
+                        url: '/photo/' + tripData.trip.album_url + '/' + tripData.day.album_url,
                         data: file,
                         transformRequest: angular.indentity, //stops angular from serializing our data
                         headers: {
@@ -54,7 +56,11 @@ app.factory("PhotoFactory", ["$http", "AuthFactory", "MyTripFactory", function($
                             id_token: authData.currentUser.authIdToken
                         }
                     })
-                    .then((response) => photoData.album = response.data)
+                    .then((response) => {
+                        data.photo = response.data;
+                        myTripFactory.getDays(tripData.trip.tripID);
+                        return;
+                    })
                     .catch((err) => console.log('Unable to add photo', err));
             });
 

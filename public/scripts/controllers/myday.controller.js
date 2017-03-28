@@ -13,9 +13,9 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
 
     self.photoData = photoFactory.data;
     const newPhotoDefault = {
-      dayCoverPhoto: false,
-      tripCoverPhoto: false,
-      detail: {}
+        dayCoverPhoto: false,
+        tripCoverPhoto: false,
+        detail: {}
     };
     self.photoData.newPhoto = newPhotoDefault;
     self.photoFile = "empty";
@@ -31,7 +31,7 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
     const ICONPATH = './assets/icons/';
     const DETAILTYPES = {
         detailTypes: {
-            array: ['Lodging', 'Meal', 'Transport', 'Point of Interest']
+            array: ['Lodging', 'Meal', 'Transport', 'Point of Interest', 'Photo']
         },
         transportTypes: {
             array: ['Car', 'Bus', 'Train', 'Air', 'Boat', 'Foot', 'Other'],
@@ -52,6 +52,10 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
             array: ['Museum', 'Tour', 'Park', 'Historical Site', 'Building', 'Place'],
             title: 'Point of Interest',
             icon: 'map-marker.svg'
+        },
+        photoTypes: {
+            title: 'Photos',
+            icon: 'ic_photo_camera_white_24px.svg'
         }
     };
 
@@ -179,12 +183,17 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
             .catch((err) => console.log("Error deleting day detail", err));
     };
 
-    self.addPhoto = function(ev) {
-        self.photoData.newPhoto.detail.day_id = self.tripData.day._id;
-        self.photoData.newPhoto.detail.trip_id = self.tripData.day.trip_id;
+    self.addPhoto = function(ev, detailType) {
+        self.title = DETAILTYPES[detailType + 'Types'].title;
+        self.photoData.newPhoto.detail_type = detailType;
+        self.photoData.newPhoto.icon = ICONPATH;
+        self.photoData.newPhoto.icon += DETAILTYPES[detailType + 'Types'].icon;
+        self.photoData.newPhoto.day_id = self.tripData.day._id;
+        self.photoData.newPhoto.trip_id = self.tripData.day.trip_id;
         self.photoData.newPhoto.trip = self.tripData.trip;
         self.photoData.newPhoto.day = self.tripData.day;
-        self.photoData.newPhoto.detail.type = 'Photo';
+        console.log('photoData:', self.photoData.newPhoto);
+        console.log('detailType', detailType);
         $mdDialog.show({
             scope: $scope,
             preserveScope: true,
@@ -197,8 +206,8 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
 
 
     self.uploadPhoto = function() {
-      console.log('newPhoto:', self.photoData.newPhoto);
-      console.log('photo:', self.photoToUpload);
+        console.log('newPhoto:', self.photoData.newPhoto);
+        console.log('photo:', self.photoToUpload);
         var files = document.getElementById('input-file-id').files;
         if (!files.length) {
             self.addMessage = "Please choose a file to upload first.";

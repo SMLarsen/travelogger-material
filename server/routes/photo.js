@@ -10,6 +10,7 @@ const multerS3 = require('multer-s3');
 const bucketName = process.env.AWSbucketName;
 const href = process.env.AWShref;
 const bucketUrl = href + bucketName + '/';
+const day = require('../models/day');
 
 /*******************
 SET AWS CREDENTIALS
@@ -27,17 +28,13 @@ const s3 = new AWS.S3();
 
 let newPhoto = {};
 
-var upload = multer({
+let upload = multer({
     storage: multerS3({
         s3: s3,
         bucket: bucketName,
         key: function(req, file, cb) {
-          // console.log('req:', req);
-          // console.log('req.body:', req.body);
-          console.log('file:', file);
             newPhoto.name = file.originalname;
-            newPhoto.url = 'test name' + '/' + shortid.generate() + '_' + file.originalname;
-            console.log('newPhotoURL:', newPhoto.url);
+            newPhoto.url = req.params.tripURL + '/' + req.params.dayURL + '/' + shortid.generate() + '_' + file.originalname;
             cb(null, newPhoto.url);
         },
         contentType: multerS3.AUTO_CONTENT_TYPE,
@@ -46,39 +43,40 @@ var upload = multer({
 });
 
 //Route: Create album for traveller if needed
-router.post('/', upload.array('file', 1), function(req, res, next) {
-  console.log('post route req:', req.body);
-    res.send('Here you are');
+router.post('/:tripURL/:dayURL', upload.array('file', 1), function(req, res, next) {
+    console.log('post route req:', req.body);
+    next();
 });
 
-
-// Route: Add a detail
-// router.post("/:id", function(req, res) {
-//     console.log('id is:', req.params.id);
-//     var dayID = req.params.id;
-//     var detailToAdd = req.body;
-//     console.log('Adding new detail:', dayID, detailToAdd);
-//     day.findByIdAndUpdate(
-//         dayID, {
-//             $push: {
-//                 "details": detailToAdd
-//             }
-//         }, {
-//             safe: true,
-//             upsert: true,
-//             new: true
-//         },
-//         function(err, model) {
-//             if (err) {
-//                 console.log('There was an error adding day detail:', err);
-//                 res.sendStatus(500);
-//             } else {
-//                 console.log("model:", model);
-//                 res.send(model);
-//             }
-//         }
-//     );
-// }); // END: POST detail route
+// Route: Add a photo detail
+router.post("/:tripURL/:dayURL", function(req, res, next) {
+    newPhoto.url = bucketUrl + newPhoto.url;
+    let dayID = req.body.day_id;
+    newPhoto.detail_type = req.body.detail_type;
+    newPhoto.description = req.body.description;
+    newPhoto.icon = req.body.icon;
+    console.log('Adding new photo detail:', dayID, newPhoto);
+    day.findByIdAndUpdate(
+        dayID, {
+            $push: {
+                "details": newPhoto
+            }
+        }, {
+            safe: true,
+            upsert: true,
+            new: true
+        },
+        function(err, model) {
+            if (err) {
+                console.log('There was an error adding day photo detail:', err);
+                res.sendStatus(500);
+            } else {
+                console.log("model:", model);
+                res.send(model);
+            }
+        }
+    );
+}); // END: POST detail route
 
 // Route: Delete a detail
 router.delete("/:dayID/:detailID", function(req, res) {

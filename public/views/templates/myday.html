@@ -30,7 +30,7 @@
                     <md-icon md-svg-src="./assets/icons/food-fork-drink.svg"></md-icon>
                 </md-button>
 
-                <md-button ng-click="edc.addPhoto($event)" class="md-fab md-mini" aria-label="Add Photos">
+                <md-button ng-click="edc.addPhoto(ev, 'photo')" class="md-fab md-mini" aria-label="Add Photos">
                     <md-tooltip md-direction="left" md-visible="tooltipVisible">Photos</md-tooltip>
                     <md-icon md-svg-src="./assets/icons/ic_photo_camera_white_24px.svg"></md-icon>
                 </md-button>
@@ -90,9 +90,13 @@
                                     <md-icon md-svg-src="{{detail.icon}}" style="color:white;"></md-icon>
                                 </div>
                             </md-card-title-media>
-                            <md-card-title-text>
+                            <md-card-title-text ng-show="detail.detail_type != 'photo'">
                                 <span class="md-body-2">{{detail.name}}</span>
                                 <span class="md-body-1">{{detail.type}} {{detail.location}}</span>
+                            </md-card-title-text>
+                            <md-card-title-text ng-show="detail.detail_type == 'photo'">
+                                <span class="md-body-2">{{detail.name}}</span>
+                                <span class="md-body-1">{{detail.description}}</span>
                             </md-card-title-text>
                         </md-card-title>
                     </md-card>
@@ -243,7 +247,7 @@
 
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="addPhotoDialog">
-            <md-dialog style="z-index:15;" aria-label="Add Photo" flex="80">
+            <md-dialog style="z-index:15;" aria-label="Add Photo" flex="50">
                 <form ng-cloak enctype="multipart/form-data">
                     <md-toolbar>
                         <div class="md-toolbar-tools">
@@ -267,7 +271,7 @@
 
                         <md-input-container class="md-block" flex-gt-xs>
                             <label>Caption</label>
-                            <input ng-model="edc.photoData.newPhoto.detail.description" aria-label="Caption">
+                            <input ng-model="edc.photoData.newPhoto.description" aria-label="Caption">
                         </md-input-container>
 
                         <md-switch ng-model="edc.photoData.newPhoto.dayCoverPhoto" aria-label="Use as day photo cover" value="false">
