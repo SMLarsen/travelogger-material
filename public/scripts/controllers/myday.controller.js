@@ -149,20 +149,24 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
     };
 
     self.viewDetail = function(ev, index) {
-        self.focusDetail = self.tripData.day.details[index];
-        self.title = DETAILTYPES[self.focusDetail.detail_type + 'Types'].title;
-        self.selectArray = DETAILTYPES[self.focusDetail.detail_type + 'Types'].array;
-        $mdDialog.show({
-            scope: $scope,
-            preserveScope: true,
-            contentElement: '#viewDayDetail',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose: true,
-            fullscreen: self.customFullscreen,
-            openFrom: angular.element(document.querySelector('#left')),
-            closeTo: angular.element(document.querySelector('#right'))
-        });
+        if (self.tripData.day.details[index].detail_type === 'photo') {
+            zoomPhoto(ev, self.tripData.day.details[index]);
+        } else {
+            self.focusDetail = self.tripData.day.details[index];
+            self.title = DETAILTYPES[self.focusDetail.detail_type + 'Types'].title;
+            self.selectArray = DETAILTYPES[self.focusDetail.detail_type + 'Types'].array;
+            $mdDialog.show({
+                scope: $scope,
+                preserveScope: true,
+                contentElement: '#viewDayDetail',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                fullscreen: self.customFullscreen,
+                openFrom: angular.element(document.querySelector('#left')),
+                closeTo: angular.element(document.querySelector('#right'))
+            });
+        }
     };
 
     // Find location
@@ -228,6 +232,17 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
         }
     };
 
-
+    let zoomPhoto = function(ev, photo) {
+        self.photoToZoom = photo;
+        $mdDialog.show({
+            scope: $scope,
+            preserveScope: true,
+            contentElement: '#zoomPhotoDialog',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+        });
+    };
 
 }]); // END: MyTripController
