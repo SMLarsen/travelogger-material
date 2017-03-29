@@ -27,6 +27,7 @@ AWS.config.apiVersions = {
 const s3 = new AWS.S3();
 
 let newPhoto = {};
+let deletedPhoto = {};
 
 let upload = multer({
     storage: multerS3({
@@ -78,8 +79,8 @@ router.post("/:tripURL/:dayURL", function(req, res, next) {
     );
 }); // END: POST detail route
 
-// Route: Delete a detail
-router.delete("/:dayID/:detailID", function(req, res) {
+// Route: Delete a photo detail from DB
+router.delete("/:dayID/:detailID/:url", function(req, res, next) {
     var dayID = req.params.dayID;
     var detailToDelete = req.params.detailID;
     console.log('Deleting detail:', detailToDelete);
@@ -99,11 +100,30 @@ router.delete("/:dayID/:detailID", function(req, res) {
                 res.sendStatus(500);
             } else {
                 console.log("model:", model);
-                res.send(model);
+                deletedPhoto = model;
+                next();
             }
         }
     );
 }); // END: DELETE detail route
+
+// Route: Delete a photo from S3
+router.delete("/:dayID/:detailID/:url", function(req, res, next) {
+  let decodedURL = decodeURIComponent(req.params.url);
+    console.log('Deleting from S3:', decodedURL);
+    let params = {
+        Bucket: bucketName,
+        Key: decodedURL
+    };
+    s3.deleteObject(params, function(err, data) {
+        if (err) {
+            console.log('There was an error deleting your photo: ', err.message);
+            res.sendStatus(400);
+        }
+        res.sendStatus(200);
+    });
+
+});
 
 // Route: Update a detail
 router.put("/:dayID/:detailID", function(req, res) {

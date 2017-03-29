@@ -259,4 +259,14 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
         });
     };
 
+    self.deletePhoto = function() {
+        photoFactory.deletePhoto(self.photoToZoom._id, self.tripData.day._id, self.photoToZoom.url)
+            .then((data) => {
+                alert('Successfully deleted photo.');
+                myTripFactory.getDay(self.tripData.day._id);
+                $mdDialog.cancel();
+            })
+            .catch((err) => alert('There was an error deleting your photo: ', err.message));
+    };
+
 }]); // END: MyTripController
