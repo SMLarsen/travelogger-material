@@ -232,6 +232,20 @@ app.controller('MyDayController', ['MyTripFactory', 'NavFactory', '$scope', 'Geo
         }
     };
 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#upload-preview').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#input-file-id").change(function() {
+        readURL(this);
+    });
+
     let zoomPhoto = function(ev, photo) {
         self.photoToZoom = photo;
         $mdDialog.show({

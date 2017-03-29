@@ -259,7 +259,7 @@
                         </div>
                     </md-toolbar>
 
-                    <md-dialog-content layout-padding layout="column" layout-align="center center">
+                    <md-dialog-content layout-padding layout="column" layout-align="start center">
                         <br><br><br>
                         <span class="add-content" ng-show="edc.photoToUpload">File to upload: {{edc.photoToUpload[0].name}}</span>
                         <input type="file" name="photo" id="input-file-id" style="display: none;" file-model="edc.photoToUpload" />
@@ -269,7 +269,9 @@
                             <md-progress-circular style="margin:auto;" ng-show="edc.statusOn" md-diameter="50" md-mode="indeterminate"></md-progress-circular>
                         </div>
 
-                        <md-input-container class="md-block" flex-gt-xs>
+                        <img id="upload-preview" ng-show="edc.photoToUpload" style="max-height: 150px;" src="#" alt="preview of image to upload" />
+
+                        <md-input-container class="md-block">
                             <label>Caption</label>
                             <input ng-model="edc.photoData.newPhoto.description" aria-label="Caption">
                         </md-input-container>
