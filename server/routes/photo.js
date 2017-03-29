@@ -72,8 +72,8 @@ router.post("/:tripURL/:dayURL", function(req, res, next) {
                 console.log('There was an error adding day photo detail:', err);
                 res.sendStatus(500);
             } else {
-                console.log("model:", model);
-                res.send(model);
+                console.log("newPhoto:", newPhoto);
+                res.send(newPhoto);
             }
         }
     );

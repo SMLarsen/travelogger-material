@@ -56,7 +56,7 @@ router.put('/:id', function(req, res) {
   console.log('update trip: ', req.body);
   var tripToUpdate = req.body;
   var query = {_id: req.params.id};
-  var update = {trip_name: tripToUpdate.trip_name, destination: tripToUpdate.destination, destination_location: tripToUpdate.destination_location, travellers: tripToUpdate.travellers, begin_date: tripToUpdate.begin_date, begin_location: tripToUpdate.begin_location, begin_map_location: tripToUpdate.begin_map_location, end_date: tripToUpdate.end_date, end_location: tripToUpdate.end_location, end_map_location: tripToUpdate.end_map_location, photo_url: tripToUpdate.cover_photo_url};
+  var update = {trip_name: tripToUpdate.trip_name, destination: tripToUpdate.destination, destination_location: tripToUpdate.destination_location, travellers: tripToUpdate.travellers, begin_date: tripToUpdate.begin_date, begin_location: tripToUpdate.begin_location, begin_map_location: tripToUpdate.begin_map_location, end_date: tripToUpdate.end_date, end_location: tripToUpdate.end_location, end_map_location: tripToUpdate.end_map_location, cover_photo_url: tripToUpdate.cover_photo_url};
   trip.findByIdAndUpdate(req.params.id, update, function(err, data) {
       if(err) {
         console.log('Put ERR: ', err);

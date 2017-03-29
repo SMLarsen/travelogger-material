@@ -41,7 +41,8 @@ var tripSchema = new Schema({
         type: String
     },
     cover_photo_url: {
-        type: String
+        type: String,
+        default: null
     },
     date_added: {
         type: Date,

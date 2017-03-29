@@ -79,7 +79,7 @@ router.post('/', function(req, res) {
 
 // Route: Update a day
 router.put('/', function(req, res) {
-    // console.log('update day: ', req.body);
+    console.log('update day: ', req.body);
     let dayToUpdate = req.body;
     let query = {
         _id: dayToUpdate._id
@@ -91,7 +91,7 @@ router.put('/', function(req, res) {
         tag_line: dayToUpdate.tag_line,
         narrative: dayToUpdate.narrative,
         album_url: dayToUpdate.album_url,
-        cover_photo_url: dayToUpdate.album_url,
+        cover_photo_url: dayToUpdate.cover_photo_url,
         weather: dayToUpdate.weather
     };
     const options = {

@@ -58,7 +58,17 @@ app.factory("PhotoFactory", ["$http", "AuthFactory", "MyTripFactory", function($
                     })
                     .then((response) => {
                         data.photo = response.data;
+                        console.log('data.newPhoto:', data.newPhoto);
+                        console.log('data.photo:', data.photo);
                         myTripFactory.getDay(data.newPhoto.day._id);
+                        if (data.newPhoto.tripCoverPhoto === true) {
+                            tripData.trip.cover_photo_url = data.photo.url;
+                            myTripFactory.updateTrip();
+                        }
+                        if (data.newPhoto.dayCoverPhoto === true) {
+                            tripData.day.cover_photo_url = data.photo.url;
+                            myTripFactory.updateDay();
+                        }
                         return;
                     })
                     .catch((err) => console.log('Unable to add photo', err));
@@ -68,8 +78,8 @@ app.factory("PhotoFactory", ["$http", "AuthFactory", "MyTripFactory", function($
 
     // Function to delete a photo
     function deletePhoto(photoID, dayID, photoURL) {
-      let encodedURL = encodeURIComponent(photoURL);
-      console.log('encodedURL', encodedURL);
+        let encodedURL = encodeURIComponent(photoURL);
+        console.log('encodedURL', encodedURL);
         return authFactory.getIdToken()
             .then((currentUser) => {
                 return $http({
