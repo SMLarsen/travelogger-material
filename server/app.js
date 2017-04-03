@@ -6,6 +6,8 @@ var bodyParser = require('body-parser');
 var decoder = require('./modules/decoder');
 var trip = require('./routes/trip');
 var day = require('./routes/day');
+require('./routes/trip');
+require('./routes/day');
 var guest = require('./routes/guest');
 var detail = require('./routes/detail');
 var photo = require('./routes/photo');

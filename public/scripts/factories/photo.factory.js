@@ -16,7 +16,23 @@ app.factory("PhotoFactory", ["$http", "AuthFactory", "MyTripFactory", function($
     function getDayAlbum(dayID) {} // End getDayAlbum
 
     // Function to GET photos for a trip
-    function getTripAlbum(tripID) {} // End getTripAlbum
+    function getTripAlbum(tripID) {
+      return authFactory.getIdToken()
+          .then((currentUser) => {
+              return $http({
+                      method: 'GET',
+                      url: '/photo/trip/' + tripID,
+                      headers: {
+                          id_token: authData.currentUser.authIdToken
+                      }
+                  })
+                  .then((response) => {
+                    console.log('response:', response.data);
+                    return;
+                  })
+                  .catch((err) => alert('There was an error deleting your photo: ', err.message));
+          });
+    } // End getTripAlbum
 
     // Function to GET photos for a traveller
     function getUserAlbum(userID) {} // End getUserAlbum

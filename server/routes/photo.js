@@ -10,7 +10,10 @@ const multerS3 = require('multer-s3');
 const bucketName = process.env.AWSbucketName;
 const href = process.env.AWShref;
 const bucketUrl = href + bucketName + '/';
+require('../models/day');
+require('../models/trip');
 const day = require('../models/day');
+const trip = require('../models/trip');
 
 /*******************
 SET AWS CREDENTIALS
@@ -150,5 +153,23 @@ router.put("/:dayID/:detailID", function(req, res) {
         }
     );
 }); // END: Update detail route
+
+// Route: Get photos for a trip
+router.get('/trip/:tripID', function(req, res) {
+    var tripID = req.params.tripID;
+    console.log('Looking for trips for', tripID);
+    trip.find({_id: tripID})
+    .populate('day')
+    .exec(
+      function(err, trip) {
+        if (err) {
+            console.log('Get ERR: ', err);
+            res.sendStatus(500);
+        } else {
+            // console.log(trip);
+            res.send(trip);
+        }
+    });
+}); // END: GET a photos for a trip route
 
 module.exports = router;

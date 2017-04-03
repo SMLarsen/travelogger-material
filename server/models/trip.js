@@ -47,6 +47,10 @@ var tripSchema = new Schema({
     date_added: {
         type: Date,
         default: Date.now
+    },
+    days: {
+      type: ObjectId,
+      ref: 'Day'
     }
 });
 

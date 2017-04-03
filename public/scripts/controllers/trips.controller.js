@@ -16,8 +16,8 @@ app.controller("TripsController", ['TripFactory', '$http', '$filter', function(T
     self.getTrips = function() {
         tripFactory.getTrips()
             .then(function(err) {
-                    console.log('Unable to retrieve trips', err);
-                });
+                console.log('Unable to retrieve trips', err);
+            });
     }; // End: tripFactory.getTrips
 
 }]); // END: TripController

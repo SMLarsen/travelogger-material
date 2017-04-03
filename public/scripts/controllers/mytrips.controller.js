@@ -1,10 +1,11 @@
 /*jshint esversion: 6 */
-app.controller('MyTripsController', ['MyTripFactory', 'AuthFactory', 'NavFactory', '$mdDialog', '$scope', 'NgMap', 'GeoCoder', function(MyTripFactory, AuthFactory, NavFactory, $mdDialog, $scope, NgMap, GeoCoder) {
+app.controller('MyTripsController', ['MyTripFactory', 'AuthFactory', 'NavFactory', 'PhotoFactory', '$mdDialog', '$scope', 'NgMap', 'GeoCoder', function(MyTripFactory, AuthFactory, NavFactory, PhotoFactory,$mdDialog, $scope, NgMap, GeoCoder) {
     console.log('MyTripsController started');
 
     const authFactory = AuthFactory;
     const currentUser = authFactory.currentUser;
     const myTripFactory = MyTripFactory;
+    const photoFactory = PhotoFactory;
     const navFactory = NavFactory;
 
     let self = this;
@@ -38,6 +39,16 @@ app.controller('MyTripsController', ['MyTripFactory', 'AuthFactory', 'NavFactory
 
     self.status = '  ';
     self.customFullscreen = false;
+
+
+    // Function to get photos for a trip
+    self.viewAlbum = function(tripID) {
+        photoFactory.getTripAlbum(tripID)
+            .then(function(err) {
+                console.log('Unable to retrieve photos for trip', err);
+            });
+    }; // End: tripFactory.viewAlbum
+
 
     self.editTrip = function(ev, trip) {
         self.data.trip = trip;

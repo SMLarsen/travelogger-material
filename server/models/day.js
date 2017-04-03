@@ -18,7 +18,7 @@ var Detail = new Schema({
 // Day document schema
 var daySchema = new Schema({
     user_id: ObjectId,
-    trip_id: ObjectId,
+    trip_id: { type: ObjectId, ref: 'Trip'},
     date: Date,
     end_location: String,
     end_map_location: Object,
